@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
-import 'package:makeny/screens/user_pages/login_screen.dart';
-import 'package:makeny/widgets/button_sign.dart';
+import 'package:makeny/screens/user_pages/sign_in_&_sign_up_pages/login_screen.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/default_text_form.dart';
 
@@ -88,7 +87,14 @@ class SignUpScreen extends StatelessWidget {
                         height: 18,
                       ),
                       Row(
-                        children: [longButton(text: "تسجيل", onTap: () {})],
+                        children: [
+                          Expanded(
+                            child: longSignButton(
+                              text: "تسجيل",
+                              onTap: () {},
+                            ),
+                          ),
+                        ],
                       ),
                       SizedBox(
                         height: 22,
@@ -96,11 +102,14 @@ class SignUpScreen extends StatelessWidget {
                       Row(
                         children: [
                           signButton(
-                              text: "Google", icon: "assets/icons/google.png"),
+                              onTap: () {},
+                              text: "Google",
+                              icon: "assets/icons/google.png"),
                           SizedBox(
                             width: 10,
                           ),
                           signButton(
+                              onTap: () {},
                               text: "Facebook",
                               icon: "assets/icons/2021_Facebook_icon 1.png"),
                         ],

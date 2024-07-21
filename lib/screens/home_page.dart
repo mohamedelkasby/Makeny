@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/models/doctor_model.dart';
 import 'package:makeny/widgets/custom_page_view.dart';
+import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 import 'package:makeny/widgets/doctor_container.dart';
 
 class HomePage extends StatefulWidget {
@@ -36,9 +37,8 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               width: 10,
             ),
-            Text(
-              "صباح الخير طلال",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w800),
+            textHeader(
+              text: "صباح الخير طلال",
             ),
             ///////// the sun icon . //////////
             Image.asset("assets/icons/star.png"),
@@ -125,13 +125,12 @@ class _HomePageState extends State<HomePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "الاطباء",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                  textHeadLine(
+                    text: "الاطباء",
                   ),
-                  Text("مشاهده الكل ",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w700))
+                  textHeadLine(
+                    text: "مشاهده الكل ",
+                  )
                 ],
               ),
             ),
@@ -153,13 +152,12 @@ class _HomePageState extends State<HomePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "خدمات الكترونية",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                  textHeadLine(
+                    text: "خدمات الكترونية",
                   ),
-                  Text("مشاهده الكل ",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w700))
+                  textHeadLine(
+                    text: "مشاهده الكل ",
+                  )
                 ],
               ),
             ),

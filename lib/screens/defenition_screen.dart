@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
-import 'package:makeny/screens/user_pages/login_screen.dart';
+import 'package:makeny/screens/user_pages/sign_in_&_sign_up_pages/login_screen.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/page_view_def.dart';
 

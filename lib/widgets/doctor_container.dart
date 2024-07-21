@@ -22,16 +22,15 @@ Widget doctorContainer(
             Container(
               width: MediaQuery.of(context).size.width * .5 - 12,
               height: 200,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.amber,
-              ),
-              child: Image.asset(
-                doctorsData.drImage,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.asset(
+                  doctorsData.drImage,
 
-                ///
-                ///
-                fit: BoxFit.fitHeight,
+                  ///
+                  ///
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             Positioned(

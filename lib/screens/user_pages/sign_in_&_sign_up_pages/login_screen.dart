@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
-import 'package:makeny/screens/home_page.dart';
-import 'package:makeny/screens/user_pages/signUp_screen.dart';
-import 'package:makeny/widgets/button_sign.dart';
+import 'package:makeny/screens/user_pages/sign_in_&_sign_up_pages/confirm_login_screen.dart';
+import 'package:makeny/screens/user_pages/sign_in_&_sign_up_pages/signUp_screen.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/default_text_form.dart';
 
@@ -91,15 +90,17 @@ class LoginScreen extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          longButton(
-                            text: "دخول",
-                            onTap: () {
-                              Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                  builder: (context) => HomePage(),
-                                ),
-                              );
-                            },
+                          Expanded(
+                            child: longSignButton(
+                              text: "دخول",
+                              onTap: () {
+                                Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                    builder: (context) => ConfirmLoginScreen(),
+                                  ),
+                                );
+                              },
+                            ),
                           ),
                           SizedBox(
                             width: 10,
@@ -134,11 +135,14 @@ class LoginScreen extends StatelessWidget {
                       Row(
                         children: [
                           signButton(
-                              text: "Google", icon: "assets/icons/google.png"),
+                              onTap: () {},
+                              text: "Google",
+                              icon: "assets/icons/google.png"),
                           SizedBox(
                             width: 10,
                           ),
                           signButton(
+                              onTap: () {},
                               text: "Facebook",
                               icon: "assets/icons/2021_Facebook_icon 1.png"),
                         ],

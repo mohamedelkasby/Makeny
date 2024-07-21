@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 Color mainColor = Color(0xffFF3355);
+Color mainColor50 = Color(0xffFFE5EA);
 Color mainColor100 = Color(0xffFFCCD5);
 Color mainColor200 = Color(0xffFF99AA);
 Color mainColor300 = Color(0xffFF6680);
