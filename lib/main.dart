@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/screens/splash_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -35,6 +36,23 @@ class MyApp extends StatelessWidget {
         locale: Locale("ar", ''), // Force RTL layout
         theme: ThemeData(
           fontFamily: 'Cairo',
+          // primarySwatch: mainColor,
+          floatingActionButtonTheme: FloatingActionButtonThemeData(
+            backgroundColor: mainColor,
+            foregroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(50), // Ensures it's rounded
+            ),
+          ),
+          bottomAppBarTheme: BottomAppBarTheme(
+            /////the bottom navigation color
+            surfaceTintColor: Colors.white,
+            shadowColor: greyborderColor,
+            // color: Colors.white,
+            // shape: CircularNotchedRectangle(),
+            ///////  the background shadow of the navigation bar
+            elevation: 5,
+          ),
         ),
         debugShowCheckedModeBanner: false,
         home: SplashScreen(),

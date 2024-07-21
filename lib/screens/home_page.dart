@@ -18,40 +18,35 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      ////// appbar start ////////
-      appBar: AppBar(
-        toolbarHeight: 70,
-        ///////// the logo icon  /////////////
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Image.asset(
-              "assets/logo/Group 1321314641.png",
-              fit: BoxFit.contain,
-            ),
-          )
-        ],
-        /////////// the greating message for the user with the sun icon/////////////
-        leading: Row(
-          children: [
-            SizedBox(
-              width: 10,
-            ),
-            textHeader(
-              text: "صباح الخير طلال",
-            ),
-            ///////// the sun icon . //////////
-            Image.asset("assets/icons/star.png"),
-          ],
-        ),
-        leadingWidth: double.infinity,
-      ),
-      ////// appbar end ////////
-
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8),
         child: Column(
           children: [
+            ////// appbar start ////////
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    textHeader(
+                      text: "صباح الخير طلال",
+                    ),
+                    ///////// the sun icon . //////////
+                    Image.asset("assets/icons/star.png"),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  child: Image.asset(
+                    "assets/logo/Group 1321314641.png",
+                    width: 40,
+                    fit: BoxFit.contain,
+                  ),
+                )
+              ],
+            ),
+            ////// appbar end ////////
+
             ////////////    the container that hold the pageView start /////////
             Container(
               margin: EdgeInsets.only(bottom: 10),
