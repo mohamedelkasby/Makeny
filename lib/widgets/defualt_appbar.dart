@@ -21,9 +21,9 @@ PreferredSizeWidget defaultAppbar(
             gradient: LinearGradient(
           stops: [.1, .5, .9],
           colors: [
-            greyborderColor,
+            mainColor50,
             mainColor,
-            greyborderColor,
+            mainColor50,
           ],
         )),
       ),
