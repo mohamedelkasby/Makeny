@@ -19,7 +19,7 @@ class ProfilePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(
-                    'assets/designs/id 1.png',
+                    'assets/id 1.png',
                     width: 70,
                     fit: BoxFit.cover,
                   )
@@ -86,7 +86,7 @@ class ProfilePage extends StatelessWidget {
               ),
               Expanded(child: SizedBox()),
               defaultButton(
-                text: "text",
+                text: "حمل ك pdf",
                 onTap: () {},
               )
             ],
