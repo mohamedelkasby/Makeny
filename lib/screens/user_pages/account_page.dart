@@ -24,8 +24,8 @@ class AccountPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                         child: Image.asset(
                           'assets/users/talaa.jpg',
-                          width: 70,
-                          height: 70,
+                          width: 65,
+                          height: 65,
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -45,39 +45,41 @@ class AccountPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                Container(
-                  height: 70,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            "طلال أحمد عبداللطيف",
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.w600),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          "طلال أحمد عبداللطيف",
+                          style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.w600,
                           ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          SvgPicture.asset(
-                            'assets/icons/edit.svg',
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        SvgPicture.asset(
+                          'assets/icons/edit.svg',
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Directionality(
+                      textDirection: TextDirection.ltr,
+                      child: Text(
                         "+953 5454154451",
                         style: TextStyle(
                             color: Color(0xff777777),
-                            fontSize: 16,
+                            fontSize: 14,
                             fontWeight: FontWeight.w500),
-                      )
-                    ],
-                  ),
+                      ),
+                    )
+                  ],
                 )
               ],
             ),
@@ -85,68 +87,75 @@ class AccountPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(
                 horizontal: 15,
               ),
-              child: Column(
-                children: [
-                  textIconNavigator(
-                      icon: "assets/icons/user.svg",
-                      text: "الملف الشخصي",
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ProfilePage()));
-                      }),
-                  textIconNavigator(
-                      icon: "assets/icons/files-medical 1.svg",
-                      text: "ملفي الطبي",
-                      onTap: () {}),
-                  textIconNavigator(
-                      icon: "assets/icons/Medical-Education.svg",
-                      text: "النثقيف الطبي",
-                      onTap: () {}),
-                  textIconNavigator(
-                      icon: "assets/icons/ser.svg",
-                      text: "خدماتنا",
-                      onTap: () {}),
-                  textIconNavigator(
-                    icon: "assets/makany.svg",
-                    text: "عن مكني",
-                    onTap: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => AboutMakenyScreen(),
-                      //   ),
-                      // );
-                    },
-                  ),
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: Text(
-                      "الإعدادات",
-                      style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xffA2A2A2A2)),
-                    ),
-                  ),
-                  textIconNavigator(
-                      icon: "assets/icons/lan.svg",
-                      text: "اللغة",
-                      subText: "Change to english",
-                      onTap: () {}),
-                  textIconNavigator(
-                    icon: "assets/icons/logout.svg",
-                    text: "تسجيل الخروج ",
-                    showIcon: false,
-                    onTap: () => Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => LoginScreen(),
+              child: Container(
+                height: MediaQuery.of(context).size.height * (2 / 3),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      textIconNavigator(
+                          icon: "assets/icons/user.svg",
+                          text: "الملف الشخصي",
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ProfilePage()));
+                          }),
+                      textIconNavigator(
+                          icon: "assets/icons/files-medical 1.svg",
+                          text: "ملفي الطبي",
+                          onTap: () {}),
+                      textIconNavigator(
+                          icon: "assets/icons/Medical-Education.svg",
+                          text: "النثقيف الطبي",
+                          onTap: () {}),
+                      textIconNavigator(
+                          icon: "assets/icons/ser.svg",
+                          text: "خدماتنا",
+                          onTap: () {}),
+                      textIconNavigator(
+                        icon: "assets/icons/about.svg",
+                        text: "عن مكني",
+                        onTap: () {
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => AboutMakenyScreen(),
+                          //   ),
+                          // );
+                        },
                       ),
-                    ),
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: Text(
+                          "الإعدادات",
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                              color: Color(0xffA2A2A2A2)),
+                        ),
+                      ),
+                      textIconNavigator(
+                          icon: "assets/icons/lan.svg",
+                          text: "اللغة",
+                          subText: "Change to english",
+                          onTap: () {}),
+                      textIconNavigator(
+                        icon: "assets/icons/logout.svg",
+                        text: "تسجيل الخروج ",
+                        showIcon: false,
+                        onTap: () => Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => LoginScreen(),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             )
           ],

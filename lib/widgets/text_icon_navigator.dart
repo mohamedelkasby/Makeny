@@ -12,47 +12,52 @@ Widget textIconNavigator({
   return InkWell(
     borderRadius: BorderRadius.circular(10),
     onTap: onTap,
-    child: Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 10),
-                child: SvgPicture.asset(
-                  icon,
-                  width: 25,
-                ),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 10,
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    text,
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 24),
+              child: SvgPicture.asset(
+                icon,
+                width: 17,
+              ),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  text,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16,
                   ),
-                  subText == ""
-                      ? SizedBox()
-                      : Text(subText,
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                              color: mainColor))
-                ],
-              ),
-            ],
-          ),
-          showIcon == true
-              ? Icon(
-                  Icons.arrow_forward_ios_rounded,
-                  size: 20,
-                  color: Color(0xffA2A2A2),
-                )
-              : SizedBox()
-        ],
-      ),
+                ),
+                subText == ""
+                    ? SizedBox()
+                    : Text(
+                        subText,
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w400,
+                          color: mainColor,
+                        ),
+                      )
+              ],
+            ),
+          ],
+        ),
+        showIcon == true
+            ? Icon(
+                Icons.arrow_forward_ios_rounded,
+                size: 15,
+                color: Color(0xffA2A2A2),
+              )
+            : SizedBox()
+      ],
     ),
   );
 }
