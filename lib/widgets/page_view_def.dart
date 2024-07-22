@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 Widget defaultPageView(
-  context, {
-  required String image,
-  required String text,
+  final context, {
+  required final String image,
+  required final String text,
 }) {
   return Column(
     children: [

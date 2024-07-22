@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
 
 Widget defaultTextForm({
-  required String label,
-  String hintText = "",
-  Widget icon = const SizedBox(),
+  required final String label,
+  final String hintText = "",
+  final Widget icon = const SizedBox(),
 }) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -23,7 +23,6 @@ Widget defaultTextForm({
       TextFormField(
         decoration: InputDecoration(
           hintText: hintText,
-
           suffixIcon: icon,
           //////////
           border: OutlineInputBorder(

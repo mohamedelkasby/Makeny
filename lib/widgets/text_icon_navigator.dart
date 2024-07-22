@@ -3,13 +3,14 @@ import 'package:flutter_svg/svg.dart';
 import 'package:makeny/extentions/colors.dart';
 
 Widget textIconNavigator({
-  required String icon,
-  required String text,
-  String subText = "",
-  bool showIcon = true,
-  required Function() onTap,
+  required final String icon,
+  required final String text,
+  final String subText = "",
+  final bool showIcon = true,
+  required final Function() onTap,
 }) {
   return InkWell(
+    borderRadius: BorderRadius.circular(10),
     onTap: onTap,
     child: Padding(
       padding: const EdgeInsets.symmetric(vertical: 20),

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 Widget customPageView({
-  required String text,
-  double fromLeft = 0,
-  double fromRight = 0,
+  required final String text,
+  final double fromLeft = 0,
+  final double fromRight = 0,
 }) {
   return Stack(
     children: [

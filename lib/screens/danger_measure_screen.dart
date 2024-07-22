@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:makeny/widgets/buttons.dart';
-import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
+import 'package:makeny/widgets/defualt_appbar.dart';
 
 class DangerMeasureScreen extends StatelessWidget {
   const DangerMeasureScreen({super.key});
@@ -8,12 +7,9 @@ class DangerMeasureScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: backArrow(context),
-        centerTitle: true,
-        title: textNormal(
-          text: "مقياس الخطورة",
-        ),
+      appBar: defaultAppbar(
+        context,
+        title: "مقياس الخطورة",
       ),
     );
   }

@@ -4,8 +4,8 @@ import 'package:makeny/extentions/colors.dart';
 // button for login and signup pages that have a smaller height than the default
 
 Widget longSignButton({
-  required String text,
-  required Function() onTap,
+  required final String text,
+  required final Function() onTap,
 }) {
   return Container(
     decoration: BoxDecoration(
@@ -31,12 +31,14 @@ Widget longSignButton({
 ///////////////////// square button //////////////////
 
 Widget squareButton({
-  required Function() onTap,
-  double size = 50,
-  required Widget widget,
-  Color color = Colors.white,
+  required final Function() onTap,
+  final double size = 50,
+  required final Widget widget,
+  final Color color = Colors.white,
 }) {
   return InkWell(
+    //////// the color effect ontap  /////
+    splashColor: Colors.transparent,
     onTap: onTap,
     child: Stack(
       children: [
@@ -58,9 +60,9 @@ Widget squareButton({
 ////////// default button for the rest of the App that have a infinite width ///
 
 Widget defaultButton({
-  required String text,
-  double width = double.infinity,
-  required Function() onTap,
+  required final String text,
+  final double width = double.infinity,
+  required final Function() onTap,
   //        ////    change the color with the mainColor that is defined earlier
   // Color buttonColor = const Color(0xffFF3255),
 }) {
@@ -87,9 +89,9 @@ Widget defaultButton({
 /////////////////////
 
 Widget signButton({
-  required String text,
-  required String icon,
-  required Function() onTap,
+  required final String text,
+  required final String icon,
+  required final Function() onTap,
 }) {
   return Expanded(
     child: ElevatedButton(

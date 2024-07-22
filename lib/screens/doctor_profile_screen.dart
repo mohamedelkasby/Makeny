@@ -4,6 +4,7 @@ import 'package:makeny/models/doctor_model.dart';
 import 'package:makeny/screens/danger_measure_screen.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
+import 'package:makeny/widgets/defualt_appbar.dart';
 import 'package:makeny/widgets/icon_with_circle_background.dart';
 
 class DoctorProfileScreen extends StatelessWidget {
@@ -17,13 +18,7 @@ class DoctorProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       ///////  the appbar ///////
-      appBar: AppBar(
-        leading: backArrow(context),
-        centerTitle: true,
-        title: textNormal(
-          text: "ملف الطبيب",
-        ),
-      ),
+      appBar: defaultAppbar(context, title: "ملف الطبيب"),
       body: Stack(
         //// stack to put the background to the page
         children: [
@@ -56,6 +51,9 @@ class DoctorProfileScreen extends StatelessWidget {
                       Container(
                         width: double.infinity,
                         height: double.infinity,
+                        /* if the flex not working probarity on diff screens
+                          put the mediaquery then insted of it */
+                        // MediaQuery.of(context).size.height *.5,
                         decoration: BoxDecoration(
                           color: Color(0xffF3FAFF),
                           borderRadius: BorderRadius.circular(10),
@@ -146,8 +144,18 @@ class DoctorProfileScreen extends StatelessWidget {
                     child: textHeadLine(text: "عن الطبيب"),
                   ),
                 ),
-                Text(
-                  doctorsData.aboutDr,
+                //////////////   make a square dot before the text
+                Text.rich(
+                  TextSpan(
+                    children: [
+                      TextSpan(
+                        text: "\u2022 ",
+                      ),
+                      TextSpan(
+                        text: doctorsData.aboutDr,
+                      )
+                    ],
+                  ),
                   style: TextStyle(
                     color: greyColor,
                     fontSize: 16,
@@ -167,9 +175,9 @@ class DoctorProfileScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 18,
-                )
+                // SizedBox(
+                //   height: 15,
+                // )
               ],
             ),
           )

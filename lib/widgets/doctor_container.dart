@@ -3,9 +3,9 @@ import 'package:makeny/models/doctor_model.dart';
 import 'package:makeny/screens/doctor_profile_screen.dart';
 
 Widget doctorContainer(
-  context, {
-  required DoctorsData doctorsData,
-  required Color textBackColor,
+  final context, {
+  required final DoctorsData doctorsData,
+  required final Color textBackColor,
 }) {
   return InkWell(
     onTap: () => Navigator.push(

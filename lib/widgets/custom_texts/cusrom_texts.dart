@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 Widget textHeader({
-  required String text,
+  required final String text,
   Color textColor = const Color(0xff0D1B34),
 }) {
   return Text(
@@ -16,7 +16,7 @@ Widget textHeader({
 
 //////////////////
 Widget textHeaderDescription({
-  required String text,
+  required final String text,
   Color textColor = const Color(0xff0D1B34),
 }) {
   return Text(
@@ -31,7 +31,7 @@ Widget textHeaderDescription({
 
 //////////////////
 Widget textHeadLine({
-  required String text,
+  required final String text,
   Color textColor = const Color(0xff0D1B34),
 }) {
   return Text(
@@ -42,7 +42,7 @@ Widget textHeadLine({
 }
 
 Widget textNormal({
-  required String text,
+  required final String text,
   Color textColor = const Color(0xff0D1B34),
 }) {
   return Text(

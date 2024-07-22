@@ -95,7 +95,7 @@ class _DefenitionScreenState extends State<DefenitionScreen> {
                         currentPage == 0
                             ? currentPage = 0
                             : pageControl.previousPage(
-                                duration: Duration(seconds: 1),
+                                duration: const Duration(seconds: 1),
                                 curve: Curves.ease);
                       });
                     },
@@ -118,7 +118,7 @@ class _DefenitionScreenState extends State<DefenitionScreen> {
                                 ),
                               )
                             : pageControl.nextPage(
-                                duration: Duration(seconds: 1),
+                                duration: const Duration(seconds: 1),
                                 curve: Curves.ease);
                       });
                     },

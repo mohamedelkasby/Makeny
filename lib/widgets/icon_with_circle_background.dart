@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
 
 Widget circleIcon({
-  required IconData icon,
-  required String topText,
-  required String bottomText,
-  bool withIcon = false,
+  required final IconData icon,
+  required final String topText,
+  required final String bottomText,
+  final bool withIcon = false,
 }) {
   return Column(
     children: [

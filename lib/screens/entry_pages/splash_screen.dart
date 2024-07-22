@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
-import 'package:makeny/screens/defenition_screen.dart';
+import 'package:makeny/screens/entry_pages/defenition_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});

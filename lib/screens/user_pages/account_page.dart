@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/screens/user_pages/profile_page.dart';
+import 'package:makeny/screens/user_pages/sign_in_&_sign_up_pages/login_screen.dart';
 import 'package:makeny/widgets/text_icon_navigator.dart';
 
 class AccountPage extends StatelessWidget {
@@ -135,10 +136,16 @@ class AccountPage extends StatelessWidget {
                       subText: "Change to english",
                       onTap: () {}),
                   textIconNavigator(
-                      icon: "assets/icons/logout.svg",
-                      text: "تسجيل الخروج ",
-                      showIcon: false,
-                      onTap: () {}),
+                    icon: "assets/icons/logout.svg",
+                    text: "تسجيل الخروج ",
+                    showIcon: false,
+                    onTap: () => Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginScreen(),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             )

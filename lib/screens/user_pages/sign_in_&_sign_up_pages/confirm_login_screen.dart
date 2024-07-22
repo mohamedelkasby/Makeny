@@ -62,6 +62,7 @@ class _ConfirmLoginScreenState extends State<ConfirmLoginScreen> {
                           ),
                         ),
                       ),
+                      ///////////// the 4 boxes that contain digits ///
                       Row(
                         children: [
                           SizedBox(
@@ -82,17 +83,16 @@ class _ConfirmLoginScreenState extends State<ConfirmLoginScreen> {
                                 keyboardType: TextInputType.number,
                                 animationType: AnimationType.fade,
                                 pinTheme: PinTheme(
-                                    shape: PinCodeFieldShape.box,
-                                    borderRadius: BorderRadius.circular(10),
-                                    fieldHeight: 50,
-                                    fieldWidth: 50,
-                                    activeFillColor: Colors.white,
-                                    selectedFillColor: Colors.white,
-                                    inactiveFillColor: Colors.white,
-                                    selectedColor: Colors.transparent,
-                                    activeColor: Colors.transparent
-                                    // inactiveColor: Colors.grey,
-                                    ),
+                                  shape: PinCodeFieldShape.box,
+                                  borderRadius: BorderRadius.circular(10),
+                                  fieldHeight: 50,
+                                  fieldWidth: 50,
+                                  activeFillColor: Colors.white,
+                                  selectedFillColor: Colors.white,
+                                  inactiveFillColor: Colors.white,
+                                  selectedColor: Colors.transparent,
+                                  activeColor: Colors.transparent,
+                                ),
                                 animationDuration: Duration(milliseconds: 300),
                                 backgroundColor: Colors.transparent,
                                 enableActiveFill: true,
