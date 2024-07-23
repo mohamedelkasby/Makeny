@@ -4,6 +4,7 @@ class DoctorsData {
   final String drImage;
   final String experience;
   final List<String> aboutDrTobics;
+  final int name;
 
   DoctorsData({
     required this.drName,
@@ -11,6 +12,7 @@ class DoctorsData {
     required this.drImage,
     required this.experience,
     required this.aboutDrTobics,
+    this.name = 21,
   });
 }
 
