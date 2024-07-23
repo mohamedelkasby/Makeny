@@ -145,15 +145,16 @@ class DoctorProfileScreen extends StatelessWidget {
                   ),
                 ),
                 //////////////   make a square dot before the text
+                // ListTile(
+                //   leading: Text("\u2022"),
+                //   title:Text("data"),
+                // )
                 Text.rich(
                   TextSpan(
                     children: [
-                      TextSpan(
-                        text: "\u2022 ",
-                      ),
-                      TextSpan(
-                        text: doctorsData.aboutDr,
-                      )
+                      ...doctorsData.aboutDrTobics
+                          .map((topics) => TextSpan(text: "\u2022 $topics\n"))
+                          .toList(),
                     ],
                   ),
                   style: TextStyle(

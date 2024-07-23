@@ -10,27 +10,36 @@ Widget textIconNavigator({
   required final Function() onTap,
 }) {
   return InkWell(
+    ////// to make the icon with no click effect
+    splashColor: Colors.transparent,
+    highlightColor: Colors.transparent,
     borderRadius: BorderRadius.circular(10),
     onTap: onTap,
     child: Padding(
-      padding: const EdgeInsets.symmetric(vertical: 15),
+      padding: EdgeInsets.only(
+        bottom: subText == "" ? 35 : 25,
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 10,
-                ),
-                child: SvgPicture.asset(
-                  icon,
-                  width: 17,
-                ),
+              SvgPicture.asset(
+                icon,
+                width: 17,
+              ),
+              SizedBox(
+                width: 10,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  subText == ""
+                      ? SizedBox()
+                      : SizedBox(
+                          height: 12,
+                        ),
                   Text(
                     text,
                     style: TextStyle(
@@ -40,12 +49,15 @@ Widget textIconNavigator({
                   ),
                   subText == ""
                       ? SizedBox()
-                      : Text(
-                          subText,
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w400,
-                            color: mainColor,
+                      : Padding(
+                          padding: const EdgeInsets.only(top: 3),
+                          child: Text(
+                            subText,
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.w400,
+                              color: mainColor,
+                            ),
                           ),
                         )
                 ],
