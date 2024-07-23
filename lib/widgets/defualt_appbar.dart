@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 
@@ -19,11 +18,11 @@ PreferredSizeWidget defaultAppbar(
         height: 2,
         decoration: BoxDecoration(
             gradient: LinearGradient(
-          stops: [.1, .5, .9],
+          stops: [.2, .5, .8],
           colors: [
-            mainColor50,
-            mainColor,
-            mainColor50,
+            Color(0xffE8E8E8),
+            Color(0xffee5534),
+            Color(0xffE8E8E8),
           ],
         )),
       ),
