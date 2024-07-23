@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/screens/user_pages/sign_in_&_sign_up_pages/confirm_login_screen.dart';
 import 'package:makeny/screens/user_pages/sign_in_&_sign_up_pages/signUp_screen.dart';
@@ -105,27 +106,26 @@ class LoginScreen extends StatelessWidget {
                           SizedBox(
                             width: 10,
                           ),
-                          Stack(
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  color: mainColor,
-                                ),
-                                height: 50,
-                                width: 60,
-                                child: MaterialButton(
-                                    onPressed: () {}, child: SizedBox()),
+                          Container(
+                            padding: EdgeInsets.zero,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: mainColor,
+                            ),
+                            height: 50,
+                            width: 50,
+                            child: MaterialButton(
+                              onPressed: () {},
+                              ////////// the icon should be bigger
+                              child: SvgPicture.asset(
+                                "assets/icons/fingerprint.svg",
+                                height: double.infinity,
+                                width: double.infinity,
+                                /////////// search for alternative for color down
+                                color: Colors.white,
+                                fit: BoxFit.cover,
                               ),
-                              Positioned(
-                                left: 5,
-                                child: Image.asset(
-                                  "assets/icons/Vector.png",
-                                  width: 50,
-                                  // fit: BoxFit/.fill,
-                                ),
-                              )
-                            ],
+                            ),
                           ),
                         ],
                       ),

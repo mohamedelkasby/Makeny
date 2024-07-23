@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:makeny/models/medical_educate_model.dart';
+import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 
 import 'package:makeny/widgets/defualt_appbar.dart';
@@ -32,24 +33,30 @@ class MedicalEducateDescScreen extends StatelessWidget {
                 ),
               ),
             ),
-            ...dataModel.longDescription.map((element) => Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 5),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 15),
-                        child: textHeaderLight(text: element.header),
-                      ),
-                      textDescription(text: element.description.mianTopic),
-                      ...element.description.subTopic
-                          .map((data) => textDescription(
-                                text: "\u2022 $data",
-                              ))
-                          .toList()
-                    ],
-                  ),
-                ))
+            ...dataModel.longDescription.map(
+              (element) => Padding(
+                padding: const EdgeInsets.symmetric(vertical: 5),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 15),
+                      child: textHeaderLight(text: element.header),
+                    ),
+                    textDescription(text: element.description.mianTopic),
+                    ...element.description.subTopic
+                        .map((data) => textDescription(
+                              text: "\u2022 $data",
+                            ))
+                        .toList()
+                  ],
+                ),
+              ),
+            ),
+            defaultButton(
+              text: "أحجز موعد الان",
+              onTap: () {},
+            )
           ],
         ),
       ),

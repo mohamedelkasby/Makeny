@@ -36,7 +36,10 @@ class SplashScreen extends StatelessWidget {
                           """ك:
 أكل صحي""",
                           textDirection: TextDirection.rtl,
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 17,
+                          ),
                         ),
                         Text(
                           """م:
@@ -45,7 +48,10 @@ class SplashScreen extends StatelessWidget {
 ممارسة الرياضة
 ممارسة الاسترخاء""",
                           textDirection: TextDirection.rtl,
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 17,
+                          ),
                         ),
                       ],
                     ),
@@ -91,13 +97,19 @@ class SplashScreen extends StatelessWidget {
 يقوي علاقاته الاسرية
 يتأمل يتفكر و يتدبر""",
                           textDirection: TextDirection.rtl,
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 17,
+                          ),
                         ),
                         Text(
                           """ن:
 نوم كافي""",
                           textDirection: TextDirection.rtl,
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 17,
+                          ),
                         ),
                       ],
                     )
