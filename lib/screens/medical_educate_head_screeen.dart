@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/models/medical_educate_model.dart';
 import 'package:makeny/screens/medical_educate_desc_screeen%20.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
@@ -45,6 +46,15 @@ Widget educateCard(
           Container(
             height: double.infinity,
             width: double.infinity,
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: greyborderColor,
+                  blurRadius: 10,
+                  spreadRadius: -7.5,
+                ),
+              ],
+            ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: Image.asset(
@@ -78,13 +88,18 @@ Widget educateCard(
                 Text(
                   dataModel.shortDescription,
                   style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 17,
-                      fontWeight: FontWeight.w400),
+                    color: Colors.white.withOpacity(.7),
+                    fontSize: 17,
+                    fontWeight: FontWeight.w400,
+                    height: 1.6,
+                  ),
                 ),
-                textHeader(
-                  text: dataModel.headLine,
-                  textColor: Colors.white,
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: textHeader(
+                    text: dataModel.headLine,
+                    textColor: Colors.white,
+                  ),
                 ),
               ],
             ),
