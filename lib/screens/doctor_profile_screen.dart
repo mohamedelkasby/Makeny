@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/models/doctor_model.dart';
+import 'package:makeny/models/medical_educate_model.dart';
 import 'package:makeny/screens/danger_measure_screen.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
@@ -145,15 +146,16 @@ class DoctorProfileScreen extends StatelessWidget {
                   ),
                 ),
                 //////////////   make a square dot before the text
+                // ListTile(
+                //   leading: Text("\u2022"),
+                //   title:Text("data"),
+                // )
                 Text.rich(
                   TextSpan(
                     children: [
-                      TextSpan(
-                        text: "\u2022 ",
-                      ),
-                      TextSpan(
-                        text: doctorsData.aboutDr,
-                      )
+                      ...doctorsData.aboutDrTobics
+                          .map((topics) => TextSpan(text: "\u2022 $topics\n"))
+                          .toList(),
                     ],
                   ),
                   style: TextStyle(

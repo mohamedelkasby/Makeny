@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/models/medical_educate_model.dart';
 import 'package:makeny/screens/medical_educate_desc_screeen%20.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
@@ -39,13 +38,11 @@ Widget educateCard(
     ),
     child: Container(
       margin: EdgeInsets.all(10),
-      color: greyborderColor,
       width: MediaQuery.sizeOf(context).width - 10,
       height: MediaQuery.sizeOf(context).width - 10,
       child: Stack(
         children: [
           Container(
-            color: mianBlack,
             height: double.infinity,
             width: double.infinity,
             child: ClipRRect(
@@ -53,6 +50,22 @@ Widget educateCard(
               child: Image.asset(
                 dataModel.image,
                 fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          //////////// the gradient shadow
+          Container(
+            width: double.infinity,
+            height: double.infinity,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              gradient: LinearGradient(
+                begin: Alignment.bottomCenter,
+                end: Alignment.center,
+                colors: [
+                  Colors.black.withOpacity(.9),
+                  Colors.transparent,
+                ],
               ),
             ),
           ),
