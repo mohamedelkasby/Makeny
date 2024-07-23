@@ -4,15 +4,14 @@ class DoctorsData {
   final String drImage;
   final String experience;
   final List<String> aboutDrTobics;
-  final String color;
 
-  DoctorsData(
-      {required this.drName,
-      required this.drRole,
-      required this.drImage,
-      required this.experience,
-      required this.aboutDrTobics,
-      this.color = "Col"});
+  DoctorsData({
+    required this.drName,
+    required this.drRole,
+    required this.drImage,
+    required this.experience,
+    required this.aboutDrTobics,
+  });
 }
 
 DoctorsData dr1 = DoctorsData(
