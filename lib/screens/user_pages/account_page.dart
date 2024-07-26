@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:makeny/extentions/colors.dart';
+import 'package:makeny/screens/about_Us_screen.dart';
 import 'package:makeny/screens/medical_educate_head_screeen.dart';
+import 'package:makeny/screens/medical_file.dart';
+import 'package:makeny/screens/services_screen.dart';
 import 'package:makeny/screens/user_pages/profile_page.dart';
 import 'package:makeny/screens/user_pages/sign_in_&_sign_up_pages/login_screen.dart';
 import 'package:makeny/widgets/text_icon_navigator.dart';
@@ -112,7 +115,13 @@ class AccountPage extends StatelessWidget {
                 textIconNavigator(
                     icon: "assets/icons/files-medical 1.svg",
                     text: "ملفي الطبي",
-                    onTap: () {}),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MedicalFile(),
+                          ));
+                    }),
                 textIconNavigator(
                   icon: "assets/icons/Medical-Education.svg",
                   text: "النثقيف الطبي",
@@ -126,17 +135,23 @@ class AccountPage extends StatelessWidget {
                 textIconNavigator(
                     icon: "assets/icons/ser.svg",
                     text: "خدماتنا",
-                    onTap: () {}),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ServicesScreen(),
+                          ));
+                    }),
                 textIconNavigator(
                   icon: "assets/icons/about.svg",
                   text: "عن مكني",
                   onTap: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => AboutMakenyScreen(),
-                    //   ),
-                    // );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AboutUsScreen(),
+                      ),
+                    );
                   },
                 ),
                 Align(

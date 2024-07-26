@@ -122,7 +122,9 @@ class LoginScreen extends StatelessWidget {
                                 height: double.infinity,
                                 width: double.infinity,
                                 /////////// search for alternative for color down
-                                color: Colors.white,
+                                colorFilter: ColorFilter.mode(
+                                    const Color.fromARGB(255, 255, 255, 255),
+                                    BlendMode.srcIn),
                                 fit: BoxFit.cover,
                               ),
                             ),
