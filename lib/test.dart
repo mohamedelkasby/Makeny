@@ -1,105 +1,115 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp());
-}
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomeScreen(),
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        floatingActionButtonTheme: FloatingActionButtonThemeData(
-          backgroundColor: Colors.blue,
-          foregroundColor: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(50), // Ensures it's rounded
-          ),
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Dialog Shadow Example'),
         ),
-        bottomAppBarTheme: BottomAppBarTheme(
-          color: Colors.white,
-          shape: CircularNotchedRectangle(),
+        body: Center(
+          child: ElevatedButton(
+            onPressed: () => _showCustomDialog(context),
+            child: Text('Show Dialog'),
+          ),
         ),
       ),
     );
   }
-}
 
-class HomeScreen extends StatefulWidget {
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+  void _showCustomDialog(BuildContext context) {
+    Navigator.of(context).push(_createDialogRoute());
   }
 
+  Route _createDialogRoute() {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => _CustomDialog(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(1.0, 0.0); // Start from the right
+        const end = Offset(0.0, 0.0);
+        const curve = Curves.easeInOut;
+
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        var offsetAnimation = animation.drive(tween);
+
+        return SlideTransition(
+          position: offsetAnimation,
+          child: child,
+        );
+      },
+    );
+  }
+}
+
+class _CustomDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    double iconSize = MediaQuery.of(context).size.width / 4;
-    double padingSize = MediaQuery.of(context).size.width / 8;
-
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('FAB Instead of Settings'),
-        ),
-        body: Center(
-          child: Text(
-            'Selected Index: $_selectedIndex',
-            style: TextStyle(fontSize: 24),
-          ),
-        ),
-        floatingActionButton: SizedBox(
-          width: 80,
-          height: 80,
-          child: FloatingActionButton(
-            onPressed: () {
-              // Add your onPressed code here!
-            },
-            child: Icon(Icons.book_outlined),
-          ),
-        ),
-        floatingActionButtonLocation: CustomFloatingActionButtonLocation(),
-        bottomNavigationBar: BottomAppBar(
-          shape: CircularNotchedRectangle(),
-          notchMargin: 12,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              IconButton(
-                icon: Icon(Icons.home_outlined),
-                color: _selectedIndex == 0 ? Colors.blue : Colors.grey,
-                onPressed: () {
-                  _onItemTapped(0);
-                },
+    return Dialog(
+      surfaceTintColor: Colors.white,
+      insetPadding: EdgeInsets.all(25), // the space around the dialog
+      shape: RoundedRectangleBorder(
+        borderRadius:
+            BorderRadius.circular(15), // the border radius of the dialog
+      ),
+      child: Material(
+        elevation: 24.0, // Control the shadow depth here
+        shadowColor: Colors.black
+            .withOpacity(0.5), // Control the shadow color and transparency
+        borderRadius: BorderRadius.circular(15),
+        child: Container(
+          width: double.infinity,
+          padding: EdgeInsets.fromLTRB(20, 30, 20, 25),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                "هل تريد تسجيل الخروج؟",
+                style: TextStyle(
+                  fontSize: 21,
+                  color: Color(0xff777777),
+                ),
               ),
-
-              SizedBox(
-                width: iconSize - padingSize,
+              Padding(
+                padding: const EdgeInsets.only(top: 30, bottom: 15),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    color: Colors.blue, // Replace with your mainColor
+                  ),
+                  width: double.infinity,
+                  height: 54,
+                  child: MaterialButton(
+                    onPressed: () => Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginScreen(),
+                      ),
+                    ),
+                    child: Text(
+                      "نعم, تسجيل الخروج",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 19,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ),
+                ),
               ),
-              IconButton(
-                icon: Icon(Icons.notifications_none_rounded),
-                color: _selectedIndex == 1 ? Colors.blue : Colors.grey,
-                onPressed: () {
-                  _onItemTapped(1);
-                },
-              ),
-              // No SizedBox needed here as we're using custom positioning for FAB
-              IconButton(
-                icon: Icon(Icons.person_outline),
-                color: _selectedIndex == 2 ? Colors.blue : Colors.grey,
-                onPressed: () {
-                  _onItemTapped(2);
-                },
+              GestureDetector(
+                onTap: () => Navigator.pop(context),
+                child: Text(
+                  "لا, البقاء",
+                  style: TextStyle(
+                    color: Color(0xffA2A2A2),
+                    fontSize: 21,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
               ),
             ],
           ),
@@ -109,16 +119,16 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class CustomFloatingActionButtonLocation extends FloatingActionButtonLocation {
+class LoginScreen extends StatelessWidget {
   @override
-  Offset getOffset(ScaffoldPrelayoutGeometry scaffoldGeometry) {
-    // Calculate the center of the BottomAppBar
-    final double bottomAppBarHeight =
-        scaffoldGeometry.scaffoldSize.height - scaffoldGeometry.contentTop;
-
-    final double screenWidth = scaffoldGeometry.scaffoldSize.width;
-    final double fabX = (screenWidth / 2) - (screenWidth / 4);
-    final double fabY = bottomAppBarHeight - scaffoldGeometry.contentTop / 2;
-    return Offset(fabX, fabY);
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Login Screen'),
+      ),
+      body: Center(
+        child: Text('Login Screen'),
+      ),
+    );
   }
 }

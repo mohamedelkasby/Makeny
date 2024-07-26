@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:makeny/cubit/cubit.dart';
 import 'package:makeny/extentions/colors.dart';
 
 Widget iconWithLabel(
   final context, {
-  required final IconData icon,
+  required final String svgIcon,
   required final String label,
   final int indexNumber = 2,
   final Color color = Colors.grey,
@@ -19,13 +20,26 @@ Widget iconWithLabel(
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Icon(
-          icon,
-          color: AppCubit.get(context).selectedBNBIndex == indexNumber
-              ? mainColor
-              : color,
-          size: 32,
+        SvgPicture.asset(
+          svgIcon,
+          // width: 30,
+          height: 30,
+          colorFilter: ColorFilter.mode(
+              AppCubit.get(context).selectedBNBIndex == indexNumber
+                  ? mainColor
+                  : color,
+              BlendMode.srcIn),
+          // color: AppCubit.get(context).selectedBNBIndex == indexNumber
+          //     ? mainColor
+          //     : color,
         ),
+        // Icon(
+        //   icon,
+        //   color: AppCubit.get(context).selectedBNBIndex == indexNumber
+        //       ? mainColor
+        //       : color,
+        //   size: 32,
+        // ),
         Text(
           label,
           style: TextStyle(

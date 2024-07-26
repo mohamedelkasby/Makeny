@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:makeny/extentions/colors.dart';
 
 // button for login and signup pages that have a smaller height than the default
@@ -117,7 +118,8 @@ Widget signButton({
               ),
             ),
           ),
-          Image.asset(icon),
+          SvgPicture.asset(icon),
+          // Image.asset(icon),
         ],
       ),
     ),

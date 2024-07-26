@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/models/doctor_model.dart';
+import 'package:makeny/models/grid_model.dart';
+import 'package:makeny/models/medical_educate_model.dart';
+import 'package:makeny/screens/medical_educate_desc_screeen%20.dart';
 import 'package:makeny/widgets/custom_page_view.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 import 'package:makeny/widgets/doctor_container.dart';
@@ -17,10 +20,16 @@ class _HomePageState extends State<HomePage> {
   int currentPage = 0;
   @override
   Widget build(BuildContext context) {
+    List<String> pageViewTitles = [
+      "أمراض القلب: الأسباب، الأعراض، والعلاج",
+      "كيف تتجنب الأمراض القلبية؟ خطوات عملية",
+      "الاختناق: أسباب متعددة وحلول ممكنة",
+    ];
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8),
-        child: Column(
+        child: ListView(
           children: [
             ////// appbar start ////////
             Row(
@@ -38,7 +47,7 @@ class _HomePageState extends State<HomePage> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   child: Image.asset(
-                    "assets/logo/Group 1321314641.png",
+                    "assets/logo/main_logo.png",
                     width: 40,
                     fit: BoxFit.contain,
                   ),
@@ -62,7 +71,7 @@ class _HomePageState extends State<HomePage> {
               child: Stack(
                 children: [
                   //////// the pageview start  /////////
-                  PageView(
+                  PageView.builder(
                     /////////   the change of the current pageview that reflect with the dots location //////
                     onPageChanged: (value) {
                       setState(() {
@@ -70,18 +79,20 @@ class _HomePageState extends State<HomePage> {
                       });
                     },
                     controller: controller,
+                    itemCount: pageViewTitles.length,
                     ///////////// the page view custom to desplay the locate of the backgound and with his related text ///////////
-                    children: [
-                      customPageView(
-                          text: "أمراض القلب: الأسباب، الأعراض، والعلاج",
-                          fromLeft: 100),
-                      customPageView(
-                          text: "كيف تتجنب الأمراض القلبية؟ خطوات عملية",
-                          fromLeft: 20),
-                      customPageView(
-                          text: "الاختناق: أسباب متعددة وحلول ممكنة",
-                          fromRight: 20),
-                    ],
+                    itemBuilder: (context, index) => customPageView(
+                      text: pageViewTitles[index],
+                      fromLeft: 100,
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MedicalEducateDescScreen(
+                            dataModel: medicalEducateList[index],
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                   ///////////////   the page view ends ////////////
                   ////////// the location of the dots thate related with the parent container   /////////
@@ -154,6 +165,82 @@ class _HomePageState extends State<HomePage> {
                     text: "مشاهده الكل ",
                   )
                 ],
+              ),
+            ),
+            GridView.count(
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              crossAxisCount: 3, // 3 columns
+              children: List.generate(
+                8,
+                (index) {
+                  return Container(
+                    padding: EdgeInsets.zero,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(
+                        color: Color(0xffE8E8E8),
+                        width: 1.5,
+                      ),
+                    ),
+                    margin: EdgeInsets.all(4),
+                    child: Stack(
+                      children: [
+                        Center(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: Opacity(
+                              opacity: .1,
+                              child: Image.asset(
+                                "assets/designs/hex_design.png",
+                                height: double.infinity,
+                                width: double.infinity,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: InkWell(
+                            splashColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      GridModelList[index].screen,
+                                )),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Image.asset(
+                                      GridModelList[index].image,
+                                    )),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 2),
+                                  child: Text(
+                                    GridModelList[index].title,
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: SizedBox(),
+                                )
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  );
+                },
               ),
             ),
           ],

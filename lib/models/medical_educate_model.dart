@@ -13,6 +13,7 @@ class MedicalEducateModel {
 }
 
 ///////// the topics inside the long description /////
+
 class Topics {
   final String header;
   final SubTopics description;

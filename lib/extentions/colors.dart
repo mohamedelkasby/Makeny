@@ -13,6 +13,7 @@ Color mainColor900 = Color(0xff330009);
 Color mianBlack = Color(0xff1A0004);
 Color textColor = Color(0xff0D1B34);
 Color greyColor = Color(0xff6C7380);
+Color greybackgroundColor = Color(0xffFBFBFB);
 Color greyborderColor = Color(0xffB7B7B7);
 Color nameDescColor = Color(0xff333333);
 //gif img

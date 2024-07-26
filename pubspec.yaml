@@ -98,6 +98,8 @@ flutter:
     - assets/doctors/
     - assets/users/
     - assets/medical_educate/
+    - assets/grid_images/
+    - assets/splash_images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

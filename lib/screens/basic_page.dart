@@ -4,6 +4,7 @@ import 'package:makeny/screens/home_page.dart';
 import 'package:makeny/screens/notification_screen.dart';
 import 'package:makeny/screens/user_pages/account_page.dart';
 import 'package:makeny/widgets/icon_with_label.dart';
+import 'package:makeny/widgets/transition_between_pages.dart';
 
 class BasicPage extends StatelessWidget {
   BasicPage({
@@ -36,7 +37,7 @@ class BasicPage extends StatelessWidget {
             },
             child: iconWithLabel(
               context,
-              icon: Icons.book_outlined,
+              svgIcon: "assets/icons/reserve.svg",
               label: "احجز موعد",
               color: Colors.white,
               onTap: () {},
@@ -49,14 +50,14 @@ class BasicPage extends StatelessWidget {
         /////////////   bottom navigation bar  start //////////
         bottomNavigationBar: BottomAppBar(
           color: Colors.white,
-          shape: CircularNotchedRectangle(),
-          notchMargin: 12,
+          shape: const CircularNotchedRectangle(),
+          notchMargin: 13,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               iconWithLabel(
                 context,
-                icon: Icons.home_outlined,
+                svgIcon: "assets/icons/home.svg",
                 label: "الرئيسيه",
                 indexNumber: 0,
                 onTap: () => AppCubit.get(context).onItemTapped(0),
@@ -67,18 +68,17 @@ class BasicPage extends StatelessWidget {
               ),
               iconWithLabel(
                 context,
-                icon: Icons.notifications_none_rounded,
+                svgIcon: "assets/icons/notification.svg",
                 label: "الاشعارات",
-                onTap: () => Navigator.push(
+                onTap: () => transitionBetweenPages(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => NotificationScreen(),
-                  ),
+                  fromBottom: true,
+                  thePage: NotificationScreen(),
                 ),
               ),
               iconWithLabel(
                 context,
-                icon: Icons.person_outline,
+                svgIcon: "assets/icons/user.svg",
                 label: "الحساب",
                 indexNumber: 1,
                 onTap: () => AppCubit.get(context).onItemTapped(1),

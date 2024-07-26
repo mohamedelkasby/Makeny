@@ -3,8 +3,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/screens/medical_educate_head_screeen.dart';
 import 'package:makeny/screens/user_pages/profile_page.dart';
-import 'package:makeny/screens/user_pages/sign_in_&_sign_up_pages/login_screen.dart';
+import 'package:makeny/widgets/close_dialog.dart';
+import 'package:makeny/widgets/edite_name_dialog.dart';
 import 'package:makeny/widgets/text_icon_navigator.dart';
+import 'package:makeny/widgets/transition_between_pages.dart';
 
 class AccountPage extends StatelessWidget {
   const AccountPage({super.key});
@@ -55,22 +57,28 @@ class AccountPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Row(
-                    children: [
-                      Text(
-                        "طلال أحمد عبداللطيف",
-                        style: TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.w600,
+                  GestureDetector(
+                    onTap: () => transitionBetweenPages(
+                      context,
+                      thePage: editNameDialoge(context),
+                    ),
+                    child: Row(
+                      children: [
+                        Text(
+                          "طلال أحمد عبداللطيف",
+                          style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      SvgPicture.asset(
-                        'assets/icons/edit.svg',
-                      ),
-                    ],
+                        SizedBox(
+                          width: 10,
+                        ),
+                        SvgPicture.asset(
+                          'assets/icons/edit.svg',
+                        ),
+                      ],
+                    ),
                   ),
                   SizedBox(
                     height: 8,
@@ -156,16 +164,20 @@ class AccountPage extends StatelessWidget {
                     subText: "Change to english",
                     onTap: () {}),
                 textIconNavigator(
-                  icon: "assets/icons/logout.svg",
-                  text: "تسجيل الخروج ",
-                  showIcon: false,
-                  onTap: () => Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => LoginScreen(),
+                    icon: "assets/icons/logout.svg",
+                    text: "تسجيل الخروج ",
+                    showIcon: false,
+                    onTap: () => transitionBetweenPages(
+                          context,
+                          thePage: closeDialog(context),
+                        )
+                    // showDialog(
+                    //   // Control the transparency here
+                    //   barrierColor: Colors.black.withOpacity(0.3),
+                    //   context: context,
+                    //   builder: (context) => closeDialog(context),
+                    // ),
                     ),
-                  ),
-                ),
               ],
             ),
           )

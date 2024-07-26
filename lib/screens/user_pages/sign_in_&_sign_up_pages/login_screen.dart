@@ -106,26 +106,38 @@ class LoginScreen extends StatelessWidget {
                           SizedBox(
                             width: 10,
                           ),
-                          Container(
-                            padding: EdgeInsets.zero,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              color: mainColor,
-                            ),
-                            height: 50,
-                            width: 50,
-                            child: MaterialButton(
-                              onPressed: () {},
-                              ////////// the icon should be bigger
-                              child: SvgPicture.asset(
-                                "assets/icons/fingerprint.svg",
-                                height: double.infinity,
-                                width: double.infinity,
-                                /////////// search for alternative for color down
-                                color: Colors.white,
-                                fit: BoxFit.cover,
+                          Stack(
+                            // alignment: Alignment.center,
+                            children: [
+                              Container(
+                                padding: EdgeInsets.zero,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: mainColor,
+                                ),
+                                height: 50,
+                                width: 50,
                               ),
-                            ),
+                              Positioned(
+                                top: 0,
+                                bottom: 0,
+                                left: 0,
+                                right: 0,
+                                child: Transform.scale(
+                                  scale: .8,
+                                  child: SvgPicture.asset(
+                                    "assets/icons/fingerprint.svg",
+                                    height: 40,
+                                    /////////// search for alternative for color down
+                                    colorFilter: ColorFilter.mode(
+                                      Colors.white,
+                                      BlendMode.srcIn,
+                                    ),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -137,14 +149,14 @@ class LoginScreen extends StatelessWidget {
                           signButton(
                               onTap: () {},
                               text: "Google",
-                              icon: "assets/icons/google.png"),
+                              icon: "assets/icons/google.svg"),
                           SizedBox(
                             width: 10,
                           ),
                           signButton(
                               onTap: () {},
                               text: "Facebook",
-                              icon: "assets/icons/2021_Facebook_icon 1.png"),
+                              icon: "assets/icons/facebook.svg"),
                         ],
                       ),
                       SizedBox(
