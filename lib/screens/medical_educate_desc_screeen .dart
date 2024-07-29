@@ -30,6 +30,7 @@ class MedicalEducateDescScreen extends StatelessWidget {
                 child: Image.asset(
                   dataModel.image,
                   fit: BoxFit.cover,
+                  alignment: Alignment.topCenter,
                 ),
               ),
             ),
