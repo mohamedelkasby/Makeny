@@ -13,14 +13,14 @@ Widget circleIcon({
       Container(
         padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
-          // shape: BoxShape.circle,
+          shape: BoxShape.circle,
           color: mainColor50,
         ),
         child: SvgPicture.asset(
           icon,
           width: 20,
           height: 20,
-          color: Colors.black,
+          colorFilter: ColorFilter.mode(greyColor, BlendMode.srcIn),
         ),
       ),
       Row(
