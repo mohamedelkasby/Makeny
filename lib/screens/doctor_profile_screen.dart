@@ -113,14 +113,14 @@ class DoctorProfileScreen extends StatelessWidget {
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   circleIcon(
-                                    icon: Icons.shield_outlined,
+                                    icon: "assets/icons/misc.svg",
                                     topText: doctorsData.experience,
                                     bottomText: "خبرة",
                                   ),
                                   Directionality(
                                     textDirection: TextDirection.ltr,
                                     child: circleIcon(
-                                      icon: Icons.star_outline_rounded,
+                                      icon: "assets/icons/socials.svg",
                                       topText: "4.8",
                                       bottomText: "تقييم",
                                       withIcon: true,
@@ -129,7 +129,7 @@ class DoctorProfileScreen extends StatelessWidget {
                                   Directionality(
                                     textDirection: TextDirection.ltr,
                                     child: circleIcon(
-                                      icon: Icons.chat_bubble_outline,
+                                      icon: "assets/icons/messaging.svg",
                                       topText: "105 +",
                                       bottomText: "رأي",
                                     ),

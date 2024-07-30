@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/models/doctor_model.dart';
 import 'package:makeny/models/grid_model.dart';
+import 'package:makeny/models/medical_educate_model.dart';
+import 'package:makeny/screens/medical_educate_desc_screeen%20.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 import 'package:makeny/widgets/doctor_container.dart';
 
@@ -114,65 +116,77 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 // color: Colors.amber,
               ),
               height: 170,
-              child: Stack(
-                children: [
-                  AnimatedBuilder(
-                    animation: _backgroundAnimation,
-                    builder: (context, child) {
-                      return Positioned(
-                        bottom: 50,
-                        left: MediaQuery.of(context).size.width / 2 +
-                            (_backgroundAnimation.value * 1.4 - 0.7) * 100 -
-                            110, // Adjust 110 based on your image size
-                        child: Image.asset(
-                          "assets/designs/Vector.png",
-                          width: 220,
-                          height: 170,
-                          fit: BoxFit.contain,
-                        ),
-                      );
-                    },
-                  ),
-
-                  Center(
-                    child: Text(
-                      pageViewTitles[_currentPage],
-                      textAlign: TextAlign.center,
-                      style:
-                          TextStyle(fontWeight: FontWeight.w700, fontSize: 24),
+              child: InkWell(
+                highlightColor: Colors.transparent,
+                splashColor: Colors.transparent,
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MedicalEducateDescScreen(
+                      dataModel: medicalEducateList[_currentPage],
                     ),
                   ),
+                ),
+                child: Stack(
+                  children: [
+                    AnimatedBuilder(
+                      animation: _backgroundAnimation,
+                      builder: (context, child) {
+                        return Positioned(
+                          bottom: 50,
+                          left: MediaQuery.of(context).size.width / 2 +
+                              (_backgroundAnimation.value * 1.4 - 0.7) * 100 -
+                              110, // Adjust 110 based on your image size
+                          child: Image.asset(
+                            "assets/designs/Vector.png",
+                            width: 220,
+                            height: 170,
+                            fit: BoxFit.contain,
+                          ),
+                        );
+                      },
+                    ),
 
-                  ///////////////   the page view ends ////////////
-                  ////////// the location of the dots thate related with the parent container   /////////
-                  Positioned(
-                    bottom: 8,
-                    left: (MediaQuery.of(context).size.width * .5) - 30 - 6,
-                    child: Row(
-                      children: List.generate(
-                        3, // Total number of pages
-                        (index) => Container(
-                          width: 10,
-                          height: 10,
-                          margin: EdgeInsets.symmetric(horizontal: 3),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                                color: _currentPage == index
-                                    ? Colors.transparent
-                                    : greyborderColor),
-                            /////////   the shape of the current page in the pageview   ////////
+                    Center(
+                      child: Text(
+                        pageViewTitles[_currentPage],
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w700, fontSize: 24),
+                      ),
+                    ),
 
-                            shape: BoxShape.circle,
-                            ////// change the color of the current page for certine colors and the others to white ////
-                            color: _currentPage == index
-                                ? mainColor
-                                : Colors.white,
+                    ///////////////   the page view ends ////////////
+                    ////////// the location of the dots thate related with the parent container   /////////
+                    Positioned(
+                      bottom: 8,
+                      left: (MediaQuery.of(context).size.width * .5) - 30 - 6,
+                      child: Row(
+                        children: List.generate(
+                          3, // Total number of pages
+                          (index) => Container(
+                            width: 10,
+                            height: 10,
+                            margin: EdgeInsets.symmetric(horizontal: 3),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: _currentPage == index
+                                      ? Colors.transparent
+                                      : greyborderColor),
+                              /////////   the shape of the current page in the pageview   ////////
+
+                              shape: BoxShape.circle,
+                              ////// change the color of the current page for certine colors and the others to white ////
+                              color: _currentPage == index
+                                  ? mainColor
+                                  : Colors.white,
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             ////////////  the container that hold the pageView end /////////

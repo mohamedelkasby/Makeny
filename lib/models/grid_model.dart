@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:makeny/screens/estesharatick_screen.dart';
+import 'package:makeny/screens/user_consultations.dart';
 
 class GridModel {
   final String image;
@@ -18,7 +19,7 @@ class GridModel {
 GridModel grid1 = GridModel(
   image: "assets/grid_images/image 23-2.png",
   title: "استشاراتك",
-  screen: EstesharatickScreen(),
+  screen: UserConsultations(),
 );
 GridModel grid2 = GridModel(
   image: "assets/grid_images/image 23-1.png",

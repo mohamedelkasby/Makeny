@@ -1,12 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 
 PreferredSizeWidget defaultAppbar(
   final context, {
   required final String title,
+  bool goChat = false,
 }) {
   return AppBar(
+    actions: [
+      goChat
+          ? Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 5),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: mainColor50,
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(5),
+                  child: SvgPicture.asset("assets/icons/chat.svg"),
+                ),
+              ),
+            )
+          : SizedBox()
+    ],
     leading: backArrow(context),
     centerTitle: true,
     title: textNormal(
@@ -17,14 +37,15 @@ PreferredSizeWidget defaultAppbar(
       child: Container(
         height: 2,
         decoration: BoxDecoration(
-            gradient: LinearGradient(
-          stops: [.2, .5, .8],
-          colors: [
-            Color(0xffE8E8E8),
-            Color(0xffee5534),
-            Color(0xffE8E8E8),
-          ],
-        )),
+          gradient: LinearGradient(
+            stops: [.2, .5, .8],
+            colors: [
+              Color(0xffE8E8E8),
+              Color(0xffee5534),
+              Color(0xffE8E8E8),
+            ],
+          ),
+        ),
       ),
     ),
   );

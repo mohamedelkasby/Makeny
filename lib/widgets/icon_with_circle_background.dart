@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:makeny/extentions/colors.dart';
 
 Widget circleIcon({
-  required final IconData icon,
+  required final String icon,
   required final String topText,
   required final String bottomText,
   final bool withIcon = false,
@@ -12,15 +13,14 @@ Widget circleIcon({
       Container(
         padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
-          shape: BoxShape.circle,
+          // shape: BoxShape.circle,
           color: mainColor50,
         ),
-        child: Center(
-          child: Icon(
-            icon,
-            color: greyborderColor,
-            size: 29,
-          ),
+        child: SvgPicture.asset(
+          icon,
+          width: 20,
+          height: 20,
+          color: Colors.black,
         ),
       ),
       Row(
