@@ -1,78 +1,52 @@
 import 'package:flutter/material.dart';
+import 'package:makeny/extentions/colors.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(MyRadioList());
+}
 
-class MyApp extends StatelessWidget {
+class MyRadioList extends StatefulWidget {
+  @override
+  _MyRadioListState createState() => _MyRadioListState();
+}
+
+class _MyRadioListState extends State<MyRadioList> {
+  String? selectedOption;
+
+  final List<String> options = ['Option ', 'Option 2', 'Option 3'];
+  final List<bool> _isChecked = [false, false, false];
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'جودة الحياة',
-      theme: ThemeData(primarySwatch: Colors.pink),
-      home: QualityOfLifeScreen(),
-    );
-  }
-}
-
-class QualityOfLifeScreen extends StatefulWidget {
-  @override
-  _QualityOfLifeScreenState createState() => _QualityOfLifeScreenState();
-}
-
-class _QualityOfLifeScreenState extends State<QualityOfLifeScreen> {
-  double _progress = 0.0;
-  List<bool> _checkedOptions = [false, false, false, false];
-
-  void _updateProgress() {
-    if (_checkedOptions.contains(true)) {
-      setState(() {
-        _progress += 0.2;
-        if (_progress > 1.0) _progress = 1.0;
-      });
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('جودة الحياة'),
-        ),
-        body: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              LinearProgressIndicator(value: _progress),
-              SizedBox(height: 20),
-              Text('اختر إجابة واحدة على الأقل:'),
-              SizedBox(height: 10),
-              ..._buildCheckboxes(),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed:
-                    _checkedOptions.contains(true) ? _updateProgress : null,
-                child: Text('استمرار'),
-              ),
-            ],
+      home: SafeArea(
+        child: Scaffold(
+            body: Column(
+          children: List.generate(
+            options.length,
+            (index) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: Container(
+                  color: Colors.pink,
+                  child: CheckboxListTile(
+                    activeColor: mainColor,
+                    title: Text(options[index]),
+                    value: _isChecked[index],
+                    onChanged: (bool? value) {
+                      setState(
+                        () {
+                          _isChecked[index] = value!;
+                        },
+                      );
+                    },
+                  ),
+                ),
+              );
+            },
           ),
-        ),
+        )),
       ),
     );
-  }
-
-  List<Widget> _buildCheckboxes() {
-    return List.generate(4, (index) {
-      return CheckboxListTile(
-        title: Text('خيار ${index + 1}'),
-        value: _checkedOptions[index],
-        onChanged: (bool? value) {
-          setState(() {
-            _checkedOptions[index] = value!;
-          });
-        },
-      );
-    });
   }
 }

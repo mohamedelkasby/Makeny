@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:makeny/extentions/colors.dart';
+import 'package:makeny/models/test_Checkboxe_modle.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';
 
-class ConsultationDetails extends StatelessWidget {
+class ConsultationDetails extends StatefulWidget {
   ConsultationDetails({super.key});
-  final List<String> items = [
-    'Item 1',
-    'Item 2',
-    'Item 3',
-  ];
 
+  @override
+  State<ConsultationDetails> createState() => _ConsultationDetailsState();
+}
+
+class _ConsultationDetailsState extends State<ConsultationDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +29,7 @@ class ConsultationDetails extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 15),
                   child: CircleAvatar(
-                    radius: 70,
+                    radius: 60,
                     foregroundImage: AssetImage(
                       "assets/doctors/doc.jpg",
                     ),
@@ -154,7 +155,10 @@ class ConsultationDetails extends StatelessWidget {
                   children: [
                     TabBar(
                       isScrollable: false,
-                      labelStyle: TextStyle(fontSize: 14),
+                      labelStyle: TextStyle(
+                        fontSize: 14,
+                        color: Color.fromARGB(196, 51, 51, 51),
+                      ),
                       indicatorSize: TabBarIndicatorSize.tab,
                       tabs: [
                         Tab(
@@ -173,8 +177,47 @@ class ConsultationDetails extends StatelessWidget {
                     Expanded(
                       child: TabBarView(
                         children: [
-                          Row(
-                            children: [],
+                          ListView.builder(
+                            itemCount: test.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 8,
+                                  horizontal: 10,
+                                ),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Color(0xffEBEBEB),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: CheckboxListTile(
+                                    checkboxShape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    contentPadding: EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                      vertical: 8,
+                                    ),
+                                    side: BorderSide(
+                                        width: 2.0, color: mainColor200),
+                                    activeColor: mainColor,
+                                    title: Text(
+                                      test[index].nameTest,
+                                      style: TextStyle(
+                                          color:
+                                              Color.fromARGB(196, 51, 51, 51)),
+                                    ),
+                                    value: test[index].checkedOrNot,
+                                    onChanged: (bool? value) {
+                                      setState(
+                                        () {
+                                          test[index].checkedOrNot = value!;
+                                        },
+                                      );
+                                    },
+                                  ),
+                                ),
+                              );
+                            },
                           ),
                           Center(child: Text('محتوى الصفحة الثانية')),
                         ],
