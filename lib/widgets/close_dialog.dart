@@ -39,12 +39,15 @@ Dialog closeDialog(context) {
                 width: double.infinity,
                 height: 54,
                 child: MaterialButton(
-                  onPressed: () => Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => LoginScreen(),
-                    ),
-                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginScreen(),
+                      ),
+                    );
+                  },
                   child: Text(
                     "نعم, تسجيل الخروج",
                     style: TextStyle(

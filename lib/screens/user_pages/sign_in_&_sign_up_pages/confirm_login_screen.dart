@@ -4,15 +4,10 @@ import 'package:makeny/screens/basic_page.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class ConfirmLoginScreen extends StatefulWidget {
-  const ConfirmLoginScreen({super.key});
+class ConfirmLoginScreen extends StatelessWidget {
+  ConfirmLoginScreen({super.key});
 
-  @override
-  State<ConfirmLoginScreen> createState() => _ConfirmLoginScreenState();
-}
-
-class _ConfirmLoginScreenState extends State<ConfirmLoginScreen> {
-  TextEditingController controller = TextEditingController();
+  final TextEditingController controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -160,7 +155,9 @@ class _ConfirmLoginScreenState extends State<ConfirmLoginScreen> {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => BasicPage(),
+                    builder: (context) {
+                      return BasicPage();
+                    },
                   ),
                 );
               },

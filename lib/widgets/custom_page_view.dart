@@ -1,19 +1,37 @@
 import 'package:flutter/material.dart';
 
+enum Direction {
+  fromLeft,
+  center,
+  fromRight,
+}
+
 Widget customPageView({
   required final String text,
   required final Function() onTap,
-  final double fromLeft = 0,
-  final double fromRight = 0,
+  final Direction direction = Direction.center,
 }) {
+  double? left = null;
+  double? right = null;
+  switch (direction) {
+    case Direction.fromLeft:
+      left = 20;
+      right = null;
+    case Direction.center:
+      left = 90;
+      right = null;
+    case Direction.fromRight:
+      left = null;
+      right = 20;
+  }
   return InkWell(
     onTap: onTap,
     child: Stack(
       children: [
         Positioned(
           bottom: 50,
-          left: fromLeft == 0 ? null : fromLeft,
-          right: fromRight == 0 ? null : fromRight,
+          left: left,
+          right: right,
           child: Image.asset(
             "assets/designs/Vector.png",
             width: 220,

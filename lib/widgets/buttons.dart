@@ -68,20 +68,24 @@ Widget defaultButton({
   // Color buttonColor = const Color(0xffFF3255),
 }) {
   return Container(
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(5),
-      color: mainColor,
-    ),
-    width: width,
-    height: 54,
-    child: MaterialButton(
-      onPressed: onTap,
-      child: Text(
-        text,
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 23,
-          fontWeight: FontWeight.w600,
+    color: Colors.white,
+    padding: EdgeInsets.symmetric(vertical: 10),
+    child: Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5),
+        color: mainColor,
+      ),
+      width: width,
+      height: 54,
+      child: MaterialButton(
+        onPressed: onTap,
+        child: Text(
+          text,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 23,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
     ),

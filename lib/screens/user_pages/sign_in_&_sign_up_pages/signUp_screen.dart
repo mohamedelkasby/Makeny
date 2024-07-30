@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/screens/user_pages/sign_in_&_sign_up_pages/login_screen.dart';
@@ -42,115 +44,132 @@ class SignUpScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.white.withOpacity(.7),
-
-                    ///////////   box shadow    //////////////
-
                     boxShadow: [
                       BoxShadow(
-                        color: Color.fromARGB(116, 200, 150, 200),
-                        spreadRadius: .1,
+                        color: Colors.black.withOpacity(.2),
                         blurRadius: 20,
+                        spreadRadius: -8,
                       ),
                     ],
-                    // backgroundBlendMode: BlendMode.screen,
                   ),
-                  padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
-                  width: double.infinity,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Center(
-                        child: Text(
-                          "انشاء حساب",
-                          style: TextStyle(
-                              fontSize: 28, fontWeight: FontWeight.w600),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          // borderRadius: BorderRadius.circular(10),
+                          color: Colors.white.withOpacity(.75),
+
+                          ///////////   box shadow    //////////////
+
+                          // boxShadow: [
+                          //   BoxShadow(
+                          //     color: Color.fromARGB(116, 200, 150, 200),
+                          //     spreadRadius: .1,
+                          //     blurRadius: 20,
+                          //   ),
+                          // ],
                         ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      defaultTextForm(
-                        label: 'الاسم',
-                      ),
-                      defaultTextForm(
-                        label: 'رقم هاتفك',
-                      ),
-                      defaultTextForm(
-                          label: 'كلمة المرور',
-                          icon: Icon(
-                            Icons.visibility_off,
-                            color: greyColor,
-                          )),
-                      SizedBox(
-                        height: 18,
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: longSignButton(
-                              text: "تسجيل",
-                              onTap: () {},
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 22,
-                      ),
-                      Row(
-                        children: [
-                          signButton(
-                              onTap: () {},
-                              text: "Google",
-                              icon: "assets/icons/google.png"),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          signButton(
-                              onTap: () {},
-                              text: "Facebook",
-                              icon: "assets/icons/2021_Facebook_icon 1.png"),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 22,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "لديك حساب؟",
-                            style: TextStyle(
-                              color: greyColor,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          InkWell(
-                            onTap: () {
-                              Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                  builder: (context) => LoginScreen(),
-                                ),
-                              );
-                            },
-                            child: Text(
-                              "تسجيل دخول",
-                              style: TextStyle(
-                                color: mainColor,
-                                fontWeight: FontWeight.w700,
-                                fontSize: 16,
+                        padding:
+                            EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+                        width: double.infinity,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Center(
+                              child: Text(
+                                "انشاء حساب",
+                                style: TextStyle(
+                                    fontSize: 28, fontWeight: FontWeight.w600),
                               ),
                             ),
-                          ),
-                        ],
-                      )
-                    ],
+                            SizedBox(
+                              height: 10,
+                            ),
+                            defaultTextForm(
+                              label: 'الاسم',
+                            ),
+                            defaultTextForm(
+                              label: 'رقم هاتفك',
+                            ),
+                            defaultTextForm(
+                                label: 'كلمة المرور',
+                                icon: Icon(
+                                  Icons.visibility_off,
+                                  color: greyColor,
+                                )),
+                            SizedBox(
+                              height: 18,
+                            ),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: longSignButton(
+                                    text: "تسجيل",
+                                    onTap: () {},
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 22,
+                            ),
+                            Row(
+                              children: [
+                                signButton(
+                                    onTap: () {},
+                                    text: "Google",
+                                    icon: "assets/icons/google.svg"),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                signButton(
+                                    onTap: () {},
+                                    text: "Facebook",
+                                    icon: "assets/icons/facebook.svg"),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 22,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "لديك حساب؟",
+                                  style: TextStyle(
+                                    color: greyColor,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                        builder: (context) => LoginScreen(),
+                                      ),
+                                    );
+                                  },
+                                  child: Text(
+                                    "تسجيل دخول",
+                                    style: TextStyle(
+                                      color: mainColor,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),

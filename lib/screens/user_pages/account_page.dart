@@ -16,7 +16,9 @@ class AccountPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String userName = "طلال أحمد عبداللطيف";
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Column(
         children: [
           //////// the top user image with the user name and his phone ///
@@ -63,12 +65,12 @@ class AccountPage extends StatelessWidget {
                   GestureDetector(
                     onTap: () => transitionBetweenPages(
                       context,
-                      thePage: editNameDialoge(context),
+                      thePage: editNameDialoge(context, name: userName),
                     ),
                     child: Row(
                       children: [
                         Text(
-                          "طلال أحمد عبداللطيف",
+                          userName,
                           style: TextStyle(
                             fontSize: 17,
                             fontWeight: FontWeight.w600,
@@ -174,25 +176,20 @@ class AccountPage extends StatelessWidget {
                   ),
                 ),
                 textIconNavigator(
-                    icon: "assets/icons/lan.svg",
-                    text: "اللغة",
-                    subText: "Change to english",
-                    onTap: () {}),
+                  icon: "assets/icons/lan.svg",
+                  text: "اللغة",
+                  subText: "Change to english",
+                  onTap: () {},
+                ),
                 textIconNavigator(
-                    icon: "assets/icons/logout.svg",
-                    text: "تسجيل الخروج ",
-                    showIcon: false,
-                    onTap: () => transitionBetweenPages(
-                          context,
-                          thePage: closeDialog(context),
-                        )
-                    // showDialog(
-                    //   // Control the transparency here
-                    //   barrierColor: Colors.black.withOpacity(0.3),
-                    //   context: context,
-                    //   builder: (context) => closeDialog(context),
-                    // ),
-                    ),
+                  icon: "assets/icons/logout.svg",
+                  text: "تسجيل الخروج ",
+                  showIcon: false,
+                  onTap: () => transitionBetweenPages(
+                    context,
+                    thePage: closeDialog(context),
+                  ),
+                ),
               ],
             ),
           )

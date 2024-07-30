@@ -41,11 +41,16 @@ class MyApp extends StatelessWidget {
             locale: Locale("ar", ''), // Force RTL layout
 
             theme: ThemeData(
-              appBarTheme: AppBarTheme(backgroundColor: Colors.white),
-              scaffoldBackgroundColor: const Color.fromARGB(
-                  255, 255, 255, 255), // Set your preferred color here
+              /// app bar color
+              appBarTheme: AppBarTheme(
+                backgroundColor: Colors.white,
+              ),
+              // the scaffold floor color
+              scaffoldBackgroundColor: Colors.white,
+              // the font style
               fontFamily: 'Cairo',
-              // primarySwatch: mainColor,
+              // primarySwatch: Colors.deepOrange,
+
               floatingActionButtonTheme: FloatingActionButtonThemeData(
                 backgroundColor: mainColor,
                 foregroundColor: Colors.white,

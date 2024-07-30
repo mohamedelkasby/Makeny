@@ -18,7 +18,7 @@ class SubServicesScreen extends StatelessWidget {
     return Scaffold(
       appBar: defaultAppbar(context, title: "خداماتنا"),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+        padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

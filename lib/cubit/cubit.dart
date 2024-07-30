@@ -9,7 +9,9 @@ class AppCubit extends Cubit<AppState> {
   int selectedBNBIndex = 0;
   void onItemTapped(int index) {
     selectedBNBIndex = index;
-    emit(ChangeTheIndexOfBottomNavBarState());
+    emit(
+      ChangeTheIndexOfBottomNavBarState(),
+    );
   }
 
 /////
@@ -17,7 +19,9 @@ class AppCubit extends Cubit<AppState> {
 
   bool notificationClicked(clicked) {
     newNotification = !newNotification;
-    emit(NotificationClickedState());
+    emit(
+      NotificationClickedState(),
+    );
     return newNotification;
   }
 }

@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/models/doctor_model.dart';
 import 'package:makeny/models/grid_model.dart';
-import 'package:makeny/models/medical_educate_model.dart';
-import 'package:makeny/screens/medical_educate_desc_screeen%20.dart';
-import 'package:makeny/widgets/custom_page_view.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 import 'package:makeny/widgets/doctor_container.dart';
 
@@ -15,17 +12,66 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  PageController controller = PageController();
-  int currentPage = 0;
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _backgroundAnimation;
+  // late Animation<double> _fadeAnimation;
+  int _currentPage = 0;
+  final List<double> stopPositions = [-0.5, 0.0, 0.5];
+
+  final List<String> pageViewTitles = [
+    "أمراض القلب: الأسباب، الأعراض، والعلاج",
+    "كيف تتجنب الأمراض القلبية؟ خطوات عملية",
+    "الاختناق: أسباب متعددة وحلول ممكنة",
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      duration: Duration(seconds: 10), // 3 seconds per stop
+      vsync: this,
+    );
+
+    _backgroundAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _animationController,
+        curve: CustomCurve(stopPositions),
+      ),
+    );
+
+    // _fadeAnimation = Tween<double>(begin: 0, end: 1).animate(
+    //   CurvedAnimation(
+    //     parent: _animationController,
+    //     curve: Interval(0.0, 0.1, curve: Curves.easeInOut),
+    //   ),
+    // );
+
+    _animationController.repeat();
+    _animationController.addListener(_onAnimationChanged);
+  }
+
+  void _onAnimationChanged() {
+    final progress = _animationController.value;
+    if (progress < 1 / 3) {
+      _currentPage = 0;
+    } else if (progress < 2 / 3) {
+      _currentPage = 1;
+    } else {
+      _currentPage = 2;
+    }
+    setState(() {});
+  }
+
+  @override
+  void dispose() {
+    _animationController.removeListener(_onAnimationChanged);
+    _animationController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    List<String> pageViewTitles = [
-      "أمراض القلب: الأسباب، الأعراض، والعلاج",
-      "كيف تتجنب الأمراض القلبية؟ خطوات عملية",
-      "الاختناق: أسباب متعددة وحلول ممكنة",
-    ];
-
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -70,30 +116,33 @@ class _HomePageState extends State<HomePage> {
               height: 170,
               child: Stack(
                 children: [
-                  //////// the pageview start  /////////
-                  PageView.builder(
-                    /////////   the change of the current pageview that reflect with the dots location //////
-                    onPageChanged: (value) {
-                      setState(() {
-                        currentPage = value;
-                      });
-                    },
-                    controller: controller,
-                    itemCount: pageViewTitles.length,
-                    ///////////// the page view custom to desplay the locate of the backgound and with his related text ///////////
-                    itemBuilder: (context, index) => customPageView(
-                      text: pageViewTitles[index],
-                      fromLeft: 100,
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => MedicalEducateDescScreen(
-                            dataModel: medicalEducateList[index],
-                          ),
+                  AnimatedBuilder(
+                    animation: _backgroundAnimation,
+                    builder: (context, child) {
+                      return Positioned(
+                        bottom: 50,
+                        left: MediaQuery.of(context).size.width / 2 +
+                            (_backgroundAnimation.value * 1.4 - 0.7) * 100 -
+                            110, // Adjust 110 based on your image size
+                        child: Image.asset(
+                          "assets/designs/Vector.png",
+                          width: 220,
+                          height: 170,
+                          fit: BoxFit.contain,
                         ),
-                      ),
+                      );
+                    },
+                  ),
+
+                  Center(
+                    child: Text(
+                      pageViewTitles[_currentPage],
+                      textAlign: TextAlign.center,
+                      style:
+                          TextStyle(fontWeight: FontWeight.w700, fontSize: 24),
                     ),
                   ),
+
                   ///////////////   the page view ends ////////////
                   ////////// the location of the dots thate related with the parent container   /////////
                   Positioned(
@@ -108,15 +157,16 @@ class _HomePageState extends State<HomePage> {
                           margin: EdgeInsets.symmetric(horizontal: 3),
                           decoration: BoxDecoration(
                             border: Border.all(
-                                color: currentPage == index
+                                color: _currentPage == index
                                     ? Colors.transparent
                                     : greyborderColor),
                             /////////   the shape of the current page in the pageview   ////////
 
                             shape: BoxShape.circle,
                             ////// change the color of the current page for certine colors and the others to white ////
-                            color:
-                                currentPage == index ? mainColor : Colors.white,
+                            color: _currentPage == index
+                                ? mainColor
+                                : Colors.white,
                           ),
                         ),
                       ),
@@ -201,16 +251,17 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(8),
+                          padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
                           child: InkWell(
                             splashColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      GridModelList[index].screen,
-                                )),
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    GridModelList[index].screen,
+                              ),
+                            ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -221,7 +272,9 @@ class _HomePageState extends State<HomePage> {
                                       GridModelList[index].image,
                                     )),
                                 Padding(
-                                  padding: const EdgeInsets.only(top: 2),
+                                  padding: const EdgeInsets.only(
+                                    top: 2,
+                                  ),
                                   child: Text(
                                     GridModelList[index].title,
                                     style: TextStyle(
@@ -247,5 +300,37 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+}
+
+////////////
+
+class CustomCurve extends Curve {
+  final List<double> stopPositions;
+
+  CustomCurve(this.stopPositions);
+
+  @override
+  double transform(double t) {
+    int index = (t * 3).floor();
+    double localT = (t * 3) % 1;
+
+    double start = stopPositions[index];
+    double end = stopPositions[(index + 1) % 3];
+
+    // Use a smoother easing function
+    double eased = _smoothStep(localT);
+
+    return _normalizeValue(start + (end - start) * eased);
+  }
+
+  double _smoothStep(double t) {
+    // Improved smooth step function
+    return t * t * (3 - 2 * t);
+  }
+
+  double _normalizeValue(double value) {
+    // Normalize the value to be between 0 and 1
+    return (value + 0.5) / 1.0;
   }
 }

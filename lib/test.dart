@@ -1,114 +1,126 @@
 import 'package:flutter/material.dart';
+import 'package:makeny/extentions/colors.dart';
 
-void main() => runApp(MyApp());
+void main(List<String> args) {
+  runApp(
+    Test(),
+  );
+}
 
-class MyApp extends StatelessWidget {
+class Test extends StatefulWidget {
+  Test({super.key});
+
+  @override
+  State<Test> createState() => _TestState();
+}
+
+class _TestState extends State<Test> with TickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _backgroundAnimation;
+  late Animation<double> _fadeAnimation;
+  int _currentPage = 0;
+
+  final List<String> pageViewTitles = [
+    "أمراض القلب: الأسباب، الأعراض، والعلاج",
+    "كيف تتجنب الأمراض القلبية؟ خطوات عملية",
+    "الاختناق: أسباب متعددة وحلول ممكنة",
+  ];
+  final List<double> stopPositions = [-0.5, 0.0, 0.5];
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      duration: Duration(seconds: 9), // 3 seconds per stop
+      vsync: this,
+    );
+
+    _backgroundAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _animationController,
+        curve: CustomCurve(stopPositions),
+      ),
+    );
+
+    _fadeAnimation = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(
+        parent: _animationController,
+        curve: Interval(0.0, 0.1, curve: Curves.easeInOut),
+      ),
+    );
+
+    _animationController.repeat();
+    _animationController.addListener(_onAnimationChanged);
+  }
+
+  void _onAnimationChanged() {
+    final progress = _animationController.value;
+    if (progress < 1 / 3) {
+      _currentPage = 0;
+    } else if (progress < 2 / 3) {
+      _currentPage = 1;
+    } else {
+      _currentPage = 2;
+    }
+    setState(() {});
+  }
+
+  @override
+  void dispose() {
+    _animationController.removeListener(_onAnimationChanged);
+    _animationController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: Text('Dialog Shadow Example'),
-        ),
-        body: Center(
-          child: ElevatedButton(
-            onPressed: () => _showCustomDialog(context),
-            child: Text('Show Dialog'),
-          ),
-        ),
-      ),
-    );
-  }
-
-  void _showCustomDialog(BuildContext context) {
-    Navigator.of(context).push(_createDialogRoute());
-  }
-
-  Route _createDialogRoute() {
-    return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => _CustomDialog(),
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        const begin = Offset(1.0, 0.0); // Start from the right
-        const end = Offset(0.0, 0.0);
-        const curve = Curves.easeInOut;
-
-        var tween =
-            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-        var offsetAnimation = animation.drive(tween);
-
-        return SlideTransition(
-          position: offsetAnimation,
-          child: child,
-        );
-      },
-    );
-  }
-}
-
-class _CustomDialog extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Dialog(
-      surfaceTintColor: Colors.white,
-      insetPadding: EdgeInsets.all(25), // the space around the dialog
-      shape: RoundedRectangleBorder(
-        borderRadius:
-            BorderRadius.circular(15), // the border radius of the dialog
-      ),
-      child: Material(
-        elevation: 24.0, // Control the shadow depth here
-        shadowColor: Colors.black
-            .withOpacity(0.5), // Control the shadow color and transparency
-        borderRadius: BorderRadius.circular(15),
-        child: Container(
-          width: double.infinity,
-          padding: EdgeInsets.fromLTRB(20, 30, 20, 25),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 50),
+          child: ListView(
             children: [
-              Text(
-                "هل تريد تسجيل الخروج؟",
-                style: TextStyle(
-                  fontSize: 21,
-                  color: Color(0xff777777),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 30, bottom: 15),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    color: Colors.blue, // Replace with your mainColor
-                  ),
-                  width: double.infinity,
-                  height: 54,
-                  child: MaterialButton(
-                    onPressed: () => Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => LoginScreen(),
-                      ),
-                    ),
-                    child: Text(
-                      "نعم, تسجيل الخروج",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 19,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
+              Container(
+                margin: EdgeInsets.only(bottom: 10),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: greyborderColor,
                   ),
                 ),
-              ),
-              GestureDetector(
-                onTap: () => Navigator.pop(context),
-                child: Text(
-                  "لا, البقاء",
-                  style: TextStyle(
-                    color: Color(0xffA2A2A2),
-                    fontSize: 21,
-                    fontWeight: FontWeight.w500,
-                  ),
+                height: 170,
+                child: Stack(
+                  children: [
+                    AnimatedBuilder(
+                      animation: _backgroundAnimation,
+                      builder: (context, child) {
+                        return Positioned(
+                          bottom: 50,
+                          left: MediaQuery.of(context).size.width / 2 +
+                              (_backgroundAnimation.value * 1.4 - 0.7) * 100 -
+                              110, // Adjust 110 based on your image size
+                          child: Image.asset(
+                            "assets/designs/Vector.png",
+                            width: 220,
+                            height: 170,
+                            fit: BoxFit.contain,
+                          ),
+                        );
+                      },
+                    ),
+
+                    Center(
+                      child: AnimatedBuilder(
+                        animation: _fadeAnimation,
+                        builder: (context, child) {
+                          return Text(
+                            pageViewTitles[_currentPage],
+                            textAlign: TextAlign.center,
+                          );
+                        },
+                      ),
+                    ),
+                    ///////////////   the page view ends ////////////
+                  ],
                 ),
               ),
             ],
@@ -119,16 +131,32 @@ class _CustomDialog extends StatelessWidget {
   }
 }
 
-class LoginScreen extends StatelessWidget {
+class CustomCurve extends Curve {
+  final List<double> stopPositions;
+
+  CustomCurve(this.stopPositions);
+
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Login Screen'),
-      ),
-      body: Center(
-        child: Text('Login Screen'),
-      ),
-    );
+  double transform(double t) {
+    int index = (t * 3).floor();
+    double localT = (t * 3) % 1;
+
+    double start = stopPositions[index];
+    double end = stopPositions[(index + 1) % 3];
+
+    // Use a smoother easing function
+    double eased = _smoothStep(localT);
+
+    return _normalizeValue(start + (end - start) * eased);
+  }
+
+  double _smoothStep(double t) {
+    // Improved smooth step function
+    return t * t * (3 - 2 * t);
+  }
+
+  double _normalizeValue(double value) {
+    // Normalize the value to be between 0 and 1
+    return (value + 0.5) / 1.0;
   }
 }

@@ -14,7 +14,7 @@ class ProfilePage extends StatelessWidget {
       child: Scaffold(
         appBar: defaultAppbar(context, title: "الملف الشخصي"),
         body: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+          padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
           child: Column(
             children: [
               Image.asset(

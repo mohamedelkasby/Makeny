@@ -47,7 +47,7 @@ GridModel grid6 = GridModel(
 );
 GridModel grid7 = GridModel(
   image: "assets/grid_images/graident-ai-robot-vectorart 1.png",
-  title: "المساعدالذكي",
+  title: "المساعد الذكي",
   screen: EstesharatickScreen(),
 );
 

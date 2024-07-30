@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:makeny/cubit/cubit.dart';
+import 'package:makeny/screens/danger_measure_screen.dart';
 import 'package:makeny/screens/home_page.dart';
 import 'package:makeny/screens/notification_screen.dart';
 import 'package:makeny/screens/user_pages/account_page.dart';
@@ -20,9 +21,10 @@ class BasicPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final double iconSize = MediaQuery.of(context).size.width / 4;
     final double padingSize = MediaQuery.of(context).size.width / 8;
-
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
+
         ////////        body      //////////
 
         body: pagesList[AppCubit.get(context).selectedBNBIndex],
@@ -40,7 +42,12 @@ class BasicPage extends StatelessWidget {
               svgIcon: "assets/icons/reserve.svg",
               label: "احجز موعد",
               color: Colors.white,
-              onTap: () {},
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DangerMeasureScreen(),
+                ),
+              ),
             ),
           ),
         ),
@@ -70,11 +77,10 @@ class BasicPage extends StatelessWidget {
                 context,
                 svgIcon: "assets/icons/notification.svg",
                 label: "الاشعارات",
-                onTap: () => transitionBetweenPages(
-                  context,
-                  fromBottom: true,
-                  thePage: NotificationScreen(),
-                ),
+                onTap: () => transitionBetweenPages(context,
+                    direction: Direction.fromBottom,
+                    thePage: NotificationScreen(),
+                    forwardCurve: Curves.easeInOut),
               ),
               iconWithLabel(
                 context,

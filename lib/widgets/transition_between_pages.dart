@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
 
+enum Direction {
+  fromRight,
+  fromLeft,
+  fromTop,
+  fromBottom,
+}
+
 Future<void> transitionBetweenPages(
-  context, {
+  BuildContext context, {
   required Widget thePage,
-  bool fromRight = false,
-  bool fromBottom = false,
-  bool formtop = false,
-  bool fromleft = false,
+  // bool fromRight = false,
+  // bool fromBottom = false,
+  // bool fromTop = false,
+  // bool fromLeft = false,
+  Direction direction = Direction.fromRight,
+  Curve forwardCurve = Curves.easeOutBack,
+  Curve reverseCurve = Curves.easeIn,
 }) {
   return Navigator.push(
     context,
@@ -14,58 +24,42 @@ Future<void> transitionBetweenPages(
       barrierColor: Colors.black.withOpacity(.3),
       barrierDismissible: true,
       opaque: false,
-      //the duration of transition
       transitionDuration: Duration(milliseconds: 1000),
       reverseTransitionDuration: Duration(milliseconds: 700),
       pageBuilder: (context, animation, secondaryAnimation) => thePage,
-      transitionsBuilder: (
-        context,
-        animation,
-        secondaryAnimation,
-        child,
-      ) {
-        const right = Offset(1.0, 0.0); // Start from the right
-        const left = Offset(-1.0, 0.0); // Start from the left
-        const top = Offset(1.0, -1.0); // Start from the top
-        const bottom = Offset(0.0, 1.0); // Start from the bottom
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        ////// define the start position .
+        Offset begin;
+        switch (direction) {
+          case Direction.fromRight:
+            begin = Offset(1.0, 0.0);
+            break;
+          case Direction.fromBottom:
+            begin = Offset(0.0, 1.0);
+            break;
+          case Direction.fromTop:
+            begin = Offset(0.0, -1.0);
+            break;
+          case Direction.fromLeft:
+            begin = Offset(-1.0, 0.0);
+            break;
+        }
         const end = Offset(0.0, 0.0);
-        const curve = Curves.easeOutBack;
 
-        // const reverseBegin = Offset(0.0, 0.0);
-        const reverseEnd = Offset(-1.0, 0.0); // End to the left
-        const reverseCurve = Curves.easeIn;
+        final curvedAnimation = CurvedAnimation(
+          parent: animation,
+          curve: animation.status == AnimationStatus.reverse
+              ? reverseCurve
+              : forwardCurve,
+        );
 
-        var tween = Tween(
-          begin: fromBottom
-              ? bottom
-              : fromleft
-                  ? left
-                  : formtop
-                      ? top
-                      : right,
+        final offsetAnimation = Tween<Offset>(
+          begin: begin,
           end: end,
-        ).chain(
-          CurveTween(curve: curve),
-        );
-        //////// reverse Tween
-        var reverseTween = Tween(
-          begin: end,
-          end: right,
-        ).chain(
-          CurveTween(curve: reverseCurve),
-        );
-        /////// reverse animation
-        var offsetAnimation = animation.drive(
-          tween,
-        );
-        //////// revers offset
-        var reverseOffsetAnimation = secondaryAnimation.drive(
-          reverseTween,
-        );
+        ).animate(curvedAnimation);
+
         return SlideTransition(
-          position: animation.status == AnimationStatus.reverse
-              ? reverseOffsetAnimation
-              : offsetAnimation,
+          position: offsetAnimation,
           child: child,
         );
       },

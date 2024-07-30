@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:makeny/extentions/colors.dart';
-import 'package:makeny/screens/user_pages/sign_in_&_sign_up_pages/login_screen.dart';
+import 'package:makeny/widgets/default_text_form.dart';
 
-Dialog editNameDialoge(context) {
+Dialog editNameDialoge(
+  context, {
+  required String name,
+}) {
   return Dialog(
     surfaceTintColor: Colors.white,
     insetPadding: EdgeInsets.all(25), // the space around the dialog
@@ -29,32 +31,27 @@ Dialog editNameDialoge(context) {
                 color: Color(0xff777777),
               ),
             ),
-            TextFormField(
-              autofocus: true,
-            ),
             Padding(
-              padding: const EdgeInsets.only(top: 30, bottom: 15),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  color: mainColor,
-                ),
-                width: double.infinity,
-                height: 54,
-                child: MaterialButton(
-                  onPressed: () => Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => LoginScreen(),
-                    ),
-                  ),
-                  child: Text(
-                    "نعم, تسجيل الخروج",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 19,
-                      fontWeight: FontWeight.w400,
-                    ),
+              padding: const EdgeInsets.symmetric(vertical: 35),
+              child: defaultTextForm(
+                value: name,
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                color: Color(0xff27AE60),
+              ),
+              width: double.infinity,
+              height: 54,
+              child: MaterialButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text(
+                  "تعديل",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 19,
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
               ),

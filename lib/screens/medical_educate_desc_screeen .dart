@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:makeny/models/medical_educate_model.dart';
+import 'package:makeny/screens/danger_measure_screen.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 
@@ -18,44 +19,58 @@ class MedicalEducateDescScreen extends StatelessWidget {
     return Scaffold(
       appBar: defaultAppbar(context, title: "تثقيف طبي"),
       body: Padding(
-        padding: const EdgeInsets.all(10),
-        child: ListView(
+        padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+        child: Stack(
           children: [
-            Container(
-              // color: greyborderColor,
-              width: double.infinity,
-              height: 180,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(15),
-                child: Image.asset(
-                  dataModel.image,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            ...dataModel.longDescription.map(
-              (element) => Padding(
-                padding: const EdgeInsets.symmetric(vertical: 5),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 15),
-                      child: textHeaderLight(text: element.header),
+            ListView(
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  height: 180,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: Image.asset(
+                      dataModel.image,
+                      fit: BoxFit.cover,
+                      alignment: Alignment(0, -1 + .3),
                     ),
-                    textDescription(text: element.description.mianTopic),
-                    ...element.description.subTopic
-                        .map((data) => textDescription(
-                              text: "\u2022 $data",
-                            ))
-                        .toList()
-                  ],
+                  ),
+                ),
+                ...dataModel.longDescription.map(
+                  (element) => Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 5),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 15),
+                          child: textHeaderLight(text: element.header),
+                        ),
+                        textDescription(text: element.description.mianTopic),
+                        ...element.description.subTopic
+                            .map((data) => textDescription(
+                                  text: "\u2022 $data",
+                                ))
+                            .toList()
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Positioned(
+              bottom: 0,
+              right: 0,
+              left: 0,
+              child: defaultButton(
+                text: "أحجز موعد الان",
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DangerMeasureScreen(),
+                  ),
                 ),
               ),
-            ),
-            defaultButton(
-              text: "أحجز موعد الان",
-              onTap: () {},
             )
           ],
         ),
