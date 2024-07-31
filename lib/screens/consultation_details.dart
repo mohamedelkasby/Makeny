@@ -134,15 +134,6 @@ class _ConsultationDetailsState extends State<ConsultationDetails> {
                     ),
                   ],
                 ),
-
-                // ElevatedButton(
-                //     onPressed: () => Navigator.push(
-                //           context,
-                //           MaterialPageRoute(
-                //             builder: (context) => Test(),
-                //           ),
-                //         ),
-                //     child: Icon(Icons.abc))
               ],
             ),
           ),
