@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:makeny/models/services_model.dart';
-import 'package:makeny/screens/sub_services_screen.dart';
+import 'package:makeny/screens/about_makeny/sub_services_screen.dart';
 import 'package:makeny/widgets/center_img.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';
 import 'package:makeny/widgets/srevise_link_widgets.dart';
