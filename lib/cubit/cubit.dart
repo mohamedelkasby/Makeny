@@ -24,4 +24,34 @@ class AppCubit extends Cubit<AppState> {
     );
     return newNotification;
   }
+/////////////// the yes or no questions cubit ///////////
+
+  /// define
+  List<List<bool>> YorNQuestions = [];
+  List<List<bool>> allQuestionAnswers = [];
+
+///// initializ the answers to be all not answer when enter the page.
+
+  void initializeQuestions(int numberOfQuestions) {
+    YorNQuestions = List.generate(
+      numberOfQuestions,
+      (_) => [false, false],
+    );
+    emit(AppQuestionInitialized());
+  }
+
+  void yesOrNoClicked({
+    required int questionIndex,
+    required int answerIndex,
+  }) {
+    YorNQuestions[questionIndex] = [false, false];
+    YorNQuestions[questionIndex][answerIndex] = true;
+    emit(AppAnswerSelected());
+  }
+
+  bool allQuestionsAnswered() {
+    return allQuestionAnswers.every(
+      (question) => true,
+    );
+  }
 }

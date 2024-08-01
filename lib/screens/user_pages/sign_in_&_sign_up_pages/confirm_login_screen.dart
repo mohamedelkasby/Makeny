@@ -125,7 +125,7 @@ class ConfirmLoginScreen extends StatelessWidget {
                                 "إعادة إرسال",
                                 style: TextStyle(
                                     fontSize: 15,
-                                    color: mianBlack,
+                                    color: mainBlack,
                                     fontWeight: FontWeight.w600,
                                     decoration: TextDecoration.underline,
                                     decorationThickness: 1),

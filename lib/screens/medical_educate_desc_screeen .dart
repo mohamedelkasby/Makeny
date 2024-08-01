@@ -67,7 +67,9 @@ class MedicalEducateDescScreen extends StatelessWidget {
                 onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => DangerMeasureScreen(),
+                    builder: (context) => DangerMeasureScreen(
+                      appbar: "مقياس الخطورة",
+                    ),
                   ),
                 ),
               ),
