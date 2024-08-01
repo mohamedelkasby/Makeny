@@ -18,7 +18,7 @@ Widget defaultTextForm({
                   label,
                   style: TextStyle(
                     fontSize: 17,
-                    color: mianBlack,
+                    color: mainBlack,
                     fontWeight: FontWeight.w600,
                   ),
                 ),

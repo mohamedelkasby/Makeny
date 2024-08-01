@@ -52,7 +52,7 @@ Widget circleIcon({
       Text(
         bottomText,
         style: TextStyle(
-          color: mianBlack,
+          color: mainBlack,
           fontSize: 12,
           fontWeight: FontWeight.w400,
         ),
