@@ -27,31 +27,34 @@ class AppCubit extends Cubit<AppState> {
 /////////////// the yes or no questions cubit ///////////
 
   /// define
-  List<List<bool>> YorNQuestions = [];
-  List<List<bool>> allQuestionAnswers = [];
+  // List<List<bool>> YorNQuestions = [];
+  // List<List<bool>> allQuestionAnswers = [];
 
 ///// initializ the answers to be all not answer when enter the page.
 
-  void initializeQuestions(int numberOfQuestions) {
-    YorNQuestions = List.generate(
-      numberOfQuestions,
-      (_) => [false, false],
-    );
-    emit(AppQuestionInitialized());
-  }
+  // void initializeQuestions(int numberOfQuestions) {
+  //   YorNQuestions = List.generate(
+  //     numberOfQuestions,
+  //     (_) => [false, false],
+  //   );
+  //   emit(AppQuestionInitialized());
+  // }
 
-  void yesOrNoClicked({
-    required int questionIndex,
-    required int answerIndex,
-  }) {
-    YorNQuestions[questionIndex] = [false, false];
-    YorNQuestions[questionIndex][answerIndex] = true;
-    emit(AppAnswerSelected());
-  }
+  // void yesOrNoClicked({
+  //   required int questionIndex,
+  //   required int answerIndex,
+  // }) {
+  //   print(
+  //       "yesOrNoClicked: questionIndex= $questionIndex, answerIndex=$answerIndex");
 
-  bool allQuestionsAnswered() {
-    return allQuestionAnswers.every(
-      (question) => true,
-    );
-  }
+  //   YorNQuestions[questionIndex] = [false, false];
+  //   YorNQuestions[questionIndex][answerIndex] = true;
+  //   emit(AppAnswerSelected());
+  // }
+
+  // bool allQuestionsAnswered() {
+  //   return allQuestionAnswers.every(
+  //     (question) => true,
+  //   );
+  // }
 }

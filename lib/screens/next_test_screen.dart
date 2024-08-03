@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/screens/danger_measure_screen.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';
+import 'package:makeny/widgets/switch_widget.dart';
 
 class NextTestScreen extends StatefulWidget {
   NextTestScreen({
@@ -29,15 +30,17 @@ class _NextTestScreenState extends State<NextTestScreen> {
 
     Future.delayed(
       const Duration(seconds: 3),
-      () => Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => DangerMeasureScreen(
-              appbar: widget.appbar,
-              progress: widget.progress,
-              testNumber: widget.testNumber,
-            ),
-          )),
+      () => Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => DangerMeasureScreen(
+            appbar: widget.appbar,
+            progress: widget.progress,
+            testNumber: widget.testNumber,
+            // yesOrNoQuestions: questionsOfPage[widget.testNumber],
+          ),
+        ),
+      ),
     );
     super.initState();
   }
@@ -45,31 +48,31 @@ class _NextTestScreenState extends State<NextTestScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: defaultAppbar(context, title: widget.appbar),
+      appBar: defaultAppbar(context, title: "التالى ..${widget.appbar}"),
       body: Center(
         child: Column(
           // crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              'assets/gif/cell.gif',
-              height: 220,
-            ),
-            Text(
-              "احسنت",
-              style: TextStyle(
-                color: mainColor,
-                fontSize: 22,
-                fontWeight: FontWeight.w600,
+            switchNextTest(testNumber: widget.testNumber - 1),
+            Column(children: [
+              Text(
+                switchNextTestListText(testNumber: widget.testNumber - 1)[0],
+                // "احسنت",
+                style: TextStyle(
+                  color: mainColor,
+                  fontSize: 22,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
-            ),
-            Text(
-              "الانتقال للاختبار التالي",
-              style: TextStyle(
-                fontSize: 15,
-                color: mainBlack,
+              Text(
+                switchNextTestListText(testNumber: widget.testNumber - 1)[1],
+                style: TextStyle(
+                  fontSize: 15,
+                  color: mainBlack,
+                ),
               ),
-            ),
+            ]),
             SizedBox(
               height: MediaQuery.sizeOf(context).height * .20,
             )

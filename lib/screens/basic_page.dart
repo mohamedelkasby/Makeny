@@ -47,6 +47,8 @@ class BasicPage extends StatelessWidget {
                 MaterialPageRoute(
                   builder: (context) => DangerMeasureScreen(
                     appbar: "مقياس الخطورة",
+
+                    // yesOrNoQuestions: ["هل تدخن؟"],
                   ),
                 ),
               ),
