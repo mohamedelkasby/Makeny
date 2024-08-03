@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:makeny/extentions/colors.dart';
+import 'package:makeny/models/consultation_model.dart';
 import 'package:makeny/models/test_Checkboxe_modle.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';
 
 class ConsultationDetails extends StatefulWidget {
-  ConsultationDetails({super.key});
+  const ConsultationDetails({
+    super.key,
+    required this.datamodel,
+  });
+
+  final ConsultationModel datamodel;
 
   @override
   State<ConsultationDetails> createState() => _ConsultationDetailsState();
@@ -31,12 +38,12 @@ class _ConsultationDetailsState extends State<ConsultationDetails> {
                   child: CircleAvatar(
                     radius: 60,
                     foregroundImage: AssetImage(
-                      "assets/doctors/doc.jpg",
+                      widget.datamodel.doctorImg,
                     ),
                   ),
                 ),
                 Text(
-                  "بروف .علي البراتي",
+                  widget.datamodel.doctorName,
                   style: TextStyle(
                     fontSize: 20,
                     color: Color(
@@ -56,7 +63,7 @@ class _ConsultationDetailsState extends State<ConsultationDetails> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 25, vertical: 5),
                       child: Text(
-                        "استشارة تأهيل القلب",
+                        widget.datamodel.specialization,
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
@@ -72,7 +79,7 @@ class _ConsultationDetailsState extends State<ConsultationDetails> {
                           width: 5,
                         ),
                         Text(
-                          "2024/5/8 ",
+                          widget.datamodel.date,
                           style: TextStyle(
                             color: Color(0xff6C7380),
                             fontSize: 16,
@@ -87,7 +94,7 @@ class _ConsultationDetailsState extends State<ConsultationDetails> {
                           width: 5,
                         ),
                         Text(
-                          "9:30 ص",
+                          widget.datamodel.time,
                           style: TextStyle(
                             color: Color(0xff6C7380),
                             fontSize: 16,
@@ -179,30 +186,38 @@ class _ConsultationDetailsState extends State<ConsultationDetails> {
                                 ),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                      color: Color(0xffEBEBEB),
-                                      borderRadius: BorderRadius.circular(10)),
+                                    color: Color(0xffEBEBEB),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
                                   child: CheckboxListTile(
                                     checkboxShape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     contentPadding: EdgeInsets.symmetric(
                                       horizontal: 10,
-                                      vertical: 8,
+                                      vertical: 2,
                                     ),
                                     side: BorderSide(
-                                        width: 2.0, color: mainColor200),
+                                        width: 1.0, color: mainColor200),
                                     activeColor: mainColor,
                                     title: Text(
                                       test[index].nameTest,
                                       style: TextStyle(
-                                          color:
-                                              Color.fromARGB(196, 51, 51, 51)),
+                                        color: Color.fromARGB(196, 51, 51, 51),
+                                        fontWeight: FontWeight.w500,
+                                      ),
                                     ),
                                     value: test[index].checkedOrNot,
                                     onChanged: (bool? value) {
                                       setState(
                                         () {
                                           test[index].checkedOrNot = value!;
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    test[index].namePage,
+                                              ));
                                         },
                                       );
                                     },
@@ -211,7 +226,29 @@ class _ConsultationDetailsState extends State<ConsultationDetails> {
                               );
                             },
                           ),
-                          Center(child: Text('محتوى الصفحة الثانية')),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 20,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "1 - ممارسة الرياضة ٥ مرات/الأسبوع",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                Text(
+                                  "2 - رياضة المقاومة مرتين/الأسبوع",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     )

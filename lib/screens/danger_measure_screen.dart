@@ -227,7 +227,6 @@ Widget defText({
 Widget yesOrNoQusions(
   context, {
   required final List<String> questionsText,
-  // required final int questionIndex,
 }) {
   List<int> questionsIndex = List.generate(
     questionsText.length,
