@@ -27,6 +27,7 @@ class _DangerMeasureScreenState extends State<DangerMeasureScreen> {
   // final int numberOfQuestions = ;
   // List<String> yesOrNoQuestions = widget.yesOrNoQuestions;
   List<List<String>> questionsOfPage = [
+    [],
     ["هل تدخن؟"],
     ["هل لديك امراض مزمنة؟"],
     [
@@ -46,6 +47,10 @@ class _DangerMeasureScreenState extends State<DangerMeasureScreen> {
   ];
   @override
   void initState() {
+    // widget.progress += (1 / 7);
+    // if (widget.progress > 1.0) widget.progress = 1.0;
+    // widget.testNumber++;
+    // if (widget.testNumber > 7) widget.testNumber = 7;
     super.initState();
 
     //// this to make when enter the page the default value of wright and false will be false
@@ -65,77 +70,89 @@ class _DangerMeasureScreenState extends State<DangerMeasureScreen> {
       resizeToAvoidBottomInset: false,
       appBar: defaultAppbar(context, title: appbar),
       body: Padding(
-        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-        child: ListView(
+        padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
+        child: Stack(
           children: [
-            /////// the progress indecator Start //////
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: Container(
-                padding: EdgeInsets.all(
-                  2,
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: greyColor,
-                      offset: Offset(0, 1),
-                      blurRadius: 10,
-                      spreadRadius: -11,
+            ListView(
+              children: [
+                /////// the progress indecator Start //////
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  child: Container(
+                    padding: EdgeInsets.all(
+                      2,
                     ),
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 5, vertical: 8),
-                      child: defText(text: "اختبار $testNumber/7"),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 5,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: greyColor,
+                          offset: Offset(0, 1),
+                          blurRadius: 10,
+                          spreadRadius: -11,
                         ),
-                        child: LinearProgressIndicator(
-                          color: mainColor,
-                          backgroundColor: mainColor100,
-                          minHeight: 8,
-                          borderRadius: BorderRadius.circular(50),
-                          value: progress,
-                        ),
-                      ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-            ),
-            /////// the progress indecator end //////
-            ///
-            ///the green container with text  ///
-
-            /////// the yes or no question ////
-            switchPagesTest(
-              context,
-              testNumber: testNumber,
-              yesOrNoQuestions: questionsOfPage[widget.testNumber - 1],
-            ),
-            defaultButton(
-              onTap: () {
-                // _updateProgress();
-                return Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => NextTestScreen(
-                      appbar: switchAppbar(testNumber: testNumber),
-                      progress: progress,
-                      testNumber: testNumber,
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 5, vertical: 8),
+                          child: defText(text: "اختبار $testNumber/7"),
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 5,
+                            ),
+                            child: LinearProgressIndicator(
+                              color: mainColor,
+                              backgroundColor: mainColor100,
+                              minHeight: 8,
+                              borderRadius: BorderRadius.circular(50),
+                              value: progress,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                );
-              },
-              text: 'استمرار',
+                ),
+                /////// the progress indecator end //////
+                ///
+                ///the green container with text  ///
+
+                /////// the yes or no question ////
+                switchPagesTest(
+                  context,
+                  testNumber: testNumber,
+                  yesOrNoQuestions: questionsOfPage[widget.testNumber],
+                ),
+                SizedBox(
+                  height: 80,
+                )
+              ],
+            ),
+            Positioned(
+              right: 0,
+              bottom: 0,
+              left: 0,
+              child: defaultButton(
+                onTap: () {
+                  // _updateProgress();
+                  return Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => NextTestScreen(
+                        appbar: switchAppbar(testNumber: testNumber),
+                        progress: progress,
+                        testNumber: testNumber,
+                      ),
+                    ),
+                  );
+                },
+                text: 'استمرار',
+              ),
             ),
           ],
         ),
@@ -178,10 +195,10 @@ class _YesOrNoQustionsState extends State<YesOrNoQustions> {
   Widget build(BuildContext context) {
     List<String> answers = ["نعم", "لا"];
     List<String> questionsText = widget.questionsText;
-    List<int> questionsIndex = List.generate(
-      questionsText.length,
-      (listIndex) => (listIndex),
-    );
+    // List<int> questionsIndex = List.generate(
+    //   questionsText.length,
+    //   (listIndex) => (listIndex),
+    // );
     Color bordercolor = Color(0xffE8E8E8);
     Color backgroundColor = Colors.white;
 
@@ -277,10 +294,10 @@ class _OneAnswerCheckState extends State<OneAnswerCheck> {
   Widget build(BuildContext context) {
     String questionsText = widget.questionsText;
 
-    List<int> questionsIndex = List.generate(
-      questionsText.length,
-      (listIndex) => (listIndex),
-    );
+    // List<int> questionsIndex = List.generate(
+    //   questionsText.length,
+    //   (listIndex) => (listIndex),
+    // );
 
     Color bordercolor = Color(0xffE8E8E8);
     Color backgroundColor = Colors.white;

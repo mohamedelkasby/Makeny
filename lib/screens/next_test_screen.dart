@@ -23,11 +23,8 @@ class NextTestScreen extends StatefulWidget {
 class _NextTestScreenState extends State<NextTestScreen> {
   @override
   void initState() {
-    widget.progress += (1 / 7);
-    if (widget.progress > 1.0) widget.progress = 1.0;
-    widget.testNumber++;
-    if (widget.testNumber > 7) widget.testNumber = 7;
-
+    // increment();
+    decrement();
     Future.delayed(
       const Duration(seconds: 3),
       () => Navigator.pushReplacement(
@@ -35,8 +32,12 @@ class _NextTestScreenState extends State<NextTestScreen> {
         MaterialPageRoute(
           builder: (context) => DangerMeasureScreen(
             appbar: widget.appbar,
-            progress: widget.progress,
-            testNumber: widget.testNumber,
+            progress: widget.progress < 1.0
+                ? widget.progress + (1 / 7)
+                : widget.progress,
+            testNumber: widget.testNumber < 7
+                ? widget.testNumber + 1
+                : widget.testNumber,
             // yesOrNoQuestions: questionsOfPage[widget.testNumber],
           ),
         ),
@@ -45,8 +46,21 @@ class _NextTestScreenState extends State<NextTestScreen> {
     super.initState();
   }
 
+  void decrement() {
+    widget.progress -= (1 / 7);
+    widget.testNumber--;
+  }
+
+  void increment() {
+    widget.progress += (1 / 7);
+    if (widget.progress > 1.0) widget.progress = 1.0;
+    widget.testNumber++;
+    if (widget.testNumber > 7) widget.testNumber = 7;
+  }
+
   @override
   Widget build(BuildContext context) {
+    increment();
     return Scaffold(
       appBar: defaultAppbar(context, title: "التالى ..${widget.appbar}"),
       body: Center(
@@ -54,10 +68,14 @@ class _NextTestScreenState extends State<NextTestScreen> {
           // crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            switchNextTest(testNumber: widget.testNumber - 1),
+            switchNextTest(testNumber: widget.testNumber),
+
+            ///
             Column(children: [
               Text(
-                switchNextTestListText(testNumber: widget.testNumber - 1)[0],
+                switchNextTestListText(testNumber: widget.testNumber)[0],
+
+                ///
                 // "احسنت",
                 style: TextStyle(
                   color: mainColor,
@@ -66,7 +84,9 @@ class _NextTestScreenState extends State<NextTestScreen> {
                 ),
               ),
               Text(
-                switchNextTestListText(testNumber: widget.testNumber - 1)[1],
+                switchNextTestListText(testNumber: widget.testNumber)[1],
+
+                ///
                 style: TextStyle(
                   fontSize: 15,
                   color: mainBlack,
