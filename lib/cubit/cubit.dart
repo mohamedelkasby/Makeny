@@ -44,6 +44,9 @@ class AppCubit extends Cubit<AppState> {
     required int questionIndex,
     required int answerIndex,
   }) {
+    print(
+        "yesOrNoClicked: questionIndex= $questionIndex, answerIndex=$answerIndex");
+
     YorNQuestions[questionIndex] = [false, false];
     YorNQuestions[questionIndex][answerIndex] = true;
     emit(AppAnswerSelected());

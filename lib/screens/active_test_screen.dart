@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:makeny/cubit/cubit.dart';
 import 'package:makeny/screens/danger_measure_screen.dart';
 import 'package:makeny/widgets/buttons.dart';
@@ -40,8 +41,7 @@ class _ActiveTestScreenState extends State<ActiveTestScreen> {
         padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
         child: ListView(
           children: [
-            yesOrNoQusions(
-              context,
+            YesOrNoQustions(
               questionsText: yesOrNoQuestions,
             ),
             defaultButton(text: "حفظ", onTap: () {})

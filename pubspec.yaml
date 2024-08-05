@@ -27,6 +27,7 @@ environment:
 # dependencies can be manually updated by changing the version numbers below to
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
+
 dependencies:
   flutter:
     sdk: flutter
@@ -42,6 +43,7 @@ dependencies:
     sdk: flutter
   pin_code_fields: ^8.0.1
   flutter_svg: ^2.0.10+1
+  file_picker: ^5.2.10
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
