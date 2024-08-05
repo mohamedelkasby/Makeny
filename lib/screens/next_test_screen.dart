@@ -34,6 +34,7 @@ class _NextTestScreenState extends State<NextTestScreen> {
           builder: (context) => testNumber == 9
               ? FinishTest(
                   appbar: "اختبار مدي الخطورة",
+                  percent: .85,
                 )
               : DangerMeasureScreen(
                   appbar: appbar,

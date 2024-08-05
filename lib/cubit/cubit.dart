@@ -29,4 +29,12 @@ class AppCubit extends Cubit<AppState> {
   String userName = "طلال أحمد عبداللطيف";
 
   /////////////// the yes or no questions cubit ///////////
+  List<int?> selectedAnswers = [];
+  List<int?> initTheSelectedAnswers(length) {
+    return selectedAnswers = List.filled(length, null);
+  }
+
+  void selectTheAnswer(questionIndex, answersIndex) {
+    selectedAnswers[questionIndex] = answersIndex;
+  }
 }
