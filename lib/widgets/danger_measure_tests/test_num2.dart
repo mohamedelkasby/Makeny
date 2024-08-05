@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
-import 'package:makeny/screens/danger_measure_screen.dart';
+import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
+import 'package:makeny/widgets/questions_type/yes_or_no_question.dart';
 
 Widget testNumber2(
   context, {
@@ -9,7 +10,7 @@ Widget testNumber2(
   return Column(
     // shrinkWrap: true,
     children: [
-      YesOrNoQustions(
+      YesOrNoQuestions(
         questionsText: yesOrNoQuestions,
       ),
       Column(
@@ -46,7 +47,7 @@ Widget _defContainer({
       ),
     ),
     child: Center(
-      child: defText(
+      child: defalutQuestionText(
         text: text,
         color: greyColor,
       ),

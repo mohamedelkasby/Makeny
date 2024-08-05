@@ -14,47 +14,19 @@ class AppCubit extends Cubit<AppState> {
     );
   }
 
-/////
-  bool newNotification = true;
+///////// this is belong to the notification /////////////
 
-  bool notificationClicked(clicked) {
-    newNotification = !newNotification;
+  bool notificationClicked(value) {
+    value = false;
     emit(
       NotificationClickedState(),
     );
-    return newNotification;
+    // print(value);
+    return value;
   }
-/////////////// the yes or no questions cubit ///////////
+  //////////////////////////
 
-  /// define
-  // List<List<bool>> YorNQuestions = [];
-  // List<List<bool>> allQuestionAnswers = [];
+  String userName = "طلال أحمد عبداللطيف";
 
-///// initializ the answers to be all not answer when enter the page.
-
-  // void initializeQuestions(int numberOfQuestions) {
-  //   YorNQuestions = List.generate(
-  //     numberOfQuestions,
-  //     (_) => [false, false],
-  //   );
-  //   emit(AppQuestionInitialized());
-  // }
-
-  // void yesOrNoClicked({
-  //   required int questionIndex,
-  //   required int answerIndex,
-  // }) {
-  //   print(
-  //       "yesOrNoClicked: questionIndex= $questionIndex, answerIndex=$answerIndex");
-
-  //   YorNQuestions[questionIndex] = [false, false];
-  //   YorNQuestions[questionIndex][answerIndex] = true;
-  //   emit(AppAnswerSelected());
-  // }
-
-  // bool allQuestionsAnswered() {
-  //   return allQuestionAnswers.every(
-  //     (question) => true,
-  //   );
-  // }
+  /////////////// the yes or no questions cubit ///////////
 }

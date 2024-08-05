@@ -87,13 +87,13 @@ class SignUpScreen extends StatelessWidget {
                             SizedBox(
                               height: 10,
                             ),
-                            defaultTextForm(
+                            DefaultTextForm(
                               label: 'الاسم',
                             ),
-                            defaultTextForm(
+                            DefaultTextForm(
                               label: 'رقم هاتفك',
                             ),
-                            defaultTextForm(
+                            DefaultTextForm(
                                 label: 'كلمة المرور',
                                 icon: Icon(
                                   Icons.visibility_off,

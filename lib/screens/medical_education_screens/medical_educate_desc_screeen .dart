@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:makeny/models/medical_educate_model.dart';
-import 'package:makeny/screens/danger_measure_screen.dart';
+import 'package:makeny/screens/danger_measure_screens/danger_measure_screen.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 
@@ -48,14 +48,32 @@ class MedicalEducateDescScreen extends StatelessWidget {
                         ),
                         textDescription(text: element.description.mianTopic),
                         ...element.description.subTopic
-                            .map((data) => textDescription(
-                                  text: "\u2022 $data",
+                            .map((data) => Column(
+                                  children: [
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        textDescription(text: "\u2022 "),
+                                        Expanded(
+                                          child: textDescription(
+                                            text: "$data",
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ))
                             .toList()
                       ],
                     ),
                   ),
                 ),
+                /////// size box to make the appear
+                ///cuase the button when flotted it cover some texts,
+                SizedBox(
+                  height: 90,
+                )
               ],
             ),
             Positioned(

@@ -1,6 +1,8 @@
 import 'package:flutter/widgets.dart';
+import 'package:makeny/screens/danger_measure_screens/danger_measure_screen.dart';
 import 'package:makeny/screens/estesharatick_screen.dart';
 import 'package:makeny/screens/user_consultations.dart';
+import 'package:makeny/screens/user_pages/medical_file.dart';
 
 class GridModel {
   final String image;
@@ -29,22 +31,37 @@ GridModel grid2 = GridModel(
 GridModel grid3 = GridModel(
   image: "assets/grid_images/image 23.png",
   title: "قياس مدى الخطورة",
-  screen: EstesharatickScreen(),
+  screen: DangerMeasureScreen(
+    appbar: "مقياس الخطورة",
+    shortTest: true,
+  ),
 );
 GridModel grid4 = GridModel(
   image: "assets/grid_images/image 50-2.png",
   title: "مقياس عضلة القلب",
-  screen: EstesharatickScreen(),
+  screen: DangerMeasureScreen(
+    appbar: "مقياس اعتدال عضلة القلب",
+    testNumber: 5,
+    shortTest: true,
+  ),
 );
 GridModel grid5 = GridModel(
   image: "assets/grid_images/image 50-1.png",
   title: "مقياس ضيق التنفس",
-  screen: EstesharatickScreen(),
+  screen: DangerMeasureScreen(
+    appbar: "مقياس ضيق التنفس متعدد الابعاد",
+    testNumber: 6,
+    shortTest: true,
+  ),
 );
 GridModel grid6 = GridModel(
   image: "assets/grid_images/image 50.png",
   title: "قياس خطوة الاختناق",
-  screen: EstesharatickScreen(),
+  screen: DangerMeasureScreen(
+    appbar: "خطورة الاختناق",
+    testNumber: 3,
+    shortTest: true,
+  ),
 );
 GridModel grid7 = GridModel(
   image: "assets/grid_images/graident-ai-robot-vectorart 1.png",
@@ -55,7 +72,7 @@ GridModel grid7 = GridModel(
 GridModel grid8 = GridModel(
   image: "assets/grid_images/image 16.png",
   title: "ملفى الطبي",
-  screen: EstesharatickScreen(),
+  screen: MedicalFile(),
 );
 List<GridModel> GridModelList = [
   grid1,

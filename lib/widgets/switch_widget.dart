@@ -15,19 +15,19 @@ Widget switchPagesTest(
 
   switch (testNumber) {
     case 1:
-      return testNumber1(context, yesOrNoQuestions: yesOrNoQuestions);
+      return TestNumber1(yesOrNoQuestions: yesOrNoQuestions);
     case 2:
       return testNumber2(context, yesOrNoQuestions: yesOrNoQuestions);
     case 3:
       return testNumber3(context, yesOrNoQuestions: yesOrNoQuestions);
     case 4:
-      return testNumber4(context, yesOrNoQuestions: yesOrNoQuestions);
+      return testNumber4(context);
     case 5:
-      return testNumber5(context, yesOrNoQuestions: yesOrNoQuestions);
+      return testNumber5(context);
     case 6:
-      return TestNumber6(yesOrNoQuestions: yesOrNoQuestions);
+      return TestNumber6();
     case 7:
-      return testNumber1(context, yesOrNoQuestions: yesOrNoQuestions);
+      return TestNumber1(yesOrNoQuestions: yesOrNoQuestions);
     default:
       return SizedBox();
   }
@@ -64,40 +64,43 @@ Widget switchNextTest({
     case 1:
       return Image.asset(
         'assets/gif/cell.gif',
-        height: 220,
+        height: 250,
       );
     case 2:
       return Image.asset(
         'assets/gif/check.gif',
-        height: 220,
+        height: 300,
       );
     case 3:
       return Image.asset(
         'assets/gif/lung.gif',
-        height: 220,
+        height: 300,
       );
     case 4:
       return Image.asset(
         'assets/gif/heart.gif',
-        height: 220,
+        height: 300,
       );
     case 5:
       return Image.asset(
         'assets/gif/lung.gif',
-        height: 220,
+        height: 300,
       );
     case 6:
       return Image.asset(
         'assets/gif/heart_attack.gif',
-        height: 220,
+        height: 300,
       );
     case 7:
       return Image.asset(
         'assets/gif/mediacl_file.gif',
-        height: 220,
+        height: 300,
       );
     default:
-      return SizedBox.shrink();
+      return Image.asset(
+        "assets/gif/dna.gif",
+        height: 300,
+      );
   }
 }
 
@@ -141,6 +144,9 @@ List<String> switchNextTestListText({
         "الرجاء حجز موعد الاستشارة",
       ];
     default:
-      return [];
+      return [
+        "الذكاء الاصطناعي",
+        "يقوم بتحليل بياناتك الان",
+      ];
   }
 }

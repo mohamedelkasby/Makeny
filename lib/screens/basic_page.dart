@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:makeny/cubit/cubit.dart';
-import 'package:makeny/screens/danger_measure_screen.dart';
+import 'package:makeny/screens/danger_measure_screens/danger_measure_screen.dart';
 import 'package:makeny/screens/home_page.dart';
 import 'package:makeny/screens/notification_screen.dart';
 import 'package:makeny/screens/user_pages/account_page.dart';

@@ -86,3 +86,21 @@ Widget textDescription({
     ),
   );
 }
+//////////////// text that build the qustions pages/////
+
+Widget defalutQuestionText({
+  required final String text,
+  final FontWeight weight = FontWeight.w600,
+  final Color color = const Color(0xff1A0004),
+  final TextAlign align = TextAlign.start,
+}) {
+  return Text(
+    text,
+    style: TextStyle(
+      fontSize: 16,
+      fontWeight: weight,
+      color: color,
+    ),
+    textAlign: align,
+  );
+}

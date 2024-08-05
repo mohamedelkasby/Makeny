@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
-import 'package:makeny/screens/danger_measure_screen.dart';
+import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
+import 'package:makeny/widgets/questions_type/yes_or_no_question.dart';
 
 Widget testNumber3(
   context, {
@@ -9,14 +10,14 @@ Widget testNumber3(
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
-      YesOrNoQustions(
+      YesOrNoQuestions(
         questionsText: yesOrNoQuestions,
       ),
       Padding(
         padding: const EdgeInsets.only(top: 20, bottom: 10),
         child: Align(
           alignment: Alignment.topRight,
-          child: defText(
+          child: defalutQuestionText(
             text: "ما هي الادوية التي تستخدمها حاليا ؟",
           ),
         ),
@@ -37,7 +38,7 @@ Widget testNumber3(
                 vertical: 20,
                 horizontal: 40,
               ),
-              child: defText(
+              child: defalutQuestionText(
                 text: "مثل : الكورتيزول",
                 color: greyColor,
               ),
@@ -57,7 +58,7 @@ Widget testNumber3(
                   padding: const EdgeInsets.symmetric(
                     vertical: 20,
                   ),
-                  child: defText(
+                  child: defalutQuestionText(
                     text: "ارفع صورة او ملف هنا",
                   ),
                 ),

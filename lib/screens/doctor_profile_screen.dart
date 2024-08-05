@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/models/doctor_model.dart';
-import 'package:makeny/screens/danger_measure_screen.dart';
+import 'package:makeny/screens/danger_measure_screens/danger_measure_screen.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';
@@ -149,25 +149,35 @@ class DoctorProfileScreen extends StatelessWidget {
                       ),
                     ),
                     //////////////   make a square dot before the text
-                    // ListTile(
-                    //   leading: Text("\u2022"),
-                    //   title:Text("data"),
-                    // )
-                    Text.rich(
-                      TextSpan(
-                        children: [
-                          ...doctorsData.aboutDrTobics
-                              .map((topics) =>
-                                  TextSpan(text: "\u2022 $topics\n"))
-                              .toList(),
-                        ],
-                      ),
-                      style: TextStyle(
-                        color: greyColor,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
+                    ///
+
+                    ...doctorsData.aboutDrTobics
+                        .map(
+                          (topics) => Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "\u2022 ",
+                                style: TextStyle(
+                                  color: greyColor,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  "$topics",
+                                  style: TextStyle(
+                                    color: greyColor,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                        .toList(),
                   ],
                 ),
                 Positioned(

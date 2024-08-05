@@ -6,6 +6,6 @@ class ChangeTheIndexOfBottomNavBarState extends AppState {}
 
 class NotificationClickedState extends AppState {}
 
-class AppQuestionInitialized extends AppState {}
+class YesOrNoButtonClickedState extends AppState {}
 
-class AppAnswerSelected extends AppState {}
+// class AppAnswerSelected extends AppState {}

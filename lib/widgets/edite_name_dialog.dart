@@ -33,7 +33,7 @@ Dialog editNameDialoge(
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 35),
-              child: defaultTextForm(
+              child: DefaultTextForm(
                 value: name,
               ),
             ),

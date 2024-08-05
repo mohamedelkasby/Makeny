@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
-import 'package:makeny/screens/danger_measure_screen.dart';
+import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 
 void main(List<String> args) {
-  runApp(YesOrNoQustions(
+  runApp(TestTest(
     questionsText: ["dfsdfsd", "sdfsdf"],
   ));
 }
 
-class YesOrNoQustions extends StatefulWidget {
-  const YesOrNoQustions({super.key, required this.questionsText});
+class TestTest extends StatefulWidget {
+  const TestTest({super.key, required this.questionsText});
 
   @override
-  State<YesOrNoQustions> createState() => _YesOrNoQustionsState();
+  State<TestTest> createState() => _TestTestState();
   final List<String> questionsText;
 }
 
-class _YesOrNoQustionsState extends State<YesOrNoQustions> {
+class _TestTestState extends State<TestTest> {
   late List<List<Color>> borderColor;
   late List<List<Color>> backgroundColor;
 
@@ -50,7 +50,7 @@ class _YesOrNoQustionsState extends State<YesOrNoQustions> {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),
-              child: defText(
+              child: defalutQuestionText(
                 text: questionsText[buildIndex],
               ),
             ),
@@ -90,7 +90,7 @@ class _YesOrNoQustionsState extends State<YesOrNoQustions> {
                       ),
                       margin: EdgeInsets.all(4),
                       child: Center(
-                        child: defText(
+                        child: defalutQuestionText(
                           text: answers[index],
                           color: greyColor,
                         ),

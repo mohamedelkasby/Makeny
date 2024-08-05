@@ -85,7 +85,7 @@ class LoginScreen extends StatelessWidget {
                                   SizedBox(
                                     height: 10,
                                   ),
-                                  defaultTextForm(
+                                  DefaultTextForm(
                                       label: "رقم الهاتف",
                                       hintText: "رقم الهاتف او البريد")
                                 ],

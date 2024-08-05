@@ -39,7 +39,7 @@ class NotificationScreen extends StatelessWidget {
           preferredSize: Size(double.infinity, 2),
           child: Container(
             height: 2,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 gradient: LinearGradient(
               stops: [.2, .5, .8],
               colors: [
@@ -67,27 +67,23 @@ class NotificationScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              customNotification(
-                context,
+              CustomNotification(
                 image: "assets/doctors/doc.jpg",
                 text: "بروف. علي البراتي",
                 subText: "ارسل اليك رسالة",
                 // newNotification: false,
               ),
-              customNotification(
-                context,
+              CustomNotification(
                 svgIcon: "assets/icons/timer.svg",
                 text: "اقترب موعد استشارتك!",
                 subText: "استشارتك بعد 30د",
               ),
-              customNotification(
-                context,
+              CustomNotification(
                 svgIcon: "assets/icons/timer.svg",
                 text: "تم إضافة توجيهات من طبيبك",
                 subText: "الرجاء الاطلاع على التوجيهات والاتزام بها.",
               ),
-              customNotification(
-                context,
+              CustomNotification(
                 svgIcon: "assets/icons/Medical-Education.svg",
                 text: "تم إضافة توجيهات من طبيبك",
                 subText: "الرجاء الاطلاع على التوجيهات والاتزام بها.",

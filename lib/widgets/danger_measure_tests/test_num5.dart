@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:makeny/screens/danger_measure_screen.dart';
+import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
+import 'package:makeny/widgets/questions_type/one_answer_check.dart';
 
 Widget testNumber5(
   context, {
-  required final yesOrNoQuestions,
+  final yesOrNoQuestions = const [],
 }) {
   return Column(
     // shrinkWrap: true,
@@ -14,7 +15,7 @@ Widget testNumber5(
         child: Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              color: Color(0xffD0FFBF)),
+              color: const Color(0xffD0FFBF)),
           child: Padding(
             padding: const EdgeInsets.symmetric(
               vertical: 15,
@@ -23,14 +24,14 @@ Widget testNumber5(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                defText(
+                defalutQuestionText(
                   text: "تنوية",
                   weight: FontWeight.w900,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
-                defText(
+                defalutQuestionText(
                   text:
                       "يؤثر القصور الوظيفي لعضلة القلب علي مختلف الاشخاص بطرقة مختلفة حيث يشعر البعض بضيق التنفس واخرين بالاجهاد الشديد.\nمن فضللك بين مدي نشاطك علي مدار الاسبوعين الاخيرين .",
                 ),
@@ -40,7 +41,7 @@ Widget testNumber5(
         ),
       ),
       ////// the green text End   ////
-      OneAnswerCheck(
+      const OneAnswerCheck(
         questionsText: "نشاط الاستحمام ؟",
         answers: [
           "لم اقم بهذا النشاط\n( 0 )",
@@ -50,7 +51,7 @@ Widget testNumber5(
           "محدود بشكل خفيف\n( 18 ~10 )",
         ],
       ),
-      OneAnswerCheck(
+      const OneAnswerCheck(
         questionsText: "المشي من مسافة 100 / 250 متر",
         answers: [
           "لم اقم بهذا النشاط\n( 0 )",
@@ -60,7 +61,7 @@ Widget testNumber5(
           "محدود بشكل خفيف\n( 250 ~200 )",
         ],
       ),
-      OneAnswerCheck(
+      const OneAnswerCheck(
         questionsText: "الهرولة او الاسراع (مثل الجري وراء حافلة )",
         answers: [
           "لم اقم بهذا النشاط\n( 0 )",
@@ -70,7 +71,7 @@ Widget testNumber5(
           "محدود بشكل خفيف\n( 18 ~10 )",
         ],
       ),
-      OneAnswerCheck(
+      const OneAnswerCheck(
         questionsText:
             "كم مرة حدث تورم في قدميك او كاحليك  عند الاستيقاذ من النوم خلال الاسبوعين  ؟",
         answers: [
@@ -81,7 +82,7 @@ Widget testNumber5(
           "لم يحدث اطلاقا خلال الاسبوعين",
         ],
       ),
-      OneAnswerCheck(
+      const OneAnswerCheck(
         questionsText:
             "كم مرة اثر فيها ضيق التنفس علي قدرتك بالقيام بما تود القيام به خلال الاسبوعين  ؟",
         answers: [
@@ -92,7 +93,7 @@ Widget testNumber5(
           "لم يحدث اطلاقا خلال الاسبوعين",
         ],
       ),
-      OneAnswerCheck(
+      const OneAnswerCheck(
         questionsText:
             "كم مرة اثر فيها الاجهاد الشديد  علي قدرتك بالقيام بما تود القيام به خلال الاسبوعين  ؟",
         answers: [
@@ -103,7 +104,7 @@ Widget testNumber5(
           "محدود بشكل خفيف\n( 18 ~10 )",
         ],
       ),
-      OneAnswerCheck(
+      const OneAnswerCheck(
         questionsText:
             "كم مرة اضطررت الي النوم جالسا علي كرسي او مسند علي ثلاث وسائد علي الاقل لدعمك بسبب ضيق التنفس   ؟",
         answers: [
@@ -114,7 +115,7 @@ Widget testNumber5(
           "محدود بشكل خفيف\n( 18 ~10 )",
         ],
       ),
-      OneAnswerCheck(
+      const OneAnswerCheck(
         questionsText: "الي اي مدي قلل قصور عضلة القلب من استمتاعك بالحياة ؟",
         answers: [
           "قلل بدرجة كبيره جدا",
@@ -124,7 +125,7 @@ Widget testNumber5(
           "لم يقلل علي الاطلاق",
         ],
       ),
-      OneAnswerCheck(
+      const OneAnswerCheck(
         questionsText:
             "اذا كان عليك ان تقضي بقية حياتك وانت تعاني من قصور عضلة القلب كما هو الان كيف سيكون شعورك حيال ذالك ؟",
         answers: [
@@ -135,7 +136,7 @@ Widget testNumber5(
           "راضي تماما",
         ],
       ),
-      OneAnswerCheck(
+      const OneAnswerCheck(
         questionsText:
             "كيف يوثر قصور عضلة القلب علي نمط حياتك وقلل نشاطك في الهوايات والانشطة الترفيهية خلال الاسبوعين الماضيين ؟",
         answers: [
@@ -147,7 +148,7 @@ Widget testNumber5(
           "لم اقم بهذا النشاط",
         ],
       ),
-      OneAnswerCheck(
+      const OneAnswerCheck(
         questionsText:
             "كيف يوثر قصور عضلة القلب علي نمط حياتك وقلل نشاطك في العمل او الاعمال المنزلية الترفيهية خلال الاسبوعين الماضيين ؟",
         answers: [
@@ -159,7 +160,7 @@ Widget testNumber5(
           "لم اقم بهذا النشاط",
         ],
       ),
-      OneAnswerCheck(
+      const OneAnswerCheck(
         questionsText:
             "كيف يوثر قصور عضلة القلب علي نمط حياتك وقلل نشاطك في زيارة الاقارب والاصدقاء خارج المنزل خلال الاسبوعين الماضيين ؟",
         answers: [

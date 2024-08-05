@@ -2,51 +2,47 @@ import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 
-class TestNumber6 extends StatefulWidget {
-  final dynamic yesOrNoQuestions;
-
-  const TestNumber6({
-    Key? key,
-    this.yesOrNoQuestions = const [],
-  }) : super(key: key);
+class SecondPage extends StatefulWidget {
+  const SecondPage({super.key});
 
   @override
-  _TestNumber6State createState() => _TestNumber6State();
+  State<SecondPage> createState() => _SecondPageState();
 }
 
-class _TestNumber6State extends State<TestNumber6> {
-  double sliderValue = 20;
+class _SecondPageState extends State<SecondPage> {
+  double sliderValue = 0;
+  void initState() {
+    sliderValue = 20;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                color: Color(0xffD0FFBF)),
+        Container(
+          margin: EdgeInsets.symmetric(vertical: 5),
+          height: 70,
+          decoration: BoxDecoration(
+            color: mainColor50.withOpacity(.4),
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: mainColor,
+            ),
+          ),
+          child: Center(
             child: Padding(
               padding: const EdgeInsets.symmetric(
-                vertical: 15,
-                horizontal: 10,
+                horizontal: 30,
               ),
               child: defalutQuestionText(
-                text:
-                    "يهدف هذا المقياس إلى مساعدتنا لفهم كيف تشعر بتنفسك. لا توجد إجابة صحيحة أو إجابة خاطئة، نريد منك أن تزودنا بالمعلومات المرتبطة بتنفسك.",
+                text: "text",
+                color: mainColor,
+                align: TextAlign.center,
               ),
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: defalutQuestionText(
-              text:
-                  "ما مدي عدم الراحة او الضيق الذي تشعر به خلال تنفسك وما مدي سوء تنفسك ؟"),
-        ),
-
-        /// the slider Start ...
         Padding(
           padding: const EdgeInsets.only(top: 25),
           child: SliderTheme(
@@ -78,9 +74,8 @@ class _TestNumber6State extends State<TestNumber6> {
         ),
 
         /// the slider Start ...
-
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 5),
+          padding: const EdgeInsets.symmetric(vertical: 15),
           child: Align(
             alignment: Alignment.centerRight,
             child: defalutQuestionText(
@@ -94,12 +89,12 @@ class _TestNumber6State extends State<TestNumber6> {
             children: [
               TextSpan(text: "هذا المقياس من"),
               TextSpan(
-                text: " صفر % ",
+                text: " صفر  ",
                 style: TextStyle(color: mainColor),
               ),
               TextSpan(text: "الي"),
               TextSpan(
-                text: " 100% ",
+                text: " 10 ",
                 style: TextStyle(color: mainColor),
               ),
               TextSpan(text: "حيث"),
@@ -109,7 +104,7 @@ class _TestNumber6State extends State<TestNumber6> {
               ),
               TextSpan(text: "تعني مرتاح ام"),
               TextSpan(
-                text: " 100 ",
+                text: " 10 ",
                 style: TextStyle(color: mainColor),
               ),
               TextSpan(text: "تعني انك تشعر بأكبر قدر من الضيق في التنفس"),
@@ -124,8 +119,4 @@ class _TestNumber6State extends State<TestNumber6> {
       ],
     );
   }
-}
-
-Widget testNumber6Wrapper(context, {required final yesOrNoQuestions}) {
-  return TestNumber6(yesOrNoQuestions: yesOrNoQuestions);
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
-import 'package:makeny/screens/danger_measure_screen.dart';
+import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 
 class CustomListField extends StatefulWidget {
   final List<String> suffixList;
@@ -41,7 +41,7 @@ class _CustomListFieldState extends State<CustomListField> {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8),
-          child: defText(text: widget.qustionText),
+          child: defalutQuestionText(text: widget.qustionText),
         ),
         //////// text field
         TextField(
@@ -82,7 +82,7 @@ class _CustomListFieldState extends State<CustomListField> {
             suffixIcon: widget.suffixText != ""
                 ? Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: defText(
+                    child: defalutQuestionText(
                       text: widget.suffixText,
                       color: greyColor,
                       weight: FontWeight.w300,

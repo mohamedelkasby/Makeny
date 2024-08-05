@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
-import 'package:makeny/screens/danger_measure_screen.dart';
+import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 
 Widget testNumber4(
   context, {
-  required final yesOrNoQuestions,
+  final yesOrNoQuestions = const [],
 }) {
   return Column(
     // shrinkWrap: true,
     children: [
-      defText(
+      defalutQuestionText(
         text: "كيف تقيم  تنفسك اثناء الحركة او الجهد البدني او الرياضي ؟",
       ),
       _defContainer(
@@ -51,7 +51,7 @@ Widget _defContainer({
         padding: const EdgeInsets.symmetric(
           horizontal: 30,
         ),
-        child: defText(
+        child: defalutQuestionText(
           text: text,
           color: greyColor,
           align: TextAlign.center,

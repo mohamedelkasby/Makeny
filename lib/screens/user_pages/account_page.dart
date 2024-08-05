@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:makeny/cubit/cubit.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/screens/about_makeny/about_Us_screen.dart';
 import 'package:makeny/screens/about_makeny/services_screen.dart';
-import 'package:makeny/screens/medical_educate_head_screeen.dart';
+import 'package:makeny/screens/medical_education_screens/medical_educate_head_screeen.dart';
 import 'package:makeny/screens/user_pages/medical_file.dart';
 import 'package:makeny/screens/user_pages/profile_page.dart';
 import 'package:makeny/widgets/close_dialog.dart';
@@ -16,7 +17,7 @@ class AccountPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String userName = "طلال أحمد عبداللطيف";
+    String userName = AppCubit.get(context).userName;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Column(
@@ -65,7 +66,10 @@ class AccountPage extends StatelessWidget {
                   GestureDetector(
                     onTap: () => transitionBetweenPages(
                       context,
-                      thePage: editNameDialoge(context, name: userName),
+                      thePage: editNameDialoge(
+                        context,
+                        name: userName,
+                      ),
                     ),
                     child: Row(
                       children: [
