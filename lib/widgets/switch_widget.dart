@@ -19,7 +19,7 @@ Widget switchPagesTest(
     case 2:
       return TestNumber2(yesOrNoQuestions: yesOrNoQuestions);
     case 3:
-      return testNumber3(context, yesOrNoQuestions: yesOrNoQuestions);
+      return TestNumber3(yesOrNoQuestions: yesOrNoQuestions);
     case 4:
       return testNumber4(context);
     case 5:

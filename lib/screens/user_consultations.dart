@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
+import 'package:makeny/models/consultation_model.dart';
 import 'package:makeny/screens/consultation_details.dart';
 import 'package:makeny/widgets/consultation_data.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';
@@ -22,7 +23,9 @@ class UserConsultations extends StatelessWidget {
               docName: 'بروف.علي الباراتي ',
               status: "مفتوحة",
               statusColor: Color(0xff0EBE7F),
-              theScreen: ConsultationDetails(),
+              theScreen: ConsultationDetails(
+                datamodel: doctor1,
+              ),
             ),
             consultionsData(
               context,
@@ -31,7 +34,9 @@ class UserConsultations extends StatelessWidget {
               docName: 'بروف.راكان ناظر ',
               status: "ملغاه",
               statusColor: mainColor,
-              theScreen: ConsultationDetails(),
+              theScreen: ConsultationDetails(
+                datamodel: doctor2,
+              ),
             ),
           ],
         ),

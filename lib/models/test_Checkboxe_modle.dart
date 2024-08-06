@@ -1,7 +1,10 @@
+import 'package:flutter/widgets.dart';
+import 'package:makeny/screens/active_test_screen.dart';
+
 class TestCheckboxeModle {
   final String nameTest;
   bool checkedOrNot;
-  final Function namePage;
+  final Widget namePage;
 
   TestCheckboxeModle({
     required this.namePage,
@@ -12,32 +15,32 @@ class TestCheckboxeModle {
 
 TestCheckboxeModle test1 = TestCheckboxeModle(
   checkedOrNot: true,
-  namePage: () {},
+  namePage: ActiveTestScreen(),
   nameTest: "اختبار النشاط البدني",
 );
 TestCheckboxeModle test2 = TestCheckboxeModle(
   checkedOrNot: false,
-  namePage: () {},
+  namePage: ActiveTestScreen(),
   nameTest: "اختبار جودة الحياة  ",
 );
 TestCheckboxeModle test3 = TestCheckboxeModle(
   checkedOrNot: false,
-  namePage: () {},
+  namePage: ActiveTestScreen(),
   nameTest: "الاداء الوظيفي لاطراف العلوية",
 );
 TestCheckboxeModle test4 = TestCheckboxeModle(
   checkedOrNot: false,
-  namePage: () {},
+  namePage: ActiveTestScreen(),
   nameTest: "اختبار  الصحه البدنية  ",
 );
 TestCheckboxeModle test5 = TestCheckboxeModle(
   checkedOrNot: false,
-  namePage: () {},
+  namePage: ActiveTestScreen(),
   nameTest: "الاداء الوظيفي لاطراف العلوية",
 );
 TestCheckboxeModle test6 = TestCheckboxeModle(
   checkedOrNot: false,
-  namePage: () {},
+  namePage: ActiveTestScreen(),
   nameTest: "الاداء الوظيفي للاطراف السفلية ",
 );
 List<TestCheckboxeModle> test = [

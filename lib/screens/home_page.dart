@@ -292,7 +292,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                   child: Text(
                                     GridModelList[index].title,
                                     style: TextStyle(
-                                      fontSize: 15,
+                                      fontSize: GridModelList[index].title ==
+                                              "المساعد الذكي"
+                                          ? 14
+                                          : 15,
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
