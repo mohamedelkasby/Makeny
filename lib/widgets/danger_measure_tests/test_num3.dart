@@ -66,44 +66,49 @@ class _TestNumber3State extends State<TestNumber3> {
                   vertical: 20,
                   horizontal: 40,
                 ),
-                child: defText(
-                  text: "مثل : الكورتيزول",
-                  color: greyColor,
+                child: Row(
+                  children: [
+                    _pickedImage != null
+                        ? SizedBox()
+                        : defText(
+                            text: "مثل : الكورتيزول",
+                            color: greyColor,
+                          ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        if (_pickedImage != null)
+                          Image.file(
+                            _pickedImage!,
+                            width: 50,
+                            height: 50,
+                            fit: BoxFit.cover,
+                          ), //
+                      ],
+                    ),
+                  ],
                 ),
               ),
-              InkWell(
-                onTap: _pickImage,
-                child: Container(
-                  padding: EdgeInsets.all(10),
-                  margin: EdgeInsets.symmetric(horizontal: 20),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: mainColor200,
-                      // style: BorderStyle.solid,
-                      width: 2,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: InkWell(
+                  onTap: _pickImage,
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.rectangle,
+                      border: Border.all(
+                        color: mainColor,
+                        width: 2.0,
+                        style: BorderStyle.solid,
+                      ),
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child:
-                      // Text("data"),
-                      BottomSheet(
-                    onClosing: () {},
-                    builder: (BuildContext context) {
-                      return Container(
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            if (_pickedImage != null)
-                              Image.file(
-                                _pickedImage!,
-                                width: 30,
-                                height: 30,
-                                fit: BoxFit.cover,
-                              ), //
-                          ],
-                        ),
-                      );
-                    },
+                    child: Text(
+                      "ارفع صورة اوملف هنا ",
+                      textAlign: TextAlign.center,
+                    ),
+                    // Text("data"),
                   ),
                 ),
               ),
