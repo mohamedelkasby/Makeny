@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:makeny/cubit/cubit.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';
 import 'package:makeny/widgets/questions_type/yes_or_no_question.dart';

@@ -54,7 +54,6 @@ class _DangerMeasureScreenState extends State<DangerMeasureScreen> {
   @override
   Widget build(BuildContext context) {
     final int testNumber = widget.testNumber;
-    final double progress = (testNumber / 7);
     final String appbar = widget.appbar;
     final bool shortTest = widget.shortTest;
 
@@ -107,7 +106,7 @@ class _DangerMeasureScreenState extends State<DangerMeasureScreen> {
                                     backgroundColor: mainColor100,
                                     minHeight: 8,
                                     borderRadius: BorderRadius.circular(50),
-                                    value: progress,
+                                    value: (testNumber / 7),
                                   ),
                                 ),
                               ),

@@ -22,6 +22,15 @@ class _SplashScreenState extends State<SplashScreen> {
         _currentImageIndex++;
         if (_currentImageIndex >= _isVisible.length) {
           _timer?.cancel();
+          Future.delayed(
+            Duration(seconds: 1),
+            () => Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DefenitionScreen(),
+              ),
+            ),
+          );
         }
       });
     });
@@ -44,14 +53,15 @@ class _SplashScreenState extends State<SplashScreen> {
           onTap: () {
             if (_isVisible.every((element) => element == false)) {
               _startFadeSequence();
-            } else if (_isVisible.every((element) => element == true)) {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => DefenitionScreen(),
-                ),
-              );
             }
+            // else if (_isVisible.every((element) => element == true)) {
+            //   Navigator.pushReplacement(
+            //     context,
+            //     MaterialPageRoute(
+            //       builder: (context) => DefenitionScreen(),
+            //     ),
+            //   );
+            // }
           },
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

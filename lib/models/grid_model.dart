@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:makeny/screens/danger_measure_screens/danger_measure_screen.dart';
-import 'package:makeny/screens/estesharatick_screen.dart';
-import 'package:makeny/screens/user_consultations.dart';
+import 'package:makeny/screens/quality_of_life_measure_screen.dart';
+import 'package:makeny/screens/consultation/user_consultations.dart';
 import 'package:makeny/screens/user_pages/medical_file.dart';
 
 class GridModel {
@@ -26,7 +26,7 @@ GridModel grid1 = GridModel(
 GridModel grid2 = GridModel(
   image: "assets/grid_images/image 23-1.png",
   title: "قياس جودة الحياة",
-  screen: EstesharatickScreen(),
+  screen: QualityOfLifeMeasureScreen(),
 );
 GridModel grid3 = GridModel(
   image: "assets/grid_images/image 23.png",
@@ -66,7 +66,7 @@ GridModel grid6 = GridModel(
 GridModel grid7 = GridModel(
   image: "assets/grid_images/graident-ai-robot-vectorart 1.png",
   title: "المساعد الذكي",
-  screen: EstesharatickScreen(),
+  screen: QualityOfLifeMeasureScreen(),
 );
 
 GridModel grid8 = GridModel(

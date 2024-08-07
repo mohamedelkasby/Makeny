@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:makeny/screens/active_test_screen.dart';
+import 'package:makeny/screens/consultation/active_test_screen.dart';
 
 class TestCheckboxeModle {
   final String nameTest;

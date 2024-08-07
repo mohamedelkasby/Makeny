@@ -27,7 +27,7 @@ class _NextTestScreenState extends State<NextTestScreen> {
   @override
   void initState() {
     Future.delayed(
-      const Duration(seconds: 3),
+      const Duration(seconds: 4),
       () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(
