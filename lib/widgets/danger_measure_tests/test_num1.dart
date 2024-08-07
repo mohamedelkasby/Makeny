@@ -4,6 +4,7 @@ import 'package:makeny/cubit/cubit.dart';
 import 'package:makeny/cubit/status.dart';
 import 'package:makeny/widgets/custom_list_field.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
+import 'package:makeny/widgets/green_note.dart';
 import 'package:makeny/widgets/questions_type/yes_or_no_question.dart';
 
 class TestNumber1 extends StatelessWidget {
@@ -21,20 +22,13 @@ class TestNumber1 extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),
               child: Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: const Color(0xffD0FFBF)),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 15,
-                    horizontal: 10,
-                  ),
-                  child: defalutQuestionText(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: const Color(0xffD0FFBF)),
+                  child: greenNote(
                     text:
                         "الرجاء اجابة الاختبارات التالية لتحديد انسب الاطباء لك..",
-                  ),
-                ),
-              ),
+                  )),
             ),
             YesOrNoQuestions(
               questionsText: yesOrNoQuestions,

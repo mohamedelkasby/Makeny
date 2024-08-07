@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';
+import 'package:makeny/widgets/green_note.dart';
 import 'package:makeny/widgets/questions_type/yes_or_no_question.dart';
 
 class ActiveTestScreen extends StatefulWidget {
@@ -39,6 +40,9 @@ class _ActiveTestScreenState extends State<ActiveTestScreen> {
         padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
         child: ListView(
           children: [
+            greenNote(
+                text:
+                    " يرجي تحديد ما اذا كنت تستطيع القيام باي نشاط من الانشطة التالي في الوقت الحالي او لا تستطيع القيام بها "),
             YesOrNoQuestions(
               questionsText: yesOrNoQuestions,
             ),
