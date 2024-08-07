@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
+import 'package:makeny/widgets/green_note.dart';
 import 'package:makeny/widgets/questions_type/one_answer_check.dart';
 
 Widget testNumber5(
@@ -16,27 +17,10 @@ Widget testNumber5(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
               color: const Color(0xffD0FFBF)),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 15,
-              horizontal: 10,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                defalutQuestionText(
-                  text: "تنوية",
-                  weight: FontWeight.w900,
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                defalutQuestionText(
-                  text:
-                      "يؤثر القصور الوظيفي لعضلة القلب علي مختلف الاشخاص بطرقة مختلفة حيث يشعر البعض بضيق التنفس واخرين بالاجهاد الشديد.\nمن فضللك بين مدي نشاطك علي مدار الاسبوعين الاخيرين .",
-                ),
-              ],
-            ),
+          child: greenNote(
+            text:
+                "يؤثر القصور الوظيفي لعضلة القلب علي مختلف الاشخاص بطرقة مختلفة حيث يشعر البعض بضيق التنفس واخرين بالاجهاد الشديد.\nمن فضللك بين مدي نشاطك علي مدار الاسبوعين الاخيرين .",
+            headerText: "تنوية",
           ),
         ),
       ),

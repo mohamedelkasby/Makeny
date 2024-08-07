@@ -109,7 +109,6 @@ class _TestNumber3State extends State<TestNumber3> {
                       "ارفع صورة اوملف هنا ",
                       textAlign: TextAlign.center,
                     ),
-                    // Text("data"),
                   ),
                 ),
               ),
