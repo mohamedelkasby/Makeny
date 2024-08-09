@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:makeny/cubit/cubit.dart';
 import 'package:makeny/cubit/status.dart';
 import 'package:makeny/widgets/custom_list_field.dart';
-import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 import 'package:makeny/widgets/green_note.dart';
 import 'package:makeny/widgets/questions_type/yes_or_no_question.dart';
 

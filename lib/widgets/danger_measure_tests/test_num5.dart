@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 import 'package:makeny/widgets/green_note.dart';
 import 'package:makeny/widgets/questions_type/grid_one_answer_check.dart';
 
