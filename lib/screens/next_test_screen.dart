@@ -33,7 +33,9 @@ class _NextTestScreenState extends State<NextTestScreen> {
         MaterialPageRoute(
           builder: (context) => testNumber == 9
               ? FinishTest(
-                  appbar: "اختبار مدي الخطورة",
+                  appbar: appbar == "تحليل اجاباتك"
+                      ? "نتيجة الاختبار"
+                      : "اختبار مدي الخطورة",
                   percent: .85,
                 )
               : DangerMeasureScreen(
@@ -49,6 +51,7 @@ class _NextTestScreenState extends State<NextTestScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: defaultAppbar(context,
           title: testNumber == 9 ? appbar : "التالى ..$appbar"),
       body: Center(

@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 import 'package:makeny/widgets/danger_measure_tests/test_num1.dart';
 import 'package:makeny/widgets/danger_measure_tests/test_num2.dart';
 import 'package:makeny/widgets/danger_measure_tests/test_num3.dart';
 import 'package:makeny/widgets/danger_measure_tests/test_num4.dart';
 import 'package:makeny/widgets/danger_measure_tests/test_num5.dart';
 import 'package:makeny/widgets/danger_measure_tests/test_num6.dart';
+import 'package:makeny/widgets/green_note.dart';
+import 'package:makeny/widgets/questions_type/long_one_answer_check.dart';
+import 'package:makeny/widgets/slider_widget.dart';
 
 Widget switchPagesTest(
   context, {
@@ -148,5 +152,100 @@ List<String> switchNextTestListText({
         "الذكاء الاصطناعي",
         "يقوم بتحليل بياناتك الان",
       ];
+  }
+}
+
+Widget switchQualityOfLifePage(testNumber) {
+  switch (testNumber) {
+    case 1:
+      return Column(
+        children: [
+          greenNote(
+              text: "يرجي تحديد اختيار واحد يصف افضل صورة لحالتك الصحية اليوم"),
+          LongOneAnswerCheck(
+            questionText: "القدرة علي الحركة",
+            answers: [
+              "ليس   لدي أي مشاكل أثناء المشي",
+              "أعاني من مشاكل طفيفة عند المشي",
+              "أعاني   من مشاكل متوسطة عند المشي",
+              "أعاني من مشاكل حادة عند المشي",
+              "ليس   لدي القدرة على المشي",
+            ],
+            onAnswerSelected: (_) {},
+          ),
+        ],
+      );
+    case 2:
+      return LongOneAnswerCheck(
+        questionText: "القدرة علي العناية الشخصية ",
+        answers: [
+          "ليس   لدي أي مشاكل عند الاستحمام أو ارتداء ملابسي بنفسي",
+          "أعاني من مشاكل طفيفة عند الاستحمام أو ارتداء الملابس   بنفسي",
+          "أعاني   من مشاكل متوسطة عند الاستحمام أو ارتداء الملابس بنفسي",
+          "أعاني من مشاكل حادة عند الاستحمام أو ارتداء الملابس   بنفسي",
+          "ليس   لدي القدرة على الاستحمام أو ارتداء الملابس بنفسي",
+        ],
+        onAnswerSelected: (_) {},
+      );
+    case 3:
+      return LongOneAnswerCheck(
+        questionText:
+            "الأنشطة المعتادة (مثل العمل، الدراسة، الأعمال المنزلية، الأنشطة الأسرية أو الترفيهية ",
+        answers: [
+          "ليس   لدي أي مشاكل في ممارسة نشاطاتي المعتادة",
+          "أعاني من مشاكل طفيفة عند الاستحمام أو ارتداء الملابس   بنفسي",
+          "أعاني   من مشاكل متوسطة عند الاستحمام أو ارتداء الملابس بنفسي",
+          "أعاني من مشاكل حادة عند الاستحمام أو ارتداء الملابس   بنفسي",
+          "ليس   لدي القدرة على الاستحمام أو ارتداء الملابس بنفسي",
+        ],
+        onAnswerSelected: (_) {},
+      );
+    case 4:
+      return LongOneAnswerCheck(
+        questionText: "الألم /   الإحساس بعدم الراحة",
+        answers: [
+          "لا   أشعر بأي ألم أو بعدم الراحة",
+          "أشعر بدرجة طفيفة من الألم أو   عدم الراحة",
+          "أشعر   بدرجة متوسطة من الألم أو عدم الراحة",
+          "أشعر بدرجة شديدة من الألم أو   عدم الراحة",
+          "أشعر   بدرجة شديدة جداً من الألم أو عدم الراحة",
+        ],
+        onAnswerSelected: (_) {},
+      );
+    case 5:
+      return LongOneAnswerCheck(
+        questionText: "القلق / الاكتئاب",
+        answers: [
+          "لا   أعاني أي قلق أو إكتئاب",
+          "أعاني درجة طفيفة من القلق أو الإكتئاب",
+          "أعاني   درجة متوسطة من القلق أو الإكتئاب",
+          "أعاني   درجة شديدة من القلق أو الإكتئاب",
+          "أفضل     حالة صحية يمكن تخيلها",
+        ],
+        onAnswerSelected: (_) {},
+      );
+    case 6:
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 20,
+              bottom: 10,
+            ),
+            child: defalutQuestionText(text: "جودة حياتك"),
+          ),
+          greenNote(
+            text:
+                "نود أن نعرف مدى سلامة حياتك الصحية,  هذا المقياس مدرج من   الرقم 0 حتى 100·   بحيث يشير الرقم 100 إلى أفضل   حالة صحية يمكن تخيلها والرقم صفر إلى اسوء حالة ",
+          ),
+          SizedBox(
+            height: 120,
+          ),
+          SliderWidget(),
+        ],
+      );
+    default:
+      return SizedBox();
   }
 }

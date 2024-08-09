@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
+import 'package:makeny/widgets/questions_type/long_one_answer_check.dart';
 import 'package:makeny/widgets/questions_type/yes_or_no_question.dart';
 
 class TestNumber2 extends StatefulWidget {
@@ -32,19 +33,18 @@ class _TestNumber2State extends State<TestNumber2> {
           onAnswersChanged: updateShowConditions,
         ),
         if (showConditions)
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(height: 15),
-              _defContainer(text: "امراض القلب والاوعية الدموية"),
-              _defContainer(text: "امراض الجهاز التنفسي"),
-              _defContainer(text: "السرطان"),
-              _defContainer(text: "السكري "),
-              _defContainer(text: "السمنة"),
-              _defContainer(text: "مشاكل صحة الفم"),
-              _defContainer(text: "اخري"),
+          LongOneAnswerCheck(
+            questionText: "",
+            answers: [
+              "امراض القلب والاوعية الدموية",
+              "امراض الجهاز التنفسي",
+              "السرطان",
+              "السكري ",
+              "السمنة",
+              "مشاكل صحة الفم",
+              "اخري",
             ],
+            onAnswerSelected: (_) {},
           )
         else
           SizedBox(), // Empty SizedBox when conditions should not be shown

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
+import 'package:makeny/widgets/danger_measure_tests/body_test_num6/second_page.dart';
 import 'package:makeny/widgets/danger_measure_tests/body_test_num6/switch_body_num6.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';
 import 'package:makeny/widgets/green_note.dart';
+import 'package:makeny/widgets/questions_type/long_one_answer_check.dart';
 
 class MultidimensionalDyspneaScaleScreen extends StatefulWidget {
   const MultidimensionalDyspneaScaleScreen({
@@ -20,10 +22,12 @@ class MultidimensionalDyspneaScaleScreen extends StatefulWidget {
 class _MultidimensionalDyspneaScaleScreenState
     extends State<MultidimensionalDyspneaScaleScreen> {
   int bodyIndex = 0;
+  String? selectedAnswer;
 
   @override
   void initState() {
     bodyIndex = 0;
+    selectedAnswer = null;
     super.initState();
   }
 
@@ -45,18 +49,44 @@ class _MultidimensionalDyspneaScaleScreenState
         padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
         child: Stack(
           children: [
-            Column(
+            ListView(
               children: [
-                _defGreenContainer(
+                greenNote(
                   text: greenText[bodyIndex],
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 15),
-                  child: defalutQuestionText(
-                    text: normalText[bodyIndex],
-                  ),
-                ),
-                switchBodyNum6(bodyIndex),
+                normalText[bodyIndex] == ""
+                    ? SizedBox()
+                    : Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 15),
+                        child: defalutQuestionText(
+                          text: normalText[bodyIndex],
+                        ),
+                      ),
+                bodyIndex == 0
+                    // first Page
+                    ? LongOneAnswerCheck(
+                        questionText: "",
+                        answers: [
+                          "يشق عليّ التنفس ويتطلب مني جهدًا عضليًا.",
+                          "لا أحصل على كمية كافية من الهواء وأشعر بالاختناق أو أشعر بالحاجة إلى الهواء.",
+                          "أشعر بالضيق أو الانقباض في صدري.",
+                          "يتطلب تنفسي جهدًا ذهنيًا أو تركيزًا.",
+                          "أتنفس كثيرًا.",
+                        ],
+                        ///// on answer sellected.
+                        onAnswerSelected: (String answer) {
+                          setState(() {
+                            selectedAnswer = answer;
+                          });
+                        },
+                      )
+                    : switchBodyNum6(
+                        bodyIndex,
+                        selectedAnswer: selectedAnswer,
+                      ),
+                SizedBox(
+                  height: 80,
+                )
               ],
             ),
             Positioned(
@@ -66,11 +96,13 @@ class _MultidimensionalDyspneaScaleScreenState
               child: bodyIndex < 2
                   ? defaultButton(
                       text: "استمرار",
-                      onTap: () {
-                        setState(() {
-                          bodyIndex++;
-                        });
-                      },
+                      onTap: selectedAnswer != null
+                          ? () {
+                              setState(() {
+                                bodyIndex++;
+                              });
+                            }
+                          : null,
                     )
                   : defaultButton(
                       text: "التالى",
@@ -82,16 +114,4 @@ class _MultidimensionalDyspneaScaleScreenState
       ),
     );
   }
-}
-
-Widget _defGreenContainer({
-  required String text,
-}) {
-  return Container(
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(15),
-      color: Color(0xffD0FFBF),
-    ),
-    child: greenNote(text: text),
-  );
 }

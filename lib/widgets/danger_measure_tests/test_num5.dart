@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 import 'package:makeny/widgets/green_note.dart';
-import 'package:makeny/widgets/questions_type/one_answer_check.dart';
+import 'package:makeny/widgets/questions_type/grid_one_answer_check.dart';
 
 Widget testNumber5(
   context, {
@@ -25,7 +25,7 @@ Widget testNumber5(
         ),
       ),
       ////// the green text End   ////
-      const OneAnswerCheck(
+      const GridOneAnswerCheck(
         questionsText: "نشاط الاستحمام ؟",
         answers: [
           "لم اقم بهذا النشاط\n( 0 )",
@@ -35,7 +35,7 @@ Widget testNumber5(
           "محدود بشكل خفيف\n( 18 ~10 )",
         ],
       ),
-      const OneAnswerCheck(
+      const GridOneAnswerCheck(
         questionsText: "المشي من مسافة 100 / 250 متر",
         answers: [
           "لم اقم بهذا النشاط\n( 0 )",
@@ -45,7 +45,7 @@ Widget testNumber5(
           "محدود بشكل خفيف\n( 250 ~200 )",
         ],
       ),
-      const OneAnswerCheck(
+      const GridOneAnswerCheck(
         questionsText: "الهرولة او الاسراع (مثل الجري وراء حافلة )",
         answers: [
           "لم اقم بهذا النشاط\n( 0 )",
@@ -55,7 +55,7 @@ Widget testNumber5(
           "محدود بشكل خفيف\n( 18 ~10 )",
         ],
       ),
-      const OneAnswerCheck(
+      const GridOneAnswerCheck(
         questionsText:
             "كم مرة حدث تورم في قدميك او كاحليك  عند الاستيقاذ من النوم خلال الاسبوعين  ؟",
         answers: [
@@ -66,7 +66,7 @@ Widget testNumber5(
           "لم يحدث اطلاقا خلال الاسبوعين",
         ],
       ),
-      const OneAnswerCheck(
+      const GridOneAnswerCheck(
         questionsText:
             "كم مرة اثر فيها ضيق التنفس علي قدرتك بالقيام بما تود القيام به خلال الاسبوعين  ؟",
         answers: [
@@ -77,7 +77,7 @@ Widget testNumber5(
           "لم يحدث اطلاقا خلال الاسبوعين",
         ],
       ),
-      const OneAnswerCheck(
+      const GridOneAnswerCheck(
         questionsText:
             "كم مرة اثر فيها الاجهاد الشديد  علي قدرتك بالقيام بما تود القيام به خلال الاسبوعين  ؟",
         answers: [
@@ -88,7 +88,7 @@ Widget testNumber5(
           "محدود بشكل خفيف\n( 18 ~10 )",
         ],
       ),
-      const OneAnswerCheck(
+      const GridOneAnswerCheck(
         questionsText:
             "كم مرة اضطررت الي النوم جالسا علي كرسي او مسند علي ثلاث وسائد علي الاقل لدعمك بسبب ضيق التنفس   ؟",
         answers: [
@@ -99,7 +99,7 @@ Widget testNumber5(
           "محدود بشكل خفيف\n( 18 ~10 )",
         ],
       ),
-      const OneAnswerCheck(
+      const GridOneAnswerCheck(
         questionsText: "الي اي مدي قلل قصور عضلة القلب من استمتاعك بالحياة ؟",
         answers: [
           "قلل بدرجة كبيره جدا",
@@ -109,7 +109,7 @@ Widget testNumber5(
           "لم يقلل علي الاطلاق",
         ],
       ),
-      const OneAnswerCheck(
+      const GridOneAnswerCheck(
         questionsText:
             "اذا كان عليك ان تقضي بقية حياتك وانت تعاني من قصور عضلة القلب كما هو الان كيف سيكون شعورك حيال ذالك ؟",
         answers: [
@@ -120,7 +120,7 @@ Widget testNumber5(
           "راضي تماما",
         ],
       ),
-      const OneAnswerCheck(
+      const GridOneAnswerCheck(
         questionsText:
             "كيف يوثر قصور عضلة القلب علي نمط حياتك وقلل نشاطك في الهوايات والانشطة الترفيهية خلال الاسبوعين الماضيين ؟",
         answers: [
@@ -132,7 +132,7 @@ Widget testNumber5(
           "لم اقم بهذا النشاط",
         ],
       ),
-      const OneAnswerCheck(
+      const GridOneAnswerCheck(
         questionsText:
             "كيف يوثر قصور عضلة القلب علي نمط حياتك وقلل نشاطك في العمل او الاعمال المنزلية الترفيهية خلال الاسبوعين الماضيين ؟",
         answers: [
@@ -144,7 +144,7 @@ Widget testNumber5(
           "لم اقم بهذا النشاط",
         ],
       ),
-      const OneAnswerCheck(
+      const GridOneAnswerCheck(
         questionsText:
             "كيف يوثر قصور عضلة القلب علي نمط حياتك وقلل نشاطك في زيارة الاقارب والاصدقاء خارج المنزل خلال الاسبوعين الماضيين ؟",
         answers: [

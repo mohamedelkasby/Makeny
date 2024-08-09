@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
+import 'package:makeny/screens/danger_measure_screens/danger_measure_screen.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -119,7 +120,12 @@ class FinishTest extends StatelessWidget {
               right: 0,
               child: defaultButton(
                 text: "احجز طبيبك الان",
-                onTap: () {},
+                onTap: () => Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DangerMeasureScreen(),
+                  ),
+                ),
               ),
             )
           ],

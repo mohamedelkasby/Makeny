@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
+import 'package:makeny/widgets/slider_widget.dart';
 
 class SecondPage extends StatefulWidget {
-  const SecondPage({super.key});
+  const SecondPage({
+    super.key,
+    this.selectedText = "",
+  });
+  final selectedText;
 
   @override
   State<SecondPage> createState() => _SecondPageState();
@@ -36,7 +41,7 @@ class _SecondPageState extends State<SecondPage> {
                 horizontal: 30,
               ),
               child: defalutQuestionText(
-                text: "text",
+                text: widget.selectedText,
                 color: mainColor,
                 align: TextAlign.center,
               ),
@@ -45,35 +50,8 @@ class _SecondPageState extends State<SecondPage> {
         ),
         Padding(
           padding: const EdgeInsets.only(top: 25),
-          child: SliderTheme(
-            data: SliderTheme.of(context).copyWith(
-              valueIndicatorShape: RectangularSliderValueIndicatorShape(),
-              valueIndicatorTextStyle: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
-              valueIndicatorColor: mainColor,
-            ),
-            child: Slider(
-              value: sliderValue,
-              activeColor: mainColor,
-              min: 0,
-              max: 100,
-              divisions: 100,
-              label: "${(sliderValue).round()}%",
-              // autofocus: true,
-              // divisions: 5,
-              onChanged: (value) {
-                setState(() {
-                  sliderValue = value;
-                });
-              },
-            ),
-          ),
+          child: SliderWidget(),
         ),
-
-        /// the slider Start ...
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 15),
           child: Align(

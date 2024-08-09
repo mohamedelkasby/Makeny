@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
+import 'package:makeny/screens/consulation_screens/user_consultations.dart';
 import 'package:makeny/screens/danger_measure_screens/danger_measure_screen.dart';
 import 'package:makeny/screens/quality_of_life_measure_screen.dart';
-import 'package:makeny/screens/consultation/user_consultations.dart';
 import 'package:makeny/screens/user_pages/medical_file.dart';
 
 class GridModel {

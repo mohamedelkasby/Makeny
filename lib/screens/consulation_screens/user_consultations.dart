@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/models/consultation_model.dart';
-import 'package:makeny/screens/consultation/consultation_details.dart';
+import 'package:makeny/screens/consulation_screens/consultation_details.dart';
 import 'package:makeny/widgets/consultation_data.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';
 

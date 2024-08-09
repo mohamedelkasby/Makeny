@@ -10,7 +10,7 @@ import 'package:makeny/widgets/switch_widget.dart';
 class DangerMeasureScreen extends StatefulWidget {
   DangerMeasureScreen({
     super.key,
-    required this.appbar,
+    this.appbar = "مقياس الخطورة",
     this.testNumber = 1,
     this.shortTest = false,
   });
@@ -60,7 +60,7 @@ class _DangerMeasureScreenState extends State<DangerMeasureScreen> {
     print("Current test number: $testNumber");
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      // resizeToAvoidBottomInset: false,
       appBar: defaultAppbar(context, title: appbar),
       body: Padding(
         padding: EdgeInsets.fromLTRB(10, 20, 10, 0),

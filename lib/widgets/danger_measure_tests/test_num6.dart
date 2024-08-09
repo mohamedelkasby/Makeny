@@ -25,13 +25,14 @@ class _TestNumber6State extends State<TestNumber6> {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8),
           child: Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: Color(0xffD0FFBF)),
-              child: greenNote(
-                text:
-                    "يهدف هذا المقياس إلى مساعدتنا لفهم كيف تشعر بتنفسك. لا توجد إجابة صحيحة أو إجابة خاطئة، نريد منك أن تزودنا بالمعلومات المرتبطة بتنفسك.",
-              )),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                color: Color(0xffD0FFBF)),
+            child: greenNote(
+              text:
+                  "يهدف هذا المقياس إلى مساعدتنا لفهم كيف تشعر بتنفسك. لا توجد إجابة صحيحة أو إجابة خاطئة، نريد منك أن تزودنا بالمعلومات المرتبطة بتنفسك.",
+            ),
+          ),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
@@ -60,8 +61,6 @@ class _TestNumber6State extends State<TestNumber6> {
               max: 100,
               divisions: 100,
               label: "${(sliderValue).round()}%",
-              // autofocus: true,
-              // divisions: 5,
               onChanged: (value) {
                 setState(() {
                   sliderValue = value;
