@@ -80,12 +80,15 @@ class _CustomListFieldState extends State<CustomListField> {
             ),
             //// the drop down button with the list
             suffixIcon: widget.suffixText != ""
-                ? Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: defalutQuestionText(
-                      text: widget.suffixText,
-                      color: greyColor,
-                      weight: FontWeight.w300,
+                ? Directionality(
+                    textDirection: TextDirection.ltr,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: defalutQuestionText(
+                        text: widget.suffixText,
+                        color: greyColor,
+                        weight: FontWeight.w300,
+                      ),
                     ),
                   )
                 : widget.suffixList.isNotEmpty

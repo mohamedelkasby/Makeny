@@ -64,7 +64,7 @@ Widget defaultButton({
   required final String text,
   final double width = double.infinity,
   required final Function()? onTap,
-  //        ////    change the color with the mainColor that is defined earlier
+  final bool reverseColors = false,
   // Color buttonColor = const Color(0xffFF3255),
 }) {
   return Container(
@@ -72,8 +72,16 @@ Widget defaultButton({
     padding: EdgeInsets.symmetric(vertical: 10),
     child: Container(
       decoration: BoxDecoration(
+        border: Border.all(
+          width: 1,
+          color: mainColor,
+        ),
         borderRadius: BorderRadius.circular(5),
-        color: onTap == null ? mainColor200 : mainColor,
+        color: onTap == null
+            ? mainColor200
+            : reverseColors
+                ? Colors.white
+                : mainColor,
       ),
       width: width,
       height: 54,
@@ -82,7 +90,7 @@ Widget defaultButton({
         child: Text(
           text,
           style: TextStyle(
-            color: Colors.white,
+            color: reverseColors ? mainColor : Colors.white,
             fontSize: 23,
             fontWeight: FontWeight.w600,
           ),
@@ -101,7 +109,7 @@ Widget signButton({
   return Expanded(
     child: ElevatedButton(
       style: ButtonStyle(
-        shape: MaterialStatePropertyAll(
+        shape: WidgetStatePropertyAll(
           ContinuousRectangleBorder(
             side: BorderSide(color: Colors.grey, width: .2),
             borderRadius: BorderRadius.circular(20),
