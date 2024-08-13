@@ -59,43 +59,43 @@ class CustomDropDwonList extends StatefulWidget {
 class _CustomDropDwonListState extends State<CustomDropDwonList> {
   late List<String> gender = widget.gender;
   late String selectedList = gender[0];
-
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
       margin: EdgeInsets.only(top: 10),
-      decoration: BoxDecoration(
-        border: Border.all(width: 1, color: Color(0xffcfcfd0)),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          DropdownButton<String>(
-            value: selectedList,
-            style: TextStyle(
-              fontSize: 16,
-              color: greyColor,
-              fontFamily: "cairo",
-              fontWeight: FontWeight.w300,
-            ),
-            underline: SizedBox(),
-            items: gender.map((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value),
-              );
-            }).toList(),
-            onChanged: (newValue) {
-              setState(() {
-                selectedList = newValue!;
-              });
-            },
-          ),
-          Icon(
-            Icons.keyboard_arrow_down_rounded,
-          ),
-        ],
+      decoration:
+          BoxDecoration(border: Border.all(width: 1, color: Color(0xffcfcfd0))),
+      child: DropdownButton<String>(
+        //// the icon that in the drop down list
+        icon: const Icon(
+          Icons.keyboard_arrow_down_rounded,
+        ),
+        //// the value of the choosen in the list
+        value: selectedList,
+        //// the style of the drop down list
+        style: TextStyle(
+          fontSize: 16,
+          color: greyColor,
+          fontFamily: "cairo",
+          fontWeight: FontWeight.w300,
+        ),
+        //// remove the under line of the suffex
+        underline: SizedBox(),
+        ////// the items in the list
+        items: gender.map((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(value),
+          );
+        }).toList(),
+        onChanged: (newValue) {
+          ////mfdm.mfvmlld;
+          setState(() {
+            selectedList = newValue!;
+            // print(selectedList);
+          });
+        },
       ),
     );
   }
