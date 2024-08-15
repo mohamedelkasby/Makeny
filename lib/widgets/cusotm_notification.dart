@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:makeny/cubit/cubit.dart';
-import 'package:makeny/cubit/status.dart';
+import 'package:makeny/cubits/cubit.dart';
+import 'package:makeny/cubits/notificationCubit/cubit/notification_cubit.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 
@@ -23,12 +23,12 @@ class CustomNotification extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppCubit cubit = AppCubit.get(context);
+    NotificationCubit cubit = NotificationCubit.get(context);
 
     // bool newNotification = cubit.newNotification;
     final Color forgroundColor =
         newNotification == true ? mainColor400 : greyborderColor;
-    return BlocBuilder<AppCubit, AppState>(
+    return BlocBuilder<NotificationCubit, NotificationState>(
       builder: (context, state) {
         return Padding(
           padding: const EdgeInsets.only(top: 10),

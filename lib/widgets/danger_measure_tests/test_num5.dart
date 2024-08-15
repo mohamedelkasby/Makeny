@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 import 'package:makeny/widgets/green_note.dart';
 import 'package:makeny/widgets/questions_type/grid_one_answer_check.dart';
 
@@ -8,26 +7,21 @@ Widget testNumber5(
   final yesOrNoQuestions = const [],
 }) {
   return Column(
-    // shrinkWrap: true,
     children: [
       ////// the green text Start   ////
       Padding(
         padding: const EdgeInsets.symmetric(vertical: 8),
-        child: Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: const Color(0xffD0FFBF)),
-          child: greenNote(
-            text:
-                "يؤثر القصور الوظيفي لعضلة القلب علي مختلف الاشخاص بطرقة مختلفة حيث يشعر البعض بضيق التنفس واخرين بالاجهاد الشديد.\nمن فضللك بين مدي نشاطك علي مدار الاسبوعين الاخيرين .",
-            headerText: "تنوية",
-          ),
+        child: greenNote(
+          text:
+              "يؤثر القصور الوظيفي لعضلة القلب علي مختلف الاشخاص بطرقة مختلفة حيث يشعر البعض بضيق التنفس واخرين بالاجهاد الشديد.\nمن فضللك بين مدي نشاطك علي مدار الاسبوعين الاخيرين .",
+          headerText: "تنوية",
         ),
       ),
       ////// the green text End   ////
-      const GridOneAnswerCheck(
+      GridOneAnswerCheck(
+        onAnswerSelected: (_) {},
         questionsText: "نشاط الاستحمام ؟",
-        answers: [
+        answers: const [
           "لم اقم بهذا النشاط\n( 0 )",
           "محدود بدرجة كبيرة\n( 4 ~1 )",
           "محدود بشدة\n( 7 ~ 4 )",
@@ -35,9 +29,10 @@ Widget testNumber5(
           "محدود بشكل خفيف\n( 18 ~10 )",
         ],
       ),
-      const GridOneAnswerCheck(
+      GridOneAnswerCheck(
+        onAnswerSelected: (_) {},
         questionsText: "المشي من مسافة 100 / 250 متر",
-        answers: [
+        answers: const [
           "لم اقم بهذا النشاط\n( 0 )",
           "محدود بدرجة كبيرة\n( 50 ~ 10 )",
           "محدود بشدة\n( 100 ~ 50 )",
@@ -45,9 +40,10 @@ Widget testNumber5(
           "محدود بشكل خفيف\n( 250 ~200 )",
         ],
       ),
-      const GridOneAnswerCheck(
+      GridOneAnswerCheck(
+        onAnswerSelected: (_) {},
         questionsText: "الهرولة او الاسراع (مثل الجري وراء حافلة )",
-        answers: [
+        answers: const [
           "لم اقم بهذا النشاط\n( 0 )",
           "محدود بدرجة كبيرة\n( 4 ~1 )",
           "محدود بشدة\n( 7 ~ 4 )",
@@ -55,10 +51,11 @@ Widget testNumber5(
           "محدود بشكل خفيف\n( 18 ~10 )",
         ],
       ),
-      const GridOneAnswerCheck(
+      GridOneAnswerCheck(
+        onAnswerSelected: (_) {},
         questionsText:
             "كم مرة حدث تورم في قدميك او كاحليك  عند الاستيقاذ من النوم خلال الاسبوعين  ؟",
-        answers: [
+        answers: const [
           "كل الاوقات",
           "3 مرات او اكثر في الاسبوع",
           "مرة واحدة او مرتين في الاسبوع",
@@ -66,10 +63,11 @@ Widget testNumber5(
           "لم يحدث اطلاقا خلال الاسبوعين",
         ],
       ),
-      const GridOneAnswerCheck(
+      GridOneAnswerCheck(
+        onAnswerSelected: (_) {},
         questionsText:
             "كم مرة اثر فيها ضيق التنفس علي قدرتك بالقيام بما تود القيام به خلال الاسبوعين  ؟",
-        answers: [
+        answers: const [
           "كل الاوقات",
           "3 مرات او اكثر في الاسبوع",
           "مرة واحدة او مرتين في الاسبوع",
@@ -77,10 +75,11 @@ Widget testNumber5(
           "لم يحدث اطلاقا خلال الاسبوعين",
         ],
       ),
-      const GridOneAnswerCheck(
+      GridOneAnswerCheck(
+        onAnswerSelected: (_) {},
         questionsText:
             "كم مرة اثر فيها الاجهاد الشديد  علي قدرتك بالقيام بما تود القيام به خلال الاسبوعين  ؟",
-        answers: [
+        answers: const [
           "لم اقم بهذا النشاط\n( 0 )",
           "محدود بدرجة كبيرة\n( 4 ~1 )",
           "محدود بشدة\n( 7 ~ 4 )",
@@ -88,10 +87,11 @@ Widget testNumber5(
           "محدود بشكل خفيف\n( 18 ~10 )",
         ],
       ),
-      const GridOneAnswerCheck(
+      GridOneAnswerCheck(
+        onAnswerSelected: (_) {},
         questionsText:
             "كم مرة اضطررت الي النوم جالسا علي كرسي او مسند علي ثلاث وسائد علي الاقل لدعمك بسبب ضيق التنفس   ؟",
-        answers: [
+        answers: const [
           "لم اقم بهذا النشاط\n( 0 )",
           "محدود بدرجة كبيرة\n( 4 ~1 )",
           "محدود بشدة\n( 7 ~ 4 )",
@@ -99,9 +99,10 @@ Widget testNumber5(
           "محدود بشكل خفيف\n( 18 ~10 )",
         ],
       ),
-      const GridOneAnswerCheck(
+      GridOneAnswerCheck(
+        onAnswerSelected: (_) {},
         questionsText: "الي اي مدي قلل قصور عضلة القلب من استمتاعك بالحياة ؟",
-        answers: [
+        answers: const [
           "قلل بدرجة كبيره جدا",
           "قلل بدرجة كبيره",
           "قلل بدرجة متوسطة",
@@ -109,10 +110,11 @@ Widget testNumber5(
           "لم يقلل علي الاطلاق",
         ],
       ),
-      const GridOneAnswerCheck(
+      GridOneAnswerCheck(
+        onAnswerSelected: (_) {},
         questionsText:
             "اذا كان عليك ان تقضي بقية حياتك وانت تعاني من قصور عضلة القلب كما هو الان كيف سيكون شعورك حيال ذالك ؟",
-        answers: [
+        answers: const [
           "غير راضي تماما",
           "غير راضي تماما في الغالب",
           "راضي الي حد ما",
@@ -120,10 +122,11 @@ Widget testNumber5(
           "راضي تماما",
         ],
       ),
-      const GridOneAnswerCheck(
+      GridOneAnswerCheck(
+        onAnswerSelected: (_) {},
         questionsText:
             "كيف يوثر قصور عضلة القلب علي نمط حياتك وقلل نشاطك في الهوايات والانشطة الترفيهية خلال الاسبوعين الماضيين ؟",
-        answers: [
+        answers: const [
           "مقيد بشدة",
           "مقيد بدرجة كبيرة",
           "مقيد بدرجة متوسطة",
@@ -132,10 +135,11 @@ Widget testNumber5(
           "لم اقم بهذا النشاط",
         ],
       ),
-      const GridOneAnswerCheck(
+      GridOneAnswerCheck(
+        onAnswerSelected: (_) {},
         questionsText:
             "كيف يوثر قصور عضلة القلب علي نمط حياتك وقلل نشاطك في العمل او الاعمال المنزلية الترفيهية خلال الاسبوعين الماضيين ؟",
-        answers: [
+        answers: const [
           "مقيد بشدة",
           "مقيد بدرجة كبيرة",
           "مقيد بدرجة متوسطة",
@@ -144,10 +148,11 @@ Widget testNumber5(
           "لم اقم بهذا النشاط",
         ],
       ),
-      const GridOneAnswerCheck(
+      GridOneAnswerCheck(
+        onAnswerSelected: (_) {},
         questionsText:
             "كيف يوثر قصور عضلة القلب علي نمط حياتك وقلل نشاطك في زيارة الاقارب والاصدقاء خارج المنزل خلال الاسبوعين الماضيين ؟",
-        answers: [
+        answers: const [
           "مقيد بشدة",
           "مقيد بدرجة كبيرة",
           "مقيد بدرجة متوسطة",

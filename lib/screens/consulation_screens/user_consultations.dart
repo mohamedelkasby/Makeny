@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:makeny/extentions/colors.dart';
-import 'package:makeny/models/consultation_model.dart';
+import 'package:makeny/models/doctor_model.dart';
 import 'package:makeny/screens/consulation_screens/consultation_details.dart';
 import 'package:makeny/widgets/consultation_data.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';
@@ -18,24 +17,28 @@ class UserConsultations extends StatelessWidget {
           children: [
             consultionsData(
               context,
-              img: "assets/doctors/doc.jpg",
-              specialty: "جراحة قلب",
-              docName: 'بروف.علي الباراتي ',
-              status: "مفتوحة",
-              statusColor: Color(0xff0EBE7F),
+              img: dr2.drImage,
+              specialty: dr2.specialty,
+              docName: dr2.drName,
+              status: "مفتوحه",
+              // statusColor: Color(0xff0EBE7F),
               theScreen: ConsultationDetails(
-                datamodel: doctor1,
+                doctorName: dr2.drName,
+                // TODO: we can't declare this here change it when create the reservation page
+                status: "مفتوحه",
               ),
             ),
             consultionsData(
               context,
-              img: "assets/doctors/doc-1.png",
-              specialty: "جراحة قلب",
-              docName: 'بروف.راكان ناظر ',
-              status: "ملغاه",
-              statusColor: mainColor,
+              img: dr1.drImage,
+              specialty: dr1.specialty,
+              docName: dr1.drName,
+              status: "مفتوحه",
+              // statusColor: mainColor,
               theScreen: ConsultationDetails(
-                datamodel: doctor2,
+                doctorName: dr1
+                    .drName, // TODO: we can't declare this here change it when create the reservation page
+                status: "مفتوحه",
               ),
             ),
           ],

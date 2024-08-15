@@ -37,6 +37,9 @@ Widget doctorContainer(
               bottom: 0,
               right: 0,
               child: Container(
+                constraints: BoxConstraints(
+                  maxWidth: MediaQuery.of(context).size.width * 0.47,
+                ),
                 padding: EdgeInsets.fromLTRB(8, 2, 4, 2),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(

@@ -1,26 +1,84 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:makeny/extentions/colors.dart';
-import 'package:makeny/models/consultation_model.dart';
-import 'package:makeny/models/test_Checkboxe_modle.dart';
+import 'package:makeny/models/doctor_model.dart';
+import 'package:makeny/models/checkbox_test_model.dart';
+import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';
 
 class ConsultationDetails extends StatefulWidget {
   const ConsultationDetails({
     super.key,
-    required this.datamodel,
+    required this.doctorName,
+    required this.status,
   });
 
-  final ConsultationModel datamodel;
+  final String doctorName;
+  final String status;
 
   @override
   State<ConsultationDetails> createState() => _ConsultationDetailsState();
 }
 
-class _ConsultationDetailsState extends State<ConsultationDetails> {
+DoctorsData findModel(String doctorName) {
+  late DoctorsData model;
+  for (var element in doctors) {
+    if (element.drName == doctorName) {
+      model = element;
+      break;
+    }
+  }
+  return model;
+}
+
+class _ConsultationDetailsState extends State<ConsultationDetails>
+    with SingleTickerProviderStateMixin {
+  late DoctorsData dataModel;
+  late String status = widget.status;
+  late final TabController _tabController;
+
+  @override
+  void initState() {
+    dataModel = findModel(widget.doctorName);
+    if (allTestsChecked()) {
+      status = "مكتملة";
+    }
+    _tabController = TabController(length: 2, vsync: this);
+    _tabController.addListener(() {
+      setState(() {
+        if (_tabController.index == 1) {
+          status = "ملغاه";
+        } else if (allTestsChecked()) {
+          status = "مكتملة";
+        } else {
+          status = "مفتوحه";
+        }
+      });
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  bool allTestsChecked() {
+    // if (
+    //   tests.contains(
+    //   (element) =>element,
+    // )
+    // ) ;
+    return tests.every((element) => element.isChecked == true);
+  }
+
   @override
   Widget build(BuildContext context) {
+    List heartDisese = [
+      "ممارسة الرياضة ٥ مرات/الأسبوع",
+      "رياضة المقاومة مرتين/الأسبوع",
+    ]; // change the name.
     return Scaffold(
       appBar: defaultAppbar(
         context,
@@ -38,13 +96,13 @@ class _ConsultationDetailsState extends State<ConsultationDetails> {
                   child: CircleAvatar(
                     radius: 60,
                     foregroundImage: AssetImage(
-                      widget.datamodel.doctorImg,
+                      dataModel.drImage,
                     ),
                   ),
                 ),
                 Text(
-                  widget.datamodel.doctorName,
-                  style: TextStyle(
+                  dataModel.drName,
+                  style: const TextStyle(
                     fontSize: 20,
                     color: Color(
                       0xff6C7380,
@@ -56,15 +114,17 @@ class _ConsultationDetailsState extends State<ConsultationDetails> {
                   padding: const EdgeInsets.symmetric(vertical: 15),
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Color(0xff44CC6A),
+                      color: const Color(0xff44CC6A),
                       borderRadius: BorderRadius.circular(5),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 25, vertical: 5),
                       child: Text(
-                        widget.datamodel.specialization,
-                        style: TextStyle(color: Colors.white),
+                        dataModel.drRole,
+                        style: const TextStyle(
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
@@ -75,11 +135,12 @@ class _ConsultationDetailsState extends State<ConsultationDetails> {
                     Row(
                       children: [
                         SvgPicture.asset("assets/icons/deta.svg"),
-                        SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
-                        Text(
-                          widget.datamodel.date,
+                        const Text(
+                          // widget.dataModel.date,
+                          "2024/5/8",
                           style: TextStyle(
                             color: Color(0xff6C7380),
                             fontSize: 16,
@@ -90,11 +151,12 @@ class _ConsultationDetailsState extends State<ConsultationDetails> {
                     Row(
                       children: [
                         SvgPicture.asset("assets/icons/clock.svg"),
-                        SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
-                        Text(
-                          widget.datamodel.time,
+                        const Text(
+                          // widget.dataModel.time,
+                          "9:30",
                           style: TextStyle(
                             color: Color(0xff6C7380),
                             fontSize: 16,
@@ -104,10 +166,10 @@ class _ConsultationDetailsState extends State<ConsultationDetails> {
                     ),
                     Row(children: [
                       SvgPicture.asset("assets/icons/cam-2.svg"),
-                      SizedBox(
+                      const SizedBox(
                         width: 5,
                       ),
-                      Text(
+                      const Text(
                         "اون لاين",
                         style: TextStyle(
                           color: Color(0xff6C7380),
@@ -120,19 +182,21 @@ class _ConsultationDetailsState extends State<ConsultationDetails> {
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
-                            color: Color(0xff0EBE7F),
+                            color: status == "ملغاه"
+                                ? mainColor
+                                : const Color(0xff0EBE7F),
                           ),
-                          child: SizedBox(
+                          child: const SizedBox(
                             width: 10,
                             height: 10,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
                         Text(
-                          "مفتوحه",
-                          style: TextStyle(
+                          status,
+                          style: const TextStyle(
                             color: Color(0xff6C7380),
                             fontSize: 16,
                           ),
@@ -144,6 +208,7 @@ class _ConsultationDetailsState extends State<ConsultationDetails> {
               ],
             ),
           ),
+          ///////// here start the tabs
           DefaultTabController(
             length: 2,
             child: Expanded(
@@ -152,6 +217,17 @@ class _ConsultationDetailsState extends State<ConsultationDetails> {
                 child: Column(
                   children: [
                     TabBar(
+                      controller: _tabController,
+                      // onTap: (value) {
+                      //   if (value == 1) {
+                      //     status = "ملغاه";
+                      //   } else if (allTestsChecked()) {
+                      //     status = "مكتملة";
+                      //   } else {
+                      //     status = "مفتوحه";
+                      //   }
+                      //   setState(() {});
+                      // },
                       isScrollable: false,
                       labelStyle: TextStyle(
                         fontFamily: "cairo",
@@ -159,7 +235,7 @@ class _ConsultationDetailsState extends State<ConsultationDetails> {
                         color: mainColor,
                       ),
                       indicatorSize: TabBarIndicatorSize.tab,
-                      tabs: [
+                      tabs: const [
                         Tab(
                           text: 'المهام ',
                         ),
@@ -175,78 +251,89 @@ class _ConsultationDetailsState extends State<ConsultationDetails> {
                     ),
                     Expanded(
                       child: TabBarView(
+                        controller: _tabController,
                         children: [
-                          ListView.builder(
-                            itemCount: test.length,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 8,
-                                  horizontal: 10,
-                                ),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Color(0xffEBEBEB),
-                                    borderRadius: BorderRadius.circular(10),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5),
+                            child: ListView.builder(
+                              itemCount: tests.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 8,
+                                    horizontal: 10,
                                   ),
-                                  child: CheckboxListTile(
-                                    checkboxShape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    contentPadding: EdgeInsets.symmetric(
-                                      horizontal: 10,
-                                      vertical: 2,
-                                    ),
-                                    side: BorderSide(
-                                        width: 1.0, color: mainColor200),
-                                    activeColor: mainColor,
-                                    title: Text(
-                                      test[index].nameTest,
-                                      style: TextStyle(
-                                        color: Color.fromARGB(196, 51, 51, 51),
-                                        fontWeight: FontWeight.w500,
+                                  child: InkWell(
+                                    splashColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () {
+                                      allTestsChecked();
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              tests[index].testPage,
+                                        ),
+                                      ).then((value) {
+                                        if (value == true) {
+                                          setState(() {
+                                            tests[index].isChecked = true;
+                                          });
+                                        }
+                                        if (allTestsChecked()) {
+                                          status = "مكتملة";
+                                        }
+                                      });
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: const Color(0xffEBEBEB),
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          vertical: 20,
+                                          horizontal: 15,
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            textNormal(
+                                              text: tests[index].testName,
+                                              textColor: Color(0xff6A6A6A),
+                                            ),
+                                            // Text(
+                                            // ),
+                                            SvgPicture.asset(
+                                              tests[index].isChecked
+                                                  ? "assets/icons/checked_box.svg"
+                                                  : "assets/icons/unchecked_box.svg",
+                                              width: 20,
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                    value: test[index].checkedOrNot,
-                                    onChanged: (bool? value) {
-                                      setState(
-                                        () {
-                                          test[index].checkedOrNot = value!;
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    test[index].namePage,
-                                              ));
-                                        },
-                                      );
-                                    },
                                   ),
-                                ),
-                              );
-                            },
+                                );
+                              },
+                            ),
                           ),
                           Padding(
                             padding: const EdgeInsets.symmetric(
                               horizontal: 10,
                               vertical: 20,
                             ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "1 - ممارسة الرياضة ٥ مرات/الأسبوع",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                            child: ListView.builder(
+                              itemCount: heartDisese.length,
+                              itemBuilder: (context, index) => Text(
+                                "${index + 1} - ${heartDisese[index]}",
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 17,
                                 ),
-                                Text(
-                                  "2 - رياضة المقاومة مرتين/الأسبوع",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
                           ),
                         ],

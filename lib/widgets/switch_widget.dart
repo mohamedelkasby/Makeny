@@ -29,11 +29,11 @@ Widget switchPagesTest(
     case 5:
       return testNumber5(context);
     case 6:
-      return TestNumber6();
+      return const TestNumber6();
     case 7:
       return TestNumber1(yesOrNoQuestions: yesOrNoQuestions);
     default:
-      return SizedBox();
+      return const SizedBox();
   }
 }
 

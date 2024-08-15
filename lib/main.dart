@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:makeny/cubit/cubit.dart';
-import 'package:makeny/cubit/status.dart';
+import 'package:makeny/cubits/cubit.dart';
+import 'package:makeny/cubits/status.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:makeny/screens/entry_pages/splash_screen.dart';
@@ -17,16 +17,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     /////// change the color of statusbar and the icons in it ///////
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent, // status bar color
-        statusBarIconBrightness: Brightness.light, // status bar icon color
-      ),
-    );
     return BlocProvider(
       create: (context) => AppCubit(),
       child: BlocBuilder<AppCubit, AppState>(
         builder: (context, state) {
+          SystemChrome.setSystemUIOverlayStyle(
+            SystemUiOverlayStyle(
+              statusBarColor: Color(0xffFBFBFB), // status bar color
+              statusBarIconBrightness: Brightness.dark, // status bar icon color
+            ),
+          );
           return MaterialApp(
             ////         for language        ..................
             localizationsDelegates: const [
@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
               Locale('ar', ''), // Arabic, no country code
               Locale('en', ''), // english, no country code
             ],
-            locale: Locale("ar", ''), // Force RTL layout
+            locale: Locale(AppCubit.get(context).lang, ''), // Force RTL layout
 
             theme: ThemeData(
               /// app bar color
@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
               scaffoldBackgroundColor: Colors.white,
               // the font style
               fontFamily: 'Cairo',
-              // primarySwatch: Colors.deepOrange,
+              primarySwatch: Colors.deepOrange,
 
               floatingActionButtonTheme: FloatingActionButtonThemeData(
                 backgroundColor: mainColor,

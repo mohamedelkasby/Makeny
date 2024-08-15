@@ -64,7 +64,7 @@ Widget defaultButton({
   required final String text,
   final double width = double.infinity,
   required final Function()? onTap,
-  //        ////    change the color with the mainColor that is defined earlier
+
   // Color buttonColor = const Color(0xffFF3255),
 }) {
   return Container(

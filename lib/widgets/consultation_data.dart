@@ -8,19 +8,21 @@ Widget consultionsData(
   required String specialty,
   required String docName,
   required String status,
-  required Color statusColor,
+  // required Color statusColor,
   required Widget theScreen,
 }) {
-  return InkWell(
-    onTap: () {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => theScreen,
-          ));
-    },
-    child: Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5),
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 5),
+    child: InkWell(
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => theScreen,
+            ));
+      },
       child: Container(
         decoration: BoxDecoration(
           color: Color(0xffF3FAFF),
@@ -28,7 +30,7 @@ Widget consultionsData(
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Stack(
               children: [
@@ -47,14 +49,16 @@ Widget consultionsData(
                     left: 0,
                     child: Container(
                       decoration: BoxDecoration(
-                          color: mainColor,
-                          borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(5),
-                              bottomRight: Radius.circular(5))),
+                        color: mainColor,
+                        borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(5),
+                          bottomRight: Radius.circular(5),
+                        ),
+                      ),
                       child: Text(
                         specialty,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                         ),
                       ),
@@ -111,7 +115,8 @@ Widget consultionsData(
                       Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
-                          color: statusColor,
+                          color:
+                              status == "ملغاه" ? mainColor : Color(0xff0EBE7F),
                         ),
                         child: SizedBox(
                           width: 10,

@@ -20,6 +20,8 @@ class TestNumber3 extends StatefulWidget {
 class _TestNumber3State extends State<TestNumber3> {
   File? _pickedImage; // تغير اسم المتغير ليكون أكثر وضوحًا
 
+  bool allQuestionsAnswered = false;
+
   Future<void> _pickImage() async {
     final result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
@@ -41,6 +43,11 @@ class _TestNumber3State extends State<TestNumber3> {
       children: [
         YesOrNoQuestions(
           questionsText: widget.yesOrNoQuestions,
+          onAllQuestionsAnswered: (allAnswered) {
+            setState(() {
+              allQuestionsAnswered = allAnswered;
+            });
+          },
         ),
         Padding(
           padding: const EdgeInsets.only(top: 20, bottom: 10),

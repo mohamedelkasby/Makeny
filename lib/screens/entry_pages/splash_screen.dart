@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'dart:async';
 
 import 'package:makeny/screens/entry_pages/defenition_screen.dart';
@@ -44,6 +45,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+
     return Directionality(
       textDirection: TextDirection.ltr,
       child: Scaffold(
@@ -54,14 +57,6 @@ class _SplashScreenState extends State<SplashScreen> {
             if (_isVisible.every((element) => element == false)) {
               _startFadeSequence();
             }
-            // else if (_isVisible.every((element) => element == true)) {
-            //   Navigator.pushReplacement(
-            //     context,
-            //     MaterialPageRoute(
-            //       builder: (context) => DefenitionScreen(),
-            //     ),
-            //   );
-            // }
           },
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

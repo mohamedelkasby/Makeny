@@ -4,14 +4,17 @@ import 'package:makeny/screens/next_test_screen.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';
+import 'package:makeny/widgets/pop_multiple_pages.dart';
 import 'package:makeny/widgets/switch_widget.dart';
 
 class QualityOfLifeMeasureScreen extends StatelessWidget {
   const QualityOfLifeMeasureScreen({
     super.key,
     this.testNumber = 1,
+    this.checkBoxMission = false,
   });
   final int testNumber;
+  final bool checkBoxMission;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,6 +90,8 @@ class QualityOfLifeMeasureScreen extends StatelessWidget {
                           MaterialPageRoute(
                             builder: (context) => QualityOfLifeMeasureScreen(
                               testNumber: testNumber + 1,
+                              checkBoxMission:
+                                  checkBoxMission == true ? true : false,
                             ),
                           ),
                         );
@@ -94,17 +99,25 @@ class QualityOfLifeMeasureScreen extends StatelessWidget {
                     )
                   : defaultButton(
                       text: "انتهاء",
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => NextTestScreen(
-                            appbar: "تحليل اجاباتك",
-                            testNumber:
-                                9, // 9 is the number that give me the page i want do not change
-                          ),
-                        ),
-                      ),
-                    ),
+                      onTap: () => checkBoxMission
+                          ? popMultiplePages(
+                              context: context, pagesToPop: 6, data: true)
+                          : {
+                              popMultiplePages(
+                                context: context,
+                                pagesToPop: 6,
+                              ),
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => NextTestScreen(
+                                    appbar: "تحليل اجاباتك",
+                                    testNumber:
+                                        9, // 9 is the number that give me the page i want do not change
+                                  ),
+                                ),
+                              ),
+                            }),
             )
           ],
         ),
