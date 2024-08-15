@@ -43,13 +43,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       ),
     );
 
-    // _fadeAnimation = Tween<double>(begin: 0, end: 1).animate(
-    //   CurvedAnimation(
-    //     parent: _animationController,
-    //     curve: Interval(0.0, 0.1, curve: Curves.easeInOut),
-    //   ),
-    // );
-
     _animationController.repeat();
     _animationController.addListener(_onAnimationChanged);
   }

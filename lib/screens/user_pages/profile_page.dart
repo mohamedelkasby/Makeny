@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:makeny/screens/user_pages/edit_user_profile.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';
 import 'package:makeny/widgets/users_data.dart';
@@ -94,7 +95,17 @@ class ProfilePage extends StatelessWidget {
             defaultButton(
               text: "حمل ك pdf",
               onTap: () {},
-            )
+            ),
+            defaultButton(
+              text: "تعديل البيانات",
+              reverseColors: true,
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => EditUserProfile(),
+                ),
+              ),
+            ),
           ],
         ),
       ),

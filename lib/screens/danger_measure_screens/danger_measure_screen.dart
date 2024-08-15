@@ -8,15 +8,15 @@ import 'package:makeny/widgets/defualt_appbar.dart';
 import 'package:makeny/widgets/switch_widget.dart';
 
 class DangerMeasureScreen extends StatefulWidget {
-  DangerMeasureScreen({
+  const DangerMeasureScreen({
     super.key,
     this.appbar = "مقياس الخطورة",
     this.testNumber = 1,
     this.shortTest = false,
   });
   final String appbar;
-  int testNumber;
-  bool shortTest;
+  final int testNumber;
+  final bool shortTest;
 
   @override
   State<DangerMeasureScreen> createState() => _DangerMeasureScreenState();

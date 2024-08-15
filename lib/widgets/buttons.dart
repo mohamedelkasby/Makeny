@@ -64,7 +64,7 @@ Widget defaultButton({
   required final String text,
   final double width = double.infinity,
   required final Function()? onTap,
-
+  final bool reverseColors = false,
   // Color buttonColor = const Color(0xffFF3255),
 }) {
   return Container(
@@ -72,8 +72,16 @@ Widget defaultButton({
     padding: EdgeInsets.symmetric(vertical: 10),
     child: Container(
       decoration: BoxDecoration(
+        border: Border.all(
+          width: 1,
+          color: mainColor,
+        ),
         borderRadius: BorderRadius.circular(5),
-        color: onTap == null ? mainColor200 : mainColor,
+        color: onTap == null
+            ? mainColor200
+            : reverseColors
+                ? Colors.white
+                : mainColor,
       ),
       width: width,
       height: 54,
@@ -82,7 +90,7 @@ Widget defaultButton({
         child: Text(
           text,
           style: TextStyle(
-            color: Colors.white,
+            color: reverseColors ? mainColor : Colors.white,
             fontSize: 23,
             fontWeight: FontWeight.w600,
           ),
@@ -102,6 +110,7 @@ Widget signButton({
     child: ElevatedButton(
       style: ButtonStyle(
         shape: MaterialStatePropertyAll(
+          //Read this line ahmed: don't change this cause my flutter isn't upgraded yet so its read it as an error
           ContinuousRectangleBorder(
             side: BorderSide(color: Colors.grey, width: .2),
             borderRadius: BorderRadius.circular(20),
