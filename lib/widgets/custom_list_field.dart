@@ -5,9 +5,11 @@ import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 class CustomListField extends StatefulWidget {
   final List<String> suffixList;
   final String suffixText;
+  final Widget suffixIcon;
   final bool enable;
   final String qustionText;
   final String hintText;
+  final TextInputType keyboardType;
 
   const CustomListField({
     super.key,
@@ -16,6 +18,8 @@ class CustomListField extends StatefulWidget {
     this.suffixText = "",
     required this.qustionText,
     this.hintText = "",
+    this.suffixIcon = const SizedBox(),
+    this.keyboardType = const TextInputType.numberWithOptions(),
   });
 
   @override
@@ -49,7 +53,7 @@ class _CustomListFieldState extends State<CustomListField> {
           //   value.isNotEmpty?
           // },
 
-          keyboardType: TextInputType.numberWithOptions(),
+          keyboardType: widget.keyboardType,
           enabled: widget.enable,
           decoration: InputDecoration(
             //// hint text and the style of hint text
@@ -122,7 +126,7 @@ class _CustomListFieldState extends State<CustomListField> {
                           });
                         },
                       )
-                    : SizedBox(),
+                    : widget.suffixIcon,
             ////
             suffixIconConstraints:
                 const BoxConstraints(minHeight: 0, minWidth: 0),
