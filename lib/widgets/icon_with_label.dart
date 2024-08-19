@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:makeny/cubit/cubit.dart';
+import 'package:makeny/cubits/cubit.dart';
 import 'package:makeny/extentions/colors.dart';
 
 Widget iconWithLabel(

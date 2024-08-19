@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
-import 'package:makeny/widgets/danger_measure_tests/body_test_num6/second_page.dart';
 import 'package:makeny/widgets/danger_measure_tests/body_test_num6/switch_body_num6.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';
 import 'package:makeny/widgets/green_note.dart';

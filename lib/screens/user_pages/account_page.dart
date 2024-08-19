@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:makeny/cubit/cubit.dart';
+import 'package:makeny/cubits/cubit.dart';
+import 'package:makeny/cubits/status.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/screens/about_makeny/about_Us_screen.dart';
 import 'package:makeny/screens/about_makeny/services_screen.dart';
@@ -18,6 +21,7 @@ class AccountPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String userName = AppCubit.get(context).userName;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Column(
@@ -69,24 +73,36 @@ class AccountPage extends StatelessWidget {
                       thePage: editNameDialoge(
                         context,
                         name: userName,
+                        onNameChanged: (newName) {
+                          // setState(() {
+                          AppCubit.get(context).editeName(newName);
+                          context.read<AppCubit>;
+                          // print({AppCubit.get(context).editeName(newName)});
+
+                          // });
+                        },
                       ),
                     ),
-                    child: Row(
-                      children: [
-                        Text(
-                          userName,
-                          style: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        SvgPicture.asset(
-                          'assets/icons/edit.svg',
-                        ),
-                      ],
+                    child: BlocBuilder<AppCubit, AppState>(
+                      builder: (context, state) {
+                        return Row(
+                          children: [
+                            Text(
+                              userName,
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            SvgPicture.asset(
+                              'assets/icons/edit.svg',
+                            ),
+                          ],
+                        );
+                      },
                     ),
                   ),
                   SizedBox(
@@ -183,7 +199,9 @@ class AccountPage extends StatelessWidget {
                   icon: "assets/icons/lan.svg",
                   text: "اللغة",
                   subText: "Change to english",
-                  onTap: () {},
+                  onTap: () {
+                    AppCubit.get(context).changeLang();
+                  },
                 ),
                 textIconNavigator(
                   icon: "assets/icons/logout.svg",

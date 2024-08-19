@@ -1,6 +1,7 @@
 class DoctorsData {
   final String drName;
   final String drRole;
+  final String specialty;
   final String drImage;
   final String experience;
   final List<String> aboutDrTobics;
@@ -8,6 +9,7 @@ class DoctorsData {
   DoctorsData({
     required this.drName,
     required this.drRole,
+    required this.specialty,
     required this.drImage,
     required this.experience,
     required this.aboutDrTobics,
@@ -17,6 +19,7 @@ class DoctorsData {
 DoctorsData dr1 = DoctorsData(
   drName: "بروف. راكان إبراهيم ناظر",
   drRole: "أستاذ وإستشاري جراحة القلب",
+  specialty: "جراحة قلب",
   drImage: "assets/doctors/doc-1.png",
   experience: "5 سنوات",
   aboutDrTobics: [
@@ -27,6 +30,7 @@ DoctorsData dr1 = DoctorsData(
 DoctorsData dr2 = DoctorsData(
   drName: "بروف. علي مفرح البراتي",
   drRole: "استشاري تأهيل القلب و الجهاز التنفسي",
+  specialty: "تأهيل قلب",
   drImage: "assets/doctors/doc.jpg",
   experience: "5 سنوات",
   aboutDrTobics: [

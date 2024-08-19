@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:makeny/cubit/cubit.dart';
-import 'package:makeny/cubit/status.dart';
+import 'package:makeny/cubits/cubit.dart';
+import 'package:makeny/cubits/status.dart';
 import 'package:makeny/widgets/custom_list_field.dart';
 import 'package:makeny/widgets/green_note.dart';
 import 'package:makeny/widgets/questions_type/yes_or_no_question.dart';
 
-class TestNumber1 extends StatelessWidget {
+class TestNumber1 extends StatefulWidget {
   const TestNumber1({
     super.key,
     this.yesOrNoQuestions = const [],
   });
   final List<String> yesOrNoQuestions;
+
+  @override
+  State<TestNumber1> createState() => _TestNumber1State();
+}
+
+class _TestNumber1State extends State<TestNumber1> {
+  bool allQuestionsAnswered = false;
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AppCubit, AppState>(
@@ -30,7 +38,12 @@ class TestNumber1 extends StatelessWidget {
                   )),
             ),
             YesOrNoQuestions(
-              questionsText: yesOrNoQuestions,
+              questionsText: widget.yesOrNoQuestions,
+              onAllQuestionsAnswered: (allAnswered) {
+                setState(() {
+                  allQuestionsAnswered = allAnswered;
+                });
+              },
             ),
             const CustomListField(
               suffixList: ["سم", "انش"],

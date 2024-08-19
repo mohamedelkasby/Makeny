@@ -8,15 +8,15 @@ import 'package:makeny/widgets/defualt_appbar.dart';
 import 'package:makeny/widgets/switch_widget.dart';
 
 class DangerMeasureScreen extends StatefulWidget {
-  DangerMeasureScreen({
+  const DangerMeasureScreen({
     super.key,
     this.appbar = "مقياس الخطورة",
     this.testNumber = 1,
     this.shortTest = false,
   });
   final String appbar;
-  int testNumber;
-  bool shortTest;
+  final int testNumber;
+  final bool shortTest;
 
   @override
   State<DangerMeasureScreen> createState() => _DangerMeasureScreenState();
@@ -135,26 +135,49 @@ class _DangerMeasureScreenState extends State<DangerMeasureScreen> {
               left: 0,
               child: defaultButton(
                 onTap: () {
-                  // _updateProgress();
-                  return Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => testNumber == 6
-                          ? MultidimensionalDyspneaScaleScreen(appbar: appbar)
-                          : shortTest
-
-                              /// the short tests that not taking the whole test
-                              ? NextTestScreen(
+                  testNumber == 6
+                      ? Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                MultidimensionalDyspneaScaleScreen(
+                                    appbar: appbar),
+                          ))
+                      : shortTest
+                          ? Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => NextTestScreen(
                                   appbar: appbar,
                                   testNumber: 9,
-                                )
-                              : NextTestScreen(
+                                ),
+                              ))
+                          : Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => NextTestScreen(
                                   appbar: switchAppbar(testNumber: testNumber),
-                                  // progress: progress,
                                   testNumber: testNumber,
                                 ),
-                    ),
-                  );
+                              ));
+                  // return Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => testNumber == 6
+                  //         ? MultidimensionalDyspneaScaleScreen(appbar: appbar)
+                  //         : shortTest
+
+                  //             /// the short tests that not taking the whole test
+                  //             ? NextTestScreen(
+                  //                 appbar: appbar,
+                  //                 testNumber: 9,
+                  //               )
+                  //             : NextTestScreen(
+                  //                 appbar: switchAppbar(testNumber: testNumber),
+                  //                 testNumber: testNumber,
+                  //               ),
+                  //   ),
+                  // );
                 },
                 text: 'استمرار',
               ),
@@ -165,15 +188,3 @@ class _DangerMeasureScreenState extends State<DangerMeasureScreen> {
     );
   }
 }
-
-////// default text in this page
-
-///////////////////////////////////////////
-
-/////////////////////////////////////////
-///
-
-
-
-////////////////////
-

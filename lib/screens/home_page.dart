@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:makeny/cubits/cubit.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/models/doctor_model.dart';
 import 'package:makeny/models/grid_model.dart';
@@ -42,13 +43,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       ),
     );
 
-    // _fadeAnimation = Tween<double>(begin: 0, end: 1).animate(
-    //   CurvedAnimation(
-    //     parent: _animationController,
-    //     curve: Interval(0.0, 0.1, curve: Curves.easeInOut),
-    //   ),
-    // );
-
     _animationController.repeat();
     _animationController.addListener(_onAnimationChanged);
   }
@@ -74,6 +68,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    List<String> nameParts = AppCubit.get(context).userName.split(' ');
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -86,8 +81,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 Row(
                   children: [
                     textHeader(
-                      text: "صباح الخير طلال",
+                      text: "صباح الخير ",
                     ),
+                    textHeader(text: nameParts.first),
                     ///////// the sun icon . //////////
                     Image.asset("assets/icons/star.png"),
                   ],

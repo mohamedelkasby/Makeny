@@ -16,5 +16,3 @@ Color greyColor = Color(0xff6C7380);
 Color greybackgroundColor = Color(0xffFBFBFB);
 Color greyborderColor = Color(0xffB7B7B7);
 Color nameDescColor = Color(0xff333333);
-//gif img
-//https://s3-alpha-sig.figma.com/img/fea3/af87/9e47c624411e305faf289c33e0c60b81?Expires=1722211200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=TxKKwLd4Zi1OuBtPTRDsNjalgUYkMnd8UmmipCGm-nRhAmmExmB4TWzop067OOw4lF6jFu~AZk-lFmPaWEKJ3sJ7CrrdGysubu0cleDUCjbxcAJ1zFZzq4xHgUfDbnEJ4D-FuGNLhFwCIbPNvVY-csyOSW3r09Y0CAfyl9uGA8fVHkGL~Tzgpy9CyQwEYUdIjxy32WPm2AQIOMR7Y44P3EsXJys7YCHM~K7QEdw50FQT2NszXRs~-nHVG-FEZFtk3o8RjAHY2oVajC-1kISFsKQJeiMLVPZi1yNl0q2509~KAQDyNOdrXNNY4F3KuwmXF6xftX2YtvXk9-wje6kVRg__

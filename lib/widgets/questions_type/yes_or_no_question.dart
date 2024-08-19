@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:makeny/cubit/cubit.dart';
-import 'package:makeny/cubit/status.dart';
+import 'package:makeny/cubits/cubit.dart';
+import 'package:makeny/cubits/status.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 
@@ -10,9 +10,11 @@ class YesOrNoQuestions extends StatefulWidget {
     super.key,
     required this.questionsText,
     this.onAnswersChanged,
+    required this.onAllQuestionsAnswered,
   });
   final List<String> questionsText;
   final Function(List<int?>)? onAnswersChanged;
+  final Function(bool) onAllQuestionsAnswered;
 
   @override
   State<YesOrNoQuestions> createState() => _YesOrNoQustionsState();
@@ -20,6 +22,10 @@ class YesOrNoQuestions extends StatefulWidget {
 
 class _YesOrNoQustionsState extends State<YesOrNoQuestions> {
   late final List<int?> selectedAnswers;
+
+  // bool areAllQuestionsAnswered() {
+  //   return !selectedAnswers.contains(null);
+  // }
 
   @override
   void initState() {
@@ -62,10 +68,21 @@ class _YesOrNoQustionsState extends State<YesOrNoQuestions> {
                       highlightColor: Colors.transparent,
                       splashColor: Colors.transparent,
                       onTap: () {
-                        setState(() {
-                          selectedAnswers[questionIndex] = answersIndex;
-                          widget.onAnswersChanged?.call(selectedAnswers);
-                        });
+                        //cubit.
+                        AppCubit.get(context).selectAnswer(
+                            selectedAnswers: selectedAnswers,
+                            questionIndex: questionIndex,
+                            answersIndex: answersIndex);
+                        //cubit.
+                        AppCubit.get(context).checkTheCheckedAnswer(
+                          onAnswersChanged: widget.onAnswersChanged,
+                          selectedAnswers: selectedAnswers,
+                        );
+                        widget.onAllQuestionsAnswered(
+                          //cubit.
+                          AppCubit.get(context)
+                              .areAllQuestionsAnswered(selectedAnswers),
+                        );
                         // context.read<AppCubit>();
                         print(selectedAnswers);
                       },
@@ -75,11 +92,13 @@ class _YesOrNoQustionsState extends State<YesOrNoQuestions> {
                           color: isSelected ? mainColor50 : Colors.white,
                           borderRadius: BorderRadius.circular(5),
                           border: Border.all(
-                            color: isSelected ? mainColor : Color(0xffE8E8E8),
+                            color: isSelected
+                                ? mainColor
+                                : const Color(0xffE8E8E8),
                             width: 1,
                           ),
                         ),
-                        margin: EdgeInsets.all(4),
+                        margin: const EdgeInsets.all(4),
                         child: Center(
                           child: defalutQuestionText(
                             text: answers[answersIndex],

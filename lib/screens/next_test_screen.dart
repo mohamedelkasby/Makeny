@@ -6,7 +6,7 @@ import 'package:makeny/widgets/defualt_appbar.dart';
 import 'package:makeny/widgets/switch_widget.dart';
 
 class NextTestScreen extends StatefulWidget {
-  NextTestScreen({
+  const NextTestScreen({
     super.key,
     required this.appbar,
     required this.testNumber,
@@ -14,7 +14,7 @@ class NextTestScreen extends StatefulWidget {
   });
 
   final String appbar;
-  int testNumber;
+  final int testNumber;
   // double progress;
 
   @override

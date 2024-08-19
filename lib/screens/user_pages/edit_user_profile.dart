@@ -13,7 +13,7 @@ class EditUserProfile extends StatelessWidget {
     return Scaffold(
       appBar: defaultAppbar(context, title: "الملف الشخصي"),
       body: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
         child: ListView(
           children: [
             Padding(

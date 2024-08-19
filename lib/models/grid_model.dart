@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:makeny/screens/chat_screen.dart';
 import 'package:makeny/screens/consulation_screens/user_consultations.dart';
 import 'package:makeny/screens/danger_measure_screens/danger_measure_screen.dart';
 import 'package:makeny/screens/quality_of_life_measure_screen.dart';
@@ -66,7 +67,7 @@ GridModel grid6 = GridModel(
 GridModel grid7 = GridModel(
   image: "assets/grid_images/graident-ai-robot-vectorart 1.png",
   title: "المساعد الذكي",
-  screen: QualityOfLifeMeasureScreen(),
+  screen: ChatScreen(),
 );
 
 GridModel grid8 = GridModel(
