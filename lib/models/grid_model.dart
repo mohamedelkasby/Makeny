@@ -67,7 +67,7 @@ GridModel grid6 = GridModel(
 GridModel grid7 = GridModel(
   image: "assets/grid_images/graident-ai-robot-vectorart 1.png",
   title: "المساعد الذكي",
-  screen: ChatScreen(),
+  screen: ChatPage(),
 );
 
 GridModel grid8 = GridModel(

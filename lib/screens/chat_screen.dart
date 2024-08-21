@@ -5,36 +5,32 @@ import 'package:makeny/consts.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';
 
-class ChatScreen extends StatefulWidget {
-  ChatScreen({super.key});
+class ChatPage extends StatefulWidget {
+  const ChatPage({super.key});
 
   @override
-  State<ChatScreen> createState() => _ChatScreenState();
+  State<ChatPage> createState() => _ChatPageState();
 }
 
-class _ChatScreenState extends State<ChatScreen> {
+class _ChatPageState extends State<ChatPage> {
   final _openAI = OpenAI.instance.build(
       token: OPAINAI_API_KEY,
       baseOption: HttpSetup(
         receiveTimeout: const Duration(seconds: 5),
       ),
       enableLog: true);
-
   final ChatUser _user = ChatUser(
     id: '1',
     firstName: 'Charles',
     lastName: 'Leclerc',
   );
-
   final ChatUser _gptChatUser = ChatUser(
     id: '2',
     firstName: 'Chat',
     lastName: 'GPT',
   );
-
   List<ChatMessage> _messages = <ChatMessage>[];
   List<ChatUser> _typingUsers = <ChatUser>[];
-
   @override
   void initState() {
     super.initState();
@@ -49,23 +45,20 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: defaultAppbar(context, title: "المساعد الذكي"),
-        body: DashChat(
-          messageOptions: MessageOptions(
-            currentUserContainerColor: mainColor300,
-            textColor: Colors.white,
-            containerColor: mainColor,
-          ),
-          currentUser: _user,
-          onSend: (ChatMessage m) {
-            getChatResponse(
-              m,
-            );
-          },
-          messages: _messages,
+    return Scaffold(
+      appBar: defaultAppbar(context, title: "المساعد الذكي"),
+      body: DashChat(
+        currentUser: _user,
+        messageOptions: MessageOptions(
+          currentUserContainerColor: mainColor300,
+          containerColor: Color(0xff6C7380),
+          textColor: Colors.white,
         ),
+        onSend: (ChatMessage m) {
+          getChatResponse(m);
+        },
+        messages: _messages,
+        typingUsers: _typingUsers,
       ),
     );
   }
@@ -88,21 +81,29 @@ class _ChatScreenState extends State<ChatScreen> {
       maxToken: 200,
       model: GptTurbo0301ChatModel(),
     );
-    final response = await _openAI.onChatCompletion(request: request);
-    for (var element in response!.choices) {
-      if (element.message != null) {
-        setState(() {
-          _messages.insert(
-              0,
-              ChatMessage(
+    try {
+      final response = await _openAI.onChatCompletion(request: request);
+      for (var element in response!.choices) {
+        if (element.message != null) {
+          setState(() {
+            _messages.insert(
+                0,
+                ChatMessage(
                   user: _gptChatUser,
                   createdAt: DateTime.now(),
-                  text: element.message!.content));
-        });
+                  text: element.message!.content,
+                ));
+          });
+        }
       }
+    } catch (error) {
+      // Handle API errors here
+      print("Error fetching response: $error");
+      // You can display an error message to the user
+    } finally {
+      setState(() {
+        _typingUsers.remove(_gptChatUser);
+      });
     }
-    setState(() {
-      _typingUsers.remove(_gptChatUser);
-    });
   }
 }
