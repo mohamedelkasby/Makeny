@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:makeny/cubits/cubit.dart';
 import 'package:makeny/cubits/status.dart';
@@ -21,12 +20,6 @@ class MyApp extends StatelessWidget {
       create: (context) => AppCubit(),
       child: BlocBuilder<AppCubit, AppState>(
         builder: (context, state) {
-          SystemChrome.setSystemUIOverlayStyle(
-            SystemUiOverlayStyle(
-              statusBarColor: Color(0xffFBFBFB), // status bar color
-              statusBarIconBrightness: Brightness.dark, // status bar icon color
-            ),
-          );
           return MaterialApp(
             ////         for language        ..................
             localizationsDelegates: const [

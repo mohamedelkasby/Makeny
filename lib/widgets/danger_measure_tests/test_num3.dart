@@ -8,13 +8,13 @@ import 'package:makeny/widgets/questions_type/yes_or_no_question.dart';
 class TestNumber3 extends StatefulWidget {
   const TestNumber3({
     super.key,
-    this.yesOrNoQuestions,
+    this.yesOrNoQuestions = const [],
   });
 
-  final yesOrNoQuestions;
+  final List<String> yesOrNoQuestions;
 
   @override
-  _TestNumber3State createState() => _TestNumber3State();
+  State<TestNumber3> createState() => _TestNumber3State();
 }
 
 class _TestNumber3State extends State<TestNumber3> {
@@ -26,7 +26,6 @@ class _TestNumber3State extends State<TestNumber3> {
     final result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['jpg', 'jpeg', 'png'],
-      // قم بإضافة امتدادات الصور المسموحة هنا
     );
 
     if (result != null) {

@@ -57,7 +57,7 @@ class _DangerMeasureScreenState extends State<DangerMeasureScreen> {
     final String appbar = widget.appbar;
     final bool shortTest = widget.shortTest;
 
-    print("Current test number: $testNumber");
+    // print("Current test number: $testNumber");
 
     return Scaffold(
       // resizeToAvoidBottomInset: false,

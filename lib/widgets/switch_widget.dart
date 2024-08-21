@@ -15,8 +15,7 @@ Widget switchPagesTest(
   required final int testNumber,
   final List<String> yesOrNoQuestions = const [],
 }) {
-  print("switchPagesTest called with testNumber: $testNumber");
-
+  // print("switchPagesTest called with testNumber: $testNumber");
   switch (testNumber) {
     case 1:
       return TestNumber1(yesOrNoQuestions: yesOrNoQuestions);
@@ -27,7 +26,7 @@ Widget switchPagesTest(
     case 4:
       return testNumber4(context);
     case 5:
-      return testNumber5(context);
+      return const TestNumber5();
     case 6:
       return const TestNumber6();
     case 7:
