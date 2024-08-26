@@ -34,8 +34,10 @@ dependencies:
     sdk: flutter
   bloc: ^8.1.4
   chat_gpt_sdk: ^3.1.0
+  cloud_firestore: ^5.2.1
   dash_chat_2: ^0.0.21
   file_picker: ^5.2.10
+  firebase_auth: ^5.1.4
   flutter_bloc: ^8.1.5
   flutter_localization: ^0.2.0
   flutter_secure_storage: ^9.2.2

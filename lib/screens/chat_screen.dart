@@ -1,7 +1,7 @@
 import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:flutter/material.dart';
-import 'package:makeny/consts.dart';
+import 'package:makeny/extentions/consts.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';
 

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "57845768918",
+    "project_id": "makenyapp",
+    "storage_bucket": "makenyapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:57845768918:android:6266a94a77a9906a2f5f77",
+        "android_client_info": {
+          "package_name": "com.example.makeny"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4LryV6cuYuG7qfdE63RPJvxPgrWn9_wM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

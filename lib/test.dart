@@ -1,7 +1,7 @@
 import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:flutter/material.dart';
-import 'package:makeny/consts.dart';
+import 'package:makeny/extentions/consts.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
@@ -31,13 +31,13 @@ class _ChatPageState extends State<ChatPage> {
   @override
   void initState() {
     super.initState();
-    /*_messages.add(
+    _messages.add(
       ChatMessage(
         text: 'Hey!',
         user: _user,
         createdAt: DateTime.now(),
       ),
-    );*/
+    );
   }
 
   @override
