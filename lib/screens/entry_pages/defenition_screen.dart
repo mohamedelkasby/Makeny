@@ -19,10 +19,10 @@ class _DefenitionScreenState extends State<DefenitionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
-      // SystemUiOverlay.top,
-      SystemUiOverlay.bottom
-    ]); // Show status bar
+    SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.manual,
+      overlays: [SystemUiOverlay.bottom],
+    ); // Show status bar
 
     return Scaffold(
       backgroundColor: mainColor,
@@ -117,12 +117,14 @@ class _DefenitionScreenState extends State<DefenitionScreen> {
                     onTap: () {
                       setState(() {
                         currentPage == 2
-                            ? Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => LoginScreen(),
-                                ),
-                              )
+                            ? Future.delayed(Duration(milliseconds: 500), () {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => LoginScreen(),
+                                  ),
+                                );
+                              })
                             : pageControl.nextPage(
                                 duration: const Duration(seconds: 1),
                                 curve: Curves.ease);

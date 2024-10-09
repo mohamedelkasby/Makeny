@@ -68,7 +68,22 @@ class AppCubit extends Cubit<AppState> {
     onAnswersChanged?.call(selectedAnswers);
   }
 
-  // bool checkTheCheckedAnswer({
+//////////////////////////////////////////
+  bool secure = true;
+
+  void isSecure() {
+    secure = !secure;
+    emit(ChangeScureState());
+  }
+//////////////////////////////////////////
+
+  // String selectedCountryCode = "+20";
+  // void onCodeChange(newCode) {
+  //   selectedCountryCode = newCode;
+  // }
+}
+
+// bool checkTheCheckedAnswer({
   //   required showConditions,
   //   required answers,
   // }) {
@@ -76,4 +91,3 @@ class AppCubit extends Cubit<AppState> {
   //   emit(SelectAnswerState());
   //   return showConditions;
   // }
-}

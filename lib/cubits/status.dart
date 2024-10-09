@@ -14,4 +14,6 @@ class EditeNameState extends AppState {}
 
 class ChangeLanguageState extends AppState {}
 
+class ChangeScureState extends AppState {}
+
 // class AppAnswerSelected extends AppState {}

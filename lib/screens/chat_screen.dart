@@ -1,121 +1,109 @@
+import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
+import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:flutter/material.dart';
+import 'package:makeny/consts.dart';
 import 'package:makeny/extentions/colors.dart';
+import 'package:makeny/widgets/defualt_appbar.dart';
 
-class ChatScreen extends StatefulWidget {
-  const ChatScreen({super.key});
+class ChatPage extends StatefulWidget {
+  const ChatPage({super.key});
 
   @override
-  State<ChatScreen> createState() => _ChatScreenState();
+  State<ChatPage> createState() => _ChatPageState();
 }
 
-class _ChatScreenState extends State<ChatScreen> {
-  final List<String> _messages = [];
-  final TextEditingController _textController = TextEditingController();
-
-  void _handleSubmitted(String text) {
-    _textController.clear();
-    if (text.isNotEmpty)
-      setState(() {
-        _messages.insert(0, text);
-      });
-    // Here you would call your chatbot service and handle the response
-    // For example:
-    // var response = await chatbotService.getResponse(text);
-    // setState(() {
-    //   _messages.insert(0, response);
-    // });
+class _ChatPageState extends State<ChatPage> {
+  final _openAI = OpenAI.instance.build(
+      token: apiKey,
+      baseOption: HttpSetup(
+        receiveTimeout: const Duration(seconds: 5),
+      ),
+      enableLog: true);
+  final ChatUser _user = ChatUser(
+    id: '1',
+    firstName: 'Charles',
+    lastName: 'Leclerc',
+  );
+  final ChatUser _gptChatUser = ChatUser(
+    id: '2',
+    firstName: 'Chat',
+    lastName: 'GPT',
+  );
+  List<ChatMessage> _messages = <ChatMessage>[];
+  List<ChatUser> _typingUsers = <ChatUser>[];
+  @override
+  void initState() {
+    super.initState();
+    /*_messages.add(
+      ChatMessage(
+        text: 'Hey!',
+        user: _user,
+        createdAt: DateTime.now(),
+      ),
+    );*/
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Chatbot")),
-      body: Column(
-        children: [
-          Flexible(
-            child: ListView.builder(
-              padding: EdgeInsets.all(8.0),
-              reverse: true,
-              itemBuilder: (_, int index) => Padding(
-                padding: const EdgeInsets.all(5),
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: Container(
-                    constraints: BoxConstraints(
-                      maxWidth: MediaQuery.of(context).size.width * 0.76,
-                    ),
-                    decoration: BoxDecoration(
-                      color: mainColor200,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 15,
-                        vertical: 10,
-                      ),
-                      child: Text(
-                        _messages[index],
-                        style: TextStyle(fontSize: 16),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              itemCount: _messages.length,
-            ),
-          ),
-          Divider(
-            height: 1.0,
-            color: mainColor50,
-          ),
-          Row(
-            // mainAxisAlignment: MainAxisAlignment.center,
-            // crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Flexible(
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                  child: Container(
-                    constraints: BoxConstraints(
-                      maxHeight: MediaQuery.of(context).size.height * 0.25,
-                      minHeight: 45,
-                    ),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.rectangle,
-                      color: greyborderColor.withOpacity(.2),
-                      borderRadius: BorderRadius.circular(25),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 15,
-                        vertical: 10,
-                      ),
-                      child: TextField(
-                        maxLines: null, // Allow multiple lines
-                        keyboardType:
-                            TextInputType.multiline, // Enable multiline input
-                        controller: _textController,
-                        onSubmitted: _handleSubmitted,
-                        decoration: InputDecoration.collapsed(
-                          hintText: "Send a message",
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              IconButton(
-                icon: Icon(
-                  Icons.send,
-                  color: mainColor,
-                ),
-                onPressed: () => _handleSubmitted(_textController.text),
-              ),
-            ],
-          ),
-        ],
+      appBar: defaultAppbar(context, title: "المساعد الذكي"),
+      body: DashChat(
+        currentUser: _user,
+        messageOptions: MessageOptions(
+          currentUserContainerColor: mainColor300,
+          containerColor: Color(0xff6C7380),
+          textColor: Colors.white,
+        ),
+        onSend: (ChatMessage m) {
+          getChatResponse(m);
+        },
+        messages: _messages,
+        typingUsers: _typingUsers,
       ),
     );
+  }
+
+  Future<void> getChatResponse(ChatMessage m) async {
+    setState(() {
+      _messages.insert(0, m);
+      _typingUsers.add(_gptChatUser);
+    });
+    List<Map<String, dynamic>> messagesHistory =
+        _messages.reversed.toList().map((m) {
+      if (m.user == _user) {
+        return Messages(role: Role.user, content: m.text).toJson();
+      } else {
+        return Messages(role: Role.assistant, content: m.text).toJson();
+      }
+    }).toList();
+    final request = ChatCompleteText(
+      messages: messagesHistory,
+      maxToken: 200,
+      model: GptTurbo0301ChatModel(),
+    );
+    try {
+      final response = await _openAI.onChatCompletion(request: request);
+      for (var element in response!.choices) {
+        if (element.message != null) {
+          setState(() {
+            _messages.insert(
+                0,
+                ChatMessage(
+                  user: _gptChatUser,
+                  createdAt: DateTime.now(),
+                  text: element.message!.content,
+                ));
+          });
+        }
+      }
+    } catch (error) {
+      // Handle API errors here
+      print("Error fetching response: $error");
+      // You can display an error message to the user
+    } finally {
+      setState(() {
+        _typingUsers.remove(_gptChatUser);
+      });
+    }
   }
 }

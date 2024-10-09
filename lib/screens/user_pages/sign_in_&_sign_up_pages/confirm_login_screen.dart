@@ -67,8 +67,10 @@ class ConfirmLoginScreen extends StatelessWidget {
                             child: Directionality(
                               textDirection: TextDirection.ltr,
                               child: PinCodeTextField(
-                                textStyle: TextStyle(
-                                    fontSize: 27, fontWeight: FontWeight.w400),
+                                textStyle: const TextStyle(
+                                  fontSize: 27,
+                                  fontWeight: FontWeight.w400,
+                                ),
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 appContext: context,
@@ -91,8 +93,9 @@ class ConfirmLoginScreen extends StatelessWidget {
                                 animationDuration: Duration(milliseconds: 300),
                                 backgroundColor: Colors.transparent,
                                 enableActiveFill: true,
-                                onChanged: (value) {
-                                  print(value);
+                                onCompleted: (value) {
+                                  // TODO: on the code entered.
+                                  print("----$value---");
                                 },
                                 beforeTextPaste: (text) {
                                   // Allow pasting
@@ -121,14 +124,19 @@ class ConfirmLoginScreen extends StatelessWidget {
                             Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 5),
-                              child: Text(
-                                "إعادة إرسال",
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    color: mainBlack,
-                                    fontWeight: FontWeight.w600,
-                                    decoration: TextDecoration.underline,
-                                    decorationThickness: 1),
+                              child: GestureDetector(
+                                onTap: () {
+                                  //TODO: resend the the code ...
+                                },
+                                child: Text(
+                                  "إعادة إرسال",
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      color: mainBlack,
+                                      fontWeight: FontWeight.w600,
+                                      decoration: TextDecoration.underline,
+                                      decorationThickness: 1),
+                                ),
                               ),
                             ),
                             Text(

@@ -7,15 +7,19 @@ class DefaultTextForm extends StatelessWidget {
     this.hintText = "",
     this.label = "",
     this.icon = const SizedBox(),
-    // this.value = "",
     this.controller,
+    this.obscure = false,
+    this.validator,
+    this.onchange,
   });
 
   final String label;
   final String hintText;
   final Widget icon;
-  // final String value;
+  final bool obscure;
   final TextEditingController? controller;
+  final FormFieldValidator<String>? validator; // Add this line for validation
+  final ValueChanged? onchange;
 
   @override
   Widget build(BuildContext context) {
@@ -33,26 +37,11 @@ class DefaultTextForm extends StatelessWidget {
           ),
           SizedBox(height: 5),
         ],
-        // label == ""
-        //     ? SizedBox()
-        //     : Column(
-        //         children: [
-        //           Text(
-        //             label,
-        //             style: TextStyle(
-        //               fontSize: 17,
-        //               color: mainBlack,
-        //               fontWeight: FontWeight.w600,
-        //             ),
-        //           ),
-        //           SizedBox(
-        //             height: 5,
-        //           ),
-        //         ],
-        //       ),
         TextFormField(
+          onChanged: onchange,
           controller: controller,
-          // initialValue: value,
+          obscureText: obscure,
+          validator: validator,
           decoration: InputDecoration(
             hintText: hintText,
             suffixIcon: icon,
@@ -73,7 +62,7 @@ class DefaultTextForm extends StatelessWidget {
             ///////////
           ),
         ),
-        if (label.isNotEmpty) SizedBox(height: 7),
+        if (label.isNotEmpty) const SizedBox(height: 7),
       ],
     );
   }
