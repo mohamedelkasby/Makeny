@@ -293,8 +293,8 @@ class _LoginScreenState extends State<LoginScreen>
                                           (inputController.text.length >= 7 &&
                                               inputController.text.length <=
                                                   15)) {
-                                        print(
-                                            "hi this is the phone section :)");
+                                        // print(
+                                        //     "hi this is the phone section :)");
                                         try {
                                           await authServices.signInWithPhoneNumber(
                                               "${country.phoneCode}${inputController.text}");
