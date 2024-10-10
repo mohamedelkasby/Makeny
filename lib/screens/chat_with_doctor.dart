@@ -36,7 +36,7 @@ class _ChatScreenState extends State<ChatScreen> {
           children: [
             Container(),
             Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 border: Border(
                   top: BorderSide(
                     color: Colors.orange,
