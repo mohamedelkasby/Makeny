@@ -1,0 +1,2 @@
+final OPAINAI_API_KEY =
+    "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";
