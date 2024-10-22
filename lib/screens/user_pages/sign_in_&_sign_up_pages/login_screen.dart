@@ -11,6 +11,7 @@ import 'package:makeny/screens/basic_page.dart';
 import 'package:makeny/screens/user_pages/sign_in_&_sign_up_pages/confirm_login_screen.dart';
 import 'package:makeny/screens/user_pages/sign_in_&_sign_up_pages/sign_up_screen.dart';
 import 'package:makeny/services/auth_service.dart';
+import 'package:makeny/test.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/default_text_form.dart';
 import 'package:country_picker/country_picker.dart';
@@ -295,8 +296,9 @@ class _LoginScreenState extends State<LoginScreen>
                                           );
                                           Navigator.of(context).pushReplacement(
                                             MaterialPageRoute(
-                                              builder: (context) => BasicPage(),
-                                            ),
+                                                builder: (context) =>
+                                                    Test() //BasicPage(),
+                                                ),
                                           );
                                         } on FirebaseAuthException catch (e) {
                                           if (e.code == 'invalid-credential') {
@@ -364,7 +366,10 @@ class _LoginScreenState extends State<LoginScreen>
                             Row(
                               children: [
                                 signButton(
-                                    onTap: () {},
+                                    onTap: () {
+                                      authServices
+                                          .authenticationWithGoogle(context);
+                                    },
                                     text: "Google",
                                     icon: "assets/icons/google.svg"),
                                 const SizedBox(
