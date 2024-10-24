@@ -39,8 +39,6 @@ class _ConfirmLoginScreenState extends State<ConfirmLoginScreen> {
     //verifyOTP
     verifyOTP() async {
       String fullCode = controller.text + serverGeneratedCode;
-      print(controller.text);
-      print(fullCode);
 
       try {
         String result = await AuthServices().verifyOTPCode(

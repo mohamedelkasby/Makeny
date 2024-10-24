@@ -97,6 +97,7 @@ class AuthServices {
         // store data in firebase
         fireStore.collection('users').doc(userCredential.user!.uid).set({
           'phoneNumber': userCredential.user!.phoneNumber,
+          'uid': userCredential.user!.uid,
         }, SetOptions(merge: true));
 
         return 'success';

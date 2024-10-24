@@ -1,10 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:makeny/chat_screen.dart';
 import 'package:makeny/extentions/colors.dart';
-import 'package:makeny/screens/chat_with_doctor.dart';
 
 class Test extends StatelessWidget {
   const Test({super.key});
@@ -16,7 +14,7 @@ class Test extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Header Test",
+          "Frinds Room",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
