@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/services/chat_service.dart';
+import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/chat_buble.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -39,45 +41,51 @@ class _ChatScreenState extends State<ChatScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        leading: backArrow(context),
         title: Text(
-            widget.receiverData["email"] ?? widget.receiverData["phoneNumber"]),
+          widget.receiverData["email"] ?? widget.receiverData["phoneNumber"],
+        ),
+        backgroundColor: greybackgroundColor,
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: messageList(),
-          ),
-          // the message input
-          Row(
-            children: [
-              Expanded(
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+        child: Column(
+          children: [
+            Expanded(
+              child: messageList(),
+            ),
+            // the message input
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                  child: GestureDetector(
+                    onTap: () => sendMessage(),
+                    child: SvgPicture.asset("assets/icons/send.svg"),
+                  ),
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+                Expanded(
                   child: TextField(
                     controller: messageController,
                     decoration: InputDecoration(
+                      fillColor: Color(0xffF0F0F0),
+                      filled: true,
                       hintText: "enter your message",
                       hintStyle: TextStyle(color: greyColor),
-                      border: const OutlineInputBorder(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(50),
                         borderSide: BorderSide.none,
                       ),
                     ),
                   ),
                 ),
-              ),
-              IconButton(
-                onPressed: () {
-                  sendMessage();
-                },
-                icon: Icon(
-                  Icons.send,
-                  color: mainColor,
-                ),
-              )
-            ],
-          )
-        ],
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -111,23 +119,23 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget messageItem(document) {
     Map<String, dynamic> data = document.data() as Map<String, dynamic>;
     bool isSender = data["senderID"] == firebaseAuth.currentUser!.uid;
-    var alignment = (isSender) ? Alignment.centerLeft : Alignment.centerRight;
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      child: Container(
-        alignment: alignment,
-        child: Column(
-          crossAxisAlignment:
-              (isSender) ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-          children: [
-            // Center(child: Text(data["timestamp"].toString())),
-            Text(data["senderEmail"]),
-            ChatBuble(
-              message: data["message"],
-              isSender: isSender,
-            ),
-          ],
-        ),
+    var alignment = (isSender) ? Alignment.centerRight : Alignment.centerLeft;
+    return Container(
+      alignment: alignment,
+      child: Column(
+        crossAxisAlignment:
+            (isSender) ? CrossAxisAlignment.start : CrossAxisAlignment.end,
+        children: [
+          Text(isSender ? "You" : data["senderEmail"]),
+          ChatBuble(
+            message: data["message"],
+            isSender: isSender,
+          ),
+          // to make a space between messages
+          const SizedBox(
+            height: 10,
+          )
+        ],
       ),
     );
   }
