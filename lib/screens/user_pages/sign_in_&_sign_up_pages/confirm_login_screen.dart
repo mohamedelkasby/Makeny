@@ -1,16 +1,72 @@
 import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/screens/basic_page.dart';
+import 'package:makeny/services/auth_service.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class ConfirmLoginScreen extends StatelessWidget {
-  ConfirmLoginScreen({super.key});
+class ConfirmLoginScreen extends StatefulWidget {
+  ConfirmLoginScreen({
+    super.key,
+    required this.verification,
+  });
+  final String verification;
 
+  @override
+  State<ConfirmLoginScreen> createState() => _ConfirmLoginScreenState();
+}
+
+class _ConfirmLoginScreenState extends State<ConfirmLoginScreen> {
   final TextEditingController controller = TextEditingController();
+
+  String serverGeneratedCode = '';
+
+  void generateServerCode() {
+    // Generate a random 2-digit code
+    serverGeneratedCode =
+        (10 + (DateTime.now().millisecondsSinceEpoch % 90)).toString();
+  }
+
+  @override
+  void setState(VoidCallback fn) {
+    // TODO: implement setState
+    super.setState(fn);
+    generateServerCode();
+  }
 
   @override
   Widget build(BuildContext context) {
+    //verifyOTP
+    verifyOTP() async {
+      String fullCode = controller.text + serverGeneratedCode;
+      print(controller.text);
+      print(fullCode);
+
+      try {
+        String result = await AuthServices().verifyOTPCode(
+          verifyId: widget.verification,
+          otp: fullCode,
+        );
+        if (result == 'success') {
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => BasicPage(),
+          ));
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('OTP Verification Failed'),
+              duration: Duration(seconds: 1),
+            ),
+          );
+        }
+      } catch (e) {
+        e.toString();
+        setState(() {
+          generateServerCode();
+        });
+      }
+    }
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Column(
@@ -67,8 +123,10 @@ class ConfirmLoginScreen extends StatelessWidget {
                             child: Directionality(
                               textDirection: TextDirection.ltr,
                               child: PinCodeTextField(
-                                textStyle: TextStyle(
-                                    fontSize: 27, fontWeight: FontWeight.w400),
+                                textStyle: const TextStyle(
+                                  fontSize: 27,
+                                  fontWeight: FontWeight.w400,
+                                ),
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 appContext: context,
@@ -91,8 +149,9 @@ class ConfirmLoginScreen extends StatelessWidget {
                                 animationDuration: Duration(milliseconds: 300),
                                 backgroundColor: Colors.transparent,
                                 enableActiveFill: true,
-                                onChanged: (value) {
-                                  print(value);
+                                onCompleted: (value) {
+                                  // TODO: on the code entered.
+                                  print("----$value---");
                                 },
                                 beforeTextPaste: (text) {
                                   // Allow pasting
@@ -121,14 +180,19 @@ class ConfirmLoginScreen extends StatelessWidget {
                             Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 5),
-                              child: Text(
-                                "إعادة إرسال",
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    color: mainBlack,
-                                    fontWeight: FontWeight.w600,
-                                    decoration: TextDecoration.underline,
-                                    decorationThickness: 1),
+                              child: GestureDetector(
+                                onTap: () {
+                                  //TODO: resend the the code ...
+                                },
+                                child: Text(
+                                  "إعادة إرسال",
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      color: mainBlack,
+                                      fontWeight: FontWeight.w600,
+                                      decoration: TextDecoration.underline,
+                                      decorationThickness: 1),
+                                ),
                               ),
                             ),
                             Text(
@@ -152,14 +216,7 @@ class ConfirmLoginScreen extends StatelessWidget {
             child: longSignButton(
               text: "تاكيد",
               onTap: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return BasicPage();
-                    },
-                  ),
-                );
+                verifyOTP();
               },
             ),
           )

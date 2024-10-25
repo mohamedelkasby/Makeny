@@ -8,11 +8,11 @@ class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  State<SplashScreen> createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  List<bool> _isVisible = [false, false, false, false];
+  final List<bool> _isVisible = [false, false, false, false];
   int _currentImageIndex = 0;
   Timer? _timer;
 
@@ -45,7 +45,10 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
+      // SystemUiOverlay.top,
+      // SystemUiOverlay.bottom,
+    ]);
 
     return Directionality(
       textDirection: TextDirection.ltr,
@@ -84,6 +87,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   ),
                   Image.asset(
                     'assets/splash_images/image 54.png',
+                    width: 75,
                   ),
                   AnimatedOpacity(
                     opacity: _isVisible[2] ? 1.0 : 0.0,

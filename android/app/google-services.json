@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "57845768918",
-    "project_id": "makenyapp",
-    "storage_bucket": "makenyapp.appspot.com"
+    "project_number": "679427732224",
+    "project_id": "makeny-b9c09",
+    "storage_bucket": "makeny-b9c09.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:57845768918:android:6266a94a77a9906a2f5f77",
+        "mobilesdk_app_id": "1:679427732224:android:6a9a5e408e092139f879e5",
         "android_client_info": {
           "package_name": "com.example.makeny"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyD4LryV6cuYuG7qfdE63RPJvxPgrWn9_wM"
+          "current_key": "AIzaSyBmL7wrcrngkMSLo0wGr0Vm-CRNwv_LEcg"
         }
       ],
       "services": {

@@ -5,9 +5,21 @@ import 'package:makeny/cubits/cubit.dart';
 import 'package:makeny/cubits/status.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:makeny/firebase_options.dart';
 import 'package:makeny/screens/entry_pages/splash_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+Future<void> main() async {
+  // to set the status bar in the top color to white
+
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: Colors.white,
+    statusBarIconBrightness: Brightness.dark,
+  ));
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -21,12 +33,6 @@ class MyApp extends StatelessWidget {
       create: (context) => AppCubit(),
       child: BlocBuilder<AppCubit, AppState>(
         builder: (context, state) {
-          SystemChrome.setSystemUIOverlayStyle(
-            SystemUiOverlayStyle(
-              statusBarColor: Color(0xffFBFBFB), // status bar color
-              statusBarIconBrightness: Brightness.dark, // status bar icon color ي==== 
-            ),
-          );
           return MaterialApp(
             ////         for language        ..................
             localizationsDelegates: const [

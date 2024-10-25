@@ -23,6 +23,24 @@ class DangerMeasureScreen extends StatefulWidget {
 }
 
 class _DangerMeasureScreenState extends State<DangerMeasureScreen> {
+  bool allQuestionsAnswered = false;
+
+  // Map<String, String> answers = {};
+
+  // void initializeAnswers() {
+  //   for (String question in questionsOfPage[widget.testNumber]) {
+  //     answers[question] = ''; // Initialize all answers to empty string
+  //   }
+  // }
+
+  // void checkAllQuestionsAnswered() {
+  //   bool answered = questionsOfPage[widget.testNumber].every((question) =>
+  //       answers[question] != null && answers[question]!.isNotEmpty);
+  //   setState(() {
+  //     allQuestionsAnswered = answered;
+  //   });
+  // }
+
   List<List<String>> questionsOfPage = [
     /// this here case the list start with 0 index and i have the
     /// page index start with 1 ,
@@ -42,8 +60,6 @@ class _DangerMeasureScreenState extends State<DangerMeasureScreen> {
     [],
     [],
     [],
-
-    ///TODO: remove and see if there is an error in the last page
     [],
   ];
   @override
@@ -57,7 +73,7 @@ class _DangerMeasureScreenState extends State<DangerMeasureScreen> {
     final String appbar = widget.appbar;
     final bool shortTest = widget.shortTest;
 
-    print("Current test number: $testNumber");
+    // print("Current test number: $testNumber");
 
     return Scaffold(
       // resizeToAvoidBottomInset: false,
@@ -123,7 +139,7 @@ class _DangerMeasureScreenState extends State<DangerMeasureScreen> {
                   yesOrNoQuestions: questionsOfPage[widget.testNumber],
                 ),
 
-                /// to make the text under button seen
+                /// to make the text under button seen when the scrool end
                 const SizedBox(
                   height: 80,
                 )
@@ -159,25 +175,8 @@ class _DangerMeasureScreenState extends State<DangerMeasureScreen> {
                                   appbar: switchAppbar(testNumber: testNumber),
                                   testNumber: testNumber,
                                 ),
-                              ));
-                  // return Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => testNumber == 6
-                  //         ? MultidimensionalDyspneaScaleScreen(appbar: appbar)
-                  //         : shortTest
-
-                  //             /// the short tests that not taking the whole test
-                  //             ? NextTestScreen(
-                  //                 appbar: appbar,
-                  //                 testNumber: 9,
-                  //               )
-                  //             : NextTestScreen(
-                  //                 appbar: switchAppbar(testNumber: testNumber),
-                  //                 testNumber: testNumber,
-                  //               ),
-                  //   ),
-                  // );
+                              ),
+                            );
                 },
                 text: 'استمرار',
               ),

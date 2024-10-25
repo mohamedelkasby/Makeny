@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:makeny/extentions/colors.dart';
-import 'package:makeny/screens/chat_with_doctor.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 
@@ -20,18 +19,9 @@ PreferredSizeWidget defaultAppbar(
                   color: mainColor50,
                   borderRadius: BorderRadius.circular(5),
                 ),
-                child: InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ChatScreen(),
-                        ));
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: SvgPicture.asset("assets/icons/chat.svg"),
-                  ),
+                child: Padding(
+                  padding: const EdgeInsets.all(5),
+                  child: SvgPicture.asset("assets/icons/chat.svg"),
                 ),
               ),
             )

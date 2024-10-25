@@ -3,7 +3,7 @@ import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 
 class LongOneAnswerCheck extends StatefulWidget {
-  LongOneAnswerCheck({
+  const LongOneAnswerCheck({
     super.key,
     required this.questionText,
     this.answers = const [],
@@ -34,16 +34,16 @@ class _LongOneAnswerCheckState extends State<LongOneAnswerCheck> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         questionText == ""
-            ? SizedBox()
+            ? const SizedBox()
             : Padding(
-                padding: EdgeInsets.only(top: 15),
+                padding: const EdgeInsets.only(top: 15),
                 child: defalutQuestionText(
                   text: questionText,
                 ),
               ),
         ListView.builder(
           shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           itemCount: answers.length,
           itemBuilder: (context, index) {
             bool isSelected = selectedAnswer == index;
@@ -57,13 +57,13 @@ class _LongOneAnswerCheckState extends State<LongOneAnswerCheck> {
                 widget.onAnswerSelected(answers[index]); // Add this line
               },
               child: Container(
-                margin: EdgeInsets.symmetric(vertical: 10),
+                margin: const EdgeInsets.symmetric(vertical: 10),
                 height: 80,
                 decoration: BoxDecoration(
                   color: isSelected ? mainColor50 : Colors.white,
                   borderRadius: BorderRadius.circular(15),
                   border: Border.all(
-                    color: isSelected ? mainColor : Color(0xffE8E8E8),
+                    color: isSelected ? mainColor : const Color(0xffE8E8E8),
                   ),
                 ),
                 child: Center(

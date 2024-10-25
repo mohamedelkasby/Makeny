@@ -109,8 +109,7 @@ Widget signButton({
   return Expanded(
     child: ElevatedButton(
       style: ButtonStyle(
-        shape: MaterialStatePropertyAll(
-          //Read this line ahmed: don't change this cause my flutter isn't upgraded yet so its read it as an error
+        shape: WidgetStatePropertyAll(
           ContinuousRectangleBorder(
             side: BorderSide(color: Colors.grey, width: .2),
             borderRadius: BorderRadius.circular(20),

@@ -26,35 +26,35 @@ class EditUserProfile extends StatelessWidget {
                 value: (1 / 10),
               ),
             ),
-            CustomListField(
+            const CustomListField(
               qustionText: "الاسم بالكامل",
               keyboardType: TextInputType.name,
             ),
-            CustomListField(qustionText: "رقم الهوية"),
-            CustomListField(qustionText: "البريد الالكتروني"),
-            CustomListField(
+            const CustomListField(qustionText: "رقم الهوية"),
+            const CustomListField(qustionText: "البريد الالكتروني"),
+            const CustomListField(
               qustionText: "الجوال",
               suffixText: "+999  |",
             ),
-            CustomListField(
+            const CustomListField(
               qustionText: "تاريخ الميلاد ",
               hintText: "ي/ش/س",
               suffixIcon: Icon(Icons.abc),
             ),
             //    the drop down
-            CustomDropDwonList(
+            const CustomDropDwonList(
               label: "الحالة الاجتماعية",
               listItems: ["متزوج ", "اعزب", "ارمل", "مطلق"],
             ),
-            CustomDropDwonList(
+            const CustomDropDwonList(
               label: "النوع",
               listItems: ["ذكر", "انثي"],
             ),
-            CustomDropDwonList(
+            const CustomDropDwonList(
               label: "المستوى التعليمي",
               listItems: ["طالب", "بكالوريوس", "ماجستير", "دكتوراه"],
             ),
-            CustomListField(qustionText: "العمل الحالي"),
+            const CustomListField(qustionText: "العمل الحالي"),
             defaultButton(text: "حفظ", onTap: () {})
           ],
         ),
@@ -92,11 +92,11 @@ class _CustomDropDwonListState extends State<CustomDropDwonList> {
           width: double.infinity,
           // margin: EdgeInsets.only(top: 10),
           decoration: BoxDecoration(
-              border: Border.all(width: 1, color: Color(0xffcfcfd0))),
+              border: Border.all(width: 1, color: const Color(0xffcfcfd0))),
           child: DropdownButton<String>(
             isExpanded:
                 true, // هذا سيسمح للـ DropdownButton بأخذ العرض الكامل للـ Container
-            icon: Icon(Icons.keyboard_arrow_down_rounded),
+            icon: const Icon(Icons.keyboard_arrow_down_rounded),
             value: selectedList,
             style: TextStyle(
               fontSize: 16,
@@ -104,7 +104,7 @@ class _CustomDropDwonListState extends State<CustomDropDwonList> {
               fontFamily: "cairo",
               fontWeight: FontWeight.w300,
             ),
-            underline: SizedBox(),
+            underline: const SizedBox(),
             items: gender.map((String value) {
               return DropdownMenuItem<String>(
                 value: value,

@@ -1,116 +1,140 @@
-import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
-import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:flutter/material.dart';
-import 'package:makeny/extentions/consts.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:makeny/cubits/cubit.dart';
+import 'package:makeny/cubits/status.dart';
+import 'package:makeny/widgets/default_text_form.dart';
 
-class ChatPage extends StatefulWidget {
-  const ChatPage({super.key});
-  @override
-  State<ChatPage> createState() => _ChatPageState();
+Future<void> main(List<String> args) async {
+  runApp(LoginForm());
 }
 
-class _ChatPageState extends State<ChatPage> {
-  final _openAI = OpenAI.instance.build(
-      token: OPAINAI_API_KEY,
-      baseOption: HttpSetup(
-        receiveTimeout: const Duration(seconds: 5),
-      ),
-      enableLog: true);
-  final ChatUser _user = ChatUser(
-    id: '1',
-    firstName: 'Charles',
-    lastName: 'Leclerc',
-  );
-  final ChatUser _gptChatUser = ChatUser(
-    id: '2',
-    firstName: 'Chat',
-    lastName: 'GPT',
-  );
-  List<ChatMessage> _messages = <ChatMessage>[];
-  List<ChatUser> _typingUsers = <ChatUser>[];
+class LoginForm extends StatefulWidget {
+  @override
+  _LoginFormState createState() => _LoginFormState();
+}
+
+class _LoginFormState extends State<LoginForm>
+    with SingleTickerProviderStateMixin {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final TextEditingController inputController = TextEditingController();
+  final TextEditingController passController = TextEditingController();
+  bool isEmailValid = true;
+  bool isEmailEntered = false;
+  late AnimationController _animationController;
+  late Animation<double> _animation;
+
   @override
   void initState() {
     super.initState();
-    _messages.add(
-      ChatMessage(
-        text: 'Hey!',
-        user: _user,
-        createdAt: DateTime.now(),
-      ),
+    _animationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 300),
     );
+    _animation = CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeInOut,
+    );
+    inputController.addListener(_onInputChanged);
+  }
+
+  void _onInputChanged() {
+    final bool isEmail =
+        RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(inputController.text);
+    if (isEmail != isEmailEntered) {
+      setState(() {
+        isEmailEntered = isEmail;
+      });
+      if (isEmail) {
+        _animationController.forward();
+      } else {
+        _animationController.reverse();
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    inputController.removeListener(_onInputChanged);
+    inputController.dispose();
+    passController.dispose();
+    _animationController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromRGBO(
-          0,
-          166,
-          126,
-          1,
-        ),
-        title: const Text(
-          'GPT Chat',
-          style: TextStyle(
-            color: Colors.white,
-          ),
+      body: Form(
+        key: formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Center(
+              child: Text(
+                "تسجيل دخول",
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700),
+              ),
+            ),
+            const SizedBox(height: 10),
+            DefaultTextForm(
+              onchange: (value) {
+                setState(() {
+                  isEmailValid = true;
+                });
+              },
+              label: "رقم الهاتف",
+              hintText: "رقم الهاتف او البريد",
+              controller: inputController,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return "إدخل رقم هاتفك او البريد الخاص بك";
+                } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                  return 'يرجى إدخال بريد إلكتروني صحيح';
+                } else if (!isEmailValid) {
+                  return "البريد الالكترونى او الباسورد غير صحيح.";
+                }
+                return null;
+              },
+            ),
+            SizeTransition(
+              sizeFactor: _animation,
+              axisAlignment: -1,
+              child: BlocBuilder<AppCubit, AppState>(
+                builder: (context, state) {
+                  return DefaultTextForm(
+                    onchange: (value) {
+                      setState(() {
+                        isEmailValid = true;
+                      });
+                    },
+                    label: "كلمة المرور",
+                    controller: passController,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "ادخل كلمة المرور من فضلك.";
+                      } else if (value.length < 8) {
+                        return 'كلمة المرور لا بجب ان تقل عن 8 احرف';
+                      }
+                      return null;
+                    },
+                    icon: IconButton(
+                      icon: Icon(
+                        AppCubit.get(context).secure
+                            ? Icons.visibility_off
+                            : Icons.visibility,
+                      ),
+                      onPressed: () {
+                        AppCubit.get(context).isSecure();
+                      },
+                    ),
+                    obscure: AppCubit.get(context).secure,
+                  );
+                },
+              ),
+            ),
+          ],
         ),
       ),
-      body: DashChat(
-        currentUser: _user,
-        messageOptions: const MessageOptions(
-          currentUserContainerColor: Colors.black,
-          containerColor: Color.fromRGBO(
-            0,
-            166,
-            126,
-            1,
-          ),
-          textColor: Colors.white,
-        ),
-        onSend: (ChatMessage m) {
-          getChatResponse(m);
-        },
-        messages: _messages,
-        typingUsers: _typingUsers,
-      ),
     );
-  }
-
-  Future<void> getChatResponse(ChatMessage m) async {
-    setState(() {
-      _messages.insert(0, m);
-      _typingUsers.add(_gptChatUser);
-    });
-    List<Map<String, dynamic>> messagesHistory =
-        _messages.reversed.toList().map((m) {
-      if (m.user == _user) {
-        return Messages(role: Role.user, content: m.text).toJson();
-      } else {
-        return Messages(role: Role.assistant, content: m.text).toJson();
-      }
-    }).toList();
-    final request = ChatCompleteText(
-      messages: messagesHistory,
-      maxToken: 200,
-      model: GptTurbo0301ChatModel(),
-    );
-    final response = await _openAI.onChatCompletion(request: request);
-    for (var element in response!.choices) {
-      if (element.message != null) {
-        setState(() {
-          _messages.insert(
-              0,
-              ChatMessage(
-                  user: _gptChatUser,
-                  createdAt: DateTime.now(),
-                  text: element.message!.content));
-        });
-      }
-    }
-    setState(() {
-      _typingUsers.remove(_gptChatUser);
-    });
   }
 }
