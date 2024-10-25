@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/services/chat_service.dart';
 import 'package:makeny/widgets/buttons.dart';
@@ -27,23 +28,23 @@ class _ChatScreenState extends State<ChatScreen> {
 
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
+  void sendMessage() async {
+    if (messageController.text.isNotEmpty) {
+      await chatService.sendMessage(
+        receiverID: widget.receiverData["uid"],
+        message: messageController.text,
+      );
+      messageController.clear();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    void sendMessage() async {
-      if (messageController.text.isNotEmpty) {
-        await chatService.sendMessage(
-          receiverID: widget.receiverData["uid"],
-          message: messageController.text,
-        );
-        messageController.clear();
-      }
-    }
-
     return Scaffold(
       appBar: AppBar(
         leading: backArrow(context),
         title: Text(
-          widget.receiverData["email"] ?? widget.receiverData["phoneNumber"],
+          widget.receiverData["userName"] ?? widget.receiverData["phoneNumber"],
         ),
         backgroundColor: greybackgroundColor,
       ),
@@ -69,6 +70,8 @@ class _ChatScreenState extends State<ChatScreen> {
                 ),
                 Expanded(
                   child: TextField(
+                    // focusNode: focusNode, // Added focusNode
+
                     controller: messageController,
                     decoration: InputDecoration(
                       fillColor: Color(0xffF0F0F0),
@@ -105,6 +108,7 @@ class _ChatScreenState extends State<ChatScreen> {
           );
         } else if (snapshot.hasData) {
           return ListView(
+            reverse: true,
             children: snapshot.data!.docs
                 .map((document) => messageItem(document))
                 .toList(),
@@ -120,15 +124,43 @@ class _ChatScreenState extends State<ChatScreen> {
     Map<String, dynamic> data = document.data() as Map<String, dynamic>;
     bool isSender = data["senderID"] == firebaseAuth.currentUser!.uid;
     var alignment = (isSender) ? Alignment.centerRight : Alignment.centerLeft;
+
+    DateTime now = DateTime.now();
+    DateTime today = DateTime(now.year, now.month, now.day);
+    DateTime yesterday = today.subtract(Duration(days: 1));
+    DateTime oneWeekAgo = today.subtract(Duration(days: 7));
+
+    // convert the timestamp to datetime to formate it
+    DateTime dateTime = data["dateTime"].toDate();
+
+    String formattedDate =
+        DateFormat('d MMMM yyyy', 'ar').format(dateTime); //date
+    String formattedDay = DateFormat('EEEE', 'ar').format(dateTime); // day
+    String formattedTime =
+        DateFormat('h:mm a', 'ar').format(dateTime); // time with  AM/PM
+
     return Container(
       alignment: alignment,
       child: Column(
         crossAxisAlignment:
             (isSender) ? CrossAxisAlignment.start : CrossAxisAlignment.end,
         children: [
-          Text(isSender ? "You" : data["senderEmail"]),
+          Text(isSender ? "You" : widget.receiverData["userName"]),
+          Center(
+            child: dateTime.isAfter(today)
+                ? Text("اليوم")
+                : dateTime.isAfter(yesterday)
+                    ? Text("امس")
+                    : dateTime.isAfter(oneWeekAgo)
+                        ? Text(formattedDay)
+                        : Text(formattedDate),
+          ),
+          SizedBox(
+            height: 5,
+          ),
           ChatBuble(
             message: data["message"],
+            time: formattedTime,
             isSender: isSender,
           ),
           // to make a space between messages

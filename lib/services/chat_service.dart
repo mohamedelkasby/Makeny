@@ -17,16 +17,24 @@ class ChatService extends ChangeNotifier {
     // get current user info
     final String senderID = fireAuth.currentUser!.uid;
     final String senderEmail = fireAuth.currentUser!.email.toString() ??
+        //this if the phone number is working to not throw an error
         fireAuth.currentUser!.phoneNumber.toString();
+    final String userName = fireAuth.currentUser!.displayName.toString();
 
-    final Timestamp timeStamp = Timestamp.now();
+    final DateTime now = DateTime.now();
+
+    // String formattedDate =
+    //     DateFormat('EEEE, d MMMM yyyy').format(dateTime); // day
+    // String formattedTime = DateFormat('h:mm:ss.SSS a')
+    //     .format(dateTime); // time with milliseconds and AM/PM
 
     MessageModel newMessage = MessageModel(
       senderID: senderID,
       senderEmail: senderEmail,
       receiverID: receiverID,
       message: message,
-      timeStamp: timeStamp,
+      dateTime: Timestamp.fromDate(now),
+      userName: userName,
     );
 
     // construct a chat id for both users
@@ -54,7 +62,7 @@ class ChatService extends ChangeNotifier {
         .collection("ChatRoom")
         .doc(chatRoomID)
         .collection("messages")
-        .orderBy("timestamp", descending: false)
+        .orderBy("dateTime", descending: true)
         .snapshots();
   }
 }
