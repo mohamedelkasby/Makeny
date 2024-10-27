@@ -21,21 +21,146 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController messageController = TextEditingController();
-
   final ChatService chatService = ChatService();
-
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
-
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  final ScrollController scrollController = ScrollController();
 
   void sendMessage() async {
-    if (messageController.text.isNotEmpty) {
+    String trimmedMessage = messageController.text.trim();
+    if (trimmedMessage.isNotEmpty) {
       await chatService.sendMessage(
         receiverID: widget.receiverData["uid"],
-        message: messageController.text,
+        message: trimmedMessage,
       );
       messageController.clear();
+
+      // Scroll to bottom after sending
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (scrollController.hasClients) {
+          scrollController.animateTo(
+            scrollController.position.maxScrollExtent,
+            duration: Duration(milliseconds: 300),
+            curve: Curves.easeOut,
+          );
+        }
+      });
     }
+  }
+
+  String getDateHeader(DateTime dateTime) {
+    DateTime now = DateTime.now();
+    DateTime today = DateTime(now.year, now.month, now.day);
+    DateTime yesterday = today.subtract(Duration(days: 1));
+    DateTime oneWeekAgo = today.subtract(Duration(days: 7));
+
+    if (dateTime.isAfter(today)) {
+      return "اليوم";
+    } else if (dateTime.isAfter(yesterday)) {
+      return "أمس";
+    } else if (dateTime.isAfter(oneWeekAgo)) {
+      return DateFormat('EEEE', 'ar').format(dateTime);
+    } else {
+      return DateFormat('d MMMM yyyy', 'ar').format(dateTime);
+    }
+  }
+
+  Widget messageList() {
+    return StreamBuilder(
+      stream: chatService.getMessages(
+        senderID: firebaseAuth.currentUser!.uid,
+        receiverID: widget.receiverData["uid"],
+      ),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Text("error ${snapshot.error}");
+        } else if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (snapshot.hasData) {
+          final messages = snapshot.data!.docs;
+          return ListView.builder(
+            controller: scrollController,
+            itemCount: messages.length,
+            reverse: false,
+            itemBuilder: (context, index) {
+              final document = messages[index];
+
+              // Check if this message is from a different day than the previous message
+              bool showDate = false;
+              if (index == 0) {
+                showDate = true;
+              } else {
+                final currentDate =
+                    (document.data() as Map<String, dynamic>)["dateTime"]
+                        .toDate();
+                final previousDate = (messages[index - 1].data()
+                        as Map<String, dynamic>)["dateTime"]
+                    .toDate();
+
+                showDate = !isSameDay(currentDate, previousDate);
+              }
+
+              return messageItem(document, showDate);
+            },
+          );
+        } else {
+          return Container();
+        }
+      },
+    );
+  }
+
+  bool isSameDay(DateTime date1, DateTime date2) {
+    return date1.year == date2.year &&
+        date1.month == date2.month &&
+        date1.day == date2.day;
+  }
+
+  Widget messageItem(document, bool showDate) {
+    Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+    bool isSender = data["senderID"] == firebaseAuth.currentUser!.uid;
+    var alignment = (isSender) ? Alignment.centerRight : Alignment.centerLeft;
+
+    DateTime dateTime = data["dateTime"].toDate();
+    String formattedTime = DateFormat('h:mm a', 'ar').format(dateTime);
+
+    return Container(
+      alignment: alignment,
+      child: Column(
+        crossAxisAlignment:
+            (isSender) ? CrossAxisAlignment.start : CrossAxisAlignment.end,
+        children: [
+          Text(isSender ? "You" : widget.receiverData["userName"]),
+          if (showDate)
+            Center(
+              child: Container(
+                margin: EdgeInsets.symmetric(vertical: 10),
+                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                decoration: BoxDecoration(
+                  color: Colors.grey[200],
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  getDateHeader(dateTime),
+                  style: TextStyle(
+                    color: Colors.grey[600],
+                    fontSize: 12,
+                  ),
+                ),
+              ),
+            ),
+          SizedBox(height: 5),
+          ChatBuble(
+            message: data["message"],
+            time: formattedTime,
+            isSender: isSender,
+          ),
+          const SizedBox(height: 10)
+        ],
+      ),
+    );
   }
 
   @override
@@ -55,119 +180,40 @@ class _ChatScreenState extends State<ChatScreen> {
             Expanded(
               child: messageList(),
             ),
-            // the message input
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: GestureDetector(
-                    onTap: () => sendMessage(),
-                    child: SvgPicture.asset("assets/icons/send.svg"),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: GestureDetector(
+                      onTap: sendMessage,
+                      child: SvgPicture.asset("assets/icons/send.svg"),
+                    ),
                   ),
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-                Expanded(
-                  child: TextField(
-                    // focusNode: focusNode, // Added focusNode
-
-                    controller: messageController,
-                    decoration: InputDecoration(
-                      fillColor: Color(0xffF0F0F0),
-                      filled: true,
-                      hintText: "enter your message",
-                      hintStyle: TextStyle(color: greyColor),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50),
-                        borderSide: BorderSide.none,
+                  SizedBox(width: 5),
+                  Expanded(
+                    child: TextField(
+                      controller: messageController,
+                      maxLines: null,
+                      keyboardType: TextInputType.multiline,
+                      decoration: InputDecoration(
+                        fillColor: Color(0xffF0F0F0),
+                        filled: true,
+                        hintText: "اكتب هنا",
+                        hintStyle: TextStyle(color: greyColor),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(50),
+                          borderSide: BorderSide.none,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             )
           ],
         ),
-      ),
-    );
-  }
-
-  Widget messageList() {
-    return StreamBuilder(
-      stream: chatService.getMessages(
-        senderID: firebaseAuth.currentUser!.uid,
-        receiverID: widget.receiverData["uid"],
-      ),
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return Text("error ${snapshot.error}");
-        } else if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        } else if (snapshot.hasData) {
-          return ListView(
-            reverse: true,
-            children: snapshot.data!.docs
-                .map((document) => messageItem(document))
-                .toList(),
-          );
-        } else {
-          return Container();
-        }
-      },
-    );
-  }
-
-  Widget messageItem(document) {
-    Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-    bool isSender = data["senderID"] == firebaseAuth.currentUser!.uid;
-    var alignment = (isSender) ? Alignment.centerRight : Alignment.centerLeft;
-
-    DateTime now = DateTime.now();
-    DateTime today = DateTime(now.year, now.month, now.day);
-    DateTime yesterday = today.subtract(Duration(days: 1));
-    DateTime oneWeekAgo = today.subtract(Duration(days: 7));
-
-    // convert the timestamp to datetime to formate it
-    DateTime dateTime = data["dateTime"].toDate();
-
-    String formattedDate =
-        DateFormat('d MMMM yyyy', 'ar').format(dateTime); //date
-    String formattedDay = DateFormat('EEEE', 'ar').format(dateTime); // day
-    String formattedTime =
-        DateFormat('h:mm a', 'ar').format(dateTime); // time with  AM/PM
-
-    return Container(
-      alignment: alignment,
-      child: Column(
-        crossAxisAlignment:
-            (isSender) ? CrossAxisAlignment.start : CrossAxisAlignment.end,
-        children: [
-          Text(isSender ? "You" : widget.receiverData["userName"]),
-          Center(
-            child: dateTime.isAfter(today)
-                ? Text("اليوم")
-                : dateTime.isAfter(yesterday)
-                    ? Text("امس")
-                    : dateTime.isAfter(oneWeekAgo)
-                        ? Text(formattedDay)
-                        : Text(formattedDate),
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          ChatBuble(
-            message: data["message"],
-            time: formattedTime,
-            isSender: isSender,
-          ),
-          // to make a space between messages
-          const SizedBox(
-            height: 10,
-          )
-        ],
       ),
     );
   }

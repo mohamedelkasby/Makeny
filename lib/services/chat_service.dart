@@ -62,7 +62,7 @@ class ChatService extends ChangeNotifier {
         .collection("ChatRoom")
         .doc(chatRoomID)
         .collection("messages")
-        .orderBy("dateTime", descending: true)
+        .orderBy("dateTime", descending: false)
         .snapshots();
   }
 }
