@@ -1,33 +1,50 @@
-// import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:makeny/models/user_model.dart';
 
-// // instance of fireStore
-// FirebaseFirestore fireStore = FirebaseFirestore.instance;
+class FireStoreService {
+  final FirebaseFirestore fireStore = FirebaseFirestore.instance;
 
-// CollectionReference users = FirebaseFirestore.instance.collection('users');
+  /// Fetches the details of the current user based on userID.
+  Future<UserModel> getUserDetails({required String userID}) async {
+    try {
+      DocumentSnapshot<Map<String, dynamic>> snapshot =
+          await fireStore.collection("users").doc(userID).get();
 
-// Future<void> creatNewUser(UserCredential userCredential) async {
-//   try {
-//     await fireStore.collection("users").doc(userCredential.user!.uid).set({
-//       "uid": userCredential.user!.uid,
-//       "email": userCredential.user!.email,
-//       "userName": userCredential.user!.email!.split('@')[0],
-//     });
-//   } catch (e) {
-//     e.toString();
-//     print(e.toString());
-//   }
-// }
+      if (snapshot.exists) {
+        return UserModel.fromDocument(snapshot);
+      } else {
+        print("User with ID $userID not found in Firestore.");
+        throw Exception("User not found");
+      }
+    } on FirebaseException catch (e) {
+      print("Firebase error fetching user data: ${e.message}");
+      rethrow;
+    } catch (e) {
+      print("Unexpected error fetching user data: $e");
+      rethrow;
+    }
+  }
 
-// //store phoneNumber
-// Future<void> storeWithNumber(
-//     String phoneNo, UserCredential userCredential) async {
-//   try {
-//     await fireStore.collection('users').doc(userCredential.user!.uid).set({
-//       'phoneNumber': phoneNo,
-//     });
-//   } catch (e) {
-//     e.toString();
-//     print(e.toString());
-//   }
-// }
+  Future<void> updateToFirestore({
+    required String userId,
+    required UserModel usermodel,
+  }) async {
+    try {
+      await fireStore.collection('users').doc(userId).update({
+        "userName": usermodel.name,
+        "idNumber": usermodel.idNumber,
+        "email": usermodel.email,
+        "phoneNumber": usermodel.phoneNumber,
+        "age": usermodel.age,
+        "maritalStatus": usermodel.maritalStatus,
+        "gender": usermodel.gender,
+        "educationLevel": usermodel.educationLevel,
+        "currentJob": usermodel.currentJob,
+      });
+    } catch (error) {
+      // Handle any errors
+      debugPrint('Error updating data: $error');
+    }
+  }
+}

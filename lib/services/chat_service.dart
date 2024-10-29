@@ -23,11 +23,6 @@ class ChatService extends ChangeNotifier {
 
     final DateTime now = DateTime.now();
 
-    // String formattedDate =
-    //     DateFormat('EEEE, d MMMM yyyy').format(dateTime); // day
-    // String formattedTime = DateFormat('h:mm:ss.SSS a')
-    //     .format(dateTime); // time with milliseconds and AM/PM
-
     MessageModel newMessage = MessageModel(
       senderID: senderID,
       senderEmail: senderEmail,
@@ -40,12 +35,12 @@ class ChatService extends ChangeNotifier {
     // construct a chat id for both users
     List<String> ids = [senderID, receiverID];
     ids.sort();
-    String ChatRoomID = ids.join('_');
+    String chatRoomID = ids.join('_');
 
     //add the new message to the database
     await fireStore
         .collection("ChatRoom")
-        .doc(ChatRoomID)
+        .doc(chatRoomID)
         .collection("messages")
         .add(newMessage.toMap());
   }

@@ -296,9 +296,8 @@ class _LoginScreenState extends State<LoginScreen>
                                           );
                                           Navigator.of(context).pushReplacement(
                                             MaterialPageRoute(
-                                                builder: (context) =>
-                                                    Test() //BasicPage(),
-                                                ),
+                                              builder: (context) => BasicPage(),
+                                            ),
                                           );
                                         } on FirebaseAuthException catch (e) {
                                           if (e.code == 'invalid-credential') {

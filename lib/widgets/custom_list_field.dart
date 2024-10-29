@@ -10,6 +10,8 @@ class CustomListField extends StatefulWidget {
   final String qustionText;
   final String hintText;
   final TextInputType keyboardType;
+  final TextEditingController controller;
+  // final FormFieldValidator<String>? validator;
 
   const CustomListField({
     super.key,
@@ -20,6 +22,8 @@ class CustomListField extends StatefulWidget {
     this.hintText = "",
     this.suffixIcon = const SizedBox(),
     this.keyboardType = const TextInputType.numberWithOptions(),
+    required this.controller,
+    // this.validator,
   });
 
   @override
@@ -48,10 +52,17 @@ class _CustomListFieldState extends State<CustomListField> {
           child: defalutQuestionText(text: widget.qustionText),
         ),
         //////// text field
-        TextField(
+        TextFormField(
           // onChanged: (value) {
           //   value.isNotEmpty?
           // },
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'من فضلك ادخل';
+            }
+            return null;
+          },
+          controller: widget.controller,
 
           keyboardType: widget.keyboardType,
           enabled: widget.enable,

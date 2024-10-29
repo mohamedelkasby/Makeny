@@ -25,34 +25,91 @@ class _ChatScreenState extends State<ChatScreen> {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   final ScrollController scrollController = ScrollController();
+  bool shouldAutoScroll = true;
+  // bool showFloatingButton = false;
+  bool isInitialLoad = true;
+  @override
+  void initState() {
+    super.initState();
+    scrollController.addListener(scrollListener);
+  }
 
-  void sendMessage() async {
-    String trimmedMessage = messageController.text.trim();
-    if (trimmedMessage.isNotEmpty) {
-      await chatService.sendMessage(
-        receiverID: widget.receiverData["uid"],
-        message: trimmedMessage,
-      );
-      messageController.clear();
+  @override
+  void dispose() {
+    scrollController.removeListener(scrollListener);
+    scrollController.dispose();
+    messageController.dispose();
+    super.dispose();
+  }
 
-      // Scroll to bottom after sending
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (scrollController.hasClients) {
-          scrollController.animateTo(
-            scrollController.position.maxScrollExtent,
-            duration: Duration(milliseconds: 300),
-            curve: Curves.easeOut,
-          );
-        }
-      });
+  void scrollListener() {
+    // If user scrolls up manually, disable auto-scroll
+    if (scrollController.position.pixels <
+        scrollController.position.maxScrollExtent - 100) {
+      shouldAutoScroll = false;
+      // showFloatingButton = true;
+    }
+    // Re-enable auto-scroll when user scrolls to bottom
+    if (scrollController.position.pixels >=
+        scrollController.position.maxScrollExtent - 50) {
+      shouldAutoScroll = true;
+      // showFloatingButton = false;
     }
   }
 
+  void scrollToBottom({bool animate = true}) {
+    if (scrollController.hasClients) {
+      if (animate) {
+        scrollController.animateTo(
+          scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
+      } else {
+        scrollController.jumpTo(scrollController.position.maxScrollExtent);
+      }
+    }
+  }
+
+  void forceScrollToBottom() {
+    // Wait for the next frame when the new message is added
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (scrollController.hasClients) {
+        scrollController.animateTo(
+          scrollController.position.maxScrollExtent + 50,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
+      }
+
+      // showFloatingButton = false;
+    });
+  }
+
+  Future<void> sendMessage() async {
+    String trimmedMessage = messageController.text.trim();
+    if (trimmedMessage.isNotEmpty) {
+      try {
+        await chatService.sendMessage(
+          receiverID: widget.receiverData["uid"],
+          message: trimmedMessage,
+        );
+        messageController.clear();
+        // Enable auto-scroll when sending a new message
+        forceScrollToBottom();
+      } catch (e) {
+        // Handle error appropriately
+        debugPrint('Error sending message: $e');
+      }
+    }
+  }
+
+  // check if the date of send the message is at the same day or not
   String getDateHeader(DateTime dateTime) {
     DateTime now = DateTime.now();
     DateTime today = DateTime(now.year, now.month, now.day);
-    DateTime yesterday = today.subtract(Duration(days: 1));
-    DateTime oneWeekAgo = today.subtract(Duration(days: 7));
+    DateTime yesterday = today.subtract(const Duration(days: 1));
+    DateTime oneWeekAgo = today.subtract(const Duration(days: 7));
 
     if (dateTime.isAfter(today)) {
       return "اليوم";
@@ -65,6 +122,24 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
+  bool shouldShowDate(List<QueryDocumentSnapshot> messages, int index) {
+    if (index == 0) return true;
+
+    final currentDate =
+        (messages[index].data() as Map<String, dynamic>)["dateTime"].toDate();
+    final previousDate =
+        (messages[index - 1].data() as Map<String, dynamic>)["dateTime"]
+            .toDate();
+
+    return !isSameDay(currentDate, previousDate);
+  }
+
+  bool isSameDay(DateTime date1, DateTime date2) {
+    return date1.year == date2.year &&
+        date1.month == date2.month &&
+        date1.day == date2.day;
+  }
+
   Widget messageList() {
     return StreamBuilder(
       stream: chatService.getMessages(
@@ -73,50 +148,45 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          return Text("error ${snapshot.error}");
+          return Center(child: Text("Error: ${snapshot.error}"));
         } else if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        } else if (snapshot.hasData) {
-          final messages = snapshot.data!.docs;
-          return ListView.builder(
-            controller: scrollController,
-            itemCount: messages.length,
-            reverse: false,
-            itemBuilder: (context, index) {
-              final document = messages[index];
-
-              // Check if this message is from a different day than the previous message
-              bool showDate = false;
-              if (index == 0) {
-                showDate = true;
-              } else {
-                final currentDate =
-                    (document.data() as Map<String, dynamic>)["dateTime"]
-                        .toDate();
-                final previousDate = (messages[index - 1].data()
-                        as Map<String, dynamic>)["dateTime"]
-                    .toDate();
-
-                showDate = !isSameDay(currentDate, previousDate);
-              }
-
-              return messageItem(document, showDate);
-            },
-          );
-        } else {
-          return Container();
+          return const Center(child: CircularProgressIndicator());
+        } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+          return const Center(child: Text("No messages yet"));
         }
+
+        final messages = snapshot.data!.docs;
+
+        // Handle initial scroll position
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (isInitialLoad) {
+            scrollToBottom(
+                animate: false); // Jump without animation on initial load
+            isInitialLoad = false;
+          } else if (shouldAutoScroll) {
+            scrollToBottom(animate: true); // Animate for subsequent scrolls
+          }
+        });
+
+        return ListView.builder(
+          controller: scrollController,
+          itemCount: messages.length,
+          padding: const EdgeInsets.only(bottom: 16),
+          itemBuilder: (context, index) {
+            final document = messages[index];
+            final showDate = shouldShowDate(messages, index);
+            return messageItem(document, showDate);
+          },
+        );
       },
     );
   }
 
-  bool isSameDay(DateTime date1, DateTime date2) {
-    return date1.year == date2.year &&
-        date1.month == date2.month &&
-        date1.day == date2.day;
-  }
+// could remove this ......................<<<<<<<<<<<<
+  // bool isSameDay(DateTime date1, DateTime date2) {
+  //   return DateFormat('d MMMM yyyy').format(date1) ==
+  //       DateFormat('d MMMM yyyy').format(date2);
+  // }
 
   Widget messageItem(document, bool showDate) {
     Map<String, dynamic> data = document.data() as Map<String, dynamic>;
@@ -132,12 +202,12 @@ class _ChatScreenState extends State<ChatScreen> {
         crossAxisAlignment:
             (isSender) ? CrossAxisAlignment.start : CrossAxisAlignment.end,
         children: [
-          Text(isSender ? "You" : widget.receiverData["userName"]),
           if (showDate)
             Center(
               child: Container(
-                margin: EdgeInsets.symmetric(vertical: 10),
-                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                margin: const EdgeInsets.symmetric(vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                   color: Colors.grey[200],
                   borderRadius: BorderRadius.circular(12),
@@ -151,7 +221,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 ),
               ),
             ),
-          SizedBox(height: 5),
+          const SizedBox(height: 5),
           ChatBuble(
             message: data["message"],
             time: formattedTime,
@@ -191,14 +261,14 @@ class _ChatScreenState extends State<ChatScreen> {
                       child: SvgPicture.asset("assets/icons/send.svg"),
                     ),
                   ),
-                  SizedBox(width: 5),
+                  const SizedBox(width: 5),
                   Expanded(
                     child: TextField(
                       controller: messageController,
                       maxLines: null,
                       keyboardType: TextInputType.multiline,
                       decoration: InputDecoration(
-                        fillColor: Color(0xffF0F0F0),
+                        fillColor: const Color(0xffF0F0F0),
                         filled: true,
                         hintText: "اكتب هنا",
                         hintStyle: TextStyle(color: greyColor),
@@ -215,6 +285,14 @@ class _ChatScreenState extends State<ChatScreen> {
           ],
         ),
       ),
+      // floatingActionButton: showFloatingButton
+      //     ? FloatingActionButton.small(
+      //         onPressed: () {
+      //           forceScrollToBottom();
+      //         },
+      //         child: Icon(Icons.arrow_downward),
+      //       )
+      //     : null,
     );
   }
 }

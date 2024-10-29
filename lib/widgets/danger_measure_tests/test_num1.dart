@@ -19,7 +19,7 @@ class TestNumber1 extends StatefulWidget {
 
 class _TestNumber1State extends State<TestNumber1> {
   bool allQuestionsAnswered = false;
-
+  TextEditingController textEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AppCubit, AppState>(
@@ -45,54 +45,65 @@ class _TestNumber1State extends State<TestNumber1> {
                 });
               },
             ),
-            const CustomListField(
-              suffixList: ["سم", "انش"],
+            CustomListField(
+              suffixList: const ["سم", "انش"],
               qustionText: "الطول",
+              controller: textEditingController,
             ),
-            const CustomListField(
-              suffixList: ["كجم", "جم"],
+            CustomListField(
+              suffixList: const ["كجم", "جم"],
               qustionText: "الوزن",
+              controller: textEditingController,
             ),
-            const CustomListField(
-              suffixList: ["كجم/م2", "جم/م2"],
+            CustomListField(
+              suffixList: const ["كجم/م2", "جم/م2"],
               qustionText: "كتلة الجسم",
               enable: false,
+              controller: textEditingController,
             ),
-            const CustomListField(
-              suffixList: ["سم", "انش"],
+            CustomListField(
+              suffixList: const ["سم", "انش"],
               qustionText: "الخصر",
+              controller: textEditingController,
             ),
-            const CustomListField(
-              suffixList: ["سم", "انش"],
+            CustomListField(
+              suffixList: const ["سم", "انش"],
               qustionText: "محيط الرقبة",
+              controller: textEditingController,
             ),
-            const CustomListField(
+            CustomListField(
               suffixText: "نبضة كل دقيقة",
               qustionText: "النبض",
               hintText: "100/60",
+              controller: textEditingController,
             ),
-            const CustomListField(
+            CustomListField(
               qustionText: "مستوى الاكسحين",
               hintText: "100/90",
+              controller: textEditingController,
             ),
-            const CustomListField(
+            CustomListField(
               qustionText: "ضغط الدم الانقباضى",
               hintText: "140/100",
-              suffixList: ["ملم زئبقي"],
+              suffixList: const ["ملم زئبقي"],
+              controller: textEditingController,
             ),
-            const CustomListField(
+            CustomListField(
               qustionText: "ضغط الدم الانبساطى",
               hintText: "80/60",
-              suffixList: ["ملم زئبقي"],
+              suffixList: const ["ملم زئبقي"],
+              controller: textEditingController,
             ),
-            const CustomListField(
+            CustomListField(
               qustionText: "الكلسترول",
               hintText: "5.2/0",
+              controller: textEditingController,
             ),
-            const CustomListField(
+            CustomListField(
               qustionText: "الدهون الثلاثية النافعة",
               hintText: "0",
-              suffixList: ["سم"],
+              suffixList: const ["سم"],
+              controller: textEditingController,
             ),
           ],
         );

@@ -1,127 +1,147 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:makeny/extentions/colors.dart';
+import 'package:makeny/models/user_model.dart';
+import 'package:makeny/services/fire_store_service.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/custom_list_field.dart';
-import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';
+import 'package:makeny/widgets/drop_dwon_list.dart';
 
-class EditUserProfile extends StatelessWidget {
+class EditUserProfile extends StatefulWidget {
   const EditUserProfile({super.key});
 
+  @override
+  State<EditUserProfile> createState() => _EditUserProfileState();
+}
+
+class _EditUserProfileState extends State<EditUserProfile> {
+  final TextEditingController userNameController = TextEditingController();
+  final TextEditingController idNumberController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController birthDayController = TextEditingController();
+  final TextEditingController phoneNumberController = TextEditingController();
+  final TextEditingController currentJobController = TextEditingController();
+  String? selectedEducationLevel;
+  String? selectedMaritalStatus;
+  String? selectedGender;
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  final GlobalKey formKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: defaultAppbar(context, title: "الملف الشخصي"),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-        child: ListView(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-              child: LinearProgressIndicator(
-                color: mainColor,
-                backgroundColor: mainColor100,
-                minHeight: 6,
-                borderRadius: BorderRadius.circular(50),
-                value: (1 / 10),
-              ),
-            ),
-            const CustomListField(
-              qustionText: "الاسم بالكامل",
-              keyboardType: TextInputType.name,
-            ),
-            const CustomListField(qustionText: "رقم الهوية"),
-            const CustomListField(qustionText: "البريد الالكتروني"),
-            const CustomListField(
-              qustionText: "الجوال",
-              suffixText: "+999  |",
-            ),
-            const CustomListField(
-              qustionText: "تاريخ الميلاد ",
-              hintText: "ي/ش/س",
-              suffixIcon: Icon(Icons.abc),
-            ),
-            //    the drop down
-            const CustomDropDwonList(
-              label: "الحالة الاجتماعية",
-              listItems: ["متزوج ", "اعزب", "ارمل", "مطلق"],
-            ),
-            const CustomDropDwonList(
-              label: "النوع",
-              listItems: ["ذكر", "انثي"],
-            ),
-            const CustomDropDwonList(
-              label: "المستوى التعليمي",
-              listItems: ["طالب", "بكالوريوس", "ماجستير", "دكتوراه"],
-            ),
-            const CustomListField(qustionText: "العمل الحالي"),
-            defaultButton(text: "حفظ", onTap: () {})
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class CustomDropDwonList extends StatefulWidget {
-  const CustomDropDwonList({
-    super.key,
-    required this.listItems,
-    required this.label,
-  });
-  final List<String> listItems;
-  final String label;
-
-  @override
-  State<CustomDropDwonList> createState() => _CustomDropDwonListState();
-}
-
-class _CustomDropDwonListState extends State<CustomDropDwonList> {
-  late List<String> gender = widget.listItems;
-  late String selectedList = gender[0];
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: defalutQuestionText(text: widget.label),
-        ),
-        Container(
-          width: double.infinity,
-          // margin: EdgeInsets.only(top: 10),
-          decoration: BoxDecoration(
-              border: Border.all(width: 1, color: const Color(0xffcfcfd0))),
-          child: DropdownButton<String>(
-            isExpanded:
-                true, // هذا سيسمح للـ DropdownButton بأخذ العرض الكامل للـ Container
-            icon: const Icon(Icons.keyboard_arrow_down_rounded),
-            value: selectedList,
-            style: TextStyle(
-              fontSize: 16,
-              color: greyColor,
-              fontFamily: "cairo",
-              fontWeight: FontWeight.w300,
-            ),
-            underline: const SizedBox(),
-            items: gender.map((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: Text(value),
+        child: Form(
+          key: formKey,
+          child: ListView(
+            children: [
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                child: LinearProgressIndicator(
+                  color: mainColor,
+                  backgroundColor: mainColor100,
+                  minHeight: 6,
+                  borderRadius: BorderRadius.circular(50),
+                  value: (1 / 10),
                 ),
-              );
-            }).toList(),
-            onChanged: (newValue) {
-              setState(() {
-                selectedList = newValue!;
-              });
-            },
+              ),
+              CustomListField(
+                qustionText: "الاسم بالكامل",
+                keyboardType: TextInputType.name,
+                controller: userNameController,
+                // validator: (value) {
+                //   if (value == null || value.isEmpty) {
+                //     return 'من فضلك ادخل';
+                //   }
+                //   return null;
+                // },
+              ),
+              CustomListField(
+                qustionText: "رقم الهوية",
+                controller: idNumberController,
+              ),
+              CustomListField(
+                qustionText: "البريد الالكتروني",
+                controller: emailController,
+              ),
+              CustomListField(
+                qustionText: "الجوال",
+                suffixText: "+999  |",
+                controller: phoneNumberController,
+              ),
+              CustomListField(
+                qustionText: "تاريخ الميلاد ",
+                hintText: "ي/ش/س",
+                controller: birthDayController,
+                suffixIcon: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SvgPicture.asset("assets/icons/calender.svg"),
+                ),
+              ),
+              //    the drop down
+              CustomDropDwonList(
+                label: "الحالة الاجتماعية",
+                listItems: const ["متزوج ", "اعزب", "ارمل", "مطلق"],
+                selectedValue: selectedMaritalStatus,
+                onChanged: (value) {
+                  setState(() {
+                    selectedMaritalStatus = value!;
+                  });
+                },
+              ),
+              CustomDropDwonList(
+                label: "النوع",
+                listItems: const ["ذكر", "انثي"],
+                selectedValue: selectedGender,
+                onChanged: (value) {
+                  selectedGender = value!;
+                },
+              ),
+              CustomDropDwonList(
+                label: "المستوى التعليمي",
+                listItems: const ["طالب", "بكالوريوس", "ماجستير", "دكتوراه"],
+                selectedValue: selectedEducationLevel,
+                onChanged: (value) {
+                  selectedEducationLevel = value!;
+                },
+              ),
+              CustomListField(
+                qustionText: "العمل الحالي",
+                controller: currentJobController,
+              ),
+              defaultButton(
+                  text: "حفظ",
+                  onTap: () {
+                    if (formKey.currentState!.validate()) {
+                      // If the form is valid, display a snackbar. In the real world, you'd often call a server or save the information in a database.
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Processing Data')),
+                      );
+                    }
+                    //TODO:
+                    FireStoreService().updateToFirestore(
+                      userId: firebaseAuth.currentUser!.uid,
+                      usermodel: UserModel(
+                        name: userNameController.text,
+                        age: double.parse(birthDayController.text),
+                        gender: selectedGender!,
+                        email: emailController.text,
+                        phoneNumber: phoneNumberController.text,
+                        idNumber: double.parse(idNumberController.text),
+                        educationLevel: selectedEducationLevel!,
+                        currentJob: currentJobController.text,
+                        maritalStatus: selectedMaritalStatus!,
+                      ),
+                    );
+                  })
+            ],
           ),
         ),
-      ],
+      ),
     );
   }
 }

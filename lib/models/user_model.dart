@@ -1,70 +1,101 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserModel {
-  final String userId;
-  final String pic;
-  final String name;
-  final String age;
-  final String gender;
-  final String gmail;
-  final String phoneNumber;
-  final String idNumber;
-  final String educationLevel;
-  final String currentJob;
-  final String length;
-  final String weight;
-  final String waist;
-  final String vision;
+  final String? userId;
+  final String? picture;
+  final String? name;
+  final double? age;
+  final String? gender;
+  final String? email;
+  final String? phoneNumber;
+  final double? idNumber;
+  final String? educationLevel;
+  final String? currentJob;
+  final double? length;
+  final double? weight;
+  final double? waist;
+  final String? vision;
+  final String? maritalStatus;
 
   UserModel({
-    required this.name,
-    required this.userId,
-    required this.age,
-    required this.gender,
-    required this.gmail,
-    required this.phoneNumber,
-    required this.idNumber,
-    required this.educationLevel,
-    required this.currentJob,
-    required this.length,
-    required this.weight,
-    required this.waist,
-    required this.vision,
-    required this.pic,
+    this.name,
+    this.userId,
+    this.age,
+    this.gender,
+    this.email,
+    this.phoneNumber,
+    this.idNumber,
+    this.educationLevel,
+    this.currentJob,
+    this.length,
+    this.weight,
+    this.waist,
+    this.vision,
+    this.picture,
+    this.maritalStatus,
   });
 
   // The 'fromFirebase' constructor should focus on available fields from Firebase User
-  factory UserModel.fromFirebase(
-    UserCredential userCredential, {
-    required String age,
-    required String name,
-    required String email,
-    required String gender,
-    required String phoneNumber,
-    required String idNumber,
-    required String educationLevel,
-    required String currentJob,
-    required String length,
-    required String weight,
-    required String waist,
-    required String vision,
-    required String pic,
-  }) {
+  factory UserModel.fromDocument(DocumentSnapshot<Map<String, dynamic>> doc) {
+    // final data = doc.data()!;
+
     return UserModel(
-      userId: userCredential.user!.uid,
-      name: name,
-      age: age,
-      gender: gender,
-      gmail: email,
-      phoneNumber: phoneNumber,
-      idNumber: idNumber,
-      educationLevel: educationLevel,
-      currentJob: currentJob,
-      length: length,
-      weight: weight,
-      waist: waist,
-      vision: vision,
-      pic: pic,
+      userId: doc.id,
+      email: doc["email"] ?? '',
+      name: doc["userName"] ?? '',
+      age: doc["age"] ?? '',
+      gender: doc["gender"] ?? '',
+      phoneNumber: doc["phoneNumber"] ?? '',
+      idNumber: doc["idNumber"] ?? '',
+      educationLevel: doc["educationLevel"] ?? '',
+      currentJob: doc["currentJob"] ?? '',
+      length: doc["length"] ?? '',
+      weight: doc["weight"] ?? '',
+      waist: doc["waist"] ?? '',
+      vision: doc["vision"] ?? '',
+      picture: doc["picture"] ?? '',
+      maritalStatus: doc["maritalStatus"] ?? '',
+    );
+  }
+
+  /// to store in the firestore
+  Map<String, dynamic> toDocument() {
+    return {
+      "userId": userId,
+      "email": email,
+      "name": name,
+      "age": age,
+      "gender": gender,
+      "phoneNumber": phoneNumber,
+      "idNumber": idNumber,
+      "educationLevel": educationLevel,
+      "currentJob": currentJob,
+      "length": length,
+      "weight": weight,
+      "waist": waist,
+      "vision": vision,
+      "picture": picture,
+      "maritalStatus": maritalStatus,
+    };
+  }
+
+  factory UserModel.empty() {
+    return UserModel(
+      userId: '',
+      email: '',
+      name: '',
+      maritalStatus: '',
+      age: 0,
+      gender: '',
+      phoneNumber: '',
+      idNumber: 0,
+      educationLevel: '',
+      currentJob: '',
+      length: 0,
+      weight: 0,
+      waist: 0,
+      vision: '',
+      picture: '',
     );
   }
 }

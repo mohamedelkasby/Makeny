@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:makeny/models/user_model.dart';
 
 class AuthServices {
   // instance of authentication
@@ -36,12 +37,26 @@ class AuthServices {
       email: email,
       password: password,
     );
-    //enter data to firebase
+
+    UserModel emptyUser = UserModel.empty();
+
     //store the data to fireStore
     fireStore.collection("users").doc(credential.user!.uid).set({
       "uid": credential.user!.uid,
       "email": credential.user!.email,
       "userName": credential.user!.email!.split('@')[0],
+      "age": emptyUser.age,
+      "gender": emptyUser.gender,
+      "phoneNumber": emptyUser.phoneNumber,
+      "idNumber": emptyUser.idNumber,
+      "educationLevel": emptyUser.educationLevel,
+      "currentJob": emptyUser.currentJob,
+      "length": emptyUser.length,
+      "weight": emptyUser.weight,
+      "waist": emptyUser.waist,
+      "vision": emptyUser.vision,
+      "picture": emptyUser.picture,
+      "maritalStatus": emptyUser.maritalStatus,
     }, SetOptions(merge: true));
     return credential;
   }
