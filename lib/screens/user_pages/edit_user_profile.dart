@@ -27,7 +27,7 @@ class _EditUserProfileState extends State<EditUserProfile> {
   String? selectedMaritalStatus;
   String? selectedGender;
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  final GlobalKey formKey = GlobalKey();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,41 +51,39 @@ class _EditUserProfileState extends State<EditUserProfile> {
               ),
               CustomListField(
                 qustionText: "الاسم بالكامل",
-                keyboardType: TextInputType.name,
                 controller: userNameController,
-                // validator: (value) {
-                //   if (value == null || value.isEmpty) {
-                //     return 'من فضلك ادخل';
-                //   }
-                //   return null;
-                // },
+                keyboardType: TextInputType.name,
               ),
               CustomListField(
                 qustionText: "رقم الهوية",
                 controller: idNumberController,
+                keyboardType: TextInputType.number,
               ),
               CustomListField(
                 qustionText: "البريد الالكتروني",
                 controller: emailController,
+                keyboardType: TextInputType.emailAddress,
               ),
               CustomListField(
                 qustionText: "الجوال",
                 suffixText: "+999  |",
                 controller: phoneNumberController,
+                keyboardType: TextInputType.phone,
               ),
               CustomListField(
                 qustionText: "تاريخ الميلاد ",
                 hintText: "ي/ش/س",
                 controller: birthDayController,
+                keyboardType: TextInputType.datetime,
                 suffixIcon: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SvgPicture.asset("assets/icons/calender.svg"),
                 ),
               ),
               //    the drop down
-              CustomDropDwonList(
+              CustomDropDownList(
+                items: const ["متزوج ", "اعزب", "ارمل", "مطلق"],
                 label: "الحالة الاجتماعية",
-                listItems: const ["متزوج ", "اعزب", "ارمل", "مطلق"],
                 selectedValue: selectedMaritalStatus,
                 onChanged: (value) {
                   setState(() {
@@ -93,17 +91,17 @@ class _EditUserProfileState extends State<EditUserProfile> {
                   });
                 },
               ),
-              CustomDropDwonList(
+              CustomDropDownList(
                 label: "النوع",
-                listItems: const ["ذكر", "انثي"],
+                items: const ["ذكر", "انثي"],
                 selectedValue: selectedGender,
                 onChanged: (value) {
                   selectedGender = value!;
                 },
               ),
-              CustomDropDwonList(
+              CustomDropDownList(
                 label: "المستوى التعليمي",
-                listItems: const ["طالب", "بكالوريوس", "ماجستير", "دكتوراه"],
+                items: const ["طالب", "بكالوريوس", "ماجستير", "دكتوراه"],
                 selectedValue: selectedEducationLevel,
                 onChanged: (value) {
                   selectedEducationLevel = value!;
@@ -112,6 +110,7 @@ class _EditUserProfileState extends State<EditUserProfile> {
               CustomListField(
                 qustionText: "العمل الحالي",
                 controller: currentJobController,
+                keyboardType: TextInputType.name,
               ),
               defaultButton(
                   text: "حفظ",
@@ -122,21 +121,21 @@ class _EditUserProfileState extends State<EditUserProfile> {
                         SnackBar(content: Text('Processing Data')),
                       );
                     }
-                    //TODO:
-                    FireStoreService().updateToFirestore(
-                      userId: firebaseAuth.currentUser!.uid,
-                      usermodel: UserModel(
-                        name: userNameController.text,
-                        age: double.parse(birthDayController.text),
-                        gender: selectedGender!,
-                        email: emailController.text,
-                        phoneNumber: phoneNumberController.text,
-                        idNumber: double.parse(idNumberController.text),
-                        educationLevel: selectedEducationLevel!,
-                        currentJob: currentJobController.text,
-                        maritalStatus: selectedMaritalStatus!,
-                      ),
-                    );
+                    // TODO:
+                    // FireStoreService().updateToFirestore(
+                    //   userId: firebaseAuth.currentUser!.uid,
+                    //   usermodel: UserModel(
+                    //     name: userNameController.text,
+                    //     age: double.parse(birthDayController.text),
+                    //     gender: selectedGender!,
+                    //     email: emailController.text,
+                    //     phoneNumber: phoneNumberController.text,
+                    //     idNumber: double.parse(idNumberController.text),
+                    //     educationLevel: selectedEducationLevel!,
+                    //     currentJob: currentJobController.text,
+                    //     maritalStatus: selectedMaritalStatus!,
+                    //   ),
+                    // );
                   })
             ],
           ),
