@@ -7,6 +7,7 @@ class CustomListField extends StatefulWidget {
   final String suffixText;
   final Widget suffixIcon;
   final bool enable;
+  final bool readOnly;
   final String qustionText;
   final String hintText;
   final TextInputType keyboardType;
@@ -16,6 +17,7 @@ class CustomListField extends StatefulWidget {
     super.key,
     this.suffixList = const [],
     this.enable = true,
+    this.readOnly = false,
     this.suffixText = "",
     required this.qustionText,
     this.hintText = "",
@@ -63,6 +65,7 @@ class _CustomListFieldState extends State<CustomListField> {
         ),
         TextFormField(
           key: _formKey,
+          readOnly: widget.readOnly,
           onChanged: (value) {
             // Trigger validation on each change
             setState(() {
