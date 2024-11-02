@@ -12,6 +12,20 @@ class ProfilePage extends StatelessWidget {
 
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
+  int calculateAge(DateTime birthDate) {
+    DateTime currentDate = DateTime.now();
+    int age = currentDate.year - birthDate.year;
+
+    // Check if birthday hasn't occurred this year
+    if (currentDate.month < birthDate.month ||
+        (currentDate.month == birthDate.month &&
+            currentDate.day < birthDate.day)) {
+      age--;
+    }
+
+    return age;
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<UserModel>(
@@ -33,6 +47,7 @@ class ProfilePage extends StatelessWidget {
 
         // Accessing the UserModel directly
         UserModel userModel = snapshot.data!;
+        int age = calculateAge(userModel.birthDate!.toDate());
 
         return Scaffold(
           appBar: defaultAppbar(context, title: "الملف الشخصي"),
@@ -60,8 +75,7 @@ class ProfilePage extends StatelessWidget {
                       ),
                       usersData(
                         textType: "العمر",
-                        textData:
-                            "${userModel.age!.toInt() == 0 ? "-" : userModel.age!.toInt()} سنة",
+                        textData: "$age سنة",
                       ),
                       usersData(
                         textType: "الحالة الاجتماعيه",
@@ -135,7 +149,7 @@ class ProfilePage extends StatelessWidget {
                   onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => EditUserProfile(),
+                      builder: (context) => EditUserProfile(data: userModel),
                     ),
                   ),
                 ),

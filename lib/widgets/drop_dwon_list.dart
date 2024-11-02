@@ -5,8 +5,8 @@ class CustomDropDownList extends StatefulWidget {
     super.key,
     required this.items,
     required this.label,
-    required this.onChanged,
     this.selectedValue,
+    required this.onChanged,
   });
 
   final List<String> items;
@@ -19,7 +19,23 @@ class CustomDropDownList extends StatefulWidget {
 }
 
 class _CustomDropDownListState extends State<CustomDropDownList> {
-  final _formFieldKey = GlobalKey<FormFieldState<String>>();
+  late String? _currentValue;
+
+  @override
+  void initState() {
+    super.initState();
+    // Ensure the initial value is valid
+    _currentValue = _validateAndGetInitialValue();
+  }
+
+  String? _validateAndGetInitialValue() {
+    // If selectedValue is not in items, return null
+    if (widget.selectedValue != null &&
+        widget.items.contains(widget.selectedValue)) {
+      return widget.selectedValue;
+    }
+    return null;
+  }
 
   String? _validateValue(String? value) {
     if (value == null) {
@@ -27,14 +43,6 @@ class _CustomDropDownListState extends State<CustomDropDownList> {
     }
     return null;
   }
-
-  // @override
-  // void didUpdateWidget(covariant CustomDropDownList oldWidget) {
-  //   super.didUpdateWidget(oldWidget);
-  //   if (oldWidget.selectedValue != widget.selectedValue) {
-  //     _formFieldKey.currentState?.validate();
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +52,6 @@ class _CustomDropDownListState extends State<CustomDropDownList> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        // if (widget.label.isNotEmpty) ...[
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8),
           child: Text(
@@ -54,11 +61,9 @@ class _CustomDropDownListState extends State<CustomDropDownList> {
             ),
           ),
         ),
-        // ],
         FormField<String>(
-          key: _formFieldKey,
           validator: _validateValue,
-          initialValue: widget.selectedValue,
+          initialValue: _currentValue,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           builder: (formFieldState) {
             return Column(
@@ -79,7 +84,7 @@ class _CustomDropDownListState extends State<CustomDropDownList> {
                     padding: const EdgeInsets.symmetric(horizontal: 12.0),
                     child: DropdownButtonFormField<String>(
                       isExpanded: true,
-                      value: formFieldState.value,
+                      value: _currentValue,
                       hint: Text(
                         '-اختر-',
                         style: TextStyle(color: theme.hintColor),
@@ -107,6 +112,9 @@ class _CustomDropDownListState extends State<CustomDropDownList> {
                         );
                       }).toList(),
                       onChanged: (value) {
+                        setState(() {
+                          _currentValue = value;
+                        });
                         formFieldState.didChange(value);
                         widget.onChanged(value);
                       },

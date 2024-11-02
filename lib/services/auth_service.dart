@@ -19,25 +19,6 @@ class AuthServices {
       email: email,
       password: password,
     );
-    //store the data to fireStore
-    fireStore.collection("users").doc(credential.user!.uid).set({
-      "uid": credential.user!.uid,
-      "email": credential.user!.email,
-      "userName": credential.user!.email!.split('@')[0],
-    });
-    return credential;
-  }
-
-//sign in with email and password
-  Future<UserCredential> signInWithEmailAndPassword({
-    required String email,
-    required String password,
-  }) async {
-    final credential = await firebaseAuth.signInWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
-
     UserModel emptyUser = UserModel.empty();
 
     //store the data to fireStore
@@ -45,7 +26,7 @@ class AuthServices {
       "uid": credential.user!.uid,
       "email": credential.user!.email,
       "userName": credential.user!.email!.split('@')[0],
-      "age": emptyUser.age,
+      "birthDate": emptyUser.birthDate,
       "gender": emptyUser.gender,
       "phoneNumber": emptyUser.phoneNumber,
       "idNumber": emptyUser.idNumber,
@@ -57,7 +38,20 @@ class AuthServices {
       "vision": emptyUser.vision,
       "picture": emptyUser.picture,
       "maritalStatus": emptyUser.maritalStatus,
-    }, SetOptions(merge: true));
+    });
+    return credential;
+  }
+
+//sign in with email and password
+  Future signInWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
+    final credential = await firebaseAuth.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+
     return credential;
   }
 

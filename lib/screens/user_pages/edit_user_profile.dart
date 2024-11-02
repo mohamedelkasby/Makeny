@@ -1,18 +1,23 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart' hide DatePickerTheme;
-
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:makeny/extentions/colors.dart';
+import 'package:makeny/models/user_model.dart';
+import 'package:makeny/services/fire_store_service.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/custom_list_field.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';
 import 'package:makeny/widgets/drop_dwon_list.dart';
 
 class EditUserProfile extends StatefulWidget {
-  const EditUserProfile({super.key});
-
+  const EditUserProfile({
+    super.key,
+    required this.data,
+  });
+  final UserModel data;
   @override
   State<EditUserProfile> createState() => _EditUserProfileState();
 }
@@ -21,7 +26,6 @@ class _EditUserProfileState extends State<EditUserProfile> {
   final TextEditingController userNameController = TextEditingController();
   final TextEditingController idNumberController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
-  // TextEditingController birthDayController = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
   final TextEditingController currentJobController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -29,21 +33,19 @@ class _EditUserProfileState extends State<EditUserProfile> {
   String? selectedMaritalStatus;
   String? selectedGender;
   String? selectedDate;
+  DateTime timeStamp = DateTime.now();
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   int age = 0;
 
-  int calculateAge(DateTime birthDate) {
-    DateTime currentDate = DateTime.now();
-    int age = currentDate.year - birthDate.year;
+  @override
+  void initState() {
+    selectedEducationLevel = widget.data.educationLevel;
+    selectedGender = widget.data.gender;
+    selectedMaritalStatus = widget.data.maritalStatus;
 
-    // Check if birthday hasn't occurred this year
-    if (currentDate.month < birthDate.month ||
-        (currentDate.month == birthDate.month &&
-            currentDate.day < birthDate.day)) {
-      age--;
-    }
-
-    return age;
+    selectedDate =
+        DateFormat('dd-MM-yyyy').format(widget.data.birthDate!.toDate());
+    super.initState();
   }
 
   @override
@@ -71,27 +73,33 @@ class _EditUserProfileState extends State<EditUserProfile> {
                 qustionText: "الاسم بالكامل",
                 controller: userNameController,
                 keyboardType: TextInputType.name,
+                value: widget.data.name,
               ),
               CustomListField(
                 qustionText: "رقم الهوية",
                 controller: idNumberController,
                 keyboardType: TextInputType.number,
+                value: widget.data.idNumber.toString(),
               ),
               CustomListField(
                 qustionText: "البريد الالكتروني",
                 controller: emailController,
                 keyboardType: TextInputType.emailAddress,
+                value: widget.data.email,
               ),
               CustomListField(
                 qustionText: "الجوال",
                 suffixText: "+999  |",
                 controller: phoneNumberController,
                 keyboardType: TextInputType.phone,
+                value: widget.data.phoneNumber,
               ),
               CustomListField(
                 readOnly: true,
                 qustionText: "تاريخ الميلاد ",
                 hintText: "ي/ش/س",
+                value: DateFormat('dd-MM-yyyy')
+                    .format(widget.data.birthDate!.toDate()),
                 controller: TextEditingController(text: selectedDate),
                 keyboardType: TextInputType.datetime,
                 suffixIcon: Padding(
@@ -110,6 +118,7 @@ class _EditUserProfileState extends State<EditUserProfile> {
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
+                          cancelStyle: TextStyle(color: Colors.white),
                         ),
                         minTime: DateTime.now()
                             .subtract(const Duration(days: 120 * 365)),
@@ -118,7 +127,7 @@ class _EditUserProfileState extends State<EditUserProfile> {
                           setState(() {
                             selectedDate =
                                 DateFormat('dd-MM-yyyy').format(date);
-                            age = calculateAge(date);
+                            timeStamp = date;
                           });
                         },
                         currentTime: DateTime.now(),
@@ -130,6 +139,7 @@ class _EditUserProfileState extends State<EditUserProfile> {
                 ),
               ),
               //    the drop down
+
               CustomDropDownList(
                 items: const ["متزوج ", "اعزب", "ارمل", "مطلق"],
                 label: "الحالة الاجتماعية",
@@ -160,31 +170,28 @@ class _EditUserProfileState extends State<EditUserProfile> {
                 qustionText: "العمل الحالي",
                 controller: currentJobController,
                 keyboardType: TextInputType.name,
+                value: widget.data.currentJob,
               ),
               defaultButton(
                   text: "حفظ",
                   onTap: () {
                     if (formKey.currentState!.validate()) {
-                      // If the form is valid, display a snackbar. In the real world, you'd often call a server or save the information in a database.
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Processing Data')),
+                      FireStoreService().updateDataToFirestore(
+                        userId: firebaseAuth.currentUser!.uid,
+                        usermodel: UserModel(
+                          name: userNameController.text,
+                          birthDate: Timestamp.fromDate(timeStamp),
+                          gender: selectedGender!,
+                          email: emailController.text,
+                          phoneNumber: phoneNumberController.text,
+                          idNumber: double.parse(idNumberController.text),
+                          educationLevel: selectedEducationLevel!,
+                          currentJob: currentJobController.text,
+                          maritalStatus: selectedMaritalStatus!,
+                        ),
                       );
+                      Navigator.of(context).popUntil((route) => route.isFirst);
                     }
-                    // TODO:
-                    // FireStoreService().updateToFirestore(
-                    //   userId: firebaseAuth.currentUser!.uid,
-                    //   usermodel: UserModel(
-                    //     name: userNameController.text,
-                    //     age: double.parse(birthDayController.text),
-                    //     gender: selectedGender!,
-                    //     email: emailController.text,
-                    //     phoneNumber: phoneNumberController.text,
-                    //     idNumber: double.parse(idNumberController.text),
-                    //     educationLevel: selectedEducationLevel!,
-                    //     currentJob: currentJobController.text,
-                    //     maritalStatus: selectedMaritalStatus!,
-                    //   ),
-                    // );
                   })
             ],
           ),

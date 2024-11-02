@@ -4,7 +4,7 @@ class UserModel {
   final String? userId;
   final String? picture;
   final String? name;
-  final double? age;
+  final Timestamp? birthDate;
   final String? gender;
   final String? email;
   final String? phoneNumber;
@@ -20,7 +20,7 @@ class UserModel {
   UserModel({
     this.name,
     this.userId,
-    this.age,
+    this.birthDate,
     this.gender,
     this.email,
     this.phoneNumber,
@@ -43,7 +43,7 @@ class UserModel {
       userId: doc.id,
       email: doc["email"] ?? '',
       name: doc["userName"] ?? '',
-      age: doc["age"] ?? '',
+      birthDate: doc["birthDate"] ?? '',
       gender: doc["gender"] ?? '',
       phoneNumber: doc["phoneNumber"] ?? '',
       idNumber: doc["idNumber"] ?? '',
@@ -58,34 +58,13 @@ class UserModel {
     );
   }
 
-  /// to store in the firestore
-  Map<String, dynamic> toDocument() {
-    return {
-      "userId": userId,
-      "email": email,
-      "name": name,
-      "age": age,
-      "gender": gender,
-      "phoneNumber": phoneNumber,
-      "idNumber": idNumber,
-      "educationLevel": educationLevel,
-      "currentJob": currentJob,
-      "length": length,
-      "weight": weight,
-      "waist": waist,
-      "vision": vision,
-      "picture": picture,
-      "maritalStatus": maritalStatus,
-    };
-  }
-
   factory UserModel.empty() {
     return UserModel(
       userId: '',
       email: '',
       name: '',
       maritalStatus: '',
-      age: 0,
+      birthDate: Timestamp.fromDate(DateTime.now()),
       gender: '',
       phoneNumber: '',
       idNumber: 0,

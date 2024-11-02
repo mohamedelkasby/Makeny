@@ -12,6 +12,7 @@ class CustomListField extends StatefulWidget {
   final String hintText;
   final TextInputType keyboardType;
   final TextEditingController controller;
+  final String? value;
 
   const CustomListField({
     super.key,
@@ -24,6 +25,7 @@ class CustomListField extends StatefulWidget {
     this.suffixIcon = const SizedBox(),
     this.keyboardType = const TextInputType.numberWithOptions(),
     required this.controller,
+    this.value = "",
   });
 
   @override
@@ -40,6 +42,12 @@ class _CustomListFieldState extends State<CustomListField> {
     if (widget.suffixList.isNotEmpty) {
       selectedList = widget.suffixList[0];
     }
+
+    // Set initial value if provided
+    if (widget.value != null && widget.value!.isNotEmpty) {
+      widget.controller.text = widget.value!;
+    }
+
     super.initState();
   }
 

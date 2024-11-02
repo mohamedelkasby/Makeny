@@ -8,7 +8,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:makeny/firebase_options.dart';
 import 'package:makeny/screens/entry_pages/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:makeny/test.dart';
 
 Future<void> main() async {
   // to set the status bar in the top color to white
@@ -21,6 +20,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
   runApp(const MyApp());
 }
 

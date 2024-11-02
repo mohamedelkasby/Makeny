@@ -25,14 +25,16 @@ class AppCubit extends Cubit<AppState> {
     langPrefs.setString("language", lang == "en" ? "en" : "ar");
   }
   //////////////////////////
+  ///
 
-  String userName = "طلال أحمد عبداللطيف";
+  ///
+  String profileImage = "";
 
-  Future<void> editeName(String newName) async {
+  Future<void> saveImage(String newImage) async {
     final namepref = await SharedPreferences.getInstance();
-    userName = newName;
+    profileImage = newImage;
     emit(EditeNameState());
-    namepref.setString("userName", userName);
+    namepref.setString("imageProfile", profileImage);
   }
 
   /////////////// the yes or no questions cubit ///////////

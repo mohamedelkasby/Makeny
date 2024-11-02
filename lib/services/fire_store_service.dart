@@ -1,9 +1,12 @@
+import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:makeny/models/user_model.dart';
 
 class FireStoreService {
   final FirebaseFirestore fireStore = FirebaseFirestore.instance;
+  final FirebaseStorage storage = FirebaseStorage.instance;
 
   /// Fetches the details of the current user based on userID.
   Future<UserModel> getUserDetails({required String userID}) async {
@@ -26,7 +29,7 @@ class FireStoreService {
     }
   }
 
-  Future<void> updateToFirestore({
+  Future<void> updateDataToFirestore({
     required String userId,
     required UserModel usermodel,
   }) async {
@@ -36,7 +39,7 @@ class FireStoreService {
         "idNumber": usermodel.idNumber,
         "email": usermodel.email,
         "phoneNumber": usermodel.phoneNumber,
-        "age": usermodel.age,
+        "birthDate": usermodel.birthDate,
         "maritalStatus": usermodel.maritalStatus,
         "gender": usermodel.gender,
         "educationLevel": usermodel.educationLevel,
@@ -45,6 +48,36 @@ class FireStoreService {
     } catch (error) {
       // Handle any errors
       debugPrint('Error updating data: $error');
+    }
+  }
+
+  Future<void> updateImage({
+    required String userId,
+    File? imageFile,
+  }) async {
+    try {
+      String? imageUrl;
+
+      // If there's a new image to upload
+      if (imageFile != null) {
+        // Create storage reference
+        String imagePath = 'users/$userId/profile_image.jpg';
+        Reference ref = storage.ref().child(imagePath);
+
+        // Upload image
+        await ref.putFile(imageFile);
+
+        // Get download URL
+        imageUrl = await ref.getDownloadURL();
+      }
+
+      // Update Firestore with all user data including image URL if present
+      await fireStore.collection('users').doc(userId).update({
+        "profileImage": imageUrl ?? "",
+      });
+    } catch (error) {
+      debugPrint('Error updating image : $error');
+      throw error; // Re-throw to handle in UI
     }
   }
 }
