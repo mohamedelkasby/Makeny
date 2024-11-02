@@ -29,6 +29,7 @@ class _ImagePreviewState extends State<ImagePreview> {
   // References to Firebase services
   final FirebaseStorage _storage = FirebaseStorage.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Future<void> uploadImageToFirebase(File imageFile) async {
     if (userId.isEmpty) return;
@@ -84,7 +85,10 @@ class _ImagePreviewState extends State<ImagePreview> {
       if (pickedFile != null) {
         setState(() {
           selectedImage = File(pickedFile.path);
-          AppCubit.get(context).saveImage(pickedFile.path);
+          AppCubit.get(context).saveImage(
+            newImage: pickedFile.path,
+            key: _auth.currentUser!.uid.toString(),
+          );
           print("............ ${AppCubit.get(context).profileImage}");
         });
         // Upload to Firebase

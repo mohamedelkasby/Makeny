@@ -18,11 +18,20 @@ class AppCubit extends Cubit<AppState> {
 //////////////////for language
   String lang = "ar";
 
-  Future<void> changeLang() async {
-    final langPrefs = await SharedPreferences.getInstance();
+  Future<void> saveLang() async {
+    SharedPreferences langPrefs = await SharedPreferences.getInstance();
     lang == "en" ? lang = "ar" : lang = "en";
-    emit(ChangeLanguageState());
     langPrefs.setString("language", lang == "en" ? "en" : "ar");
+    emit(ChangeLanguageState());
+  }
+
+  Future<void> loadLang() async {
+    SharedPreferences langPrefs = await SharedPreferences.getInstance();
+    String? language = langPrefs.getString("language");
+    if (language != null) {
+      lang = language;
+      emit(ChangeLanguageState());
+    }
   }
   //////////////////////////
   ///
@@ -30,11 +39,23 @@ class AppCubit extends Cubit<AppState> {
   ///
   String profileImage = "";
 
-  Future<void> saveImage(String newImage) async {
-    final namepref = await SharedPreferences.getInstance();
+// save the image from SharedPreferences
+  Future<void> saveImage(
+      {required String newImage, required String key}) async {
+    SharedPreferences iamgPref = await SharedPreferences.getInstance();
     profileImage = newImage;
+    await iamgPref.setString(key, profileImage);
     emit(EditeNameState());
-    namepref.setString("imageProfile", profileImage);
+  }
+
+// Load the image from SharedPreferences
+  Future<void> loadImage({required String key}) async {
+    SharedPreferences iamgPref = await SharedPreferences.getInstance();
+    String? image = iamgPref.getString(key);
+    if (image != null) {
+      profileImage = image;
+      emit(ChangeImageState());
+    }
   }
 
   /////////////// the yes or no questions cubit ///////////

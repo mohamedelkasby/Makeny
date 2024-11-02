@@ -6,11 +6,13 @@ import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/models/user_model.dart';
+import 'package:makeny/screens/user_pages/account_page.dart';
 import 'package:makeny/services/fire_store_service.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/custom_list_field.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';
 import 'package:makeny/widgets/drop_dwon_list.dart';
+import 'package:makeny/widgets/navigation_utils.dart';
 
 class EditUserProfile extends StatefulWidget {
   const EditUserProfile({
@@ -37,6 +39,8 @@ class _EditUserProfileState extends State<EditUserProfile> {
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   int age = 0;
 
+  int filledFields = 1;
+
   @override
   void initState() {
     selectedEducationLevel = widget.data.educationLevel;
@@ -48,8 +52,21 @@ class _EditUserProfileState extends State<EditUserProfile> {
     super.initState();
   }
 
+  void fileLinearProgress() {
+    if (userNameController.text.isNotEmpty) filledFields++;
+    if (idNumberController.text.isNotEmpty) filledFields++;
+    if (emailController.text.isNotEmpty) filledFields++;
+    if (phoneNumberController.text.isNotEmpty) filledFields++;
+    if (selectedMaritalStatus != null) filledFields++;
+    if (selectedEducationLevel != null) filledFields++;
+    if (selectedGender != null) filledFields++;
+    if (currentJobController.text.isNotEmpty) filledFields++;
+  }
+
   @override
   Widget build(BuildContext context) {
+    fileLinearProgress();
+
     return Scaffold(
       appBar: defaultAppbar(context, title: "الملف الشخصي"),
       body: Padding(
@@ -61,12 +78,13 @@ class _EditUserProfileState extends State<EditUserProfile> {
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                // the linear progress
                 child: LinearProgressIndicator(
                   color: mainColor,
                   backgroundColor: mainColor100,
                   minHeight: 6,
                   borderRadius: BorderRadius.circular(50),
-                  value: (1 / 10),
+                  value: (filledFields / 9),
                 ),
               ),
               CustomListField(
@@ -79,13 +97,16 @@ class _EditUserProfileState extends State<EditUserProfile> {
                 qustionText: "رقم الهوية",
                 controller: idNumberController,
                 keyboardType: TextInputType.number,
-                value: widget.data.idNumber.toString(),
+                value: widget.data.idNumber.toString() == 0.toString()
+                    ? null
+                    : widget.data.idNumber.toString(),
               ),
               CustomListField(
                 qustionText: "البريد الالكتروني",
                 controller: emailController,
                 keyboardType: TextInputType.emailAddress,
                 value: widget.data.email,
+                readOnly: true,
               ),
               CustomListField(
                 qustionText: "الجوال",
@@ -184,12 +205,13 @@ class _EditUserProfileState extends State<EditUserProfile> {
                           gender: selectedGender!,
                           email: emailController.text,
                           phoneNumber: phoneNumberController.text,
-                          idNumber: double.parse(idNumberController.text),
+                          idNumber: int.parse(idNumberController.text),
                           educationLevel: selectedEducationLevel!,
                           currentJob: currentJobController.text,
                           maritalStatus: selectedMaritalStatus!,
                         ),
                       );
+                      NavigationUtils.refreshPage?.call();
                       Navigator.of(context).popUntil((route) => route.isFirst);
                     }
                   })

@@ -154,6 +154,7 @@ class _CustomListFieldState extends State<CustomListField> {
                         onChanged: (newValue) {
                           setState(() {
                             selectedList = newValue!;
+                            // fileLinearProgress();
                           });
                         },
                       )

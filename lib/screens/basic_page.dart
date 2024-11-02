@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:makeny/cubits/cubit.dart';
 import 'package:makeny/screens/danger_measure_screens/danger_measure_screen.dart';
@@ -21,6 +22,8 @@ class BasicPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final double iconSize = MediaQuery.of(context).size.width / 4;
     final double padingSize = MediaQuery.of(context).size.width / 8;
+
+    FirebaseAuth _auth = FirebaseAuth.instance;
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -81,17 +84,23 @@ class BasicPage extends StatelessWidget {
               context,
               svgIcon: "assets/icons/notification.svg",
               label: "الاشعارات",
-              onTap: () => transitionBetweenPages(context,
-                  direction: Direction.fromBottom,
-                  thePage: NotificationScreen(),
-                  forwardCurve: Curves.easeInOut),
+              onTap: () => transitionBetweenPages(
+                context,
+                direction: Direction.fromBottom,
+                thePage: const NotificationScreen(),
+                forwardCurve: Curves.easeInOut,
+              ),
             ),
             iconWithLabel(
               context,
               svgIcon: "assets/icons/user.svg",
               label: "الحساب",
               indexNumber: 1,
-              onTap: () => AppCubit.get(context).onItemTapped(1),
+              onTap: () {
+                AppCubit.get(context).loadImage(key: _auth.currentUser!.uid);
+
+                AppCubit.get(context).onItemTapped(1);
+              },
             ),
           ],
         ),

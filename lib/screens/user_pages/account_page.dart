@@ -12,6 +12,7 @@ import 'package:makeny/screens/user_pages/profile_page.dart';
 import 'package:makeny/services/fire_store_service.dart';
 import 'package:makeny/widgets/close_dialog.dart';
 import 'package:makeny/widgets/image_preview.dart';
+import 'package:makeny/widgets/navigation_utils.dart';
 import 'package:makeny/widgets/text_icon_navigator.dart';
 import 'package:makeny/widgets/transition_between_pages.dart';
 
@@ -24,8 +25,28 @@ class AccountPage extends StatefulWidget {
 
 class _AccountPageState extends State<AccountPage> {
 // // For single image
-
   final FirebaseAuth auth = FirebaseAuth.instance;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // to refresh the page when edite the name or phone Number
+    NavigationUtils.refreshPage = () {
+      if (mounted) {
+        setState(() {
+          // Your refresh logic here
+          print("Refreshing Account Page");
+        });
+      }
+    };
+  }
+
+  @override
+  void dispose() {
+    NavigationUtils.refreshPage = null;
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +96,6 @@ class _AccountPageState extends State<AccountPage> {
                           children: [
                             Text(
                               ////TODO come here
-
                               userdata?.name ?? "",
                               style: const TextStyle(
                                 fontSize: 17,
@@ -188,7 +208,7 @@ class _AccountPageState extends State<AccountPage> {
                   text: "اللغة",
                   subText: "Change to english",
                   onTap: () {
-                    AppCubit.get(context).changeLang();
+                    AppCubit.get(context).saveLang();
                   },
                 ),
                 textIconNavigator(

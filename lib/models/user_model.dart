@@ -8,7 +8,7 @@ class UserModel {
   final String? gender;
   final String? email;
   final String? phoneNumber;
-  final double? idNumber;
+  final int? idNumber;
   final String? educationLevel;
   final String? currentJob;
   final double? length;

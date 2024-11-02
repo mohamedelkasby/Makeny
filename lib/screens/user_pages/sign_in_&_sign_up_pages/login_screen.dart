@@ -11,8 +11,6 @@ import 'package:makeny/screens/basic_page.dart';
 import 'package:makeny/screens/user_pages/sign_in_&_sign_up_pages/confirm_login_screen.dart';
 import 'package:makeny/screens/user_pages/sign_in_&_sign_up_pages/sign_up_screen.dart';
 import 'package:makeny/services/auth_service.dart';
-import 'package:makeny/test.dart';
-// import 'package:makeny/test.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/default_text_form.dart';
 import 'package:country_picker/country_picker.dart';
@@ -220,14 +218,7 @@ class _LoginScreenState extends State<LoginScreen>
                                       validator: (value) {
                                         if (value == null || value.isEmpty) {
                                           return "إدخل رقم هاتفك او البريد الخاص بك";
-                                        }
-                                        // else if (!RegExp(
-                                        //         r'^[^@]+@[^@]+\.[^@]+')
-                                        //     .hasMatch(value)) {
-                                        //   return 'يرجى إدخال بريد إلكتروني صحيح';
-
-                                        // }
-                                        else if (isEmailValiad == false) {
+                                        } else if (isEmailValiad == false) {
                                           return "البريد الالكترونى او الباسورد غير صحيح.";
                                         } else if ((value.length < 7 ||
                                                 value.length > 15) &&

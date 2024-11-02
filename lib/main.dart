@@ -32,7 +32,12 @@ class MyApp extends StatelessWidget {
     /////// change the color of statusbar and the icons in it ///////
     return BlocProvider(
       create: (context) => AppCubit(),
-      child: BlocBuilder<AppCubit, AppState>(
+      child: BlocConsumer<AppCubit, AppState>(
+        listener: (context, state) {
+          if (state is InitilaThemeState) {
+            AppCubit.get(context).loadLang();
+          }
+        },
         builder: (context, state) {
           return MaterialApp(
             ////         for language        ..................
