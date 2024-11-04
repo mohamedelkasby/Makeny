@@ -93,9 +93,21 @@ class AppCubit extends Cubit<AppState> {
 
 //////////////////////////////////////////
   bool secure = true;
+  bool secure1 = true;
+  bool secure2 = true;
 
   void isSecure() {
     secure = !secure;
+    emit(ChangeScureState());
+  }
+
+  void isSecure1() {
+    secure1 = !secure1;
+    emit(ChangeScureState());
+  }
+
+  void isSecure2() {
+    secure2 = !secure2;
     emit(ChangeScureState());
   }
 //////////////////////////////////////////

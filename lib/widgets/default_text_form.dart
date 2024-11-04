@@ -11,6 +11,7 @@ class DefaultTextForm extends StatelessWidget {
     this.obscure = false,
     this.validator,
     this.onchange,
+    this.focusNode,
   });
 
   final String label;
@@ -20,6 +21,7 @@ class DefaultTextForm extends StatelessWidget {
   final TextEditingController? controller;
   final FormFieldValidator<String>? validator; // Add this line for validation
   final ValueChanged? onchange;
+  final FocusNode? focusNode;
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +40,7 @@ class DefaultTextForm extends StatelessWidget {
           SizedBox(height: 5),
         ],
         TextFormField(
+          focusNode: focusNode,
           onChanged: onchange,
           controller: controller,
           obscureText: obscure,

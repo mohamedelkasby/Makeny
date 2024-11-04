@@ -12,7 +12,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  final List<bool> _isVisible = [false, false, false, false];
+  final List<bool> _isVisible = [false, false, false, false, false];
   int _currentImageIndex = 0;
   Timer? _timer;
 
@@ -38,6 +38,12 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   @override
+  void initState() {
+    _startFadeSequence();
+    super.initState();
+  }
+
+  @override
   void dispose() {
     _timer?.cancel();
     super.dispose();
@@ -50,66 +56,67 @@ class _SplashScreenState extends State<SplashScreen> {
       // SystemUiOverlay.bottom,
     ]);
 
+    // onTap: () {
+    //   if (_isVisible.every((element) => element == false)) {
+    //     _startFadeSequence();
+    //   }
+    // },
+
     return Directionality(
       textDirection: TextDirection.ltr,
       child: Scaffold(
-        body: InkWell(
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-          onTap: () {
-            if (_isVisible.every((element) => element == false)) {
-              _startFadeSequence();
-            }
-          },
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 129),
-                child: AnimatedOpacity(
-                  opacity: _isVisible[0] ? 1.0 : 0.0,
-                  duration: Duration(seconds: 1),
-                  child: Image.asset(
-                    'assets/splash_images/image 56.png',
-                  ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 129),
+              child: AnimatedOpacity(
+                opacity: _isVisible[1] ? 1.0 : 0.0,
+                duration: Duration(seconds: 1),
+                child: Image.asset(
+                  'assets/splash_images/image 56.png',
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  AnimatedOpacity(
-                    opacity: _isVisible[1] ? 1.0 : 0.0,
-                    duration: Duration(seconds: 1),
-                    child: Image.asset(
-                      'assets/splash_images/image 57.png',
-                    ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                AnimatedOpacity(
+                  opacity: _isVisible[2] ? 1.0 : 0.0,
+                  duration: Duration(seconds: 1),
+                  child: Image.asset(
+                    'assets/splash_images/image 57.png',
                   ),
-                  Image.asset(
+                ),
+                AnimatedOpacity(
+                  opacity: _isVisible[0] ? 1.0 : 0.0,
+                  duration: Duration(milliseconds: 500),
+                  child: Image.asset(
                     'assets/splash_images/image 54.png',
                     width: 75,
                   ),
-                  AnimatedOpacity(
-                    opacity: _isVisible[2] ? 1.0 : 0.0,
-                    duration: Duration(seconds: 1),
-                    child: Image.asset(
-                      'assets/splash_images/image 55.png',
-                    ),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 129),
-                child: AnimatedOpacity(
+                ),
+                AnimatedOpacity(
                   opacity: _isVisible[3] ? 1.0 : 0.0,
                   duration: Duration(seconds: 1),
                   child: Image.asset(
-                    'assets/splash_images/image 58.png',
+                    'assets/splash_images/image 55.png',
                   ),
                 ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 129),
+              child: AnimatedOpacity(
+                opacity: _isVisible[4] ? 1.0 : 0.0,
+                duration: Duration(seconds: 1),
+                child: Image.asset(
+                  'assets/splash_images/image 58.png',
+                ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

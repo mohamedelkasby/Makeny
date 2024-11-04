@@ -29,13 +29,15 @@ class _DefenitionScreenState extends State<DefenitionScreen> {
       body: Column(
         children: [
           Padding(
-              padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 30),
+              padding: EdgeInsets.symmetric(
+                  vertical: MediaQuery.of(context).size.width * 0.111,
+                  horizontal: MediaQuery.of(context).size.width * 0.07),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Image.asset(
                     "assets/logo/logo.png",
-                    width: 60,
+                    width: MediaQuery.of(context).size.width * 0.15,
                   ),
                   InkWell(
                     onTap: () {

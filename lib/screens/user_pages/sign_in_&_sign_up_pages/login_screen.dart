@@ -113,311 +113,333 @@ class _LoginScreenState extends State<LoginScreen>
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Stack(
-        children: [
-          Container(
-            height: double.infinity,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [mainColor, Colors.white],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                stops: const [.7, .1],
+      body: GestureDetector(
+        onTap: () {
+          if (FocusScope.of(context).hasFocus) {
+            FocusScope.of(context).unfocus(); // Dismiss the keyboard
+          }
+        },
+        child: Stack(
+          children: [
+            Container(
+              height: double.infinity,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [mainColor, Colors.white],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  stops: const [.7, .1],
+                ),
               ),
             ),
-          ),
-          Positioned(
-            left: 0,
-            child: Image.asset(
-              "assets/designs/Star.png",
-              // width: 400,
+            Positioned(
+              left: 0,
+              child: Image.asset(
+                "assets/designs/Star.png",
+                // width: 400,
+              ),
             ),
-          ),
-          Column(
-            children: [
-              const SizedBox(
-                height: 30,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 40),
-                child: Image.asset('assets/logo/logo.png'),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Container(
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(.2),
-                        blurRadius: 20,
-                        spreadRadius: -8,
-                      ),
-                    ],
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 30,
                   ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 10.0),
-                      child: Container(
-                        color: Colors.white.withOpacity(0.75),
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 40, horizontal: 10),
-                        width: double.infinity,
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              child: Form(
-                                key: formKey,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const Center(
-                                      child: Text(
-                                        "تسجيل دخول",
-                                        style: TextStyle(
-                                            fontSize: 25,
-                                            fontWeight: FontWeight.w700),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    DefaultTextForm(
-                                      onchange: (value) {
-                                        isEmailValiad = true;
-                                        onInputChanged();
-                                      },
-                                      label: "رقم الهاتف",
-                                      hintText: "رقم الهاتف او البريد",
-                                      controller: inputController,
-                                      icon: isPhoneNumber
-                                          ? GestureDetector(
-                                              onTap: () {
-                                                showResizableCountryPicker(
-                                                    context);
-                                              },
-                                              child: Container(
-                                                padding: const EdgeInsets.only(
-                                                    left: 10),
-                                                width: 80,
-                                                alignment: Alignment.center,
-                                                child: Text(
-                                                  "${country.flagEmoji} +${country.phoneCode}",
-                                                  style: TextStyle(
-                                                    fontSize: 17,
-                                                    color: mainBlack,
-                                                    fontWeight: FontWeight.w600,
-                                                  ),
-                                                ),
-                                              ),
-                                            )
-                                          : const SizedBox(),
-                                      validator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return "إدخل رقم هاتفك او البريد الخاص بك";
-                                        } else if (isEmailValiad == false) {
-                                          return "البريد الالكترونى او الباسورد غير صحيح.";
-                                        } else if ((value.length < 7 ||
-                                                value.length > 15) &&
-                                            isPhoneNumber) {
-                                          return "إدخل رقم الهاتف صحيح";
-                                        }
-                                        return null;
-                                      },
-                                    ),
-                                    SizeTransition(
-                                      sizeFactor: animation,
-                                      axisAlignment: -1,
-                                      child: BlocBuilder<AppCubit, AppState>(
-                                        builder: (context, state) {
-                                          return DefaultTextForm(
-                                            onchange: (value) {
-                                              isEmailValiad = true;
-                                            },
-                                            label: "كلمة المرور",
-                                            controller: passController,
-                                            validator: (value) {
-                                              if (value == null ||
-                                                  value.isEmpty) {
-                                                return "ادخل كلمة المرور من فضلك.";
-                                              } else if (value.length < 8) {
-                                                return 'كلمة المرور لا بجب ان تقل عن 8 احرف';
-                                              }
-                                              return null;
-                                            },
-                                            icon: IconButton(
-                                              icon: Icon(
-                                                AppCubit.get(context).secure
-                                                    ? Icons.visibility_off
-                                                    : Icons.visibility,
-                                              ),
-                                              onPressed: () {
-                                                AppCubit.get(context)
-                                                    .isSecure();
-                                              },
-                                            ),
-                                            obscure:
-                                                AppCubit.get(context).secure,
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 25,
-                            ),
-                            Row(
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 40),
+                    child: Image.asset('assets/logo/logo.png'),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(.2),
+                            blurRadius: 20,
+                            spreadRadius: -8,
+                          ),
+                        ],
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 10.0),
+                          child: Container(
+                            color: Colors.white.withOpacity(0.75),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 40, horizontal: 10),
+                            width: double.infinity,
+                            child: Column(
                               children: [
-                                Expanded(
-                                  child: longSignButton(
-                                    text: "دخول",
-                                    onTap: () async {
-                                      if (formKey.currentState!.validate() &&
-                                          !isPhoneNumber) {
-                                        try {
-                                          await authServices
-                                              .signInWithEmailAndPassword(
-                                            email: inputController.text,
-                                            password: passController.text,
-                                          );
-                                          Navigator.of(context).pushReplacement(
-                                            MaterialPageRoute(
-                                              builder: (context) => BasicPage(),
-                                            ),
-                                          );
-                                        } on FirebaseAuthException catch (e) {
-                                          if (e.code == 'invalid-credential') {
-                                            isEmailValiad = false;
-                                            formKey.currentState!.validate();
-                                          } else {
-                                            print(e);
-                                          }
-                                        }
-                                      } else if (isPhoneNumber &&
-                                          (inputController.text.length >= 7 &&
-                                              inputController.text.length <=
-                                                  15)) {
-                                        try {
-                                          await sendOTP();
-                                        } on Exception catch (e) {
-                                          print("$e  what ????");
-                                          // TODO
-                                        }
-                                      }
-                                    },
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  child: Form(
+                                    key: formKey,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Center(
+                                          child: Text(
+                                            "تسجيل دخول",
+                                            style: TextStyle(
+                                                fontSize: 25,
+                                                fontWeight: FontWeight.w700),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        DefaultTextForm(
+                                          onchange: (value) {
+                                            isEmailValiad = true;
+                                            onInputChanged();
+                                          },
+                                          label: "رقم الهاتف",
+                                          hintText: "رقم الهاتف او البريد",
+                                          controller: inputController,
+                                          icon: isPhoneNumber
+                                              ? GestureDetector(
+                                                  onTap: () {
+                                                    showResizableCountryPicker(
+                                                        context);
+                                                  },
+                                                  child: Container(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 10),
+                                                    width: 80,
+                                                    alignment: Alignment.center,
+                                                    child: Text(
+                                                      "${country.flagEmoji} +${country.phoneCode}",
+                                                      style: TextStyle(
+                                                        fontSize: 17,
+                                                        color: mainBlack,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                )
+                                              : const SizedBox(),
+                                          validator: (value) {
+                                            if (value == null ||
+                                                value.isEmpty) {
+                                              return "إدخل رقم هاتفك او البريد الخاص بك";
+                                            } else if (isEmailValiad == false) {
+                                              return "البريد الالكترونى او الباسورد غير صحيح.";
+                                            } else if ((value.length < 7 ||
+                                                    value.length > 15) &&
+                                                isPhoneNumber) {
+                                              return "إدخل رقم الهاتف صحيح";
+                                            }
+                                            return null;
+                                          },
+                                        ),
+                                        SizeTransition(
+                                          sizeFactor: animation,
+                                          axisAlignment: -1,
+                                          child:
+                                              BlocBuilder<AppCubit, AppState>(
+                                            builder: (context, state) {
+                                              return DefaultTextForm(
+                                                onchange: (value) {
+                                                  isEmailValiad = true;
+                                                },
+                                                label: "كلمة المرور",
+                                                controller: passController,
+                                                validator: (value) {
+                                                  if (value == null ||
+                                                      value.isEmpty) {
+                                                    return "ادخل كلمة المرور من فضلك.";
+                                                  } else if (value.length < 8) {
+                                                    return 'كلمة المرور لا بجب ان تقل عن 8 احرف';
+                                                  }
+                                                  return null;
+                                                },
+                                                icon: IconButton(
+                                                  icon: Icon(
+                                                    AppCubit.get(context).secure
+                                                        ? Icons.visibility_off
+                                                        : Icons.visibility,
+                                                  ),
+                                                  onPressed: () {
+                                                    AppCubit.get(context)
+                                                        .isSecure();
+                                                  },
+                                                ),
+                                                obscure: AppCubit.get(context)
+                                                    .secure,
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                                 const SizedBox(
-                                  width: 10,
+                                  height: 25,
                                 ),
-                                Stack(
-                                  // alignment: Alignment.center,
+                                Row(
                                   children: [
-                                    Container(
-                                      padding: EdgeInsets.zero,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
-                                        color: mainColor,
+                                    Expanded(
+                                      child: longSignButton(
+                                        text: "دخول",
+                                        onTap: () async {
+                                          if (formKey.currentState!
+                                                  .validate() &&
+                                              !isPhoneNumber) {
+                                            try {
+                                              await authServices
+                                                  .signInWithEmailAndPassword(
+                                                email: inputController.text,
+                                                password: passController.text,
+                                              );
+                                              Navigator.of(context)
+                                                  .pushReplacement(
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      BasicPage(),
+                                                ),
+                                              );
+                                            } on FirebaseAuthException catch (e) {
+                                              if (e.code ==
+                                                  'invalid-credential') {
+                                                isEmailValiad = false;
+                                                formKey.currentState!
+                                                    .validate();
+                                              } else {
+                                                print(e);
+                                              }
+                                            }
+                                          } else if (isPhoneNumber &&
+                                              (inputController.text.length >=
+                                                      7 &&
+                                                  inputController.text.length <=
+                                                      15)) {
+                                            try {
+                                              await sendOTP();
+                                            } on Exception catch (e) {
+                                              print("$e  what ????");
+                                              // TODO
+                                            }
+                                          }
+                                        },
                                       ),
-                                      height: 50,
-                                      width: 50,
                                     ),
-                                    Positioned(
-                                      top: 0,
-                                      bottom: 0,
-                                      left: 0,
-                                      right: 0,
-                                      child: Transform.scale(
-                                        scale: .8,
-                                        child: SvgPicture.asset(
-                                          "assets/icons/fingerprint.svg",
-                                          height: 40,
-                                          /////////// search for alternative for color down
-                                          colorFilter: const ColorFilter.mode(
-                                            Colors.white,
-                                            BlendMode.srcIn,
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Stack(
+                                      // alignment: Alignment.center,
+                                      children: [
+                                        Container(
+                                          padding: EdgeInsets.zero,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                            color: mainColor,
                                           ),
-                                          fit: BoxFit.cover,
+                                          height: 50,
+                                          width: 50,
+                                        ),
+                                        Positioned(
+                                          top: 0,
+                                          bottom: 0,
+                                          left: 0,
+                                          right: 0,
+                                          child: Transform.scale(
+                                            scale: .8,
+                                            child: SvgPicture.asset(
+                                              "assets/icons/fingerprint.svg",
+                                              height: 40,
+                                              /////////// search for alternative for color down
+                                              colorFilter:
+                                                  const ColorFilter.mode(
+                                                Colors.white,
+                                                BlendMode.srcIn,
+                                              ),
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 25,
+                                ),
+                                Row(
+                                  children: [
+                                    signButton(
+                                        onTap: () {
+                                          authServices.authenticationWithGoogle(
+                                              context);
+                                        },
+                                        text: "Google",
+                                        icon: "assets/icons/google.svg"),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    signButton(
+                                        onTap: () {},
+                                        text: "Facebook",
+                                        icon: "assets/icons/facebook.svg"),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 25,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "لا تملك حساب؟",
+                                      style: TextStyle(
+                                        color: greyColor,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.of(context)
+                                            .pushReplacement(MaterialPageRoute(
+                                          builder: (context) =>
+                                              const SignUpScreen(),
+                                        ));
+                                      },
+                                      child: Text(
+                                        "سجل الان",
+                                        style: TextStyle(
+                                          color: mainColor,
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 16,
                                         ),
                                       ),
                                     ),
                                   ],
-                                ),
+                                )
                               ],
                             ),
-                            const SizedBox(
-                              height: 25,
-                            ),
-                            Row(
-                              children: [
-                                signButton(
-                                    onTap: () {
-                                      authServices
-                                          .authenticationWithGoogle(context);
-                                    },
-                                    text: "Google",
-                                    icon: "assets/icons/google.svg"),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                signButton(
-                                    onTap: () {},
-                                    text: "Facebook",
-                                    icon: "assets/icons/facebook.svg"),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 25,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "لا تملك حساب؟",
-                                  style: TextStyle(
-                                    color: greyColor,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.of(context)
-                                        .pushReplacement(MaterialPageRoute(
-                                      builder: (context) =>
-                                          const SignUpScreen(),
-                                    ));
-                                  },
-                                  child: Text(
-                                    "سجل الان",
-                                    style: TextStyle(
-                                      color: mainColor,
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            )
-                          ],
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
+                ],
               ),
-            ],
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
     );
   }

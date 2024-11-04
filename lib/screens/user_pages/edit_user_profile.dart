@@ -46,9 +46,11 @@ class _EditUserProfileState extends State<EditUserProfile> {
     selectedEducationLevel = widget.data.educationLevel;
     selectedGender = widget.data.gender;
     selectedMaritalStatus = widget.data.maritalStatus;
+    timeStamp = widget.data.birthDate!.toDate() ?? DateTime.now();
 
     selectedDate =
         DateFormat('dd-MM-yyyy').format(widget.data.birthDate!.toDate());
+
     super.initState();
   }
 
@@ -122,7 +124,7 @@ class _EditUserProfileState extends State<EditUserProfile> {
                 value: DateFormat('dd-MM-yyyy')
                     .format(widget.data.birthDate!.toDate()),
                 controller: TextEditingController(text: selectedDate),
-                keyboardType: TextInputType.datetime,
+                // keyboardType: TextInputType.datetime,
                 suffixIcon: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: GestureDetector(

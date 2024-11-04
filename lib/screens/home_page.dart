@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:makeny/cubits/cubit.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/models/doctor_model.dart';
 import 'package:makeny/models/grid_model.dart';
@@ -108,7 +107,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   child: Image.asset(
-                    "assets/logo/main_logo.png",
+                    "assets/logo/main_logo_shadow.png",
                     width: 40,
                     fit: BoxFit.contain,
                   ),
