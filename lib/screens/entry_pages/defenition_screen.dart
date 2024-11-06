@@ -46,12 +46,13 @@ class _DefenitionScreenState extends State<DefenitionScreen> {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => InternetConnectivityWrapper(
-                              child: const LoginScreen()),
+                          builder: (context) =>
+                              const InternetConnectivityWrapper(
+                                  child: LoginScreen()),
                         ),
                       );
                     },
-                    child: Text(
+                    child: const Text(
                       "تخطي ",
                       style: TextStyle(
                           color: Colors.white,
@@ -117,16 +118,18 @@ class _DefenitionScreenState extends State<DefenitionScreen> {
                       Icons.chevron_left,
                       color: mainColor,
                     )),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 squareButton(
                     onTap: () {
                       setState(() {
                         currentPage == 2
-                            ? Future.delayed(Duration(milliseconds: 500), () {
+                            ? Future.delayed(const Duration(milliseconds: 500),
+                                () {
                                 Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => LoginScreen(),
+                                    //TODO: put the internet checker here
+                                    builder: (context) => const LoginScreen(),
                                   ),
                                 );
                               })
@@ -152,7 +155,7 @@ class _DefenitionScreenState extends State<DefenitionScreen> {
                   child: Container(
                     width: double.infinity,
                     height: 5,
-                    margin: EdgeInsets.symmetric(horizontal: 2),
+                    margin: const EdgeInsets.symmetric(horizontal: 2),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       shape: BoxShape.rectangle,

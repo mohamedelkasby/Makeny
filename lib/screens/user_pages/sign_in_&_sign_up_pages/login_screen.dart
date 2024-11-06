@@ -8,6 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:makeny/cubits/cubit.dart';
 import 'package:makeny/cubits/status.dart';
 import 'package:makeny/extentions/colors.dart';
+import 'package:makeny/screens/basic_page.dart';
 import 'package:makeny/screens/doctor_home_page.dart';
 import 'package:makeny/screens/patient_home_page.dart';
 import 'package:makeny/screens/user_pages/sign_in_&_sign_up_pages/confirm_login_screen.dart';
@@ -152,26 +153,6 @@ class _LoginScreenState extends State<LoginScreen>
         resizeToAvoidBottomInset: true,
         body: Column(
           children: [
-            // AnimatedContainer(
-            //   duration: const Duration(milliseconds: 300),
-            //   height: _showConnectionStatus ? 32 : 0,
-            //   child: AnimatedOpacity(
-            //     duration: const Duration(milliseconds: 300),
-            //     opacity: _showConnectionStatus ? 1.0 : 0.0,
-            //     child: Container(
-            //       width: double.infinity,
-            //       color: _hasInternet ? Colors.green : greyColor,
-            //       padding: const EdgeInsets.symmetric(vertical: 4),
-            //       child: Text(
-            //         _hasInternet
-            //             ? 'تم استعادة الاتصال بالإنترنت'
-            //             : 'لا يوجد اتصال بالإنترنت',
-            //         textAlign: TextAlign.center,
-            //         style: const TextStyle(color: Colors.white),
-            //       ),
-            //     ),
-            //   ),
-            // ),
             Expanded(
               child: ModalProgressHUD(
                 inAsyncCall: isLoading,
@@ -429,7 +410,7 @@ class _LoginScreenState extends State<LoginScreen>
                                                                   builder: (context) => userType
                                                                       ? InternetConnectivityWrapper(
                                                                           child:
-                                                                              PatientHomePage())
+                                                                              BasicPage())
                                                                       : const InternetConnectivityWrapper(
                                                                           child:
                                                                               DoctorHomePage()),
