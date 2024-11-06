@@ -7,19 +7,25 @@ class CustomListField extends StatefulWidget {
   final String suffixText;
   final Widget suffixIcon;
   final bool enable;
+  final bool readOnly;
   final String qustionText;
   final String hintText;
   final TextInputType keyboardType;
+  final TextEditingController controller;
+  final String? value;
 
   const CustomListField({
     super.key,
     this.suffixList = const [],
     this.enable = true,
+    this.readOnly = false,
     this.suffixText = "",
     required this.qustionText,
     this.hintText = "",
     this.suffixIcon = const SizedBox(),
     this.keyboardType = const TextInputType.numberWithOptions(),
+    required this.controller,
+    this.value = "",
   });
 
   @override
@@ -27,15 +33,33 @@ class CustomListField extends StatefulWidget {
 }
 
 class _CustomListFieldState extends State<CustomListField> {
-  // String? errorMessage;
   String selectedList = "";
+  final _formKey = GlobalKey<FormFieldState>();
+  String? errorMessage;
 
   @override
   void initState() {
     if (widget.suffixList.isNotEmpty) {
       selectedList = widget.suffixList[0];
     }
+
+    // Set initial value if provided
+    if (widget.value != null && widget.value!.isNotEmpty) {
+      widget.controller.text = widget.value!;
+    }
+
     super.initState();
+  }
+
+  // Validate function
+  String? _validateInput(String? value) {
+    if (value == null || value.isEmpty) {
+      errorMessage = "من فضلك ادخل ${widget.qustionText}";
+      return errorMessage;
+    }
+    errorMessage = null;
+
+    return null;
   }
 
   @override
@@ -47,42 +71,55 @@ class _CustomListFieldState extends State<CustomListField> {
           padding: const EdgeInsets.symmetric(vertical: 8),
           child: defalutQuestionText(text: widget.qustionText),
         ),
-        //////// text field
-        TextField(
-          // onChanged: (value) {
-          //   value.isNotEmpty?
-          // },
-
+        TextFormField(
+          key: _formKey,
+          readOnly: widget.readOnly,
+          onChanged: (value) {
+            // Trigger validation on each change
+            setState(() {
+              _validateInput(value);
+            });
+          },
+          validator: _validateInput,
+          controller: widget.controller,
           keyboardType: widget.keyboardType,
           enabled: widget.enable,
+          // Add autovalidateMode to enable real-time validation
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           decoration: InputDecoration(
-            //// hint text and the style of hint text
             hintText: widget.hintText,
             hintStyle: TextStyle(
               color: greyColor,
             ),
-
-            /// if i put the text feild enabled false it will change the color
             filled: widget.enable ? false : true,
             fillColor: greyborderColor.withOpacity(.2),
             isDense: true,
-            // the border without been active
+            // Change border color based on error state
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                color: greyborderColor,
+                color: errorMessage != null ? Colors.red : greyborderColor,
               ),
             ),
-
-            /// the border that is active
             focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-              color: mainColor,
-            )),
-            //// the border by default
+              borderSide: BorderSide(
+                color: errorMessage != null ? Colors.red : mainColor,
+              ),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: Colors.red,
+              ),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: Colors.red,
+              ),
+            ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5),
             ),
-            //// the drop down button with the list
+            // Show error message
+            errorText: errorMessage,
             suffixIcon: widget.suffixText != ""
                 ? Directionality(
                     textDirection: TextDirection.ltr,
@@ -97,22 +134,17 @@ class _CustomListFieldState extends State<CustomListField> {
                   )
                 : widget.suffixList.isNotEmpty
                     ? DropdownButton<String>(
-                        //// the icon that in the drop down list
                         icon: Icon(
                           Icons.keyboard_arrow_down_rounded,
                         ),
-                        //// the value of the choosen in the list
                         value: selectedList,
-                        //// the style of the drop down list
                         style: TextStyle(
                           fontSize: 16,
                           color: greyColor,
                           fontFamily: "cairo",
                           fontWeight: FontWeight.w300,
                         ),
-                        //// remove the under line of the suffex
                         underline: SizedBox(),
-                        ////// the items in the list
                         items: widget.suffixList.map((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
@@ -122,12 +154,11 @@ class _CustomListFieldState extends State<CustomListField> {
                         onChanged: (newValue) {
                           setState(() {
                             selectedList = newValue!;
-                            // print(selectedList);
+                            // fileLinearProgress();
                           });
                         },
                       )
                     : widget.suffixIcon,
-            ////
             suffixIconConstraints:
                 const BoxConstraints(minHeight: 0, minWidth: 0),
           ),

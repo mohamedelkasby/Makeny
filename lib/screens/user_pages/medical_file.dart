@@ -27,27 +27,27 @@ class MedicalFile extends StatelessWidget {
                 child: textHeadLine(text: "البيانات الاساسية"),
               ),
             ),
-            UsersData(
+            usersData(
               textType: " إسم المريض",
               seperator: ":",
               textData: " علي محمد",
             ),
-            UsersData(
+            usersData(
               textType: "العمر",
               seperator: ":",
               textData: "٥٠",
             ),
-            UsersData(
+            usersData(
               textType: "رقم الملف",
               seperator: ":",
               textData: "٤٤٣٩٣٠",
             ),
-            UsersData(
+            usersData(
               textType: "الجنسيه",
               seperator: ":",
               textData: "سعودي",
             ),
-            UsersData(
+            usersData(
                 textType: "تاريخ الدخول ",
                 seperator: ":",
                 textData: "٢١ فبراير ٢٠٢٤"),
@@ -73,27 +73,27 @@ class MedicalFile extends StatelessWidget {
                 child: textHeadLine(text: "المؤشرات  الجسمانية "),
               ),
             ),
-            UsersData(
+            usersData(
               textType: "المؤشرات الجسمية",
               seperator: ":",
               textData: "",
             ),
-            UsersData(
+            usersData(
               textType: "الطول",
               seperator: ":",
               textData: "",
             ),
-            UsersData(
+            usersData(
               textType: "الطول ",
               seperator: ":",
               textData: "١٦٧ سم",
             ),
-            UsersData(
+            usersData(
               textType: "الوزن",
               seperator: ":",
               textData: "٩٧ كجم",
             ),
-            UsersData(
+            usersData(
               textType: "كتله الجسم",
               seperator: ":",
               textData: " ٣٤ كجم/م٢ ",

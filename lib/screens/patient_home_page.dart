@@ -1,21 +1,24 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:makeny/cubits/cubit.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/models/doctor_model.dart';
 import 'package:makeny/models/grid_model.dart';
 import 'package:makeny/models/medical_educate_model.dart';
+import 'package:makeny/models/user_model.dart';
 import 'package:makeny/screens/medical_education_screens/medical_educate_desc_screeen%20.dart';
+import 'package:makeny/services/fire_store_service.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 import 'package:makeny/widgets/doctor_container.dart';
 
-class HomePage extends StatefulWidget {
-  HomePage({super.key});
+class PatientHomePage extends StatefulWidget {
+  PatientHomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<PatientHomePage> createState() => _PatientHomePageState();
 }
 
-class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+class _PatientHomePageState extends State<PatientHomePage>
+    with TickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _backgroundAnimation;
   // late Animation<double> _fadeAnimation;
@@ -68,7 +71,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    List<String> nameParts = AppCubit.get(context).userName.split(' ');
+    // List<String> nameParts = AppCubit.get(context).userName.split(' ');
+    FirebaseAuth auth = FirebaseAuth.instance;
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -83,7 +88,19 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     textHeader(
                       text: "صباح الخير ",
                     ),
-                    textHeader(text: nameParts.first),
+                    FutureBuilder<UserModel>(
+                        future: FireStoreService()
+                            .getUserDetails(userID: auth.currentUser!.uid),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            UserModel? data = snapshot.data;
+                            return textHeader(text: data!.name ?? "");
+                          }
+                          if (snapshot.hasError) {
+                            return textHeader(text: " ");
+                          }
+                          return CircularProgressIndicator();
+                        }),
                     ///////// the sun icon . //////////
                     Image.asset("assets/icons/star.png"),
                   ],
@@ -91,7 +108,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   child: Image.asset(
-                    "assets/logo/main_logo.png",
+                    "assets/logo/main_logo_shadow.png",
                     width: 40,
                     fit: BoxFit.contain,
                   ),

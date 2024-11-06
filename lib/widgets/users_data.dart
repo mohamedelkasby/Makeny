@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
-Widget UsersData(
-    {required String textType,
-    required String textData,
-    String seperator = "/"}) {
+Widget usersData({
+  required String textType,
+  String? textData,
+  String seperator = "/",
+}) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 5),
     child: Text.rich(

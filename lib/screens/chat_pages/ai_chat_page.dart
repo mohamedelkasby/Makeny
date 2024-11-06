@@ -5,14 +5,14 @@ import 'package:makeny/consts.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';
 
-class ChatPage extends StatefulWidget {
-  const ChatPage({super.key});
+class AIChatPage extends StatefulWidget {
+  const AIChatPage({super.key});
 
   @override
-  State<ChatPage> createState() => _ChatPageState();
+  State<AIChatPage> createState() => _AIChatPageState();
 }
 
-class _ChatPageState extends State<ChatPage> {
+class _AIChatPageState extends State<AIChatPage> {
   final _openAI = OpenAI.instance.build(
       token: apiKey,
       baseOption: HttpSetup(
@@ -100,6 +100,16 @@ class _ChatPageState extends State<ChatPage> {
       // Handle API errors here
       print("Error fetching response: $error");
       // You can display an error message to the user
+
+      setState(() {
+        _messages.insert(
+            0,
+            ChatMessage(
+              user: _gptChatUser,
+              createdAt: DateTime.now(),
+              text: " اسف لا يمكننى الرد الان ....",
+            ));
+      });
     } finally {
       setState(() {
         _typingUsers.remove(_gptChatUser);

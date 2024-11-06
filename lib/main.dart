@@ -8,11 +8,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:makeny/firebase_options.dart';
 import 'package:makeny/screens/entry_pages/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:makeny/test.dart';
 
 Future<void> main() async {
   // to set the status bar in the top color to white
-
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.white,
     statusBarIconBrightness: Brightness.dark,
@@ -21,6 +19,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
   runApp(const MyApp());
 }
 
@@ -32,7 +31,12 @@ class MyApp extends StatelessWidget {
     /////// change the color of statusbar and the icons in it ///////
     return BlocProvider(
       create: (context) => AppCubit(),
-      child: BlocBuilder<AppCubit, AppState>(
+      child: BlocConsumer<AppCubit, AppState>(
+        listener: (context, state) {
+          if (state is InitilaThemeState) {
+            AppCubit.get(context).loadLang();
+          }
+        },
         builder: (context, state) {
           return MaterialApp(
             ////         for language        ..................
@@ -41,7 +45,7 @@ class MyApp extends StatelessWidget {
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
-            supportedLocales: [
+            supportedLocales: const [
               Locale('ar', ''), // Arabic, no country code
               Locale('en', ''), // english, no country code
             ],
@@ -49,7 +53,7 @@ class MyApp extends StatelessWidget {
 
             theme: ThemeData(
               /// app bar color
-              appBarTheme: AppBarTheme(
+              appBarTheme: const AppBarTheme(
                 backgroundColor: Colors.white,
               ),
               // the scaffold floor color

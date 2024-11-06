@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:makeny/cubits/cubit.dart';
+import 'package:makeny/cubits/status.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/screens/user_pages/sign_in_&_sign_up_pages/login_screen.dart';
 
@@ -38,24 +41,29 @@ Dialog closeDialog(context) {
                 ),
                 width: double.infinity,
                 height: 54,
-                child: MaterialButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => LoginScreen(),
+                child: BlocBuilder<AppCubit, AppState>(
+                  builder: (context, state) {
+                    return MaterialButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        AppCubit.get(context).selectedBNBIndex = 0;
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoginScreen(),
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        "نعم, تسجيل الخروج",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 19,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                     );
                   },
-                  child: Text(
-                    "نعم, تسجيل الخروج",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 19,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
                 ),
               ),
             ),

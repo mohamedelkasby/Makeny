@@ -18,21 +18,44 @@ class AppCubit extends Cubit<AppState> {
 //////////////////for language
   String lang = "ar";
 
-  Future<void> changeLang() async {
-    final langPrefs = await SharedPreferences.getInstance();
+  Future<void> saveLang() async {
+    SharedPreferences langPrefs = await SharedPreferences.getInstance();
     lang == "en" ? lang = "ar" : lang = "en";
-    emit(ChangeLanguageState());
     langPrefs.setString("language", lang == "en" ? "en" : "ar");
+    emit(ChangeLanguageState());
+  }
+
+  Future<void> loadLang() async {
+    SharedPreferences langPrefs = await SharedPreferences.getInstance();
+    String? language = langPrefs.getString("language");
+    if (language != null) {
+      lang = language;
+      emit(ChangeLanguageState());
+    }
   }
   //////////////////////////
+  ///
 
-  String userName = "طلال أحمد عبداللطيف";
+  ///
+  String profileImage = "";
 
-  Future<void> editeName(String newName) async {
-    final namepref = await SharedPreferences.getInstance();
-    userName = newName;
+// save the image from SharedPreferences
+  Future<void> saveImage(
+      {required String newImage, required String key}) async {
+    SharedPreferences iamgPref = await SharedPreferences.getInstance();
+    profileImage = newImage;
+    await iamgPref.setString(key, profileImage);
     emit(EditeNameState());
-    namepref.setString("userName", userName);
+  }
+
+// Load the image from SharedPreferences
+  Future<void> loadImage({required String key}) async {
+    SharedPreferences iamgPref = await SharedPreferences.getInstance();
+    String? image = iamgPref.getString(key);
+    if (image != null) {
+      profileImage = image;
+      emit(ChangeImageState());
+    }
   }
 
   /////////////// the yes or no questions cubit ///////////
@@ -70,9 +93,21 @@ class AppCubit extends Cubit<AppState> {
 
 //////////////////////////////////////////
   bool secure = true;
+  bool secure1 = true;
+  bool secure2 = true;
 
   void isSecure() {
     secure = !secure;
+    emit(ChangeScureState());
+  }
+
+  void isSecure1() {
+    secure1 = !secure1;
+    emit(ChangeScureState());
+  }
+
+  void isSecure2() {
+    secure2 = !secure2;
     emit(ChangeScureState());
   }
 //////////////////////////////////////////
