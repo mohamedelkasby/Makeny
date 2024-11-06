@@ -16,7 +16,7 @@ class UserModel {
   final double? waist;
   final String? vision;
   final String? maritalStatus;
-  final bool? isUser;
+  final bool? isPatient;
 
   UserModel({
     this.name,
@@ -34,7 +34,7 @@ class UserModel {
     this.vision,
     this.picture,
     this.maritalStatus,
-    this.isUser,
+    this.isPatient,
   });
 
   // The 'fromFirebase' constructor should focus on available fields from Firebase User
@@ -57,7 +57,7 @@ class UserModel {
       vision: doc["vision"] ?? '',
       picture: doc["picture"] ?? '',
       maritalStatus: doc["maritalStatus"] ?? '',
-      isUser: doc["isUser"],
+      isPatient: doc["isPatient"],
     );
   }
 
@@ -78,7 +78,7 @@ class UserModel {
       waist: 0,
       vision: '',
       picture: '',
-      isUser: false,
+      isPatient: false,
     );
   }
 }

@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:makeny/cubits/cubit.dart';
 import 'package:makeny/screens/danger_measure_screens/danger_measure_screen.dart';
-import 'package:makeny/screens/home_page.dart';
+import 'package:makeny/screens/patient_home_page.dart';
 import 'package:makeny/screens/notification_screen.dart';
 import 'package:makeny/screens/user_pages/account_page.dart';
 import 'package:makeny/widgets/icon_with_label.dart';
@@ -14,7 +14,7 @@ class BasicPage extends StatelessWidget {
   });
 
   final List<Widget> pagesList = [
-    HomePage(),
+    PatientHomePage(),
     AccountPage(),
   ];
 

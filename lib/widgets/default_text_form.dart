@@ -12,6 +12,7 @@ class DefaultTextForm extends StatelessWidget {
     this.validator,
     this.onchange,
     this.focusNode,
+    this.keyboardTybe,
   });
 
   final String label;
@@ -22,6 +23,7 @@ class DefaultTextForm extends StatelessWidget {
   final FormFieldValidator<String>? validator; // Add this line for validation
   final ValueChanged? onchange;
   final FocusNode? focusNode;
+  final TextInputType? keyboardTybe;
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +42,7 @@ class DefaultTextForm extends StatelessWidget {
           SizedBox(height: 5),
         ],
         TextFormField(
+          keyboardType: keyboardTybe,
           focusNode: focusNode,
           onChanged: onchange,
           controller: controller,

@@ -39,7 +39,7 @@ class AuthServices {
       "vision": emptyUser.vision,
       "picture": emptyUser.picture,
       "maritalStatus": emptyUser.maritalStatus,
-      "isUser": true,
+      "isPatient": true,
     });
     return credential;
   }
@@ -78,7 +78,7 @@ class AuthServices {
         "vision": emptyUser.vision,
         "picture": emptyUser.picture,
         "maritalStatus": emptyUser.maritalStatus,
-        "isUser": emptyUser.isUser,
+        "isPatient": emptyUser.isPatient,
       });
       // print("User document created with empty fields.");
     } else {
@@ -106,7 +106,8 @@ class AuthServices {
         updatedData["picture"] = emptyUser.picture;
       if (!data.containsKey("maritalStatus"))
         updatedData["maritalStatus"] = emptyUser.maritalStatus;
-      if (!data.containsKey("isUser")) updatedData["isUser"] = emptyUser.isUser;
+      if (!data.containsKey("isPatient"))
+        updatedData["isPatient"] = emptyUser.isPatient;
 
       if (updatedData.isNotEmpty) {
         await userDocRef.update(updatedData);
@@ -121,21 +122,19 @@ class AuthServices {
   }
 
 //sign in with phone number
+
   signInWithPhoneNumber({
     required String phoneNumber,
     required Function(String) onCodeSent,
+    required Function(FirebaseAuthException) onVerificationFailed,
   }) async {
     await firebaseAuth.verifyPhoneNumber(
       phoneNumber: phoneNumber,
       timeout: const Duration(seconds: 60),
-      verificationCompleted: (credential) {
+      verificationCompleted: (PhoneAuthCredential credential) async {
         // await firebaseAuth.signInWithCredential(credential);
       },
-      verificationFailed: (e) {
-        // if (e.code == 'invalid-phone-number') {
-        //   print('The provided phone number is not valid.');
-        // }
-      },
+      verificationFailed: onVerificationFailed,
       codeSent: (String verificationId, int? resendToken) async {
         onCodeSent(verificationId);
 
@@ -231,7 +230,7 @@ class AuthServices {
           "vision": emptyUser.vision,
           "picture": emptyUser.picture,
           "maritalStatus": emptyUser.maritalStatus,
-          "isUser": emptyUser.isUser,
+          "isPatient": emptyUser.isPatient,
         });
         // print("User document created with empty fields.");
       } else {
@@ -262,8 +261,8 @@ class AuthServices {
           updatedData["picture"] = emptyUser.picture;
         if (!data.containsKey("maritalStatus"))
           updatedData["maritalStatus"] = emptyUser.maritalStatus;
-        if (!data.containsKey("isUser"))
-          updatedData["isUser"] = emptyUser.isUser;
+        if (!data.containsKey("isPatient"))
+          updatedData["isPatient"] = emptyUser.isPatient;
 
         if (updatedData.isNotEmpty) {
           await userDocRef.update(updatedData);

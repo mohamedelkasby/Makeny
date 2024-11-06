@@ -10,14 +10,15 @@ import 'package:makeny/services/fire_store_service.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 import 'package:makeny/widgets/doctor_container.dart';
 
-class HomePage extends StatefulWidget {
-  HomePage({super.key});
+class PatientHomePage extends StatefulWidget {
+  PatientHomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<PatientHomePage> createState() => _PatientHomePageState();
 }
 
-class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+class _PatientHomePageState extends State<PatientHomePage>
+    with TickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _backgroundAnimation;
   // late Animation<double> _fadeAnimation;
