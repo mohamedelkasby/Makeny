@@ -210,7 +210,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               Row(
                                 children: [
                                   signButton(
-                                      onTap: () {},
+                                      onTap: () {
+                                        authServices
+                                            .authenticationWithGoogle(context);
+                                      },
                                       text: "Google",
                                       icon: "assets/icons/google.svg"),
                                   const SizedBox(
