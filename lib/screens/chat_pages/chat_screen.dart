@@ -182,12 +182,6 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
-// could remove this ......................<<<<<<<<<<<<
-  // bool isSameDay(DateTime date1, DateTime date2) {
-  //   return DateFormat('d MMMM yyyy').format(date1) ==
-  //       DateFormat('d MMMM yyyy').format(date2);
-  // }
-
   Widget messageItem(document, bool showDate) {
     Map<String, dynamic> data = document.data() as Map<String, dynamic>;
     bool isSender = data["senderID"] == firebaseAuth.currentUser!.uid;

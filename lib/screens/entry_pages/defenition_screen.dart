@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/screens/user_pages/sign_in_&_sign_up_pages/login_screen.dart';
 import 'package:makeny/widgets/buttons.dart';
+import 'package:makeny/widgets/internet_connectivity_wrapper.dart';
 import 'package:makeny/widgets/page_view_def.dart';
 
 class DefenitionScreen extends StatefulWidget {
@@ -19,6 +20,7 @@ class _DefenitionScreenState extends State<DefenitionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // to show only the bottom bar and make the top status disapear
     SystemChrome.setEnabledSystemUIMode(
       SystemUiMode.manual,
       overlays: [SystemUiOverlay.bottom],
@@ -44,7 +46,8 @@ class _DefenitionScreenState extends State<DefenitionScreen> {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const LoginScreen(),
+                          builder: (context) => InternetConnectivityWrapper(
+                              child: const LoginScreen()),
                         ),
                       );
                     },

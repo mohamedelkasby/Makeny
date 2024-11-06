@@ -186,7 +186,7 @@ class _ImagePreviewState extends State<ImagePreview> {
     return FutureBuilder<DocumentSnapshot>(
       future: _firestore.collection('users').doc(userId).get(),
       builder: (context, snapshot) {
-        String? imageUrl = snapshot.data?.get('picture') as String?;
+        // String? imageUrl = snapshot.data?.get('picture') as String?;
 
         return ClipRRect(
           borderRadius: BorderRadius.circular(10),

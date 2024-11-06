@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -17,9 +16,10 @@ import 'package:makeny/services/auth_service.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/default_text_form.dart';
 import 'package:country_picker/country_picker.dart';
+import 'package:makeny/widgets/internet_connectivity_wrapper.dart';
 import 'package:makeny/widgets/resizable_country_picker_widget.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
+// import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -30,6 +30,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen>
     with TickerProviderStateMixin {
+  // make the default country is suadi arabia
   Country country = CountryParser.parseCountryCode("SA");
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController inputController = TextEditingController();
@@ -38,6 +39,7 @@ class _LoginScreenState extends State<LoginScreen>
   bool isEmailValiad = true;
   bool isPhoneNumber = true;
   bool isLoading = false;
+
   late final AnimationController animationController = AnimationController(
     vsync: this,
     duration: const Duration(milliseconds: 300),
@@ -78,99 +80,44 @@ class _LoginScreenState extends State<LoginScreen>
   }
   //////
 
-  final InternetConnectionChecker _internetChecker =
-      InternetConnectionChecker();
-  late StreamSubscription<InternetConnectionStatus> _internetSubscription;
-
-  bool _hasInternet = true;
-  bool _showConnectionStatus =
-      false; // New property to control status visibility
-
-  @override
-  void initState() {
-    super.initState();
-    // No need to initialize _internetChecker here anymore since it's done above
-    checkInternet(); // Initial check
-
-    _internetSubscription = _internetChecker // Use the instance we created
-        .onStatusChange
-        .listen((InternetConnectionStatus status) {
-      setState(() {
-        _hasInternet = status == InternetConnectionStatus.connected;
-        _showConnectionStatus = true;
-        if (_hasInternet) {
-          Future.delayed(const Duration(seconds: 3), () {
-            if (mounted) {
-              setState(() {
-                _showConnectionStatus = false;
-              });
-            }
-          });
-        }
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    _internetSubscription.cancel(); // Don't forget to uncomment this!
-    super.dispose();
-  }
-
-  Future<bool> checkInternet() async {
-    bool hasInternet = await _internetChecker.hasConnection;
-    if (mounted) {
-      setState(() {
-        _hasInternet = hasInternet;
-        _showConnectionStatus = !hasInternet; // Only show status if no internet
-      });
-    }
-    return hasInternet;
-  }
-
   sendOTP() async {
-    if (!_hasInternet) {
-      if (!await checkInternet()) {
-        return;
-      }
-      try {
-        setState(() {
-          isLoading = true;
-        });
-        await authServices.signInWithPhoneNumber(
-          phoneNumber: "+${country.phoneCode}${inputController.text}",
-          onCodeSent: (String verId) {
-            setState(() {
-              isLoading = false;
-            });
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) => ConfirmLoginScreen(verification: verId),
-              ),
-            );
-          },
-          onVerificationFailed: (FirebaseAuthException e) {
-            setState(() {
-              isLoading = false;
-            });
-            // You can show an error message here if needed
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(e.code == 'network-request-failed'
-                    ? 'لا يوجد اتصال بالإنترنت'
-                    : 'رقم الهاتف غير صحيح'),
-                backgroundColor: mainColor300,
-              ),
-            );
-          },
-        );
-      } catch (e) {
-        print("...this error when send OTP ... $e");
-        setState(() {
-          isLoading = false;
-        });
-      }
+    try {
+      setState(() {
+        isLoading = true;
+      });
+      await authServices.signInWithPhoneNumber(
+        phoneNumber: "+${country.phoneCode}${inputController.text}",
+        onCodeSent: (String verId) {
+          setState(() {
+            isLoading = false;
+          });
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => ConfirmLoginScreen(verification: verId),
+            ),
+          );
+        },
+        onVerificationFailed: (FirebaseAuthException e) {
+          setState(() {
+            isLoading = false;
+          });
+          // You can show an error message here if needed
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(e.code == 'network-request-failed'
+                  ? 'لا يوجد اتصال بالإنترنت'
+                  : 'رقم الهاتف غير صحيح'),
+              backgroundColor: mainColor300,
+            ),
+          );
+        },
+      );
+    } catch (e) {
+      print("...this error when send OTP ... $e");
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 
@@ -202,29 +149,29 @@ class _LoginScreenState extends State<LoginScreen>
 
     return SafeArea(
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: true,
         body: Column(
           children: [
-            AnimatedContainer(
-              duration: const Duration(milliseconds: 300),
-              height: _showConnectionStatus ? 32 : 0,
-              child: AnimatedOpacity(
-                duration: const Duration(milliseconds: 300),
-                opacity: _showConnectionStatus ? 1.0 : 0.0,
-                child: Container(
-                  width: double.infinity,
-                  color: _hasInternet ? Colors.green : greyColor,
-                  padding: const EdgeInsets.symmetric(vertical: 4),
-                  child: Text(
-                    _hasInternet
-                        ? 'تم استعادة الاتصال بالإنترنت'
-                        : 'لا يوجد اتصال بالإنترنت',
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                ),
-              ),
-            ),
+            // AnimatedContainer(
+            //   duration: const Duration(milliseconds: 300),
+            //   height: _showConnectionStatus ? 32 : 0,
+            //   child: AnimatedOpacity(
+            //     duration: const Duration(milliseconds: 300),
+            //     opacity: _showConnectionStatus ? 1.0 : 0.0,
+            //     child: Container(
+            //       width: double.infinity,
+            //       color: _hasInternet ? Colors.green : greyColor,
+            //       padding: const EdgeInsets.symmetric(vertical: 4),
+            //       child: Text(
+            //         _hasInternet
+            //             ? 'تم استعادة الاتصال بالإنترنت'
+            //             : 'لا يوجد اتصال بالإنترنت',
+            //         textAlign: TextAlign.center,
+            //         style: const TextStyle(color: Colors.white),
+            //       ),
+            //     ),
+            //   ),
+            // ),
             Expanded(
               child: ModalProgressHUD(
                 inAsyncCall: isLoading,
@@ -429,9 +376,9 @@ class _LoginScreenState extends State<LoginScreen>
                                                 child: longSignButton(
                                                   text: "دخول",
                                                   onTap: () async {
-                                                    if (!await checkInternet()) {
-                                                      return;
-                                                    }
+                                                    // if (!await checkInternet()) {
+                                                    //   return;
+                                                    // }
                                                     if (formKey.currentState!
                                                         .validate()) {
                                                       if (!isPhoneNumber) {
@@ -479,10 +426,13 @@ class _LoginScreenState extends State<LoginScreen>
                                                                   .pushReplacement(
                                                                 context,
                                                                 MaterialPageRoute(
-                                                                  builder: (context) =>
-                                                                      userType
-                                                                          ? PatientHomePage()
-                                                                          : DoctorHomePage(),
+                                                                  builder: (context) => userType
+                                                                      ? InternetConnectivityWrapper(
+                                                                          child:
+                                                                              PatientHomePage())
+                                                                      : const InternetConnectivityWrapper(
+                                                                          child:
+                                                                              DoctorHomePage()),
                                                                 ),
                                                               );
                                                             }
@@ -503,15 +453,15 @@ class _LoginScreenState extends State<LoginScreen>
                                                             ScaffoldMessenger
                                                                     .of(context)
                                                                 .showSnackBar(
-                                                              const SnackBar(
-                                                                content: Text(
+                                                              SnackBar(
+                                                                content: const Text(
                                                                     'لا يوجد اتصال بالإنترنت'),
                                                                 backgroundColor:
-                                                                    Colors.red,
+                                                                    mainColor300,
                                                                 duration:
                                                                     Duration(
                                                                         seconds:
-                                                                            3),
+                                                                            2),
                                                               ),
                                                             );
                                                           }
@@ -620,7 +570,9 @@ class _LoginScreenState extends State<LoginScreen>
                                                       .pushReplacement(
                                                           MaterialPageRoute(
                                                     builder: (context) =>
-                                                        const SignUpScreen(),
+                                                        InternetConnectivityWrapper(
+                                                            child:
+                                                                const SignUpScreen()),
                                                   ));
                                                 },
                                                 child: Text(

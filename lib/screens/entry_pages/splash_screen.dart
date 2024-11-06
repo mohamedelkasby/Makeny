@@ -1,7 +1,6 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'dart:async';
-
 import 'package:makeny/screens/entry_pages/defenition_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -24,11 +23,11 @@ class _SplashScreenState extends State<SplashScreen> {
         if (_currentImageIndex >= _isVisible.length) {
           _timer?.cancel();
           Future.delayed(
-            Duration(seconds: 1),
+            const Duration(seconds: 1),
             () => Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => DefenitionScreen(),
+                builder: (context) => const DefenitionScreen(),
               ),
             ),
           );
@@ -73,7 +72,7 @@ class _SplashScreenState extends State<SplashScreen> {
               padding: const EdgeInsets.only(left: 129),
               child: AnimatedOpacity(
                 opacity: _isVisible[1] ? 1.0 : 0.0,
-                duration: Duration(seconds: 1),
+                duration: const Duration(seconds: 1),
                 child: Image.asset(
                   'assets/splash_images/image 56.png',
                 ),
@@ -84,14 +83,14 @@ class _SplashScreenState extends State<SplashScreen> {
               children: [
                 AnimatedOpacity(
                   opacity: _isVisible[2] ? 1.0 : 0.0,
-                  duration: Duration(seconds: 1),
+                  duration: const Duration(seconds: 1),
                   child: Image.asset(
                     'assets/splash_images/image 57.png',
                   ),
                 ),
                 AnimatedOpacity(
                   opacity: _isVisible[0] ? 1.0 : 0.0,
-                  duration: Duration(milliseconds: 500),
+                  duration: const Duration(milliseconds: 500),
                   child: Image.asset(
                     'assets/splash_images/image 54.png',
                     width: 75,
@@ -99,7 +98,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
                 AnimatedOpacity(
                   opacity: _isVisible[3] ? 1.0 : 0.0,
-                  duration: Duration(seconds: 1),
+                  duration: const Duration(seconds: 1),
                   child: Image.asset(
                     'assets/splash_images/image 55.png',
                   ),
@@ -110,7 +109,7 @@ class _SplashScreenState extends State<SplashScreen> {
               padding: const EdgeInsets.only(left: 129),
               child: AnimatedOpacity(
                 opacity: _isVisible[4] ? 1.0 : 0.0,
-                duration: Duration(seconds: 1),
+                duration: const Duration(seconds: 1),
                 child: Image.asset(
                   'assets/splash_images/image 58.png',
                 ),

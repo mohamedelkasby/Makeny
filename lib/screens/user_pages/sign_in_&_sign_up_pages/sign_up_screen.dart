@@ -2,7 +2,6 @@ import 'dart:ui';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:makeny/cubits/cubit.dart';
 import 'package:makeny/cubits/status.dart';
 import 'package:makeny/extentions/colors.dart';
@@ -10,6 +9,7 @@ import 'package:makeny/screens/user_pages/sign_in_&_sign_up_pages/login_screen.d
 import 'package:makeny/services/auth_service.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/default_text_form.dart';
+import 'package:makeny/widgets/internet_connectivity_wrapper.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -33,36 +33,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final FocusNode _focusNode2 = FocusNode();
   final FocusNode _focusNode3 = FocusNode();
   bool isLoading = false;
-  //
-
-  late final InternetConnectionChecker internetChecker;
-  // bool _hasInternet = true;
-
-  @override
-  void initState() {
-    super.initState();
-    internetChecker = InternetConnectionChecker();
-  }
-
-  Future<bool> checkInternet() async {
-    bool hasInternet = await internetChecker.hasConnection;
-    // setState(() {
-    //   _hasInternet = hasInternet;
-    // });
-    if (!hasInternet) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('لا يوجد اتصال بالإنترنت'),
-            backgroundColor: Colors.red,
-            duration: Duration(seconds: 3),
-          ),
-        );
-      }
-    }
-    return hasInternet;
-  }
-  //
 
   @override
   void dispose() {
@@ -77,7 +47,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      /////
+      // the center progress indicator.
       body: ModalProgressHUD(
         inAsyncCall: isLoading,
         child: GestureDetector(
@@ -283,10 +253,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     child: longSignButton(
                                       text: "تسجيل",
                                       onTap: () async {
-                                        if (!await checkInternet()) {
-                                          return;
-                                        }
                                         if (formKey.currentState!.validate()) {
+                                          // check the internt connection
+                                          // if (!await checkInternet()) {
+                                          //   return;
+                                          // }
                                           // TODO: do the sign up auth
                                           try {
                                             setState(() {
@@ -305,9 +276,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                                 context,
                                                 MaterialPageRoute(
                                                   builder: (context) =>
-                                                      const LoginScreen(),
+                                                      InternetConnectivityWrapper(
+                                                          child:
+                                                              const LoginScreen()),
                                                 ));
                                           } on FirebaseAuthException catch (e) {
+                                            setState(() {
+                                              isLoading = false;
+                                            });
                                             if (e.code == 'weak-password') {
                                               print(
                                                   'The password provided is too weak.');
@@ -318,6 +294,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                                               print(
                                                   'The account already exists for that email.');
+                                            } else if (e.code ==
+                                                'network-request-failed') {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                  content: const Text(
+                                                      'لا يوجد اتصال بالإنترنت'),
+                                                  backgroundColor: mainColor300,
+                                                  duration:
+                                                      Duration(seconds: 3),
+                                                ),
+                                              );
                                             }
                                           } catch (e) {
                                             print(e);
@@ -370,7 +358,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                           Navigator.of(context).pushReplacement(
                                             MaterialPageRoute(
                                               builder: (context) =>
-                                                  const LoginScreen(),
+                                                  const InternetConnectivityWrapper(
+                                                      child: LoginScreen()),
                                             ),
                                           );
                                         },
