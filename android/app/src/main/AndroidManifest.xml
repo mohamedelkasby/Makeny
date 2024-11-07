@@ -10,7 +10,10 @@
     <application
         android:label="makeny"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:windowLayoutInDisplayCutoutMode="shortEdges"
+        android:resizeableActivity="true">
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -26,6 +29,10 @@
             <meta-data
               android:name="io.flutter.embedding.android.NormalTheme"
               android:resource="@style/NormalTheme"
+              />
+            <meta-data 
+              android:name="android.notch_support" 
+              android:value="true"
               />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

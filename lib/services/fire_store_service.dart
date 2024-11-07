@@ -80,4 +80,30 @@ class FireStoreService {
       throw error; // Re-throw to handle in UI
     }
   }
+
+  Future<DocumentSnapshot?> getUserDataByEmail(String email) async {
+    try {
+      // Access the Firestore instance
+      final firestore = FirebaseFirestore.instance;
+
+      // Query the collection based on email field
+      QuerySnapshot querySnapshot = await firestore
+          .collection(
+              'users') // replace 'users' with the actual collection name
+          .where('email', isEqualTo: email)
+          .limit(1) // limit to one document to avoid multiple matches
+          .get();
+
+      // Check if any documents were found
+      if (querySnapshot.docs.isNotEmpty) {
+        return querySnapshot.docs.first;
+      } else {
+        print('No user found with that email.');
+        return null;
+      }
+    } catch (e) {
+      print('Error getting user data: $e');
+      return null;
+    }
+  }
 }

@@ -50,10 +50,10 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
-      // SystemUiOverlay.top,
-      // SystemUiOverlay.bottom,
-    ]);
+    SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.immersiveSticky,
+      overlays: [],
+    );
 
     // onTap: () {
     //   if (_isVisible.every((element) => element == false)) {
@@ -64,58 +64,62 @@ class _SplashScreenState extends State<SplashScreen> {
     return Directionality(
       textDirection: TextDirection.ltr,
       child: Scaffold(
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 129),
-              child: AnimatedOpacity(
-                opacity: _isVisible[1] ? 1.0 : 0.0,
-                duration: const Duration(seconds: 1),
-                child: Image.asset(
-                  'assets/splash_images/image 56.png',
-                ),
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                AnimatedOpacity(
-                  opacity: _isVisible[2] ? 1.0 : 0.0,
+        backgroundColor: Colors.white,
+        body: Padding(
+          padding: const EdgeInsets.only(right: 4),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 129),
+                child: AnimatedOpacity(
+                  opacity: _isVisible[1] ? 1.0 : 0.0,
                   duration: const Duration(seconds: 1),
                   child: Image.asset(
-                    'assets/splash_images/image 57.png',
+                    'assets/splash_images/image 56.png',
                   ),
-                ),
-                AnimatedOpacity(
-                  opacity: _isVisible[0] ? 1.0 : 0.0,
-                  duration: const Duration(milliseconds: 500),
-                  child: Image.asset(
-                    'assets/splash_images/image 54.png',
-                    width: 75,
-                  ),
-                ),
-                AnimatedOpacity(
-                  opacity: _isVisible[3] ? 1.0 : 0.0,
-                  duration: const Duration(seconds: 1),
-                  child: Image.asset(
-                    'assets/splash_images/image 55.png',
-                  ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 129),
-              child: AnimatedOpacity(
-                opacity: _isVisible[4] ? 1.0 : 0.0,
-                duration: const Duration(seconds: 1),
-                child: Image.asset(
-                  'assets/splash_images/image 58.png',
                 ),
               ),
-            ),
-          ],
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  AnimatedOpacity(
+                    opacity: _isVisible[2] ? 1.0 : 0.0,
+                    duration: const Duration(seconds: 1),
+                    child: Image.asset(
+                      'assets/splash_images/image 57.png',
+                    ),
+                  ),
+                  AnimatedOpacity(
+                    opacity: _isVisible[0] ? 1.0 : 0.0,
+                    duration: const Duration(milliseconds: 500),
+                    child: Image.asset(
+                      'assets/splash_images/image 54.png',
+                      width: 75,
+                    ),
+                  ),
+                  AnimatedOpacity(
+                    opacity: _isVisible[3] ? 1.0 : 0.0,
+                    duration: const Duration(seconds: 1),
+                    child: Image.asset(
+                      'assets/splash_images/image 55.png',
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 129),
+                child: AnimatedOpacity(
+                  opacity: _isVisible[4] ? 1.0 : 0.0,
+                  duration: const Duration(seconds: 1),
+                  child: Image.asset(
+                    'assets/splash_images/image 58.png',
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

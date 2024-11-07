@@ -7,12 +7,29 @@ import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/widgets/cusotm_notification.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 
-class NotificationScreen extends StatelessWidget {
+class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
 
   @override
+  State<NotificationScreen> createState() => _NotificationScreenState();
+}
+
+class _NotificationScreenState extends State<NotificationScreen> {
+  @override
+  void dispose() {
+    SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.edgeToEdge,
+      // overlays: [
+      //   SystemUiOverlay.top,
+      //   SystemUiOverlay.bottom,
+      // ],
+    );
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
     return BlocProvider(
       create: (context) => NotificationCubit(),

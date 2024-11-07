@@ -278,7 +278,7 @@ class _PatientHomePageState extends State<PatientHomePage>
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+                          padding: const EdgeInsets.fromLTRB(8, 8, 6, 0),
                           child: InkWell(
                             splashColor: Colors.transparent,
                             highlightColor: Colors.transparent,
@@ -294,10 +294,13 @@ class _PatientHomePageState extends State<PatientHomePage>
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Align(
-                                    alignment: Alignment.topLeft,
-                                    child: Image.asset(
-                                      GridModelList[index].image,
-                                    )),
+                                  alignment: Alignment.topLeft,
+                                  child: Image.asset(
+                                    GridModelList[index].image,
+                                    height:
+                                        MediaQuery.sizeOf(context).height * .06,
+                                  ),
+                                ),
                                 Padding(
                                   padding: const EdgeInsets.only(
                                     top: 2,

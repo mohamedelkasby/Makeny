@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:makeny/cubits/cubit.dart';
 import 'package:makeny/screens/danger_measure_screens/danger_measure_screen.dart';
 import 'package:makeny/screens/patient_home_page.dart';
@@ -20,6 +21,13 @@ class BasicPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.edgeToEdge,
+      overlays: [
+        SystemUiOverlay.top,
+      ],
+    );
+
     final double iconSize = MediaQuery.of(context).size.width / 4;
     final double padingSize = MediaQuery.of(context).size.width / 8;
 
@@ -30,7 +38,7 @@ class BasicPage extends StatelessWidget {
 
       ////////        body      //////////
 
-      body: SafeArea(child: pagesList[AppCubit.get(context).selectedBNBIndex]),
+      body: pagesList[AppCubit.get(context).selectedBNBIndex],
 
       /////////////   floation action button Start ///////////
       floatingActionButton: SizedBox(

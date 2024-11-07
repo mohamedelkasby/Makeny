@@ -10,10 +10,6 @@ enum Direction {
 Future<void> transitionBetweenPages(
   BuildContext context, {
   required Widget thePage,
-  // bool fromRight = false,
-  // bool fromBottom = false,
-  // bool fromTop = false,
-  // bool fromLeft = false,
   Direction direction = Direction.fromRight,
   Curve forwardCurve = Curves.easeOutBack,
   Curve reverseCurve = Curves.easeIn,

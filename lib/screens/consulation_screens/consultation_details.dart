@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/models/doctor_model.dart';
 import 'package:makeny/models/checkbox_test_model.dart';
+import 'package:makeny/services/fire_store_service.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';
 
@@ -40,6 +42,7 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
   @override
   void initState() {
     dataModel = findModel(widget.doctorName);
+    getfirebaseData(dataModel.email);
     if (allTestsChecked()) {
       status = "مكتملة";
     }
@@ -73,6 +76,23 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
     return tests.every((element) => element.isChecked == true);
   }
 
+  Map<String, dynamic>? data;
+
+  ///TODO
+  ///  want to replave it with the data model with the entire app
+
+  Future<void> getfirebaseData(email) async {
+    DocumentSnapshot<Map<String, dynamic>>? snapshot = (await FireStoreService()
+        .getUserDataByEmail(email)) as DocumentSnapshot<Map<String, dynamic>>?;
+    if (snapshot != null) {
+      print("${data?["userName"]}");
+
+      data = snapshot.data()!;
+    } else {
+      throw " the data that should carry the doctor data is empty in consultation_details page ";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     List heartDisese = [
@@ -84,6 +104,7 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
         context,
         title: "تفاصيل الاستشارة ",
         goChat: true,
+        doctorfireData: data,
       ),
       body: Column(
         children: [

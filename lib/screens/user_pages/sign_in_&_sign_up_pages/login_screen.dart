@@ -10,7 +10,6 @@ import 'package:makeny/cubits/status.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/screens/basic_page.dart';
 import 'package:makeny/screens/doctor_home_page.dart';
-import 'package:makeny/screens/patient_home_page.dart';
 import 'package:makeny/screens/user_pages/sign_in_&_sign_up_pages/confirm_login_screen.dart';
 import 'package:makeny/screens/user_pages/sign_in_&_sign_up_pages/sign_up_screen.dart';
 import 'package:makeny/services/auth_service.dart';

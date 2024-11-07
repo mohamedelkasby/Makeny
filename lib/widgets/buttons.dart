@@ -107,32 +107,42 @@ Widget signButton({
   required final Function() onTap,
 }) {
   return Expanded(
-    child: ElevatedButton(
-      style: ButtonStyle(
-        shape: WidgetStatePropertyAll(
-          ContinuousRectangleBorder(
-            side: BorderSide(color: Colors.grey, width: .2),
-            borderRadius: BorderRadius.circular(20),
+    child: Container(
+      decoration: BoxDecoration(
+        color: Colors.white, // Background color
+        border: Border.all(color: Colors.grey, width: 0.2),
+        borderRadius: BorderRadius.circular(5),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1), // Shadow color
+            spreadRadius: -2, // Spread radius of the shadow
+            blurRadius: 4, // Blur radius for smooth shadow
+            offset: Offset(3, 4), // Shadow position
+          ),
+        ],
+      ),
+      child: GestureDetector(
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 11),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                text,
+                style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              SizedBox(
+                width: 15,
+              ),
+              SvgPicture.asset(icon),
+              // Image.asset(icon), // Alternative to the SvgPicture
+            ],
           ),
         ),
-      ),
-      onPressed: onTap,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 11),
-            child: Text(
-              text,
-              style: TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ),
-          SvgPicture.asset(icon),
-          // Image.asset(icon),
-        ],
       ),
     ),
   );

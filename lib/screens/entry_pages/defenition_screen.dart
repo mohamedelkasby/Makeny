@@ -22,9 +22,9 @@ class _DefenitionScreenState extends State<DefenitionScreen> {
   Widget build(BuildContext context) {
     // to show only the bottom bar and make the top status disapear
     SystemChrome.setEnabledSystemUIMode(
-      SystemUiMode.manual,
-      overlays: [SystemUiOverlay.bottom],
-    ); // Show status bar
+      SystemUiMode.immersive,
+      overlays: [],
+    );
 
     return Scaffold(
       backgroundColor: mainColor,

@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:makeny/extentions/colors.dart';
+import 'package:makeny/screens/chat_pages/chat_screen.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
+import 'package:makeny/widgets/internet_connectivity_wrapper.dart';
 
 PreferredSizeWidget defaultAppbar(
   final context, {
   required final String title,
   bool goChat = false,
+  Map<String, dynamic>? doctorfireData,
 }) {
   return AppBar(
     actions: [
@@ -19,9 +22,30 @@ PreferredSizeWidget defaultAppbar(
                   color: mainColor50,
                   borderRadius: BorderRadius.circular(5),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(5),
-                  child: SvgPicture.asset("assets/icons/chat.svg"),
+                child: InkWell(
+                  onTap: () {
+                    print("${doctorfireData?["userName"]}");
+                    doctorfireData != null
+                        ? Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => InternetConnectivityWrapper(
+                                child: ChatScreen(receiverData: doctorfireData),
+                              ),
+                            ),
+                          )
+                        : {
+                            const SnackBar(
+                                content: Text(
+                                    "you should enter the data of the doctor from the firebase ")),
+                            print(
+                                "you should enter the data of the doctor from the firebase :) :) :) :) :) :) :)")
+                          };
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: SvgPicture.asset("assets/icons/chat.svg"),
+                  ),
                 ),
               ),
             )
