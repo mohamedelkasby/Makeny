@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/screens/user_pages/sign_in_&_sign_up_pages/login_screen.dart';
 import 'package:makeny/widgets/buttons.dart';
@@ -21,10 +20,6 @@ class _DefenitionScreenState extends State<DefenitionScreen> {
   @override
   Widget build(BuildContext context) {
     // to show only the bottom bar and make the top status disapear
-    SystemChrome.setEnabledSystemUIMode(
-      SystemUiMode.immersive,
-      overlays: [],
-    );
 
     return Scaffold(
       backgroundColor: mainColor,
@@ -32,8 +27,9 @@ class _DefenitionScreenState extends State<DefenitionScreen> {
         children: [
           Padding(
               padding: EdgeInsets.symmetric(
-                  vertical: MediaQuery.of(context).size.width * 0.111,
-                  horizontal: MediaQuery.of(context).size.width * 0.07),
+                vertical: MediaQuery.of(context).size.width * 0.111,
+                horizontal: MediaQuery.of(context).size.width * 0.07,
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

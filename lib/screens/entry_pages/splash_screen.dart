@@ -50,11 +50,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIMode(
-      SystemUiMode.immersiveSticky,
-      overlays: [],
-    );
-
     // onTap: () {
     //   if (_isVisible.every((element) => element == false)) {
     //     _startFadeSequence();

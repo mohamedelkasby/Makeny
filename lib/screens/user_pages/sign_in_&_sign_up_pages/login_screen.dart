@@ -124,11 +124,10 @@ class _LoginScreenState extends State<LoginScreen>
   @override
   Widget build(BuildContext context) {
     // show the top status and bottom controllers
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge, overlays: [
       SystemUiOverlay.top,
       SystemUiOverlay.bottom
     ]); // Show status bar
-    //
 
     //while writing on the field it listens to the changes.
     void onInputChanged() {

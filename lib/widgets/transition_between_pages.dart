@@ -20,24 +20,24 @@ Future<void> transitionBetweenPages(
       barrierColor: Colors.black.withOpacity(.3),
       barrierDismissible: true,
       opaque: false,
-      transitionDuration: Duration(milliseconds: 1000),
-      reverseTransitionDuration: Duration(milliseconds: 700),
+      transitionDuration: const Duration(milliseconds: 1000),
+      reverseTransitionDuration: const Duration(milliseconds: 700),
       pageBuilder: (context, animation, secondaryAnimation) => thePage,
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         ////// define the start position .
         Offset begin;
         switch (direction) {
           case Direction.fromRight:
-            begin = Offset(1.0, 0.0);
+            begin = const Offset(1.0, 0.0);
             break;
           case Direction.fromBottom:
-            begin = Offset(0.0, 1.0);
+            begin = const Offset(0.0, 1.0);
             break;
           case Direction.fromTop:
-            begin = Offset(0.0, -1.0);
+            begin = const Offset(0.0, -1.0);
             break;
           case Direction.fromLeft:
-            begin = Offset(-1.0, 0.0);
+            begin = const Offset(-1.0, 0.0);
             break;
         }
         const end = Offset(0.0, 0.0);

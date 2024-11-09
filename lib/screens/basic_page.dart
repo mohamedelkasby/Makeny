@@ -16,24 +16,18 @@ class BasicPage extends StatelessWidget {
 
   final List<Widget> pagesList = [
     PatientHomePage(),
-    AccountPage(),
+    const AccountPage(),
   ];
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIMode(
-      SystemUiMode.edgeToEdge,
-      overlays: [
-        SystemUiOverlay.top,
-      ],
-    );
-
     final double iconSize = MediaQuery.of(context).size.width / 4;
     final double padingSize = MediaQuery.of(context).size.width / 8;
 
     FirebaseAuth _auth = FirebaseAuth.instance;
 
     return Scaffold(
+      backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
 
       ////////        body      //////////
@@ -92,12 +86,14 @@ class BasicPage extends StatelessWidget {
               context,
               svgIcon: "assets/icons/notification.svg",
               label: "الاشعارات",
-              onTap: () => transitionBetweenPages(
-                context,
-                direction: Direction.fromBottom,
-                thePage: const NotificationScreen(),
-                forwardCurve: Curves.easeInOut,
-              ),
+              onTap: () {
+                transitionBetweenPages(
+                  context,
+                  direction: Direction.fromBottom,
+                  thePage: const NotificationScreen(),
+                  forwardCurve: Curves.easeInOut,
+                );
+              },
             ),
             iconWithLabel(
               context,

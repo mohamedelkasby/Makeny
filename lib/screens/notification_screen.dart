@@ -16,26 +16,19 @@ class NotificationScreen extends StatefulWidget {
 
 class _NotificationScreenState extends State<NotificationScreen> {
   @override
-  void dispose() {
-    SystemChrome.setEnabledSystemUIMode(
-      SystemUiMode.edgeToEdge,
-      // overlays: [
-      //   SystemUiOverlay.top,
-      //   SystemUiOverlay.bottom,
-      // ],
-    );
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-
     return BlocProvider(
       create: (context) => NotificationCubit(),
       child: Scaffold(
+        // backgroundColor: Colors.white,
         appBar: AppBar(
+          // backgroundColor: Colors.white,
           leadingWidth: 50,
+          //this important to keep the status bar in basic screen not black
+          systemOverlayStyle: const SystemUiOverlayStyle(
+            statusBarColor: Colors.white,
+            statusBarIconBrightness: Brightness.dark,
+          ),
           leading: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Image.asset(
@@ -49,11 +42,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
               child: InkWell(
                 onTap: () {
                   Navigator.pop(context);
-
-                  SystemChrome.setEnabledSystemUIMode(
-                    SystemUiMode.manual,
-                    overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom],
-                  );
                 },
                 child: SvgPicture.asset(
                   "assets/icons/close.svg",
