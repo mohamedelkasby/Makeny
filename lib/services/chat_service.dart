@@ -5,11 +5,11 @@ import 'package:makeny/models/message_model.dart';
 
 class ChatService extends ChangeNotifier {
   // instance of authentication
-  FirebaseAuth fireAuth = FirebaseAuth.instance;
-  //instance of fireStore
-  FirebaseFirestore fireStore = FirebaseFirestore.instance;
+  final FirebaseAuth fireAuth = FirebaseAuth.instance;
+  // instance of fireStore
+  final FirebaseFirestore fireStore = FirebaseFirestore.instance;
 
-  //send message to the firestore
+  // send message to the firestore
   Future<void> sendMessage({
     required String receiverID,
     required String message,
@@ -21,14 +21,13 @@ class ChatService extends ChangeNotifier {
         fireAuth.currentUser!.phoneNumber.toString();
     final String userName = fireAuth.currentUser!.displayName.toString();
 
-    final DateTime now = DateTime.now();
-
     MessageModel newMessage = MessageModel(
       senderID: senderID,
       senderEmail: senderEmail,
       receiverID: receiverID,
       message: message,
-      dateTime: Timestamp.fromDate(now),
+      // Use FieldValue.serverTimestamp() directly
+      dateTime: FieldValue.serverTimestamp(),
       userName: userName,
     );
 
@@ -37,7 +36,7 @@ class ChatService extends ChangeNotifier {
     ids.sort();
     String chatRoomID = ids.join('_');
 
-    //add the new message to the database
+    // add the new message to the database
     await fireStore
         .collection("ChatRoom")
         .doc(chatRoomID)
@@ -45,7 +44,7 @@ class ChatService extends ChangeNotifier {
         .add(newMessage.toMap());
   }
 
-  //get the messages from  firestore
+  // get the messages from firestore
   Stream<QuerySnapshot> getMessages({
     required String senderID,
     required String receiverID,
@@ -53,6 +52,7 @@ class ChatService extends ChangeNotifier {
     List<String> ids = [senderID, receiverID];
     ids.sort();
     String chatRoomID = ids.join('_');
+
     return fireStore
         .collection("ChatRoom")
         .doc(chatRoomID)

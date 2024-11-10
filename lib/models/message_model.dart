@@ -6,7 +6,7 @@ class MessageModel {
   final String userName;
   final String receiverID;
   final String message;
-  final Timestamp dateTime;
+  final dynamic dateTime;
 
   MessageModel({
     required this.senderID,
@@ -26,5 +26,24 @@ class MessageModel {
       "userName": userName,
       "dateTime": dateTime,
     };
+  }
+
+  factory MessageModel.fromMap(Map<String, dynamic> map) {
+    return MessageModel(
+      senderID: map['senderID'] ?? '',
+      senderEmail: map['senderEmail'] ?? '',
+      receiverID: map['receiverID'] ?? '',
+      message: map['message'] ?? '',
+      dateTime: map['dateTime'],
+      userName: map['userName'] ?? '',
+    );
+  }
+
+  // Helper method to get DateTime from Timestamp
+  DateTime? getDateTime() {
+    if (dateTime is Timestamp) {
+      return (dateTime as Timestamp).toDate();
+    }
+    return null;
   }
 }

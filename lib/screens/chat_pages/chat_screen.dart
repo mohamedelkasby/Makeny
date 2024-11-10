@@ -105,6 +105,7 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   // check if the date of send the message is at the same day or not
+
   String getDateHeader(DateTime dateTime) {
     DateTime now = DateTime.now();
     DateTime today = DateTime(now.year, now.month, now.day);
@@ -125,19 +126,28 @@ class _ChatScreenState extends State<ChatScreen> {
   bool shouldShowDate(List<QueryDocumentSnapshot> messages, int index) {
     if (index == 0) return true;
 
-    final currentDate =
-        (messages[index].data() as Map<String, dynamic>)["dateTime"].toDate();
-    final previousDate =
-        (messages[index - 1].data() as Map<String, dynamic>)["dateTime"]
-            .toDate();
+    final currentData = messages[index].data() as Map<String, dynamic>;
+    final previousData = messages[index - 1].data() as Map<String, dynamic>;
 
-    return !isSameDay(currentDate, previousDate);
+    final currentDateTime = getDateTimeFromTimestamp(currentData['dateTime']);
+    final previousDateTime = getDateTimeFromTimestamp(previousData['dateTime']);
+
+    return !isSameDay(currentDateTime, previousDateTime);
   }
 
-  bool isSameDay(DateTime date1, DateTime date2) {
+  bool isSameDay(DateTime? date1, DateTime? date2) {
+    if (date1 == null || date2 == null) return false;
     return date1.year == date2.year &&
         date1.month == date2.month &&
         date1.day == date2.day;
+  }
+
+  DateTime? getDateTimeFromTimestamp(dynamic timestamp) {
+    if (timestamp == null) return null;
+    if (timestamp is Timestamp) {
+      return timestamp.toDate();
+    }
+    return null;
   }
 
   Widget messageList() {
@@ -182,13 +192,17 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  Widget messageItem(document, bool showDate) {
+  Widget messageItem(QueryDocumentSnapshot document, bool showDate) {
     Map<String, dynamic> data = document.data() as Map<String, dynamic>;
     bool isSender = data["senderID"] == firebaseAuth.currentUser!.uid;
     var alignment = (isSender) ? Alignment.centerRight : Alignment.centerLeft;
 
-    DateTime dateTime = data["dateTime"].toDate();
-    String formattedTime = DateFormat('h:mm a', 'ar').format(dateTime);
+    dynamic timestamp = data["dateTime"];
+    DateTime? messageDateTime = getDateTimeFromTimestamp(timestamp);
+
+    String formattedTime = messageDateTime != null
+        ? DateFormat('h:mm a', 'ar').format(messageDateTime)
+        : "........";
 
     return Container(
       alignment: alignment,
@@ -196,7 +210,7 @@ class _ChatScreenState extends State<ChatScreen> {
         crossAxisAlignment:
             (isSender) ? CrossAxisAlignment.start : CrossAxisAlignment.end,
         children: [
-          if (showDate)
+          if (showDate && messageDateTime != null)
             Center(
               child: Container(
                 margin: const EdgeInsets.symmetric(vertical: 10),
@@ -207,7 +221,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Text(
-                  getDateHeader(dateTime),
+                  getDateHeader(messageDateTime),
                   style: TextStyle(
                     color: Colors.grey[600],
                     fontSize: 12,
@@ -220,6 +234,7 @@ class _ChatScreenState extends State<ChatScreen> {
             message: data["message"],
             time: formattedTime,
             isSender: isSender,
+            isMessagePending: messageDateTime == null,
           ),
           const SizedBox(height: 10)
         ],

@@ -125,7 +125,10 @@ class _DefenitionScreenState extends State<DefenitionScreen> {
                                   context,
                                   MaterialPageRoute(
                                     //TODO: put the internet checker here
-                                    builder: (context) => const LoginScreen(),
+                                    builder: (context) =>
+                                        const InternetConnectivityWrapper(
+                                      child: const LoginScreen(),
+                                    ),
                                   ),
                                 );
                               })

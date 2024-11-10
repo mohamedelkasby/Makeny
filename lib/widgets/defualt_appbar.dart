@@ -9,12 +9,12 @@ import 'package:makeny/widgets/internet_connectivity_wrapper.dart';
 PreferredSizeWidget defaultAppbar(
   final context, {
   required final String title,
-  bool goChat = false,
+  bool chatIcon = false,
   Map<String, dynamic>? doctorfireData,
 }) {
   return AppBar(
     actions: [
-      goChat
+      chatIcon
           ? Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5),
               child: Container(

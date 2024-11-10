@@ -39,14 +39,19 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
   late String status = widget.status;
   late final TabController _tabController;
 
+  bool isLoading = true;
+  Map<String, dynamic>? data;
+
   @override
   void initState() {
+    super.initState();
     dataModel = findModel(widget.doctorName);
-    getfirebaseData(dataModel.email);
-    if (allTestsChecked()) {
-      status = "مكتملة";
-    }
+    _initializeData();
     _tabController = TabController(length: 2, vsync: this);
+    _setupTabController();
+  }
+
+  void _setupTabController() {
     _tabController.addListener(() {
       setState(() {
         if (_tabController.index == 1) {
@@ -58,7 +63,23 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
         }
       });
     });
-    super.initState();
+  }
+
+  Future<void> _initializeData() async {
+    try {
+      await getfirebaseData(dataModel.email);
+      if (allTestsChecked()) {
+        status = "مكتملة";
+      }
+    } catch (e) {
+      print("Error loading data: $e");
+    } finally {
+      if (mounted) {
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }
   }
 
   @override
@@ -68,28 +89,26 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
   }
 
   bool allTestsChecked() {
-    // if (
-    //   tests.contains(
-    //   (element) =>element,
-    // )
-    // ) ;
     return tests.every((element) => element.isChecked == true);
   }
 
-  Map<String, dynamic>? data;
+  Future<void> getfirebaseData(String email) async {
+    try {
+      DocumentSnapshot<Map<String, dynamic>>? snapshot =
+          await FireStoreService().getUserDataByEmail(email)
+              as DocumentSnapshot<Map<String, dynamic>>?;
 
-  /////TODO
-  ///  want to replave it with the data model with the entire app
-
-  Future<void> getfirebaseData(email) async {
-    DocumentSnapshot<Map<String, dynamic>>? snapshot = (await FireStoreService()
-        .getUserDataByEmail(email)) as DocumentSnapshot<Map<String, dynamic>>?;
-    if (snapshot != null) {
-      print("${data?["userName"]}");
-
-      data = snapshot.data()!;
-    } else {
-      throw " the data that should carry the doctor data is empty in consultation_details page ";
+      if (snapshot != null && snapshot.data() != null) {
+        if (mounted) {
+          setState(() {
+            data = snapshot.data()!;
+          });
+        }
+      } else {
+        throw "Doctor data is empty in consultation_details page";
+      }
+    } catch (e) {
+      rethrow;
     }
   }
 
@@ -103,7 +122,7 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
       appBar: defaultAppbar(
         context,
         title: "تفاصيل الاستشارة ",
-        goChat: true,
+        chatIcon: true,
         doctorfireData: data,
       ),
       body: Column(
@@ -322,7 +341,8 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
                                           children: [
                                             textNormal(
                                               text: tests[index].testName,
-                                              textColor: Color(0xff6A6A6A),
+                                              textColor:
+                                                  const Color(0xff6A6A6A),
                                             ),
                                             // Text(
                                             // ),
