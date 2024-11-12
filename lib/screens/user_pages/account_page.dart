@@ -12,6 +12,7 @@ import 'package:makeny/screens/user_pages/profile_page.dart';
 import 'package:makeny/services/fire_store_service.dart';
 import 'package:makeny/widgets/close_dialog.dart';
 import 'package:makeny/widgets/image_preview.dart';
+import 'package:makeny/widgets/internet_connectivity_wrapper.dart';
 import 'package:makeny/widgets/navigation_utils.dart';
 import 'package:makeny/widgets/text_icon_navigator.dart';
 import 'package:makeny/widgets/transition_between_pages.dart';
@@ -146,9 +147,13 @@ class _AccountPageState extends State<AccountPage> {
                     text: "الملف الشخصي",
                     onTap: () {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ProfilePage()));
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => InternetConnectivityWrapper(
+                            child: ProfilePage(),
+                          ),
+                        ),
+                      );
                     }),
                 textIconNavigator(
                     icon: "assets/icons/files-medical 1.svg",

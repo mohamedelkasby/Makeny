@@ -5,6 +5,7 @@ import 'package:makeny/screens/user_pages/edit_user_profile.dart';
 import 'package:makeny/services/fire_store_service.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';
+import 'package:makeny/widgets/internet_connectivity_wrapper.dart';
 import 'package:makeny/widgets/users_data.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -149,7 +150,8 @@ class ProfilePage extends StatelessWidget {
                   onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => EditUserProfile(data: userModel),
+                      builder: (context) => InternetConnectivityWrapper(
+                          child: EditUserProfile(data: userModel)),
                     ),
                   ),
                 ),

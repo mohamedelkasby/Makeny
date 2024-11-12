@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/screens/chat_pages/chat_screen.dart';
@@ -13,6 +14,10 @@ PreferredSizeWidget defaultAppbar(
   Map<String, dynamic>? doctorfireData,
 }) {
   return AppBar(
+    systemOverlayStyle: const SystemUiOverlayStyle(
+      statusBarColor: Colors.white,
+      statusBarIconBrightness: Brightness.dark,
+    ),
     actions: [
       chatIcon
           ? Padding(

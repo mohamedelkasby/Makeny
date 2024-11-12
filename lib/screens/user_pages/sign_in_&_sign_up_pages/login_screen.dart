@@ -507,10 +507,112 @@ class _LoginScreenState extends State<LoginScreen>
                                           Row(
                                             children: [
                                               signButton(
-                                                  onTap: () {
-                                                    authServices
-                                                        .authenticationWithGoogle(
-                                                            context);
+                                                  onTap: () async {
+                                                    try {
+                                                      setState(() {
+                                                        isLoading = true;
+                                                      });
+
+                                                      final userCredential =
+                                                          await authServices
+                                                              .signInWithGoogle();
+
+                                                      if (userCredential ==
+                                                          null) {
+                                                        setState(() {
+                                                          isLoading = false;
+                                                        });
+                                                        return;
+                                                      }
+                                                      bool userExists =
+                                                          await authServices
+                                                              .doesUserExist(
+                                                                  userCredential
+                                                                      .user!
+                                                                      .email!);
+
+                                                      if (!userExists) {
+                                                        setState(() {
+                                                          isLoading = false;
+                                                        });
+                                                        if (mounted) {
+                                                          ScaffoldMessenger.of(
+                                                                  context)
+                                                              .showSnackBar(
+                                                            const SnackBar(
+                                                              content: Text(
+                                                                  'Account not found. Please sign up first.'),
+                                                              duration:
+                                                                  Duration(
+                                                                      seconds:
+                                                                          2),
+                                                            ),
+                                                          );
+                                                        }
+                                                        return;
+                                                      }
+                                                      bool isPatient =
+                                                          await authServices
+                                                              .getUserType(
+                                                                  userCredential
+                                                                      .user!
+                                                                      .uid);
+
+                                                      setState(() {
+                                                        isLoading = false;
+                                                      });
+
+                                                      if (mounted) {
+                                                        Navigator
+                                                            .pushReplacement(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                            builder: (context) => isPatient
+                                                                ? InternetConnectivityWrapper(
+                                                                    child:
+                                                                        BasicPage())
+                                                                : const InternetConnectivityWrapper(
+                                                                    child:
+                                                                        DoctorHomePage()),
+                                                          ),
+                                                        );
+                                                      }
+                                                    } on FirebaseAuthException catch (e) {
+                                                      setState(() {
+                                                        isLoading = false;
+                                                      });
+                                                      if (e.code ==
+                                                          'network-request-failed') {
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .showSnackBar(
+                                                          SnackBar(
+                                                            content: const Text(
+                                                                'لا يوجد اتصال بالإنترنت'),
+                                                            backgroundColor:
+                                                                mainColor300,
+                                                            duration: Duration(
+                                                                seconds: 2),
+                                                          ),
+                                                        );
+                                                      }
+                                                    } catch (e) {
+                                                      setState(() {
+                                                        isLoading = false;
+                                                      });
+                                                      if (mounted) {
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .showSnackBar(
+                                                          const SnackBar(
+                                                            content: Text(
+                                                                'An error occurred. Please try again.'),
+                                                            duration: Duration(
+                                                                seconds: 2),
+                                                          ),
+                                                        );
+                                                      }
+                                                    }
                                                   },
                                                   text: "Google",
                                                   icon:
@@ -549,9 +651,9 @@ class _LoginScreenState extends State<LoginScreen>
                                                       .pushReplacement(
                                                           MaterialPageRoute(
                                                     builder: (context) =>
-                                                        InternetConnectivityWrapper(
+                                                        const InternetConnectivityWrapper(
                                                             child:
-                                                                const SignUpScreen()),
+                                                                SignUpScreen()),
                                                   ));
                                                 },
                                                 child: Text(

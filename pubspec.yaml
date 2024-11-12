@@ -59,12 +59,24 @@ dependencies:
   modal_progress_hud_nsn: ^0.5.1
   internet_connection_checker: ^1.0.0+1
   connectivity_plus: ^6.1.0
-  # connectivity_plus: ^6.1.0
-
+  flutter_facebook_auth: ^7.1.1
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
+  flutter_launcher_icons: ^0.14.1
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/logo/logo_luncher.png"
+  adaptive_icon_background: "#FF3355"
+  adaptive_icon_foreground: "assets/logo/logo_luncher.png"
+  adaptive_icon_padding: true
+  adaptive_icon_mask: true  # Enables shape adaptation
+  min_sdk_android: 23
+  android_adaptive_icon_foreground_scale: 0.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

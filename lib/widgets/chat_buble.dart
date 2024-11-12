@@ -25,10 +25,6 @@ class ChatBuble extends StatelessWidget {
         mainAxisAlignment:
             isSender ? MainAxisAlignment.start : MainAxisAlignment.end,
         children: [
-          if (!isSender)
-            const CircleAvatar(
-              child: Icon(Icons.person),
-            ),
           Container(
             constraints: BoxConstraints(
               maxWidth: MediaQuery.of(context).size.width * 0.7,
@@ -59,7 +55,7 @@ class ChatBuble extends StatelessWidget {
                       time,
                       style: const TextStyle(
                         fontSize: 10,
-                        color: Colors.white12,
+                        color: Colors.white60,
                       ),
                     ),
                     if (isMessagePending && isSender) ...[
@@ -79,6 +75,15 @@ class ChatBuble extends StatelessWidget {
               ],
             ),
           ),
+          SizedBox(
+            width: 15,
+          ),
+          if (!isSender)
+            const CircleAvatar(
+              maxRadius: 20,
+              minRadius: 15,
+              child: Icon(Icons.person),
+            ),
         ],
       ),
     );

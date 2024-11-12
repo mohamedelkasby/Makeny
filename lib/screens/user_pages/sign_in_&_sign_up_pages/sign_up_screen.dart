@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:makeny/cubits/cubit.dart';
 import 'package:makeny/cubits/status.dart';
 import 'package:makeny/extentions/colors.dart';
+import 'package:makeny/screens/basic_page.dart';
 import 'package:makeny/screens/user_pages/sign_in_&_sign_up_pages/login_screen.dart';
 import 'package:makeny/services/auth_service.dart';
 import 'package:makeny/widgets/buttons.dart';
@@ -320,10 +321,99 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   Row(
                                     children: [
                                       signButton(
-                                          onTap: () {
-                                            authServices
-                                                .authenticationWithGoogle(
-                                                    context);
+                                          onTap: () async {
+                                            try {
+                                              setState(() {
+                                                isLoading = true;
+                                              });
+
+                                              // Attempt Google Sign In
+                                              final userCredential =
+                                                  await authServices
+                                                      .signInWithGoogle();
+                                              if (userCredential == null) {
+                                                setState(() {
+                                                  isLoading = false;
+                                                });
+                                                return;
+                                              }
+                                              bool userExists =
+                                                  await authServices
+                                                      .doesUserExist(
+                                                          userCredential
+                                                              .user!.email!);
+
+                                              if (userExists) {
+                                                setState(() {
+                                                  isLoading = false;
+                                                });
+                                                if (mounted) {
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(
+                                                    const SnackBar(
+                                                      content: Text(
+                                                          'الاكونت موجود بالفعل, جرب تسجل دخول'),
+                                                      duration:
+                                                          Duration(seconds: 2),
+                                                    ),
+                                                  );
+                                                }
+
+                                                return;
+                                              }
+                                              await authServices
+                                                  .createUserDocument(
+                                                      userCredential.user!);
+
+                                              setState(() {
+                                                isLoading = false;
+                                              });
+
+                                              if (mounted) {
+                                                Navigator.pushReplacement(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        InternetConnectivityWrapper(
+                                                      child: BasicPage(),
+                                                    ),
+                                                  ),
+                                                );
+                                              }
+                                            } on FirebaseAuthException catch (e) {
+                                              setState(() {
+                                                isLoading = false;
+                                              });
+                                              if (e.code ==
+                                                  'network-request-failed') {
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                  SnackBar(
+                                                    content: const Text(
+                                                        'لا يوجد اتصال بالإنترنت'),
+                                                    backgroundColor:
+                                                        mainColor300,
+                                                    duration:
+                                                        Duration(seconds: 2),
+                                                  ),
+                                                );
+                                              }
+                                            } catch (e) {
+                                              setState(() {
+                                                isLoading = false;
+                                              });
+                                              if (mounted) {
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                  const SnackBar(
+                                                    content: Text(
+                                                        'An error occurred. Please try again.'),
+                                                    duration:
+                                                        Duration(seconds: 2),
+                                                  ),
+                                                );
+                                              }
+                                            }
                                           },
                                           text: "Google",
                                           icon: "assets/icons/google.svg"),
