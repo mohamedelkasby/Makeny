@@ -6,9 +6,9 @@ class InternetConnectivityWrapper extends StatefulWidget {
   final Widget child;
 
   const InternetConnectivityWrapper({
-    Key? key,
+    super.key,
     required this.child,
-  }) : super(key: key);
+  });
 
   @override
   State<InternetConnectivityWrapper> createState() =>
@@ -33,8 +33,15 @@ class _InternetConnectivityWrapperState
 
   Future<void> _initializeConnectivity() async {
     // Get initial connection state
-    _previousConnectionState = await _internetChecker.hasConnection;
-    _hasInternet = _previousConnectionState;
+    _hasInternet = await _internetChecker.hasConnection;
+    _previousConnectionState = _hasInternet;
+
+    // If there's no initial connection, show the status immediately
+    if (!_hasInternet) {
+      setState(() {
+        _showConnectionStatus = true;
+      });
+    }
 
     // Listen to connection changes
     _internetSubscription = _internetChecker.onStatusChange.listen(

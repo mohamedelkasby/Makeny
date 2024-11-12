@@ -606,7 +606,7 @@ class _LoginScreenState extends State<LoginScreen>
                                                             .showSnackBar(
                                                           const SnackBar(
                                                             content: Text(
-                                                                'An error occurred. Please try again.'),
+                                                                'فى مشكله حصلت , جرب فى وقت اخر.'),
                                                             duration: Duration(
                                                                 seconds: 2),
                                                           ),
