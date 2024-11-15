@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:makeny/models/user_model.dart';
@@ -182,6 +182,7 @@ class AuthServices {
   }
 
 //////////////////////////////////
+// sign in and up with google
   Future<UserCredential> signInWithGoogle() async {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
     if (googleUser == null) {
@@ -195,7 +196,6 @@ class AuthServices {
     );
     return await firebaseAuth.signInWithCredential(credential);
   }
-////////////////////////
 
   // Check if user exists in Firestore
   Future<bool> doesUserExist(String email) async {
@@ -234,11 +234,37 @@ class AuthServices {
       "isPatient": true, // Default to patient type
     });
   }
-////////////////////////
 
-// sign up with facebook account
+//  Sign In and up with facebook
+  Future<UserCredential?> signInWithFacebook() async {
+    try {
+      // Trigger the Facebook sign-in flow
+      final LoginResult loginResult = await FacebookAuth.instance.login(
+          // permissions: ['email', 'public_profile'],
+          );
 
-// sign in with facebook account
+      try {
+        final result = await FacebookAuth.instance.accessToken;
+        print(".............................Key Hash: ${result?.tokenString}");
+      } catch (e) {
+        print("....................Error getting key hash: $e");
+      }
+      if (loginResult.status != LoginStatus.success) {
+        return null;
+      }
+
+      // Create a credential from the access token
+      final OAuthCredential credential = FacebookAuthProvider.credential(
+        loginResult.accessToken!.tokenString,
+      );
+      // Sign in to Firebase with the Facebook credential
+      return await firebaseAuth.signInWithCredential(credential);
+    } catch (e) {
+      print('Facebook sign in error: $e');
+      await FacebookAuth.instance.logOut();
+      rethrow;
+    }
+  }
 
 // sign out
   signOut() async {

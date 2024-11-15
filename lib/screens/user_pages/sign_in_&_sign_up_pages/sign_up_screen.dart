@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:makeny/cubits/cubit.dart';
 import 'package:makeny/cubits/status.dart';
 import 'package:makeny/extentions/colors.dart';
@@ -403,13 +404,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                                 isLoading = false;
                                               });
                                               if (mounted) {
+                                                String message =
+                                                    "'فى مشكله حصلت , جرب فى وقت اخر.'";
+                                                if (e.toString().contains(
+                                                    'network_error')) {
+                                                  message =
+                                                      'لا يوجد اتصال بالإنترنت';
+                                                }
                                                 ScaffoldMessenger.of(context)
                                                     .showSnackBar(
-                                                  const SnackBar(
-                                                    content: Text(
-                                                        'فى مشكله حصلت , جرب فى وقت اخر.'),
-                                                    duration:
-                                                        Duration(seconds: 2),
+                                                  SnackBar(
+                                                    backgroundColor:
+                                                        mainColor300,
+                                                    content: Text(message),
+                                                    duration: const Duration(
+                                                        seconds: 2),
                                                   ),
                                                 );
                                               }
@@ -421,7 +430,142 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                         width: 10,
                                       ),
                                       signButton(
-                                          onTap: () {},
+                                          onTap: () async {
+                                            try {
+                                              setState(() {
+                                                isLoading = true;
+                                              });
+
+                                              // Attempt Facebook Sign In
+                                              final userCredential =
+                                                  await authServices
+                                                      .signInWithFacebook();
+                                              if (userCredential == null) {
+                                                setState(() {
+                                                  isLoading = false;
+                                                });
+                                                return;
+                                              }
+
+                                              // Check if user already exists
+                                              bool userExists =
+                                                  await authServices
+                                                      .doesUserExist(
+                                                          userCredential
+                                                              .user!.email!);
+
+                                              if (userExists) {
+                                                setState(() {
+                                                  isLoading = false;
+                                                });
+                                                if (mounted) {
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(
+                                                    const SnackBar(
+                                                      content: Text(
+                                                          'Account already exists. Please sign in instead.'),
+                                                      duration:
+                                                          Duration(seconds: 2),
+                                                    ),
+                                                  );
+                                                }
+                                                await FacebookAuth.instance
+                                                    .logOut();
+                                                await FirebaseAuth.instance
+                                                    .signOut();
+                                                return;
+                                              }
+
+                                              // Create new user document
+                                              await authServices
+                                                  .createUserDocument(
+                                                      userCredential.user!);
+
+                                              setState(() {
+                                                isLoading = false;
+                                              });
+
+                                              if (mounted) {
+                                                Navigator.pushReplacement(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        InternetConnectivityWrapper(
+                                                      child: BasicPage(),
+                                                    ),
+                                                  ),
+                                                );
+                                              }
+                                            } on FirebaseAuthException catch (e) {
+                                              setState(() {
+                                                isLoading = false;
+                                              });
+
+                                              await FacebookAuth.instance
+                                                  .logOut();
+                                              await FirebaseAuth.instance
+                                                  .signOut();
+
+                                              if (mounted) {
+                                                String message =
+                                                    'An error occurred. Please try again.';
+
+                                                if (e.code ==
+                                                    'account-exists-with-different-credential') {
+                                                  message =
+                                                      'This email is already associated with another account.';
+                                                } else if (e.code ==
+                                                    'invalid-credential') {
+                                                  message =
+                                                      'Invalid Facebook credentials.';
+                                                } else if (e.code ==
+                                                    'operation-not-allowed') {
+                                                  message =
+                                                      'Facebook sign in is not enabled.';
+                                                } else if (e.code ==
+                                                    'user-disabled') {
+                                                  message =
+                                                      'This account has been disabled.';
+                                                } else if (e.code ==
+                                                    'network-request-failed') {
+                                                  message =
+                                                      'لا يوجد اتصال بالإنترنت';
+                                                }
+
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                  SnackBar(
+                                                    content: Text(message),
+                                                    backgroundColor:
+                                                        mainColor300,
+                                                    duration:
+                                                        Duration(seconds: 2),
+                                                  ),
+                                                );
+                                              }
+                                            } catch (e) {
+                                              setState(() {
+                                                isLoading = false;
+                                              });
+
+                                              await FacebookAuth.instance
+                                                  .logOut();
+                                              await FirebaseAuth.instance
+                                                  .signOut();
+
+                                              if (mounted) {
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                  const SnackBar(
+                                                    content: Text(
+                                                        'An error occurred. Please try again.'),
+                                                    duration:
+                                                        Duration(seconds: 2),
+                                                  ),
+                                                );
+                                              }
+                                            }
+                                          },
                                           text: "Facebook",
                                           icon: "assets/icons/facebook.svg"),
                                     ],
