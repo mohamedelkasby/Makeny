@@ -47,6 +47,7 @@ Dialog closeDialog(context) {
                       onPressed: () {
                         Navigator.pop(context);
                         AppCubit.get(context).selectedBNBIndex = 0;
+                        AppCubit.get(context).saveLooged("non");
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(

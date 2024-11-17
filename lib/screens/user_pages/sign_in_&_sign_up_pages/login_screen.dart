@@ -20,7 +20,6 @@ import 'package:country_picker/country_picker.dart';
 import 'package:makeny/widgets/internet_connectivity_wrapper.dart';
 import 'package:makeny/widgets/resizable_country_picker_widget.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-// import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

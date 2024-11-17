@@ -1,7 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:makeny/cubits/cubit.dart';
+import 'package:makeny/screens/basic_page.dart';
+import 'package:makeny/screens/doctor_home_page.dart';
 import 'package:makeny/screens/entry_pages/defenition_screen.dart';
+import 'package:makeny/screens/user_pages/sign_in_&_sign_up_pages/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -24,12 +28,39 @@ class _SplashScreenState extends State<SplashScreen> {
           _timer?.cancel();
           Future.delayed(
             const Duration(seconds: 1),
-            () => Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const DefenitionScreen(),
-              ),
-            ),
+            () {
+              print(
+                  ".....this is in splash screen ......${AppCubit.get(context).isLoggedIn}");
+              if (AppCubit.get(context).isLoggedIn == "patient") {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => BasicPage(),
+                  ),
+                );
+              } else if (AppCubit.get(context).isLoggedIn == "doctor") {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const DoctorHomePage(),
+                  ),
+                );
+              } else if (AppCubit.get(context).isFirstLogIn) {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const DefenitionScreen(),
+                  ),
+                );
+              } else {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const LoginScreen(),
+                  ),
+                );
+              }
+            },
           );
         }
       });

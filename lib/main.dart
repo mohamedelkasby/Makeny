@@ -41,10 +41,14 @@ class MyApp extends StatelessWidget {
     return BlocProvider(
       create: (context) => AppCubit(),
       child: BlocConsumer<AppCubit, AppState>(
+        // buildWhen: (previous, current) => current is InitilaThemeState,
         listener: (context, state) {
-          if (state is InitilaThemeState) {
-            AppCubit.get(context).loadLang();
-          }
+          // print(state);
+          // if (state is InitilaThemeState) {
+          //   AppCubit.get(context).loadLang();
+          //   AppCubit.get(context).loadLogged();
+          //   print("App initialized. Language and login status loaded.");
+          // }
         },
         builder: (context, state) {
           return MaterialApp(

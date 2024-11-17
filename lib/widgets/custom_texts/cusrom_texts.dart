@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 Widget textHeader({
   required final String text,
   Color textColor = const Color(0xff0D1B34),
+  bool wrap = false,
 }) {
   return Text(
+    overflow: wrap ? TextOverflow.ellipsis : null,
+    maxLines: 1,
     text,
     style: TextStyle(
-      fontSize: 24,
+      fontSize: 23,
       fontWeight: FontWeight.w800,
       color: textColor,
     ),

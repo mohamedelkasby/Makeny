@@ -1,14 +1,27 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:makeny/cubits/cubit.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/screens/chat_pages/chat_screen.dart';
 import 'package:makeny/screens/user_pages/sign_in_&_sign_up_pages/login_screen.dart';
 import 'package:makeny/services/auth_service.dart';
 import 'package:makeny/widgets/internet_connectivity_wrapper.dart';
 
-class DoctorHomePage extends StatelessWidget {
+class DoctorHomePage extends StatefulWidget {
   const DoctorHomePage({super.key});
+
+  @override
+  State<DoctorHomePage> createState() => _DoctorHomePageState();
+}
+
+class _DoctorHomePageState extends State<DoctorHomePage> {
+  @override
+  void initState() {
+    AppCubit.get(context).saveLooged("doctor");
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

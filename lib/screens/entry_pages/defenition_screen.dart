@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:makeny/cubits/cubit.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/screens/user_pages/sign_in_&_sign_up_pages/login_screen.dart';
 import 'package:makeny/widgets/buttons.dart';
@@ -39,6 +40,7 @@ class _DefenitionScreenState extends State<DefenitionScreen> {
                   ),
                   InkWell(
                     onTap: () {
+                      AppCubit.get(context).saveFirstTime();
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
@@ -121,6 +123,7 @@ class _DefenitionScreenState extends State<DefenitionScreen> {
                         currentPage == 2
                             ? Future.delayed(const Duration(milliseconds: 500),
                                 () {
+                                AppCubit.get(context).saveFirstTime();
                                 Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/models/doctor_model.dart';
 import 'package:makeny/models/grid_model.dart';
@@ -71,6 +72,12 @@ class _PatientHomePageState extends State<PatientHomePage>
 
   @override
   Widget build(BuildContext context) {
+    // show the top status and bottom controllers
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge, overlays: [
+      SystemUiOverlay.top,
+      SystemUiOverlay.bottom
+    ]); // Show status bar
+
     // List<String> nameParts = AppCubit.get(context).userName.split(' ');
     FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -83,27 +90,37 @@ class _PatientHomePageState extends State<PatientHomePage>
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  children: [
-                    textHeader(
-                      text: "صباح الخير ",
-                    ),
-                    FutureBuilder<UserModel>(
-                        future: FireStoreService()
-                            .getUserDetails(userID: auth.currentUser!.uid),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            UserModel? data = snapshot.data;
-                            return textHeader(text: data!.name ?? "");
-                          }
-                          if (snapshot.hasError) {
-                            return textHeader(text: " ");
-                          }
-                          return CircularProgressIndicator();
-                        }),
-                    ///////// the sun icon . //////////
-                    Image.asset("assets/icons/star.png"),
-                  ],
+                Expanded(
+                  child: Row(
+                    children: [
+                      textHeader(
+                        text: "صباح الخير   ",
+                      ),
+                      Expanded(
+                        child: FutureBuilder<UserModel>(
+                            future: FireStoreService()
+                                .getUserDetails(userID: auth.currentUser!.uid),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                UserModel? data = snapshot.data;
+                                return textHeader(
+                                  text: data!.name ?? "",
+                                  wrap: true,
+                                );
+                              }
+                              if (snapshot.hasError) {
+                                return textHeader(text: " ");
+                              }
+                              return CircularProgressIndicator();
+                            }),
+                      ),
+                      ///////// the sun icon . //////////
+                      Image.asset("assets/icons/star.png"),
+                      // const Expanded(
+                      //   child: SizedBox(),
+                      // ),
+                    ],
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8),

@@ -3,7 +3,11 @@ import 'package:makeny/cubits/status.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppCubit extends Cubit<AppState> {
-  AppCubit() : super(InitilaThemeState());
+  AppCubit() : super(InitilaThemeState()) {
+    loadLogged();
+    loadLang();
+    loadFirstTime();
+  }
   static AppCubit get(context) => BlocProvider.of(context);
 
 /////// this is belong to the bottom navigation bar , for realiable navigate.
@@ -13,6 +17,47 @@ class AppCubit extends Cubit<AppState> {
     emit(
       ChangeTheIndexOfBottomNavBarState(),
     );
+  }
+////////////////////share prefrences ////////////////
+
+//// for login users
+  String isLoggedIn = "non";
+
+  Future<void> saveLooged(String type) async {
+    SharedPreferences loggedIn = await SharedPreferences.getInstance();
+    isLoggedIn = (isLoggedIn == type) ? "non" : type;
+    loggedIn.setString("loggedIn", isLoggedIn);
+    print(".....this is in cubit save ......$isLoggedIn");
+
+    emit(SaveLogInState());
+  }
+
+  Future<void> loadLogged() async {
+    SharedPreferences loggedIn = await SharedPreferences.getInstance();
+    if (loggedIn.containsKey("loggedIn")) {
+      isLoggedIn = loggedIn.getString("loggedIn") ?? "non";
+      print(".....this is in cubit load ......$isLoggedIn");
+      emit(SaveLogInState());
+    }
+  }
+
+//// for first time app
+  bool isFirstLogIn = true;
+
+  Future<void> saveFirstTime() async {
+    SharedPreferences firstTimePrefs = await SharedPreferences.getInstance();
+    isFirstLogIn = false;
+    firstTimePrefs.setBool("isFirstLogIn", isFirstLogIn);
+    emit(ChangeLanguageState());
+  }
+
+  Future<void> loadFirstTime() async {
+    SharedPreferences firstTimePrefs = await SharedPreferences.getInstance();
+    bool? firstLog = firstTimePrefs.getBool("isFirstLogIn");
+    if (firstLog != null) {
+      isFirstLogIn = firstLog;
+      emit(ChangeLanguageState());
+    }
   }
 
 //////////////////for language
@@ -33,13 +78,14 @@ class AppCubit extends Cubit<AppState> {
       emit(ChangeLanguageState());
     }
   }
-  //////////////////////////
+
   ///
 
   ///
+///////////// save the image from SharedPreferences
+
   String profileImage = "";
 
-// save the image from SharedPreferences
   Future<void> saveImage(
       {required String newImage, required String key}) async {
     SharedPreferences iamgPref = await SharedPreferences.getInstance();
@@ -57,16 +103,6 @@ class AppCubit extends Cubit<AppState> {
       emit(ChangeImageState());
     }
   }
-
-  /////////////// the yes or no questions cubit ///////////
-  // List<int?> selectedAnswers = [];
-  // List<int?> initTheSelectedAnswers(length) {
-  //   return selectedAnswers = List.filled(length, null);
-  // }
-
-  // void selectTheAnswer(questionIndex, answersIndex) {
-  //   selectedAnswers[questionIndex] = answersIndex;
-  // }
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -110,19 +146,4 @@ class AppCubit extends Cubit<AppState> {
     secure2 = !secure2;
     emit(ChangeScureState());
   }
-//////////////////////////////////////////
-
-  // String selectedCountryCode = "+20";
-  // void onCodeChange(newCode) {
-  //   selectedCountryCode = newCode;
-  // }
 }
-
-// bool checkTheCheckedAnswer({
-  //   required showConditions,
-  //   required answers,
-  // }) {
-  //   showConditions = answers.isNotEmpty && answers[0] == 0;
-  //   emit(SelectAnswerState());
-  //   return showConditions;
-  // }

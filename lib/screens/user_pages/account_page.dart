@@ -220,10 +220,12 @@ class _AccountPageState extends State<AccountPage> {
                   icon: "assets/icons/logout.svg",
                   text: "تسجيل الخروج ",
                   showIcon: false,
-                  onTap: () => transitionBetweenPages(
-                    context,
-                    thePage: closeDialog(context),
-                  ),
+                  onTap: () {
+                    return transitionBetweenPages(
+                      context,
+                      thePage: closeDialog(context),
+                    );
+                  },
                 ),
               ],
             ),
