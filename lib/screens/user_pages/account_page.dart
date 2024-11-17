@@ -51,186 +51,188 @@ class _AccountPageState extends State<AccountPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Column(
-        children: [
-          //////// the top user image with the user name and his phone ///
-          Row(
-            children: [
-              Stack(
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.all(9),
-                    child: ImagePreview(),
-                  ),
-                  ///// the icon that stacked in the bottom of the user image
-                  Positioned(
-                    bottom: 0,
-                    right: 30,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: mainColor,
-                        borderRadius: BorderRadius.circular(50),
+    return SafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: Column(
+          children: [
+            //////// the top user image with the user name and his phone ///
+            Row(
+              children: [
+                Stack(
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.all(9),
+                      child: ImagePreview(),
+                    ),
+                    ///// the icon that stacked in the bottom of the user image
+                    Positioned(
+                      bottom: 0,
+                      right: 30,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: mainColor,
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                        padding: const EdgeInsets.all(3),
+                        child: SvgPicture.asset(
+                          'assets/icons/cam.svg',
+                        ),
                       ),
-                      padding: const EdgeInsets.all(3),
-                      child: SvgPicture.asset(
-                        'assets/icons/cam.svg',
+                    ),
+                  ],
+                ),
+                //// the user name and his phone with the icon .
+                FutureBuilder<UserModel>(
+                    future: FireStoreService()
+                        .getUserDetails(userID: auth.currentUser!.uid),
+                    builder: (context, snapshot) {
+                      //// i am not using if else for handling
+                      UserModel? userdata = snapshot.data;
+
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                ////TODO come here
+                                userdata?.name ?? "",
+                                style: const TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              SvgPicture.asset(
+                                'assets/icons/edit.svg',
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Directionality(
+                            textDirection: TextDirection.ltr,
+                            child: Text(
+                              "+966 ${userdata?.phoneNumber}" == "+966 "
+                                  ? ""
+                                  : "+966 ${userdata?.phoneNumber}",
+                              style: TextStyle(
+                                  color: Color(0xff777777),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          )
+                        ],
+                      );
+                    })
+              ],
+            ),
+
+            ///////////  the body Start  ////////////
+
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 15,
+                vertical: 18,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  textIconNavigator(
+                      icon: "assets/icons/user.svg",
+                      text: "الملف الشخصي",
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => InternetConnectivityWrapper(
+                              child: ProfilePage(),
+                            ),
+                          ),
+                        );
+                      }),
+                  textIconNavigator(
+                      icon: "assets/icons/files-medical 1.svg",
+                      text: "ملفي الطبي",
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const MedicalFile(),
+                            ));
+                      }),
+                  textIconNavigator(
+                    icon: "assets/icons/Medical-Education.svg",
+                    text: "النثقيف الطبي",
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const MedicalEducateHeadScreen(),
                       ),
                     ),
                   ),
-                ],
-              ),
-              //// the user name and his phone with the icon .
-              FutureBuilder<UserModel>(
-                  future: FireStoreService()
-                      .getUserDetails(userID: auth.currentUser!.uid),
-                  builder: (context, snapshot) {
-                    //// i am not using if else for handling
-                    UserModel? userdata = snapshot.data;
-
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              ////TODO come here
-                              userdata?.name ?? "",
-                              style: const TextStyle(
-                                fontSize: 17,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            SvgPicture.asset(
-                              'assets/icons/edit.svg',
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        Directionality(
-                          textDirection: TextDirection.ltr,
-                          child: Text(
-                            "+966 ${userdata?.phoneNumber}" == "+966 "
-                                ? ""
-                                : "+966 ${userdata?.phoneNumber}",
-                            style: TextStyle(
-                                color: Color(0xff777777),
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        )
-                      ],
-                    );
-                  })
-            ],
-          ),
-
-          ///////////  the body Start  ////////////
-
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 15,
-              vertical: 18,
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                textIconNavigator(
-                    icon: "assets/icons/user.svg",
-                    text: "الملف الشخصي",
+                  textIconNavigator(
+                      icon: "assets/icons/ser.svg",
+                      text: "خدماتنا",
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ServicesScreen(),
+                            ));
+                      }),
+                  textIconNavigator(
+                    icon: "assets/icons/about.svg",
+                    text: "عن مكني",
                     onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => InternetConnectivityWrapper(
-                            child: ProfilePage(),
-                          ),
+                          builder: (context) => const AboutUsScreen(),
                         ),
                       );
-                    }),
-                textIconNavigator(
-                    icon: "assets/icons/files-medical 1.svg",
-                    text: "ملفي الطبي",
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const MedicalFile(),
-                          ));
-                    }),
-                textIconNavigator(
-                  icon: "assets/icons/Medical-Education.svg",
-                  text: "النثقيف الطبي",
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const MedicalEducateHeadScreen(),
-                    ),
+                    },
                   ),
-                ),
-                textIconNavigator(
-                    icon: "assets/icons/ser.svg",
-                    text: "خدماتنا",
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ServicesScreen(),
-                          ));
-                    }),
-                textIconNavigator(
-                  icon: "assets/icons/about.svg",
-                  text: "عن مكني",
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const AboutUsScreen(),
+                  const Align(
+                    alignment: Alignment.topRight,
+                    child: Text(
+                      "الإعدادات",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xffa2a2a2a2),
                       ),
-                    );
-                  },
-                ),
-                const Align(
-                  alignment: Alignment.topRight,
-                  child: Text(
-                    "الإعدادات",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xffa2a2a2a2),
                     ),
                   ),
-                ),
-                textIconNavigator(
-                  icon: "assets/icons/lan.svg",
-                  text: "اللغة",
-                  subText: "Change to english",
-                  onTap: () {
-                    AppCubit.get(context).saveLang();
-                  },
-                ),
-                textIconNavigator(
-                  icon: "assets/icons/logout.svg",
-                  text: "تسجيل الخروج ",
-                  showIcon: false,
-                  onTap: () {
-                    return transitionBetweenPages(
-                      context,
-                      thePage: closeDialog(context),
-                    );
-                  },
-                ),
-              ],
-            ),
-          )
-        ],
+                  textIconNavigator(
+                    icon: "assets/icons/lan.svg",
+                    text: "اللغة",
+                    subText: "Change to english",
+                    onTap: () {
+                      AppCubit.get(context).saveLang();
+                    },
+                  ),
+                  textIconNavigator(
+                    icon: "assets/icons/logout.svg",
+                    text: "تسجيل الخروج ",
+                    showIcon: false,
+                    onTap: () {
+                      return transitionBetweenPages(
+                        context,
+                        thePage: closeDialog(context),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

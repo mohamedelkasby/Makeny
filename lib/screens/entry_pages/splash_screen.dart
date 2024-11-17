@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:makeny/cubits/cubit.dart';
 import 'package:makeny/screens/basic_page.dart';
 import 'package:makeny/screens/doctor_home_page.dart';
@@ -29,8 +28,6 @@ class _SplashScreenState extends State<SplashScreen> {
           Future.delayed(
             const Duration(seconds: 1),
             () {
-              print(
-                  ".....this is in splash screen ......${AppCubit.get(context).isLoggedIn}");
               if (AppCubit.get(context).isLoggedIn == "patient") {
                 Navigator.pushReplacement(
                   context,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:makeny/cubits/cubit.dart';
 import 'package:makeny/cubits/status.dart';
 import 'package:makeny/extentions/colors.dart';
@@ -11,7 +12,9 @@ class YesOrNoQuestions extends StatefulWidget {
     required this.questionsText,
     this.onAnswersChanged,
     required this.onAllQuestionsAnswered,
+    this.payment = false,
   });
+  final payment;
   final List<String> questionsText;
   final Function(List<int?>)? onAnswersChanged;
   final Function(bool) onAllQuestionsAnswered;
@@ -33,10 +36,9 @@ class _YesOrNoQustionsState extends State<YesOrNoQuestions> {
     selectedAnswers = List.filled(widget.questionsText.length, null);
   }
 
-  List<String> answers = ["نعم", "لا"];
-
   @override
   Widget build(BuildContext context) {
+    List<String> answers = widget.payment ? ["عادي", "مستعجلة"] : ["نعم", "لا"];
     List<String> questionsText = widget.questionsText;
 
     return BlocBuilder<AppCubit, AppState>(
@@ -58,7 +60,7 @@ class _YesOrNoQustionsState extends State<YesOrNoQuestions> {
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 crossAxisCount: 2,
-                childAspectRatio: 2 / 1,
+                childAspectRatio: widget.payment ? 4 / 1.5 : 2 / 1,
                 children: List.generate(
                   answers.length,
                   (answersIndex) {
@@ -90,7 +92,8 @@ class _YesOrNoQustionsState extends State<YesOrNoQuestions> {
                         padding: EdgeInsets.zero,
                         decoration: BoxDecoration(
                           color: isSelected ? mainColor50 : Colors.white,
-                          borderRadius: BorderRadius.circular(5),
+                          borderRadius:
+                              BorderRadius.circular(widget.payment ? 20 : 5),
                           border: Border.all(
                             color: isSelected
                                 ? mainColor
@@ -99,12 +102,33 @@ class _YesOrNoQustionsState extends State<YesOrNoQuestions> {
                           ),
                         ),
                         margin: const EdgeInsets.all(4),
-                        child: Center(
-                          child: defalutQuestionText(
-                            text: answers[answersIndex],
-                            color: greyColor,
-                          ),
-                        ),
+                        child: widget.payment
+                            ? Center(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    isSelected
+                                        ? SvgPicture.asset(
+                                            "assets/icons/checked_box.svg")
+                                        : SvgPicture.asset(
+                                            "assets/icons/unchecked_box_gray.svg"),
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
+                                    defalutQuestionText(
+                                      text: answers[answersIndex],
+                                      color:
+                                          isSelected ? mainColor300 : greyColor,
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : Center(
+                                child: defalutQuestionText(
+                                  text: answers[answersIndex],
+                                  color: isSelected ? mainColor300 : greyColor,
+                                ),
+                              ),
                       ),
                     );
                   },

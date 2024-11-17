@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
+import 'package:makeny/screens/booking_pages/booking_type_screen.dart';
 import 'package:makeny/screens/danger_measure_screens/danger_measure_screen.dart';
 import 'package:makeny/screens/finish_test.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';
+import 'package:makeny/widgets/internet_connectivity_wrapper.dart';
 import 'package:makeny/widgets/switch_widget.dart';
 
 class NextTestScreen extends StatefulWidget {
@@ -32,16 +34,25 @@ class _NextTestScreenState extends State<NextTestScreen> {
         context,
         MaterialPageRoute(
           builder: (context) => testNumber == 9
-              ? FinishTest(
-                  appbar: appbar == "تحليل اجاباتك"
-                      ? "نتيجة الاختبار"
-                      : "اختبار مدي الخطورة",
-                  percent: .85,
+              ? InternetConnectivityWrapper(
+                  child: FinishTest(
+                    appbar: appbar == "تحليل اجاباتك"
+                        ? "نتيجة الاختبار"
+                        : "اختبار مدي الخطورة",
+                    percent: .85,
+                  ),
                 )
-              : DangerMeasureScreen(
-                  appbar: appbar,
-                  testNumber: testNumber < 7 ? testNumber + 1 : testNumber,
-                ),
+              : testNumber == 7
+                  ? const InternetConnectivityWrapper(
+                      child: BookingTypeScreen(),
+                    )
+                  : InternetConnectivityWrapper(
+                      child: DangerMeasureScreen(
+                        appbar: appbar,
+                        testNumber:
+                            testNumber < 7 ? testNumber + 1 : testNumber,
+                      ),
+                    ),
         ),
       ),
     );

@@ -25,9 +25,9 @@ class AppCubit extends Cubit<AppState> {
 
   Future<void> saveLooged(String type) async {
     SharedPreferences loggedIn = await SharedPreferences.getInstance();
-    isLoggedIn = (isLoggedIn == type) ? "non" : type;
+    isLoggedIn = (type.isEmpty) ? "non" : type;
     loggedIn.setString("loggedIn", isLoggedIn);
-    print(".....this is in cubit save ......$isLoggedIn");
+    // print(".....this is in cubit save ......$isLoggedIn");
 
     emit(SaveLogInState());
   }
@@ -36,7 +36,7 @@ class AppCubit extends Cubit<AppState> {
     SharedPreferences loggedIn = await SharedPreferences.getInstance();
     if (loggedIn.containsKey("loggedIn")) {
       isLoggedIn = loggedIn.getString("loggedIn") ?? "non";
-      print(".....this is in cubit load ......$isLoggedIn");
+      // print(".....this is in cubit load ......$isLoggedIn");
       emit(SaveLogInState());
     }
   }

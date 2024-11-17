@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/services.dart';
 import 'package:makeny/cubits/cubit.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/screens/chat_pages/chat_screen.dart';
@@ -25,6 +25,11 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    // show the top status and bottom controllers
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge, overlays: [
+      SystemUiOverlay.top,
+      SystemUiOverlay.bottom
+    ]); // Show status bar
     FirebaseFirestore fireStore = FirebaseFirestore.instance;
     FirebaseAuth fireAuth = FirebaseAuth.instance;
     return Scaffold(

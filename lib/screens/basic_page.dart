@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:makeny/cubits/cubit.dart';
 import 'package:makeny/cubits/status.dart';
@@ -8,10 +9,11 @@ import 'package:makeny/screens/patient_home_page.dart';
 import 'package:makeny/screens/notification_screen.dart';
 import 'package:makeny/screens/user_pages/account_page.dart';
 import 'package:makeny/widgets/icon_with_label.dart';
+import 'package:makeny/widgets/internet_connectivity_wrapper.dart';
 import 'package:makeny/widgets/transition_between_pages.dart';
 
 class BasicPage extends StatefulWidget {
-  BasicPage({
+  const BasicPage({
     super.key,
   });
 
@@ -36,10 +38,15 @@ class _BasicPageState extends State<BasicPage> {
     final double iconSize = MediaQuery.of(context).size.width / 4;
     final double padingSize = MediaQuery.of(context).size.width / 8;
 
-    FirebaseAuth _auth = FirebaseAuth.instance;
+    FirebaseAuth auth = FirebaseAuth.instance;
 
     return BlocBuilder<AppCubit, AppState>(
       builder: (context, state) {
+        // show the top status and bottom controllers
+        SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge, overlays: [
+          SystemUiOverlay.top,
+          SystemUiOverlay.bottom
+        ]); // Show status bar
         return Scaffold(
           backgroundColor: Colors.white,
           resizeToAvoidBottomInset: false,
@@ -64,10 +71,11 @@ class _BasicPageState extends State<BasicPage> {
                 onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => DangerMeasureScreen(
-                      appbar: "مقياس الخطورة",
-
-                      // yesOrNoQuestions: ["هل تدخن؟"],
+                    builder: (context) => const InternetConnectivityWrapper(
+                      child: DangerMeasureScreen(
+                        appbar: "مقياس الخطورة",
+                        // yesOrNoQuestions: ["هل تدخن؟"],
+                      ),
                     ),
                   ),
                 ),
@@ -115,8 +123,7 @@ class _BasicPageState extends State<BasicPage> {
                   label: "الحساب",
                   indexNumber: 1,
                   onTap: () {
-                    AppCubit.get(context)
-                        .loadImage(key: _auth.currentUser!.uid);
+                    AppCubit.get(context).loadImage(key: auth.currentUser!.uid);
 
                     AppCubit.get(context).onItemTapped(1);
                   },

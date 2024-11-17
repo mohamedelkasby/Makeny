@@ -5,6 +5,7 @@ import 'package:makeny/screens/next_test_screen.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';
+import 'package:makeny/widgets/internet_connectivity_wrapper.dart';
 import 'package:makeny/widgets/switch_widget.dart';
 
 class DangerMeasureScreen extends StatefulWidget {
@@ -25,24 +26,8 @@ class DangerMeasureScreen extends StatefulWidget {
 class _DangerMeasureScreenState extends State<DangerMeasureScreen> {
   bool allQuestionsAnswered = false;
 
-  // Map<String, String> answers = {};
-
-  // void initializeAnswers() {
-  //   for (String question in questionsOfPage[widget.testNumber]) {
-  //     answers[question] = ''; // Initialize all answers to empty string
-  //   }
-  // }
-
-  // void checkAllQuestionsAnswered() {
-  //   bool answered = questionsOfPage[widget.testNumber].every((question) =>
-  //       answers[question] != null && answers[question]!.isNotEmpty);
-  //   setState(() {
-  //     allQuestionsAnswered = answered;
-  //   });
-  // }
-
   List<List<String>> questionsOfPage = [
-    /// this here case the list start with 0 index and i have the
+    /// this case here, the list start with 0 index and i have the
     /// page index start with 1 ,
     [],
     ["هل تدخن؟"],
@@ -155,25 +140,36 @@ class _DangerMeasureScreenState extends State<DangerMeasureScreen> {
                       ? Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                                MultidimensionalDyspneaScaleScreen(
-                                    appbar: appbar),
-                          ))
+                            builder: (context) => InternetConnectivityWrapper(
+                              child: MultidimensionalDyspneaScaleScreen(
+                                appbar: appbar,
+                              ),
+                            ),
+                          ),
+                        )
                       : shortTest
                           ? Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => NextTestScreen(
-                                  appbar: appbar,
-                                  testNumber: 9,
+                                builder: (context) =>
+                                    InternetConnectivityWrapper(
+                                  child: NextTestScreen(
+                                    appbar: appbar,
+                                    testNumber: 9,
+                                  ),
                                 ),
-                              ))
+                              ),
+                            )
                           : Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => NextTestScreen(
-                                  appbar: switchAppbar(testNumber: testNumber),
-                                  testNumber: testNumber,
+                                builder: (context) =>
+                                    InternetConnectivityWrapper(
+                                  child: NextTestScreen(
+                                    appbar:
+                                        switchAppbar(testNumber: testNumber),
+                                    testNumber: testNumber,
+                                  ),
                                 ),
                               ),
                             );

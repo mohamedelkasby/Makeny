@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:makeny/screens/next_test_screen.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 import 'package:makeny/widgets/danger_measure_tests/body_test_num6/switch_body_num6.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';
 import 'package:makeny/widgets/green_note.dart';
 import 'package:makeny/widgets/questions_type/long_one_answer_check.dart';
+import 'package:makeny/widgets/switch_widget.dart';
 
 class MultidimensionalDyspneaScaleScreen extends StatefulWidget {
   const MultidimensionalDyspneaScaleScreen({
@@ -105,7 +107,18 @@ class _MultidimensionalDyspneaScaleScreenState
                     )
                   : defaultButton(
                       text: "التالى",
-                      onTap: () {},
+                      onTap: () {
+                        //TODO: navigate to حجز موعد
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => NextTestScreen(
+                              appbar: switchAppbar(testNumber: 7),
+                              testNumber: 7,
+                            ),
+                          ),
+                        );
+                      },
                     ),
             ),
           ],
