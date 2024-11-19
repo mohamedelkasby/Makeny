@@ -14,7 +14,7 @@ class YesOrNoQuestions extends StatefulWidget {
     required this.onAllQuestionsAnswered,
     this.payment = false,
   });
-  final payment;
+  final bool payment;
   final List<String> questionsText;
   final Function(List<int?>)? onAnswersChanged;
   final Function(bool) onAllQuestionsAnswered;

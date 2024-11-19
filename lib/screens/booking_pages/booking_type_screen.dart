@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:makeny/screens/booking_pages/booking_date_screen.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';
 import 'package:makeny/widgets/questions_type/long_one_answer_check.dart';
@@ -12,7 +13,8 @@ class BookingTypeScreen extends StatefulWidget {
 }
 
 class _BookingTypeScreenState extends State<BookingTypeScreen> {
-  bool allQuestionsAnswered = false;
+  String? consultationType = null;
+  String? specialization = null;
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +34,12 @@ class _BookingTypeScreenState extends State<BookingTypeScreen> {
                 YesOrNoQuestions(
                   payment: true,
                   questionsText: const ["نوع الإستشارة"],
-                  onAllQuestionsAnswered: (allAnswered) {
+                  onAllQuestionsAnswered: (_) {},
+                  onAnswersChanged: (type) {
                     setState(() {
-                      allQuestionsAnswered = allAnswered;
+                      consultationType = type.first == 0 ? "عادى" : "مستعجلة";
                     });
+                    print(consultationType);
                   },
                 ),
                 const SizedBox(
@@ -49,7 +53,13 @@ class _BookingTypeScreenState extends State<BookingTypeScreen> {
                     "تأهل القلب",
                     "نمط الحياة الصحى وجودة الحياة",
                   ],
-                  onAnswerSelected: (_) {},
+                  onAnswerSelected: (value) {
+                    //TODO
+                    setState(() {
+                      specialization = value;
+                    });
+                    print(specialization);
+                  },
                 ),
               ],
             ),
@@ -59,9 +69,16 @@ class _BookingTypeScreenState extends State<BookingTypeScreen> {
               bottom: 0,
               child: defaultButton(
                   text: "استمرار",
-                  onTap: () {
-                    //TODO
-                  }),
+                  onTap: (specialization == null || consultationType == null)
+                      ? null
+                      : () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const BookingDateScreen(),
+                            ),
+                          );
+                        }),
             )
           ],
         ),
