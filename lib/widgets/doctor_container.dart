@@ -4,7 +4,7 @@ import 'package:makeny/screens/doctor_profile_screen.dart';
 
 Widget doctorContainer(
   final context, {
-  required final DoctorsData doctorsData,
+  required final DoctorModel doctorsData,
   required final Color textBackColor,
 }) {
   return InkWell(

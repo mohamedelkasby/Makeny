@@ -15,29 +15,36 @@ class SubServicesScreen extends StatelessWidget {
       mianTopic: dataModel.header,
       subTopic: dataModel.dataList,
     );
-    return Scaffold(
-      appBar: defaultAppbar(context, title: "خداماتنا"),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            centerImge(
-              img: dataModel.img,
-            ),
-            textHeadLine(text: bodyData.mianTopic),
-            ...bodyData.subTopic.map(
-              (x) => Text(
-                x,
-                style: TextStyle(height: 2),
+    return SafeArea(
+      child: Scaffold(
+        appBar: defaultAppbar(context, title: "خداماتنا"),
+        body: Padding(
+          padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+          child: Column(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    centerImge(
+                      img: dataModel.img,
+                    ),
+                    textHeadLine(text: bodyData.mianTopic),
+                    ...bodyData.subTopic.map(
+                      (x) => Text(
+                        x,
+                        style: TextStyle(height: 2),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            Expanded(child: SizedBox()),
-            defaultButton(
-              text: "احجز طبيبك الان ",
-              onTap: () {},
-            )
-          ],
+              defaultButton(
+                text: "احجز طبيبك الان ",
+                onTap: () {},
+              )
+            ],
+          ),
         ),
       ),
     );

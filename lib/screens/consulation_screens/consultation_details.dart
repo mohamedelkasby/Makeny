@@ -22,8 +22,8 @@ class ConsultationDetails extends StatefulWidget {
   State<ConsultationDetails> createState() => _ConsultationDetailsState();
 }
 
-DoctorsData findModel(String doctorName) {
-  late DoctorsData model;
+DoctorModel findModel(String doctorName) {
+  late DoctorModel model;
   for (var element in doctors) {
     if (element.drName == doctorName) {
       model = element;
@@ -35,7 +35,7 @@ DoctorsData findModel(String doctorName) {
 
 class _ConsultationDetailsState extends State<ConsultationDetails>
     with SingleTickerProviderStateMixin {
-  late DoctorsData dataModel;
+  late DoctorModel dataModel;
   late String status = widget.status;
   late final TabController _tabController;
 

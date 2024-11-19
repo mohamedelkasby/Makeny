@@ -1,4 +1,4 @@
-class DoctorsData {
+class DoctorModel {
   final String drName;
   final String drRole;
   final String specialty;
@@ -7,7 +7,7 @@ class DoctorsData {
   final List<String> aboutDrTobics;
   final String email;
 
-  DoctorsData({
+  DoctorModel({
     required this.drName,
     required this.drRole,
     required this.specialty,
@@ -18,10 +18,10 @@ class DoctorsData {
   });
 }
 
-DoctorsData dr1 = DoctorsData(
+DoctorModel dr1 = DoctorModel(
   drName: "بروف. راكان إبراهيم ناظر",
   drRole: "أستاذ وإستشاري جراحة القلب",
-  specialty: "جراحة قلب",
+  specialty: "جراحة القلب",
   drImage: "assets/doctors/doc-1.png",
   experience: "5 سنوات",
   email: "mohamed@gmail.com",
@@ -30,10 +30,10 @@ DoctorsData dr1 = DoctorsData(
     "متخصص في جراحات القلب المعقدة و عالية الخطورة. كذلك جراحات تبديل الصمامات و تحوير الشرايين التاجية للقلب و عمليات الإنسلاخ و تمدد الشريان الأورطي.",
   ],
 );
-DoctorsData dr2 = DoctorsData(
+DoctorModel dr2 = DoctorModel(
   drName: "بروف. علي مفرح البراتي",
   drRole: "استشاري تأهيل القلب و الجهاز التنفسي",
-  specialty: "تأهيل قلب",
+  specialty: "تأهيل القلب",
   drImage: "assets/doctors/doc.jpg",
   experience: "5 سنوات",
   email: "medoo@gmail.com",
@@ -42,4 +42,4 @@ DoctorsData dr2 = DoctorsData(
   ],
 );
 
-List<DoctorsData> doctors = [dr1, dr2];
+List<DoctorModel> doctors = [dr1, dr2];

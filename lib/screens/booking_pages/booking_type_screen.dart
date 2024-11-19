@@ -48,9 +48,9 @@ class _BookingTypeScreenState extends State<BookingTypeScreen> {
                 LongOneAnswerCheck(
                   payment: true,
                   questionText: "التخصص",
-                  answers: [
-                    "امراض وجراحة الفلب",
-                    "تأهل القلب",
+                  answers: const [
+                    "امراض و جراحة القلب",
+                    "تأهيل القلب",
                     "نمط الحياة الصحى وجودة الحياة",
                   ],
                   onAnswerSelected: (value) {
@@ -75,7 +75,9 @@ class _BookingTypeScreenState extends State<BookingTypeScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const BookingDateScreen(),
+                              builder: (context) => BookingDateScreen(
+                                docSpecialize: specialization!,
+                              ),
                             ),
                           );
                         }),

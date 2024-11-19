@@ -8,7 +8,12 @@ import 'package:makeny/widgets/defualt_appbar.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class BookingDateScreen extends StatefulWidget {
-  const BookingDateScreen({super.key});
+  const BookingDateScreen({
+    super.key,
+    required this.docSpecialize,
+  });
+
+  final String docSpecialize;
 
   @override
   State<BookingDateScreen> createState() => _BookingDateScreenState();
@@ -298,7 +303,9 @@ class _BookingDateScreenState extends State<BookingDateScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => ReservationDetails(),
+                          builder: (context) => ReservationDetails(
+                            docSpecialize: widget.docSpecialize,
+                          ),
                         ));
                   })
             ],
