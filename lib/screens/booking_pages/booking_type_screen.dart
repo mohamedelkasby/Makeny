@@ -77,6 +77,7 @@ class _BookingTypeScreenState extends State<BookingTypeScreen> {
                             MaterialPageRoute(
                               builder: (context) => BookingDateScreen(
                                 docSpecialize: specialization!,
+                                type: consultationType!,
                               ),
                             ),
                           );

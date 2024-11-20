@@ -11,9 +11,11 @@ class BookingDateScreen extends StatefulWidget {
   const BookingDateScreen({
     super.key,
     required this.docSpecialize,
+    required this.type,
   });
 
   final String docSpecialize;
+  final String type;
 
   @override
   State<BookingDateScreen> createState() => _BookingDateScreenState();
@@ -22,6 +24,8 @@ class BookingDateScreen extends StatefulWidget {
 class _BookingDateScreenState extends State<BookingDateScreen> {
   DateTime? selectedDate;
   DateTime focusedDate = DateTime.now();
+  String? selectedTime;
+  String? selectedReminder;
 
   final DateTime firstDay = DateTime.now();
   final DateTime lastDay = DateTime.now().add(const Duration(days: 365));
@@ -69,6 +73,39 @@ class _BookingDateScreenState extends State<BookingDateScreen> {
         focusedDate = lastDay;
       }
     });
+  }
+
+  Widget circleSelectTime({
+    required String time,
+    required String desc,
+    bool isSelected = false,
+    Function()? ontap,
+  }) {
+    return GestureDetector(
+      onTap: ontap,
+      child: CircleAvatar(
+        backgroundColor: isSelected
+            ? mainColor400 // Selected color
+            : const Color(0xffFAF5F4), // Default color
+        minRadius: 30,
+        maxRadius: 40,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            textDescription(
+              text: time,
+              textColor: isSelected
+                  ? Colors.white
+                  : Colors.black, // Text color changes too
+            ),
+            textDescription(
+              text: desc,
+              textColor: isSelected ? Colors.white : Colors.black,
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   @override
@@ -267,10 +304,46 @@ class _BookingDateScreenState extends State<BookingDateScreen> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
                                   children: [
-                                    circleSelectTime(time: "03:00", desc: "ص"),
-                                    circleSelectTime(time: "04:00", desc: "ص"),
-                                    circleSelectTime(time: "05:00", desc: "ص"),
-                                    circleSelectTime(time: "06:00", desc: "ص"),
+                                    circleSelectTime(
+                                      time: "3:00",
+                                      desc: "مساءً",
+                                      isSelected: selectedTime == "3:00",
+                                      ontap: () {
+                                        setState(() {
+                                          selectedTime = "3:00";
+                                        });
+                                      },
+                                    ),
+                                    circleSelectTime(
+                                      time: "4:00",
+                                      desc: "مساءً",
+                                      isSelected: selectedTime == "4:00",
+                                      ontap: () {
+                                        setState(() {
+                                          selectedTime = "4:00";
+                                        });
+                                      },
+                                    ),
+                                    circleSelectTime(
+                                      time: "5:00",
+                                      desc: "مساءً",
+                                      isSelected: selectedTime == "5:00",
+                                      ontap: () {
+                                        setState(() {
+                                          selectedTime = "5:00";
+                                        });
+                                      },
+                                    ),
+                                    circleSelectTime(
+                                      time: "6:00",
+                                      desc: "مساءً",
+                                      isSelected: selectedTime == "6:00",
+                                      ontap: () {
+                                        setState(() {
+                                          selectedTime = "6:00";
+                                        });
+                                      },
+                                    ),
                                   ],
                                 ),
                                 Padding(
@@ -284,10 +357,46 @@ class _BookingDateScreenState extends State<BookingDateScreen> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
                                   children: [
-                                    circleSelectTime(time: "10", desc: "دقائق"),
-                                    circleSelectTime(time: "15", desc: "دقيقة"),
-                                    circleSelectTime(time: "30", desc: "دقيقة"),
-                                    circleSelectTime(time: "60", desc: "دقيقة"),
+                                    circleSelectTime(
+                                      time: "10",
+                                      desc: "دقائق",
+                                      isSelected: selectedReminder == "10",
+                                      ontap: () {
+                                        setState(() {
+                                          selectedReminder = "10";
+                                        });
+                                      },
+                                    ),
+                                    circleSelectTime(
+                                      time: "15",
+                                      desc: "دقيقة",
+                                      isSelected: selectedReminder == "15",
+                                      ontap: () {
+                                        setState(() {
+                                          selectedReminder = "15";
+                                        });
+                                      },
+                                    ),
+                                    circleSelectTime(
+                                      time: "30",
+                                      desc: "دقيقة",
+                                      isSelected: selectedReminder == "30",
+                                      ontap: () {
+                                        setState(() {
+                                          selectedReminder = "30";
+                                        });
+                                      },
+                                    ),
+                                    circleSelectTime(
+                                      time: "60",
+                                      desc: "دقيقة",
+                                      isSelected: selectedReminder == "60",
+                                      ontap: () {
+                                        setState(() {
+                                          selectedReminder = "60";
+                                        });
+                                      },
+                                    ),
                                   ],
                                 ),
                               ],
@@ -298,44 +407,28 @@ class _BookingDateScreenState extends State<BookingDateScreen> {
                 ),
               ),
               defaultButton(
-                  text: "تأكيد",
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ReservationDetails(
-                            docSpecialize: widget.docSpecialize,
-                          ),
-                        ));
-                  })
+                text: "تأكيد",
+                onTap: selectedTime != null
+                    ? () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ReservationDetails(
+                                date: selectedDate!
+                                    .toLocal()
+                                    .toString()
+                                    .split(" ")[0],
+                                docSpecialize: widget.docSpecialize,
+                                type: widget.type,
+                                time: selectedTime!,
+                              ),
+                            ));
+                      }
+                    : null,
+              )
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class circleSelectTime extends StatelessWidget {
-  const circleSelectTime({
-    super.key,
-    required this.time,
-    required this.desc,
-  });
-  final String time;
-  final String desc;
-  @override
-  Widget build(BuildContext context) {
-    return CircleAvatar(
-      backgroundColor: const Color(0xffFAF5F4),
-      minRadius: 30,
-      maxRadius: 40,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          textDescription(text: time),
-          textDescription(text: desc),
-        ],
       ),
     );
   }

@@ -9,8 +9,14 @@ class ReservationDetails extends StatelessWidget {
   const ReservationDetails({
     super.key,
     required this.docSpecialize,
+    required this.type,
+    required this.date,
+    required this.time,
   });
   final String docSpecialize;
+  final String type;
+  final String date;
+  final String time;
 
   DoctorModel? getDoctorData() {
     // String specialtyName = docSpecialize;
@@ -118,11 +124,11 @@ class ReservationDetails extends StatelessWidget {
                                   ),
                                   Column(
                                     children: [
-                                      textNormal(text: "12-13-2015 "),
+                                      textNormal(text: date),
                                       SizedBox(height: 10),
-                                      textNormal(text: "12:45 ص"),
+                                      textNormal(text: "$time  مساءً"),
                                       SizedBox(height: 10),
-                                      textNormal(text: "عياده افتراضيه"),
+                                      textNormal(text: type),
                                       SizedBox(height: 10),
                                       textNormal(text: "اتصال عن بعد"),
                                     ],
