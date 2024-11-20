@@ -113,6 +113,7 @@ flutter:
     - assets/
     - assets/definition/
     - assets/icons/
+    - assets/icons/payment_logo/
     - assets/arrows/
     - assets/designs/
     - assets/logo/

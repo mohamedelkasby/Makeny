@@ -212,6 +212,7 @@ class _EditUserProfileState extends State<EditUserProfile> {
                           maritalStatus: selectedMaritalStatus!,
                         ),
                       );
+                      // don't remember what is this do ?? not sure too.
                       NavigationUtils.refreshPage?.call();
                       Navigator.of(context).popUntil((route) => route.isFirst);
                     }

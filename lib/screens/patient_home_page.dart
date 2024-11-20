@@ -97,28 +97,33 @@ class _PatientHomePageState extends State<PatientHomePage>
                         text: "صباح الخير   ",
                       ),
                       Expanded(
-                        child: FutureBuilder<UserModel>(
-                            future: FireStoreService()
-                                .getUserDetails(userID: auth.currentUser!.uid),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                UserModel? data = snapshot.data;
-                                return textHeader(
-                                  text: data!.name ?? "",
-                                  wrap: true,
-                                );
-                              }
-                              if (snapshot.hasError) {
-                                return textHeader(text: " ");
-                              }
-                              return CircularProgressIndicator();
-                            }),
+                        child: Row(
+                          children: [
+                            FutureBuilder<UserModel>(
+                              future: FireStoreService().getUserDetails(
+                                  userID: auth.currentUser!.uid),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  UserModel? data = snapshot.data;
+                                  return textHeader(
+                                    text: data!.name ?? "",
+                                    wrap: true,
+                                  );
+                                }
+                                if (snapshot.hasError) {
+                                  return textHeader(text: " ");
+                                }
+                                return CircularProgressIndicator();
+                              },
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8),
+                              child: Image.asset("assets/icons/star.png"),
+                            ),
+                          ],
+                        ),
                       ),
-                      ///////// the sun icon . //////////
-                      Image.asset("assets/icons/star.png"),
-                      // const Expanded(
-                      //   child: SizedBox(),
-                      // ),
                     ],
                   ),
                 ),
