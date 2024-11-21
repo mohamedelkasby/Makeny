@@ -32,44 +32,46 @@ class _ActiveTestScreenState extends State<ActiveTestScreen> {
   // @override
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: defaultAppbar(context, title: "اختبار  النشاط البدني"),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-        child: Stack(
-          children: [
-            ListView(
-              children: [
-                greenNote(
-                    text:
-                        " يرجي تحديد ما اذا كنت تستطيع القيام باي نشاط من الانشطة التالي في الوقت الحالي او لا تستطيع القيام بها "),
-                YesOrNoQuestions(
-                  questionsText: yesOrNoQuestions,
-                  onAllQuestionsAnswered: (allAnswered) {
-                    setState(() {
-                      allQuestionsAnswered = allAnswered;
-                    });
-                  },
-                ),
-                SizedBox(
-                  height: 80,
-                )
-              ],
-            ),
-            Positioned(
-              left: 0,
-              right: 0,
-              bottom: 0,
-              child: defaultButton(
-                text: "حفظ",
-                onTap: allQuestionsAnswered
-                    ? () {
-                        Navigator.pop(context, allQuestionsAnswered);
-                      }
-                    : null,
+    return SafeArea(
+      child: Scaffold(
+        appBar: defaultAppbar(context, title: "اختبار  النشاط البدني"),
+        body: Padding(
+          padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+          child: Stack(
+            children: [
+              ListView(
+                children: [
+                  greenNote(
+                      text:
+                          " يرجي تحديد ما اذا كنت تستطيع القيام باي نشاط من الانشطة التالي في الوقت الحالي او لا تستطيع القيام بها "),
+                  YesOrNoQuestions(
+                    questionsText: yesOrNoQuestions,
+                    onAllQuestionsAnswered: (allAnswered) {
+                      setState(() {
+                        allQuestionsAnswered = allAnswered;
+                      });
+                    },
+                  ),
+                  SizedBox(
+                    height: 80,
+                  )
+                ],
               ),
-            )
-          ],
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: 0,
+                child: defaultButton(
+                  text: "حفظ",
+                  onTap: allQuestionsAnswered
+                      ? () {
+                          Navigator.pop(context, allQuestionsAnswered);
+                        }
+                      : null,
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

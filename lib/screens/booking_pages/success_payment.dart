@@ -1,9 +1,24 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:makeny/cubits/cubit.dart';
+import 'package:makeny/models/doctor_model.dart';
+import 'package:makeny/screens/consultation_screens/consultation_details.dart';
+import 'package:makeny/services/fire_store_service.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';
 
 class SuccessPayment extends StatelessWidget {
-  const SuccessPayment({super.key});
+  SuccessPayment({
+    super.key,
+    required this.date,
+    required this.time,
+    required this.doctorModel,
+  });
+  final String date;
+  final String time;
+  final DoctorModel doctorModel;
+
+  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +40,23 @@ class SuccessPayment extends StatelessWidget {
                     text: "الذهاب الى الاستشاره",
                     onTap: () {
                       Navigator.of(context).popUntil((route) => route.isFirst);
-
-                      //TODO
+                      AppCubit.get(context).selectedBNBIndex = 0;
+                      FireStoreService().addConsultationToUser(
+                        userId: firebaseAuth.currentUser!.uid,
+                        date: date,
+                        time: time,
+                        doctorModel: doctorModel,
+                      );
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ConsultationDetails(
+                              doctorModel: doctorModel,
+                              date: date,
+                              time: time,
+                              status: "مفتوحه",
+                            ),
+                          ));
                     })
               ],
             ),

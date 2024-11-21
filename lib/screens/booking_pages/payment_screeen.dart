@@ -1,13 +1,22 @@
 import "package:flutter/material.dart";
 import "package:makeny/extentions/colors.dart";
+import "package:makeny/models/doctor_model.dart";
 import "package:makeny/screens/booking_pages/success_payment.dart";
 import "package:makeny/widgets/buttons.dart";
 import "package:makeny/widgets/custom_texts/cusrom_texts.dart";
 import "package:makeny/widgets/defualt_appbar.dart";
 
 class PaymentScreeen extends StatefulWidget {
-  const PaymentScreeen({super.key});
+  const PaymentScreeen({
+    super.key,
+    required this.date,
+    required this.time,
+    required this.doctorModel,
+  });
 
+  final String date;
+  final String time;
+  final DoctorModel doctorModel;
   @override
   State<PaymentScreeen> createState() => _PaymentScreeenState();
 }
@@ -90,7 +99,11 @@ class _PaymentScreeenState extends State<PaymentScreeen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => SuccessPayment(),
+                            builder: (context) => SuccessPayment(
+                              date: widget.date,
+                              time: widget.time,
+                              doctorModel: widget.doctorModel,
+                            ),
                           ),
                         );
                       }
@@ -103,6 +116,7 @@ class _PaymentScreeenState extends State<PaymentScreeen> {
     );
   }
 
+  /// widget for the payment column
   Widget paymentMethod({
     required String cardType,
     required String icon,

@@ -189,7 +189,11 @@ class ReservationDetails extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => PaymentScreeen(),
+                              builder: (context) => PaymentScreeen(
+                                date: date,
+                                time: time,
+                                doctorModel: data,
+                              ),
                             ),
                           );
                         }),

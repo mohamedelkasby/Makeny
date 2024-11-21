@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:makeny/extentions/colors.dart';
+import 'package:makeny/models/doctor_model.dart';
+import 'package:makeny/screens/consultation_screens/consultation_details.dart';
 
 Widget consultionsData(
   context, {
-  required String img,
-  required String specialty,
-  required String docName,
+  required DoctorModel doctorModel,
+  required String date,
+  required String time,
   required String status,
-  // required Color statusColor,
-  required Widget theScreen,
 }) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 5),
@@ -20,7 +20,13 @@ Widget consultionsData(
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => theScreen,
+              //TODO send the whole model not the doctor name or status
+              builder: (context) => ConsultationDetails(
+                doctorModel: doctorModel,
+                date: date,
+                time: time,
+                status: status,
+              ),
             ));
       },
       child: Container(
@@ -37,7 +43,7 @@ Widget consultionsData(
                 ClipRRect(
                   borderRadius: BorderRadius.circular(5),
                   child: Image.asset(
-                    img,
+                    doctorModel.drImage,
                     width: 100,
                     height: 100,
                     fit: BoxFit.cover,
@@ -56,7 +62,7 @@ Widget consultionsData(
                         ),
                       ),
                       child: Text(
-                        specialty,
+                        doctorModel.specialty,
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                           color: Colors.white,
@@ -71,21 +77,20 @@ Widget consultionsData(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    docName,
+                    doctorModel.drName,
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 18,
                     ),
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SvgPicture.asset("assets/icons/clock.svg"),
                       SizedBox(
                         width: 5,
                       ),
                       Text(
-                        "9:30 ص",
+                        "$time م",
                         style: TextStyle(
                           color: Color(0xff6C7380),
                           fontSize: 16,
@@ -94,14 +99,13 @@ Widget consultionsData(
                     ],
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SvgPicture.asset("assets/icons/deta.svg"),
                       SizedBox(
                         width: 5,
                       ),
                       Text(
-                        "2024/5/8 ",
+                        date,
                         style: TextStyle(
                           color: Color(0xff6C7380),
                           fontSize: 16,
@@ -110,7 +114,6 @@ Widget consultionsData(
                     ],
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
                         decoration: BoxDecoration(

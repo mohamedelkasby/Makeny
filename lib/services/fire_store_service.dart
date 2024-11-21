@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:makeny/models/doctor_model.dart';
 import 'package:makeny/models/user_model.dart';
 
 class FireStoreService {
@@ -26,6 +27,40 @@ class FireStoreService {
     } catch (e) {
       print("Unexpected error fetching user data: $e");
       rethrow;
+    }
+  }
+
+  Future<void> addConsultationToUser({
+    required String userId,
+    required String date,
+    required String time,
+    required DoctorModel doctorModel,
+  }) async {
+    try {
+      await fireStore
+          .collection('users')
+          .doc(userId)
+          .collection("consultations")
+          .add({
+        "doctorEmail": doctorModel.email,
+        "dateReserved": date,
+        "timeReserved": time,
+      });
+    } catch (error) {
+      debugPrint('Error add the consultation data: $error');
+    }
+  }
+
+  Stream<QuerySnapshot> getConsultationDate({required String userID}) {
+    try {
+      return fireStore
+          .collection("users")
+          .doc(userID)
+          .collection("consultations")
+          .orderBy("dateReserved", descending: false)
+          .snapshots();
+    } catch (e) {
+      throw Exception("userConsultarions not found");
     }
   }
 

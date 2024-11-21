@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
-import 'package:makeny/screens/consulation_screens/active_test_screen.dart';
-import 'package:makeny/screens/consulation_screens/functional_performance_lower_limbs_test.dart';
-import 'package:makeny/screens/consulation_screens/functional_performance_upper_limbs_test.dart';
+import 'package:makeny/screens/consultation_screens/consultation_tests/active_test_screen.dart';
+import 'package:makeny/screens/consultation_screens/consultation_tests/functional_performance_lower_limbs_test.dart';
+import 'package:makeny/screens/consultation_screens/consultation_tests/functional_performance_upper_limbs_test.dart';
 import 'package:makeny/screens/quality_of_life_measure_screen.dart';
 
 class CheckboxTestModel {
@@ -31,11 +31,11 @@ CheckboxTestModel test3 = CheckboxTestModel(
   testName: "الاداء الوظيفي لاطراف العلوية",
 );
 CheckboxTestModel test4 = CheckboxTestModel(
-  testPage: ActiveTestScreen(),
+  testPage: const ActiveTestScreen(),
   testName: "اختبار  الصحه البدنية  ",
 );
 CheckboxTestModel test5 = CheckboxTestModel(
-  testPage: FunctionalPerformanceLowerLimbsTest(),
+  testPage: const FunctionalPerformanceLowerLimbsTest(),
   testName: "الاداء الوظيفي للاطراف السفلية ",
 );
 List<CheckboxTestModel> tests = [

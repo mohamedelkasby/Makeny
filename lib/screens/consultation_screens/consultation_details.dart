@@ -9,34 +9,25 @@ import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';
 
 class ConsultationDetails extends StatefulWidget {
-  const ConsultationDetails({
+  ConsultationDetails({
     super.key,
-    required this.doctorName,
+    required this.doctorModel,
+    required this.date,
+    required this.time,
     required this.status,
   });
 
-  final String doctorName;
-  final String status;
+  final DoctorModel doctorModel;
+  final String date;
+  final String time;
+  String status;
 
   @override
   State<ConsultationDetails> createState() => _ConsultationDetailsState();
 }
 
-DoctorModel findModel(String doctorName) {
-  late DoctorModel model;
-  for (var element in doctors) {
-    if (element.drName == doctorName) {
-      model = element;
-      break;
-    }
-  }
-  return model;
-}
-
 class _ConsultationDetailsState extends State<ConsultationDetails>
     with SingleTickerProviderStateMixin {
-  late DoctorModel dataModel;
-  late String status = widget.status;
   late final TabController _tabController;
 
   bool isLoading = true;
@@ -45,7 +36,6 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
   @override
   void initState() {
     super.initState();
-    dataModel = findModel(widget.doctorName);
     _initializeData();
     _tabController = TabController(length: 2, vsync: this);
     _setupTabController();
@@ -55,11 +45,11 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
     _tabController.addListener(() {
       setState(() {
         if (_tabController.index == 1) {
-          status = "ملغاه";
+          widget.status = "ملغاه";
         } else if (allTestsChecked()) {
-          status = "مكتملة";
+          widget.status = "مكتملة";
         } else {
-          status = "مفتوحه";
+          widget.status = "مفتوحه";
         }
       });
     });
@@ -67,9 +57,9 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
 
   Future<void> _initializeData() async {
     try {
-      await getfirebaseData(dataModel.email);
+      await getfirebaseData(widget.doctorModel.email);
       if (allTestsChecked()) {
-        status = "مكتملة";
+        widget.status = "مكتملة";
       }
     } catch (e) {
       print("Error loading data: $e");
@@ -136,12 +126,12 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
                   child: CircleAvatar(
                     radius: 60,
                     foregroundImage: AssetImage(
-                      dataModel.drImage,
+                      widget.doctorModel.drImage,
                     ),
                   ),
                 ),
                 Text(
-                  dataModel.drName,
+                  widget.doctorModel.drName,
                   style: const TextStyle(
                     fontSize: 20,
                     color: Color(
@@ -161,7 +151,7 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
                       padding: const EdgeInsets.symmetric(
                           horizontal: 25, vertical: 5),
                       child: Text(
-                        dataModel.drRole,
+                        widget.doctorModel.drRole,
                         style: const TextStyle(
                           color: Colors.white,
                         ),
@@ -178,9 +168,8 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
                         const SizedBox(
                           width: 5,
                         ),
-                        const Text(
-                          // widget.dataModel.date,
-                          "2024/5/8",
+                        Text(
+                          widget.date,
                           style: TextStyle(
                             color: Color(0xff6C7380),
                             fontSize: 16,
@@ -194,9 +183,8 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
                         const SizedBox(
                           width: 5,
                         ),
-                        const Text(
-                          // widget.dataModel.time,
-                          "9:30",
+                        Text(
+                          "${widget.time} م",
                           style: TextStyle(
                             color: Color(0xff6C7380),
                             fontSize: 16,
@@ -222,7 +210,7 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
-                            color: status == "ملغاه"
+                            color: widget.status == "ملغاه"
                                 ? mainColor
                                 : const Color(0xff0EBE7F),
                           ),
@@ -235,7 +223,7 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
                           width: 5,
                         ),
                         Text(
-                          status,
+                          widget.status,
                           style: const TextStyle(
                             color: Color(0xff6C7380),
                             fontSize: 16,
@@ -321,7 +309,7 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
                                           });
                                         }
                                         if (allTestsChecked()) {
-                                          status = "مكتملة";
+                                          widget.status = "مكتملة";
                                         }
                                       });
                                     },

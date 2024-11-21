@@ -60,49 +60,51 @@ class _FunctionalPerformanceUpperLimbsTestState
   ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: defaultAppbar(context, title: "الاداء الوظيفي للاطراف العلوية"),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-        child: Stack(
-          children: [
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: qustions.length,
-              itemBuilder: (context, index) {
-                return Column(
-                  children: [
-                    GridOneAnswerCheck(
-                      questionsText: qustions[index],
-                      selectedAnswer: selectedAnswers[index],
-                      onAnswerSelected: (answerIndex) =>
-                          updateAnswer(index, answerIndex),
-                      answers: answerlists,
-                    ),
-                    index + 1 == qustions.length
-                        ? SizedBox(
-                            height: 80,
-                          )
-                        : SizedBox()
-                  ],
-                );
-              },
-            ),
-            SizedBox(
-              height: 80,
-            ),
-            Positioned(
-              left: 0,
-              right: 0,
-              bottom: 0,
-              child: defaultButton(
-                text: "انهاء",
-                onTap: allQuestionsAnswered
-                    ? () => Navigator.pop(context, true)
-                    : null,
+    return SafeArea(
+      child: Scaffold(
+        appBar: defaultAppbar(context, title: "الاداء الوظيفي للاطراف العلوية"),
+        body: Padding(
+          padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+          child: Stack(
+            children: [
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: qustions.length,
+                itemBuilder: (context, index) {
+                  return Column(
+                    children: [
+                      GridOneAnswerCheck(
+                        questionsText: qustions[index],
+                        selectedAnswer: selectedAnswers[index],
+                        onAnswerSelected: (answerIndex) =>
+                            updateAnswer(index, answerIndex),
+                        answers: answerlists,
+                      ),
+                      index + 1 == qustions.length
+                          ? SizedBox(
+                              height: 80,
+                            )
+                          : SizedBox()
+                    ],
+                  );
+                },
               ),
-            ),
-          ],
+              SizedBox(
+                height: 80,
+              ),
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: 0,
+                child: defaultButton(
+                  text: "انهاء",
+                  onTap: allQuestionsAnswered
+                      ? () => Navigator.pop(context, true)
+                      : null,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
