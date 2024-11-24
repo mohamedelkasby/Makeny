@@ -22,25 +22,15 @@ Widget iconWithLabel(
       children: [
         SvgPicture.asset(
           svgIcon,
-          // width: 30,
           height: 30,
           colorFilter: ColorFilter.mode(
               AppCubit.get(context).selectedBNBIndex == indexNumber
                   ? mainColor
                   : color,
               BlendMode.srcIn),
-          // color: AppCubit.get(context).selectedBNBIndex == indexNumber
-          //     ? mainColor
-          //     : color,
         ),
-        // Icon(
-        //   icon,
-        //   color: AppCubit.get(context).selectedBNBIndex == indexNumber
-        //       ? mainColor
-        //       : color,
-        //   size: 32,
-        // ),
         Text(
+          textAlign: TextAlign.center,
           label,
           style: TextStyle(
             fontWeight: FontWeight.w600,

@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -68,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen>
             bottomSheetWidth: MediaQuery.of(context).size.width * 0.9,
             borderRadius: BorderRadius.circular(10),
             backgroundColor: mainColor50,
-            inputDecoration: InputDecoration(
+            inputDecoration: const InputDecoration(
               border: InputBorder.none,
               hintText: "search your country here",
               prefixIcon: Icon(Icons.search),
@@ -106,8 +107,8 @@ class _LoginScreenState extends State<LoginScreen>
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(e.code == 'network-request-failed'
-                  ? 'لا يوجد اتصال بالإنترنت'
-                  : 'رقم الهاتف غير صحيح'),
+                  ? tr("error.no_internet")
+                  : tr("error.wrong_phone_number")),
               backgroundColor: mainColor300,
             ),
           );
@@ -225,9 +226,9 @@ class _LoginScreenState extends State<LoginScreen>
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  const Center(
+                                                  Center(
                                                     child: Text(
-                                                      "تسجيل دخول",
+                                                      tr("signPage.sign_in"),
                                                       style: TextStyle(
                                                           fontSize: 25,
                                                           fontWeight:
@@ -242,8 +243,8 @@ class _LoginScreenState extends State<LoginScreen>
                                                       isEmailValiad = true;
                                                       onInputChanged();
                                                     },
-                                                    label:
-                                                        "رقم الهاتف او البريد",
+                                                    label: tr(
+                                                        "signPage.email_or_phoneNumber"),
                                                     hintText: "",
                                                     controller: inputController,
                                                     icon: isPhoneNumber
@@ -279,16 +280,19 @@ class _LoginScreenState extends State<LoginScreen>
                                                     validator: (value) {
                                                       if (value == null ||
                                                           value.isEmpty) {
-                                                        return "إدخل رقم هاتفك او البريد الخاص بك";
+                                                        return tr(
+                                                            "error.enter_email_or_phone");
                                                       } else if (isEmailValiad ==
                                                           false) {
-                                                        return "البريد الالكترونى او الباسورد غير صحيح.";
+                                                        return tr(
+                                                            "error.wrong_email_or_password");
                                                       } else if ((value.length <
                                                                   7 ||
                                                               value.length >
                                                                   15) &&
                                                           isPhoneNumber) {
-                                                        return "إدخل رقم الهاتف صحيح";
+                                                        return tr(
+                                                            "error.wrong_phone_number");
                                                       }
                                                       return null;
                                                     },
@@ -305,17 +309,20 @@ class _LoginScreenState extends State<LoginScreen>
                                                             isEmailValiad =
                                                                 true;
                                                           },
-                                                          label: "كلمة المرور",
+                                                          label: tr(
+                                                              "signPage.password"),
                                                           controller:
                                                               passController,
                                                           validator: (value) {
                                                             if (value == null ||
                                                                 value.isEmpty) {
-                                                              return "ادخل كلمة المرور من فضلك.";
+                                                              return tr(
+                                                                  "error.enter_password");
                                                             } else if (value
                                                                     .length <
                                                                 8) {
-                                                              return 'كلمة المرور لا بجب ان تقل عن 8 احرف';
+                                                              return tr(
+                                                                  "error.password_must_be_correct");
                                                             }
                                                             return null;
                                                           },
@@ -353,7 +360,7 @@ class _LoginScreenState extends State<LoginScreen>
                                             children: [
                                               Expanded(
                                                 child: longSignButton(
-                                                  text: "دخول",
+                                                  text: tr("signPage.login"),
                                                   onTap: () async {
                                                     // if (!await checkInternet()) {
                                                     //   return;
@@ -406,7 +413,7 @@ class _LoginScreenState extends State<LoginScreen>
                                                                 context,
                                                                 MaterialPageRoute(
                                                                   builder: (context) => userType
-                                                                      ? InternetConnectivityWrapper(
+                                                                      ? const InternetConnectivityWrapper(
                                                                           child:
                                                                               BasicPage())
                                                                       : const InternetConnectivityWrapper(
@@ -433,8 +440,8 @@ class _LoginScreenState extends State<LoginScreen>
                                                                     .of(context)
                                                                 .showSnackBar(
                                                               SnackBar(
-                                                                content: const Text(
-                                                                    'لا يوجد اتصال بالإنترنت'),
+                                                                content: Text(tr(
+                                                                    "error.no_internet")),
                                                                 backgroundColor:
                                                                     mainColor300,
                                                                 duration:
@@ -539,11 +546,11 @@ class _LoginScreenState extends State<LoginScreen>
                                                           ScaffoldMessenger.of(
                                                                   context)
                                                               .showSnackBar(
-                                                            const SnackBar(
-                                                              content: Text(
-                                                                  'Account not found. Please sign up first.'),
+                                                            SnackBar(
+                                                              content: Text(tr(
+                                                                  "error.account_not_found")),
                                                               duration:
-                                                                  Duration(
+                                                                  const Duration(
                                                                       seconds:
                                                                           2),
                                                             ),
@@ -568,7 +575,7 @@ class _LoginScreenState extends State<LoginScreen>
                                                           context,
                                                           MaterialPageRoute(
                                                             builder: (context) => isPatient
-                                                                ? InternetConnectivityWrapper(
+                                                                ? const InternetConnectivityWrapper(
                                                                     child:
                                                                         BasicPage())
                                                                 : const InternetConnectivityWrapper(
@@ -589,12 +596,13 @@ class _LoginScreenState extends State<LoginScreen>
                                                                 context)
                                                             .showSnackBar(
                                                           SnackBar(
-                                                            content: const Text(
-                                                                'لا يوجد اتصال بالإنترنت'),
+                                                            content: Text(tr(
+                                                                "error.no_internet")),
                                                             backgroundColor:
                                                                 mainColor300,
-                                                            duration: Duration(
-                                                                seconds: 2),
+                                                            duration:
+                                                                const Duration(
+                                                                    seconds: 2),
                                                           ),
                                                         );
                                                       }
@@ -603,12 +611,12 @@ class _LoginScreenState extends State<LoginScreen>
                                                         isLoading = false;
                                                       });
                                                       if (mounted) {
-                                                        String message =
-                                                            "'فى مشكله حصلت , جرب فى وقت اخر.'";
+                                                        String message = tr(
+                                                            "error.problem_try_later");
                                                         if (e.toString().contains(
                                                             'network_error')) {
-                                                          message =
-                                                              'لا يوجد اتصال بالإنترنت';
+                                                          message = tr(
+                                                              "error.no_internet");
                                                         }
                                                         ScaffoldMessenger.of(
                                                                 context)
@@ -667,11 +675,11 @@ class _LoginScreenState extends State<LoginScreen>
                                                           ScaffoldMessenger.of(
                                                                   context)
                                                               .showSnackBar(
-                                                            const SnackBar(
-                                                              content: Text(
-                                                                  'Account not found. Please sign up first.'),
+                                                            SnackBar(
+                                                              content: Text(tr(
+                                                                  "error.account_not_found")),
                                                               duration:
-                                                                  Duration(
+                                                                  const Duration(
                                                                       seconds:
                                                                           2),
                                                             ),
@@ -706,7 +714,7 @@ class _LoginScreenState extends State<LoginScreen>
                                                             builder: (context) =>
                                                                 InternetConnectivityWrapper(
                                                                     child: isPatient
-                                                                        ? BasicPage()
+                                                                        ? const BasicPage()
                                                                         : const DoctorHomePage()),
                                                           ),
                                                         );
@@ -724,12 +732,12 @@ class _LoginScreenState extends State<LoginScreen>
                                                           .signOut();
 
                                                       if (mounted) {
-                                                        String message =
-                                                            'An error occurred. Please try again.';
+                                                        String message = tr(
+                                                            "error.problem_try_later");
                                                         if (e.code ==
                                                             'network-request-failed') {
-                                                          message =
-                                                              'لا يوجد اتصال بالإنترنت';
+                                                          message = tr(
+                                                              "error.no_internet");
                                                         } else if (e.code ==
                                                             'account-exists-with-different-credential') {
                                                           message =
@@ -748,8 +756,8 @@ class _LoginScreenState extends State<LoginScreen>
                                                               'This account has been disabled.';
                                                         } else if (e.code ==
                                                             'network-request-failed') {
-                                                          message =
-                                                              'لا يوجد اتصال بالإنترنت';
+                                                          message = tr(
+                                                              "error.no_internet");
                                                         }
 
                                                         ScaffoldMessenger.of(
@@ -780,11 +788,12 @@ class _LoginScreenState extends State<LoginScreen>
                                                         ScaffoldMessenger.of(
                                                                 context)
                                                             .showSnackBar(
-                                                          const SnackBar(
-                                                            content: Text(
-                                                                'An error occurred. Please try again.'),
-                                                            duration: Duration(
-                                                                seconds: 2),
+                                                          SnackBar(
+                                                            content: Text(tr(
+                                                                "error.problem_try_later")),
+                                                            duration:
+                                                                const Duration(
+                                                                    seconds: 2),
                                                           ),
                                                         );
                                                       }
@@ -803,7 +812,7 @@ class _LoginScreenState extends State<LoginScreen>
                                                 MainAxisAlignment.center,
                                             children: [
                                               Text(
-                                                "لا تملك حساب؟",
+                                                tr("signPage.don't_have_account"),
                                                 style: TextStyle(
                                                   color: greyColor,
                                                   fontWeight: FontWeight.w600,
@@ -825,7 +834,7 @@ class _LoginScreenState extends State<LoginScreen>
                                                   ));
                                                 },
                                                 child: Text(
-                                                  "سجل الان",
+                                                  tr("signPage.sign_up_now"),
                                                   style: TextStyle(
                                                     color: mainColor,
                                                     fontWeight: FontWeight.w700,

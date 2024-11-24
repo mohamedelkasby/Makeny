@@ -4,10 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:makeny/cubits/cubit.dart';
 import 'package:makeny/cubits/status.dart';
 import 'package:makeny/extentions/colors.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:makeny/firebase_options.dart';
 import 'package:makeny/screens/entry_pages/splash_screen.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,6 +16,8 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  await EasyLocalization.ensureInitialized();
+
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.white,
     statusBarIconBrightness: Brightness.dark,
@@ -23,13 +25,20 @@ Future<void> main() async {
     systemNavigationBarIconBrightness: Brightness.light,
   ));
 
-  // to set the status bar in the top color to white
   await SystemChrome.setEnabledSystemUIMode(
     SystemUiMode.manual,
     overlays: [],
   );
 
-  runApp(const MyApp());
+  runApp(
+    EasyLocalization(
+      supportedLocales: const [Locale('en', ''), Locale('ar', '')],
+      path: 'assets/translations',
+      fallbackLocale: const Locale('en', ''),
+      saveLocale: true,
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -37,59 +46,32 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /////// change the color of statusbar and the icons in it ///////
     return BlocProvider(
       create: (context) => AppCubit(),
       child: BlocConsumer<AppCubit, AppState>(
-        // buildWhen: (previous, current) => current is InitilaThemeState,
-        listener: (context, state) {
-          // print(state);
-          // if (state is InitilaThemeState) {
-          //   AppCubit.get(context).loadLang();
-          //   AppCubit.get(context).loadLogged();
-          //   print("App initialized. Language and login status loaded.");
-          // }
-        },
+        listener: (context, state) {},
         builder: (context, state) {
           return MaterialApp(
-            ////         for language        ..................
-            localizationsDelegates: const [
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            supportedLocales: const [
-              Locale('ar', ''), // Arabic, no country code
-              Locale('en', ''), // english, no country code
-            ],
-            locale: Locale(AppCubit.get(context).lang, ''), // Force RTL layout
-
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
             theme: ThemeData(
-              /// app bar color
               appBarTheme: const AppBarTheme(
                 backgroundColor: Colors.white,
               ),
-              // the scaffold floor color
               scaffoldBackgroundColor: Colors.white,
-              // the font style
               fontFamily: 'Cairo',
               primarySwatch: Colors.deepOrange,
-
               floatingActionButtonTheme: FloatingActionButtonThemeData(
                 backgroundColor: mainColor,
                 foregroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.circular(50), // Ensures it's rounded
+                  borderRadius: BorderRadius.circular(50),
                 ),
               ),
               bottomAppBarTheme: BottomAppBarTheme(
-                /////the bottom navigation color
                 surfaceTintColor: Colors.white,
                 shadowColor: greyborderColor,
-                // color: Colors.white,
-                // shape: CircularNotchedRectangle(),
-                ///////  the background shadow of the navigation bar
                 elevation: 5,
               ),
             ),

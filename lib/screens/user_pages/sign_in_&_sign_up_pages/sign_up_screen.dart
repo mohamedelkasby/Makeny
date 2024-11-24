@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -129,10 +130,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     key: formKey,
                                     child: Column(
                                       children: [
-                                        const Center(
+                                        Center(
                                           child: Text(
-                                            "انشاء حساب",
-                                            style: TextStyle(
+                                            tr("signPage.sign_up"),
+                                            style: const TextStyle(
                                                 fontSize: 28,
                                                 fontWeight: FontWeight.w600),
                                           ),
@@ -145,7 +146,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                             emailInUse = false;
                                           },
                                           focusNode: _focusNode,
-                                          label: 'البريد',
+                                          label: tr("accountPage.email"),
                                           controller: emailController,
                                           validator: (value) {
                                             if (value == null ||
@@ -278,9 +279,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                                 context,
                                                 MaterialPageRoute(
                                                   builder: (context) =>
-                                                      InternetConnectivityWrapper(
-                                                          child:
-                                                              const LoginScreen()),
+                                                      const InternetConnectivityWrapper(
+                                                          child: LoginScreen()),
                                                 ));
                                           } on FirebaseAuthException catch (e) {
                                             setState(() {
@@ -375,7 +375,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                                   context,
                                                   MaterialPageRoute(
                                                     builder: (context) =>
-                                                        InternetConnectivityWrapper(
+                                                        const InternetConnectivityWrapper(
                                                       child: BasicPage(),
                                                     ),
                                                   ),
@@ -490,7 +490,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                                   context,
                                                   MaterialPageRoute(
                                                     builder: (context) =>
-                                                        InternetConnectivityWrapper(
+                                                        const InternetConnectivityWrapper(
                                                       child: BasicPage(),
                                                     ),
                                                   ),

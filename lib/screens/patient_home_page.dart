@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -94,35 +95,31 @@ class _PatientHomePageState extends State<PatientHomePage>
                   child: Row(
                     children: [
                       textHeader(
-                        text: "صباح الخير   ",
+                        text: "${tr("patientHome.morning")}   ",
                       ),
-                      Expanded(
-                        child: Row(
-                          children: [
-                            FutureBuilder<UserModel>(
-                              future: FireStoreService().getUserDetails(
-                                  userID: auth.currentUser!.uid),
-                              builder: (context, snapshot) {
-                                if (snapshot.hasData) {
-                                  UserModel? data = snapshot.data;
-                                  return textHeader(
-                                    text: data!.name ?? "",
-                                    wrap: true,
-                                  );
-                                }
-                                if (snapshot.hasError) {
-                                  return textHeader(text: " ");
-                                }
-                                return CircularProgressIndicator();
-                              },
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 8),
-                              child: Image.asset("assets/icons/star.png"),
-                            ),
-                          ],
+                      Flexible(
+                        child: FutureBuilder<UserModel>(
+                          future: FireStoreService()
+                              .getUserDetails(userID: auth.currentUser!.uid),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              UserModel? data = snapshot.data;
+                              return textHeader(
+                                text: data!.name ?? "",
+                                wrap: true,
+                              );
+                            }
+                            if (snapshot.hasError) {
+                              return textHeader(text: " ");
+                            }
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          },
                         ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: Image.asset("assets/icons/star.png"),
                       ),
                     ],
                   ),

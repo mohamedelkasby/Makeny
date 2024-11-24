@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
@@ -5,6 +6,7 @@ import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 class CustomListField extends StatefulWidget {
   final List<String> suffixList;
   final String suffixText;
+  final String prefixText;
   final Widget suffixIcon;
   final bool enable;
   final bool readOnly;
@@ -20,6 +22,7 @@ class CustomListField extends StatefulWidget {
     this.enable = true,
     this.readOnly = false,
     this.suffixText = "",
+    this.prefixText = "",
     required this.qustionText,
     this.hintText = "",
     this.suffixIcon = const SizedBox(),
@@ -54,7 +57,7 @@ class _CustomListFieldState extends State<CustomListField> {
   // Validate function
   String? _validateInput(String? value) {
     if (value == null || value.isEmpty) {
-      errorMessage = "من فضلك ادخل ${widget.qustionText}";
+      errorMessage = "${tr("please_enter")} ${widget.qustionText}";
       return errorMessage;
     }
     errorMessage = null;
@@ -120,16 +123,30 @@ class _CustomListFieldState extends State<CustomListField> {
             ),
             // Show error message
             errorText: errorMessage,
-            suffixIcon: widget.suffixText != ""
-                ? Directionality(
-                    textDirection: TextDirection.ltr,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
+            prefixIconConstraints: BoxConstraints(
+              maxWidth: MediaQuery.sizeOf(context).width * .19,
+            ),
+            prefixIcon: widget.prefixText != ""
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Align(
+                      alignment: AlignmentDirectional.centerStart,
                       child: defalutQuestionText(
-                        text: widget.suffixText,
+                        text: widget.prefixText,
                         color: greyColor,
                         weight: FontWeight.w300,
                       ),
+                    ),
+                  )
+                : null,
+
+            suffixIcon: widget.suffixText != ""
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: defalutQuestionText(
+                      text: widget.suffixText,
+                      color: greyColor,
+                      weight: FontWeight.w300,
                     ),
                   )
                 : widget.suffixList.isNotEmpty

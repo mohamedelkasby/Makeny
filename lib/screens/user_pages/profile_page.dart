@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:makeny/models/user_model.dart';
@@ -43,7 +44,7 @@ class ProfilePage extends StatelessWidget {
         }
 
         if (!snapshot.hasData) {
-          return Center(child: Text("No user data found"));
+          return Center(child: Text(tr("error.no_user_date_found")));
         }
 
         // Accessing the UserModel directly
@@ -51,7 +52,8 @@ class ProfilePage extends StatelessWidget {
         int age = calculateAge(userModel.birthDate!.toDate());
 
         return Scaffold(
-          appBar: defaultAppbar(context, title: "الملف الشخصي"),
+          appBar:
+              defaultAppbar(context, title: tr("accountPage.personla_profile")),
           body: Padding(
             padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
             child: Column(
@@ -71,68 +73,68 @@ class ProfilePage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       usersData(
-                        textType: "الاسم",
+                        textType: tr("accountPage.name"),
                         textData: userModel.name,
                       ),
                       usersData(
-                        textType: "العمر",
-                        textData: "$age سنة",
+                        textType: tr("accountPage.age"),
+                        textData: "$age  ${tr("calculates.years_old")}",
                       ),
                       usersData(
-                        textType: "الحالة الاجتماعيه",
+                        textType: tr("accountPage.marital_status"),
                         textData: userModel.maritalStatus == ""
                             ? "-"
                             : userModel.maritalStatus,
                       ),
                       usersData(
-                        textType: "النوع",
+                        textType: tr("accountPage.gender"),
                         textData:
                             userModel.gender == "" ? "-" : userModel.gender,
                       ),
                       usersData(
-                        textType: "البريد الالكتروني",
+                        textType: tr("accountPage.email"),
                         textData: userModel.email,
                       ),
                       usersData(
-                        textType: "رقم الهاتف",
+                        textType: tr("accountPage.phone_number"),
                         textData: userModel.phoneNumber == ""
                             ? "-"
                             : userModel.phoneNumber,
                       ),
                       usersData(
-                        textType: "رقم الهوية",
+                        textType: tr("accountPage.id_number"),
                         textData:
                             "${userModel.idNumber == 0 ? "-" : userModel.idNumber}",
                       ),
                       usersData(
-                        textType: "المستوى التعليمي",
+                        textType: tr("accountPage.education_level"),
                         textData: userModel.educationLevel == ""
                             ? "-"
                             : userModel.educationLevel,
                       ),
                       usersData(
-                        textType: "العمل الحالي",
+                        textType: tr("accountPage.current_job"),
                         textData: userModel.currentJob == ""
                             ? "-"
                             : userModel.currentJob,
                       ),
                       usersData(
-                        textType: "الطول",
+                        textType: tr("accountPage.tall"),
                         textData:
-                            "${userModel.length == 0 ? "-" : userModel.length} سم",
+                            "${userModel.length == 0 ? "-" : userModel.length} ${tr("calculates.cm")}",
                       ),
                       usersData(
-                        textType: "الوزن",
+                        textType: tr("accountPage.wight"),
                         textData:
-                            "${userModel.weight == 0 ? "-" : userModel.weight} كيلو",
+                            "${userModel.weight == 0 ? "-" : userModel.weight} ${tr("calculates.kg")}",
                       ),
                       usersData(
-                        textType: "الخصر",
+                        textType: tr("accountPage.waist"),
                         textData:
-                            "${userModel.waist == 0 ? "-" : userModel.waist} سم",
+                            "${userModel.waist == 0 ? "-" : userModel.waist} ${tr("calculates.cm")}",
                       ),
                       usersData(
-                        textType: "النظر",
+                        textType: tr("accountPage.vision"),
                         textData:
                             userModel.vision == "" ? "-" : userModel.vision,
                       ),
@@ -141,11 +143,11 @@ class ProfilePage extends StatelessWidget {
                 ),
                 const Expanded(child: SizedBox()),
                 defaultButton(
-                  text: "حمل ك pdf",
+                  text: tr("accountPage.download"),
                   onTap: () {},
                 ),
                 defaultButton(
-                  text: "تعديل البيانات",
+                  text: tr("accountPage.edit_data"),
                   reverseColors: true,
                   onTap: () => Navigator.push(
                     context,

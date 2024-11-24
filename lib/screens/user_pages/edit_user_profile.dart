@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart' hide DatePickerTheme;
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:intl/intl.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/models/user_model.dart';
 import 'package:makeny/services/fire_store_service.dart';
@@ -69,7 +69,7 @@ class _EditUserProfileState extends State<EditUserProfile> {
     fileLinearProgress();
 
     return Scaffold(
-      appBar: defaultAppbar(context, title: "الملف الشخصي"),
+      appBar: defaultAppbar(context, title: tr("accountPage.personla_profile")),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
         child: Form(
@@ -89,13 +89,13 @@ class _EditUserProfileState extends State<EditUserProfile> {
                 ),
               ),
               CustomListField(
-                qustionText: "الاسم بالكامل",
+                qustionText: tr("accountPage.full_name"),
                 controller: userNameController,
                 keyboardType: TextInputType.name,
                 value: widget.data.name,
               ),
               CustomListField(
-                qustionText: "رقم الهوية",
+                qustionText: tr("accountPage.id_number"),
                 controller: idNumberController,
                 keyboardType: TextInputType.number,
                 value: widget.data.idNumber.toString() == 0.toString()
@@ -103,23 +103,25 @@ class _EditUserProfileState extends State<EditUserProfile> {
                     : widget.data.idNumber.toString(),
               ),
               CustomListField(
-                qustionText: "البريد الالكتروني",
+                qustionText: tr("accountPage.email"),
                 controller: emailController,
                 keyboardType: TextInputType.emailAddress,
                 value: widget.data.email,
                 readOnly: true,
               ),
               CustomListField(
-                qustionText: "الجوال",
-                suffixText: "+999  |",
+                qustionText: tr("accountPage.phone_number"),
+                suffixText:
+                    context.locale.languageCode == "ar" ? "|  999+" : "",
+                prefixText:
+                    context.locale.languageCode == "en" ? "+999  |" : "",
                 controller: phoneNumberController,
                 keyboardType: TextInputType.phone,
                 value: widget.data.phoneNumber,
               ),
               CustomListField(
                 readOnly: true,
-                qustionText: "تاريخ الميلاد ",
-                hintText: "ي/ش/س",
+                qustionText: tr("accountPage.birth_date"),
                 value: DateFormat('dd-MM-yyyy')
                     .format(widget.data.birthDate!.toDate()),
                 controller: TextEditingController(text: selectedDate),
@@ -153,7 +155,9 @@ class _EditUserProfileState extends State<EditUserProfile> {
                           });
                         },
                         currentTime: DateTime.now(),
-                        locale: LocaleType.ar,
+                        locale: context.locale.languageCode == "ar"
+                            ? LocaleType.ar
+                            : LocaleType.en,
                       );
                     },
                     child: SvgPicture.asset("assets/icons/calender.svg"),
@@ -163,8 +167,13 @@ class _EditUserProfileState extends State<EditUserProfile> {
               //    the drop down
 
               CustomDropDownList(
-                items: const ["متزوج ", "اعزب", "ارمل", "مطلق"],
-                label: "الحالة الاجتماعية",
+                items: [
+                  tr("accountPage.married"),
+                  tr("accountPage.single"),
+                  tr("accountPage.widowed"),
+                  tr("accountPage.divorced")
+                ],
+                label: tr("accountPage.marital_status"),
                 selectedValue: selectedMaritalStatus,
                 onChanged: (value) {
                   setState(() {
@@ -173,29 +182,34 @@ class _EditUserProfileState extends State<EditUserProfile> {
                 },
               ),
               CustomDropDownList(
-                label: "النوع",
-                items: const ["ذكر", "انثي"],
+                label: tr("accountPage.gender"),
+                items: [tr("accountPage.male"), tr("accountPage.female")],
                 selectedValue: selectedGender,
                 onChanged: (value) {
                   selectedGender = value!;
                 },
               ),
               CustomDropDownList(
-                label: "المستوى التعليمي",
-                items: const ["طالب", "بكالوريوس", "ماجستير", "دكتوراه"],
+                label: tr("accountPage.education_level"),
+                items: [
+                  tr("accountPage.student"),
+                  tr("accountPage.bachelor"),
+                  tr("master"),
+                  tr("doctorate")
+                ],
                 selectedValue: selectedEducationLevel,
                 onChanged: (value) {
                   selectedEducationLevel = value!;
                 },
               ),
               CustomListField(
-                qustionText: "العمل الحالي",
+                qustionText: tr("accountPage.current_job"),
                 controller: currentJobController,
                 keyboardType: TextInputType.name,
                 value: widget.data.currentJob,
               ),
               defaultButton(
-                  text: "حفظ",
+                  text: tr("save"),
                   onTap: () {
                     if (formKey.currentState!.validate()) {
                       FireStoreService().updateDataToFirestore(

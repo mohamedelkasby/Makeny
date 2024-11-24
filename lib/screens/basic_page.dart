@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -66,7 +67,7 @@ class _BasicPageState extends State<BasicPage> {
               child: iconWithLabel(
                 context,
                 svgIcon: "assets/icons/reserve.svg",
-                label: "احجز موعد",
+                label: tr("reserve a date"),
                 color: Colors.white,
                 onTap: () => Navigator.push(
                   context,
@@ -82,7 +83,8 @@ class _BasicPageState extends State<BasicPage> {
               ),
             ),
           ),
-          floatingActionButtonLocation: _CustomFloatingActionButtonLocation(),
+          floatingActionButtonLocation:
+              _CustomFloatingActionButtonLocation(context.locale.languageCode),
           /////////////   floation action button end //////////
 
           /////////////   bottom navigation bar  start //////////
@@ -96,7 +98,7 @@ class _BasicPageState extends State<BasicPage> {
                 iconWithLabel(
                   context,
                   svgIcon: "assets/icons/home.svg",
-                  label: "الرئيسيه",
+                  label: tr("home"),
                   indexNumber: 0,
                   onTap: () => AppCubit.get(context).onItemTapped(0),
                 ),
@@ -107,7 +109,7 @@ class _BasicPageState extends State<BasicPage> {
                 iconWithLabel(
                   context,
                   svgIcon: "assets/icons/notification.svg",
-                  label: "الاشعارات",
+                  label: tr("notification"),
                   onTap: () {
                     transitionBetweenPages(
                       context,
@@ -120,7 +122,7 @@ class _BasicPageState extends State<BasicPage> {
                 iconWithLabel(
                   context,
                   svgIcon: "assets/icons/user.svg",
-                  label: "الحساب",
+                  label: tr("account"),
                   indexNumber: 1,
                   onTap: () {
                     AppCubit.get(context).loadImage(key: auth.currentUser!.uid);
@@ -142,6 +144,8 @@ class _BasicPageState extends State<BasicPage> {
 /////////////   custom locate the floating action button  //////////
 
 class _CustomFloatingActionButtonLocation extends FloatingActionButtonLocation {
+  _CustomFloatingActionButtonLocation(this.languageCode);
+  final String languageCode;
   @override
   Offset getOffset(ScaffoldPrelayoutGeometry scaffoldGeometry) {
     // Calculate the center of the BottomAppBar
@@ -152,9 +156,9 @@ class _CustomFloatingActionButtonLocation extends FloatingActionButtonLocation {
     final double fabWidth = scaffoldGeometry.floatingActionButtonSize.width;
 
 // Adjust the X position to be next to the third icon based on directionality
-    final double fabX = textDirection == TextDirection.ltr
-        ? (screenWidth / 2) - (fabWidth / 2) - (fabWidth * 3 / 4)
-        : (screenWidth / 2) - (fabWidth / 2) + (fabWidth * 3 / 4);
+    final double fabX = languageCode == "ar"
+        ? (screenWidth / 2) - (fabWidth / 2) + (fabWidth * 3 / 4)
+        : (screenWidth / 2) - (fabWidth / 2) - (fabWidth * 3 / 4);
 
     final double fabY = scaffoldGeometry.contentBottom - fabHeight * (2 / 3);
 

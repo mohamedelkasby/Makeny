@@ -5,6 +5,7 @@ import 'package:makeny/screens/basic_page.dart';
 import 'package:makeny/screens/doctor_home_page.dart';
 import 'package:makeny/screens/entry_pages/defenition_screen.dart';
 import 'package:makeny/screens/user_pages/sign_in_&_sign_up_pages/login_screen.dart';
+import 'package:makeny/widgets/internet_connectivity_wrapper.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -32,14 +33,16 @@ class _SplashScreenState extends State<SplashScreen> {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => BasicPage(),
+                    builder: (context) =>
+                        const InternetConnectivityWrapper(child: BasicPage()),
                   ),
                 );
               } else if (AppCubit.get(context).isLoggedIn == "doctor") {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const DoctorHomePage(),
+                    builder: (context) => const InternetConnectivityWrapper(
+                        child: DoctorHomePage()),
                   ),
                 );
               } else if (AppCubit.get(context).isFirstLogIn) {
@@ -53,7 +56,8 @@ class _SplashScreenState extends State<SplashScreen> {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const LoginScreen(),
+                    builder: (context) =>
+                        const InternetConnectivityWrapper(child: LoginScreen()),
                   ),
                 );
               }

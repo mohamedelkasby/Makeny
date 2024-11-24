@@ -55,7 +55,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
             text: "الاشعارات",
           ),
           bottom: PreferredSize(
-            preferredSize: Size(double.infinity, 2),
+            preferredSize: const Size(double.infinity, 2),
             child: Container(
               height: 2,
               decoration: const BoxDecoration(

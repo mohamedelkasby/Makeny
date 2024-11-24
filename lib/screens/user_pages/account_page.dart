@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -115,17 +116,14 @@ class _AccountPageState extends State<AccountPage> {
                           const SizedBox(
                             height: 8,
                           ),
-                          Directionality(
-                            textDirection: TextDirection.ltr,
-                            child: Text(
-                              "+966 ${userdata?.phoneNumber}" == "+966 "
-                                  ? ""
-                                  : "+966 ${userdata?.phoneNumber}",
-                              style: TextStyle(
-                                  color: Color(0xff777777),
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500),
-                            ),
+                          Text(
+                            "+966 ${userdata?.phoneNumber}" == "+966 "
+                                ? ""
+                                : "+966 ${userdata?.phoneNumber}",
+                            style: TextStyle(
+                                color: Color(0xff777777),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500),
                           )
                         ],
                       );
@@ -145,7 +143,7 @@ class _AccountPageState extends State<AccountPage> {
                 children: [
                   textIconNavigator(
                       icon: "assets/icons/user.svg",
-                      text: "الملف الشخصي",
+                      text: tr("accountPage.personla_profile"),
                       onTap: () {
                         Navigator.push(
                           context,
@@ -158,7 +156,7 @@ class _AccountPageState extends State<AccountPage> {
                       }),
                   textIconNavigator(
                       icon: "assets/icons/files-medical 1.svg",
-                      text: "ملفي الطبي",
+                      text: tr("accountPage.my_medical_file"),
                       onTap: () {
                         Navigator.push(
                             context,
@@ -168,7 +166,7 @@ class _AccountPageState extends State<AccountPage> {
                       }),
                   textIconNavigator(
                     icon: "assets/icons/Medical-Education.svg",
-                    text: "النثقيف الطبي",
+                    text: tr("accountPage.medical_knoladge"),
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -178,7 +176,7 @@ class _AccountPageState extends State<AccountPage> {
                   ),
                   textIconNavigator(
                       icon: "assets/icons/ser.svg",
-                      text: "خدماتنا",
+                      text: tr("accountPage.our_services"),
                       onTap: () {
                         Navigator.push(
                             context,
@@ -188,7 +186,7 @@ class _AccountPageState extends State<AccountPage> {
                       }),
                   textIconNavigator(
                     icon: "assets/icons/about.svg",
-                    text: "عن مكني",
+                    text: tr("accountPage.about_makeny"),
                     onTap: () {
                       Navigator.push(
                         context,
@@ -198,10 +196,10 @@ class _AccountPageState extends State<AccountPage> {
                       );
                     },
                   ),
-                  const Align(
-                    alignment: Alignment.topRight,
+                  Align(
+                    alignment: AlignmentDirectional.centerStart,
                     child: Text(
-                      "الإعدادات",
+                      tr("settings"),
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w700,
@@ -211,15 +209,19 @@ class _AccountPageState extends State<AccountPage> {
                   ),
                   textIconNavigator(
                     icon: "assets/icons/lan.svg",
-                    text: "اللغة",
-                    subText: "Change to english",
+                    text: tr("accountPage.language"),
+                    subText: tr("accountPage.translate"),
                     onTap: () {
-                      AppCubit.get(context).saveLang();
+                      context.locale.toString() == "ar"
+                          ? context.setLocale(Locale('en', ''))
+                          : context.setLocale(Locale('ar', ''));
+
+                      // AppCubit.get(context).saveLang();
                     },
                   ),
                   textIconNavigator(
                     icon: "assets/icons/logout.svg",
-                    text: "تسجيل الخروج ",
+                    text: tr("accountPage.sign_out"),
                     showIcon: false,
                     onTap: () {
                       return transitionBetweenPages(

@@ -1,0 +1,83 @@
+{
+    "app_name": "Makeny",
+    "settings": "Settings",
+    "profile": "Profile",
+    "home": "Home",
+    "account": "account",
+    "notification": "notification",
+    "reserve a date": "reserve a date",
+    "signPage": {
+        "sign_in": "Sign In",
+        "sign_up": "sign up",
+        "email_or_phoneNumber": "Email or Phone Number",
+        "password": "password",
+        "don't_have_account": "don't have an account?",
+        "sign_up_now": "sign up now",
+        "login": "Login"
+    },
+    "accountPage": {
+        "personla_profile": "personla profile",
+        "name": "name",
+        "age": "age",
+        "marital_status": "marital status",
+        "gender": "gender",
+        "email": "email",
+        "phone_number": "phone number",
+        "id_number": "id number",
+        "education_level": "education level",
+        "current_job": "current job",
+        "tall": "tall",
+        "wight": "wight",
+        "waist": "waist",
+        "vision": "vision",
+        "download": "download as pdf",
+        "edit_data": "edit data",
+        "full_name": "full name",
+        "birth_date": "birth date",
+        "choose": "choose",
+        "married": "married",
+        "single": "single",
+        "widowed": "widowed",
+        "divorced": "divorced",
+        "female": "female",
+        "male": "male",
+        "student": "student",
+        "bachelor": "bachelor",
+        "master": "master",
+        "doctorate": "doctorate",
+        "my_medical_file": "my medical file",
+        "medical_knoladge": "medical knoladge",
+        "our_services": "our services",
+        "about_makeny": "about makeny",
+        "translate": "change to arabic",
+        "language": "language",
+        "sign_out": "sign out"
+    },
+    "patientHome": {
+        "morning": "morning"
+    },
+    "calculates": {
+        "cm": "cm",
+        "kg": "kg",
+        "years_old": "years_old"
+    },
+    "closeDialog": {
+        "do_you_want_sign_out": "Do you want to sign out",
+        "yes_sign_out": "Yes, sign out",
+        "no_stay": "No, stay"
+    },
+    "error": {
+        "no_user_date_found": "no user date found",
+        "no_internet": "no internet connection",
+        "wrong_phone_number": "wrong phone number",
+        "enter_email_or_phone": "enter your email or your phone number",
+        "wrong_email_or_password": "email or password is not correct.",
+        "enter_password": "please enter your password",
+        "password_must_be_correct": "password mustn't be less than 8 letters",
+        "account_not_found": "Account not found. Please sign up first.",
+        "problem_try_later": "An error occurred. Please try again."
+    },
+    "please_choose": "please choose a",
+    "please_enter": "please enter the",
+    "save": "save"
+}

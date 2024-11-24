@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:makeny/cubits/cubit.dart';
@@ -26,7 +27,7 @@ Dialog closeDialog(context) {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              "هل تريد تسجيل الخروج؟",
+              tr("closeDialog.do_you_want_sign_out"),
               style: TextStyle(
                 fontSize: 21,
                 color: Color(0xff777777),
@@ -55,9 +56,9 @@ Dialog closeDialog(context) {
                           ),
                         );
                       },
-                      child: const Text(
-                        "نعم, تسجيل الخروج",
-                        style: TextStyle(
+                      child: Text(
+                        tr("closeDialog.yes_sign_out"),
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 19,
                           fontWeight: FontWeight.w400,
@@ -71,7 +72,7 @@ Dialog closeDialog(context) {
             GestureDetector(
               onTap: () => Navigator.pop(context),
               child: Text(
-                "لا, البقاء",
+                tr("closeDialog.no_stay"),
                 style: TextStyle(
                   color: Color(0xffA2A2A2),
                   fontSize: 21,

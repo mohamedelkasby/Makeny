@@ -41,7 +41,7 @@ class CustomNotification extends StatelessWidget {
               context.read<AppCubit>();
             },
             child: Container(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color:
                     newNotification == true ? mainColor50 : greybackgroundColor,
@@ -59,22 +59,14 @@ class CustomNotification extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      // Container(
-                      //   width: 50,
-                      //   height: 50,
-                      //   decoration: BoxDecoration(
-                      //     borderRadius: BorderRadius.circular(150),
-                      //     color: newNotification ? Color(0xffFFD4DD) : Color(0xffE5E5E5),
-                      //   ),
-                      // ),
                       Stack(
                         children: [
                           image == ""
                               ? CircleAvatar(
                                   radius: 25,
                                   backgroundColor: newNotification
-                                      ? Color(0xffFFD4DD)
-                                      : Color(0xffE5E5E5),
+                                      ? const Color(0xffFFD4DD)
+                                      : const Color(0xffE5E5E5),
                                 )
                               : CircleAvatar(
                                   radius: 25,
@@ -85,7 +77,7 @@ class CustomNotification extends StatelessWidget {
 
                           ///   search how to center a positined in stack <========
                           svgIcon == ""
-                              ? SizedBox()
+                              ? const SizedBox()
                               : Padding(
                                   padding: EdgeInsets.symmetric(
                                     vertical: 10,
@@ -114,7 +106,7 @@ class CustomNotification extends StatelessWidget {
                             textHeadLine(
                               text: text,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 2,
                             ),
                             Text(

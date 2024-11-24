@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class CustomDropDownList extends StatefulWidget {
@@ -39,7 +40,7 @@ class _CustomDropDownListState extends State<CustomDropDownList> {
 
   String? _validateValue(String? value) {
     if (value == null) {
-      return "من فضلك اختر ${widget.label}";
+      return "${tr("please_choose")} ${widget.label}";
     }
     return null;
   }
@@ -86,7 +87,7 @@ class _CustomDropDownListState extends State<CustomDropDownList> {
                       isExpanded: true,
                       value: _currentValue,
                       hint: Text(
-                        '-اختر-',
+                        '-${tr("accountPage.choose")}-',
                         style: TextStyle(color: theme.hintColor),
                       ),
                       icon: Icon(

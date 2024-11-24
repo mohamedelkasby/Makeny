@@ -7,28 +7,27 @@ Widget usersData({
 }) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 5),
-    child: Text.rich(
-      TextSpan(
-        children: [
-          // Bullet point
-          TextSpan(
-            text: "\u2022 $textType $seperator",
-            style: TextStyle(
-              fontWeight: FontWeight.w500,
-            ),
+    child: Row(
+      // TextSpan(
+      children: [
+        // Bullet point
+        Text(
+          "\u2022 $textType $seperator",
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 16,
           ),
-          TextSpan(
-            text: "  $textData",
-            style: TextStyle(
-              fontWeight:
-                  seperator == "/" ? FontWeight.w700 : FontWeight.normal,
-            ),
-          ),
-        ],
-        style: TextStyle(
-          fontSize: 16,
         ),
-      ),
+        Text(
+          "  $textData",
+          style: TextStyle(
+            fontWeight: seperator == "/" ? FontWeight.w700 : FontWeight.normal,
+            fontSize: 16,
+          ),
+        ),
+      ],
+
+      // ),
     ),
   );
 }
