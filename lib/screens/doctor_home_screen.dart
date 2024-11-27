@@ -5,21 +5,21 @@ import 'package:flutter/services.dart';
 import 'package:makeny/cubits/cubit.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/screens/chat_pages/chat_screen.dart';
-import 'package:makeny/screens/user_pages/sign_in_&_sign_up_pages/login_screen.dart';
+import 'package:makeny/screens/user_pages/sign_in_&_sign_up_screens/login_screen.dart';
 import 'package:makeny/services/auth_service.dart';
 import 'package:makeny/widgets/internet_connectivity_wrapper.dart';
 
-class DoctorHomePage extends StatefulWidget {
-  const DoctorHomePage({super.key});
+class DoctorHomeScreen extends StatefulWidget {
+  const DoctorHomeScreen({super.key});
 
   @override
-  State<DoctorHomePage> createState() => _DoctorHomePageState();
+  State<DoctorHomeScreen> createState() => _DoctorHomeScreenState();
 }
 
-class _DoctorHomePageState extends State<DoctorHomePage> {
+class _DoctorHomeScreenState extends State<DoctorHomeScreen> {
   @override
   void initState() {
-    AppCubit.get(context).saveLooged("doctor");
+    AppCubit.get(context).saveLogged("doctor");
     super.initState();
   }
 

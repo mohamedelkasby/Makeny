@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:makeny/cubits/cubit.dart';
-import 'package:makeny/screens/basic_page.dart';
-import 'package:makeny/screens/doctor_home_page.dart';
-import 'package:makeny/screens/entry_pages/defenition_screen.dart';
-import 'package:makeny/screens/user_pages/sign_in_&_sign_up_pages/login_screen.dart';
+import 'package:makeny/screens/basic_screen.dart';
+import 'package:makeny/screens/doctor_home_screen.dart';
+import 'package:makeny/screens/entry_screens/defenition_screen.dart';
+import 'package:makeny/screens/user_pages/sign_in_&_sign_up_screens/login_screen.dart';
 import 'package:makeny/widgets/internet_connectivity_wrapper.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -34,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   context,
                   MaterialPageRoute(
                     builder: (context) =>
-                        const InternetConnectivityWrapper(child: BasicPage()),
+                        const InternetConnectivityWrapper(child: BasicScreen()),
                   ),
                 );
               } else if (AppCubit.get(context).isLoggedIn == "doctor") {
@@ -42,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => const InternetConnectivityWrapper(
-                        child: DoctorHomePage()),
+                        child: DoctorHomeScreen()),
                   ),
                 );
               } else if (AppCubit.get(context).isFirstLogIn) {

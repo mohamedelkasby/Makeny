@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
-import 'package:makeny/screens/basic_page.dart';
+import 'package:makeny/screens/basic_screen.dart';
 import 'package:makeny/services/auth_service.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -47,7 +47,7 @@ class _ConfirmLoginScreenState extends State<ConfirmLoginScreen> {
         );
         if (result == 'success') {
           Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => BasicPage(),
+            builder: (context) => BasicScreen(),
           ));
         } else {
           ScaffoldMessenger.of(context).showSnackBar(

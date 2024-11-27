@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:makeny/screens/booking_pages/booking_date_screen.dart';
+import 'package:makeny/screens/booking_screens/booking_date_screen.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';
 import 'package:makeny/widgets/questions_type/long_one_answer_check.dart';

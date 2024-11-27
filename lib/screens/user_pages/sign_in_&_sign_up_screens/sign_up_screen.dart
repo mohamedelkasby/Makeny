@@ -7,8 +7,8 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:makeny/cubits/cubit.dart';
 import 'package:makeny/cubits/status.dart';
 import 'package:makeny/extentions/colors.dart';
-import 'package:makeny/screens/basic_page.dart';
-import 'package:makeny/screens/user_pages/sign_in_&_sign_up_pages/login_screen.dart';
+import 'package:makeny/screens/basic_screen.dart';
+import 'package:makeny/screens/user_pages/sign_in_&_sign_up_screens/login_screen.dart';
 import 'package:makeny/services/auth_service.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/default_text_form.dart';
@@ -376,7 +376,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                                   MaterialPageRoute(
                                                     builder: (context) =>
                                                         const InternetConnectivityWrapper(
-                                                      child: BasicPage(),
+                                                      child: BasicScreen(),
                                                     ),
                                                   ),
                                                 );
@@ -491,7 +491,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                                   MaterialPageRoute(
                                                     builder: (context) =>
                                                         const InternetConnectivityWrapper(
-                                                      child: BasicPage(),
+                                                      child: BasicScreen(),
                                                     ),
                                                   ),
                                                 );

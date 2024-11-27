@@ -9,8 +9,8 @@ import 'package:makeny/widgets/defualt_appbar.dart';
 import 'package:makeny/widgets/internet_connectivity_wrapper.dart';
 import 'package:makeny/widgets/users_data.dart';
 
-class ProfilePage extends StatelessWidget {
-  ProfilePage({super.key});
+class ProfileScreen extends StatelessWidget {
+  ProfileScreen({super.key});
 
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 

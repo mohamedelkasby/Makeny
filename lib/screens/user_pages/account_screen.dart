@@ -9,7 +9,7 @@ import 'package:makeny/screens/about_makeny/about_Us_screen.dart';
 import 'package:makeny/screens/about_makeny/services_screen.dart';
 import 'package:makeny/screens/medical_education_screens/medical_educate_head_screeen.dart';
 import 'package:makeny/screens/user_pages/medical_file.dart';
-import 'package:makeny/screens/user_pages/profile_page.dart';
+import 'package:makeny/screens/user_pages/profile_screen.dart';
 import 'package:makeny/services/fire_store_service.dart';
 import 'package:makeny/widgets/close_dialog.dart';
 import 'package:makeny/widgets/image_preview.dart';
@@ -18,14 +18,14 @@ import 'package:makeny/widgets/navigation_utils.dart';
 import 'package:makeny/widgets/text_icon_navigator.dart';
 import 'package:makeny/widgets/transition_between_pages.dart';
 
-class AccountPage extends StatefulWidget {
-  const AccountPage({super.key});
+class AccountScreen extends StatefulWidget {
+  const AccountScreen({super.key});
 
   @override
-  State<AccountPage> createState() => _AccountPageState();
+  State<AccountScreen> createState() => _AccountScreenState();
 }
 
-class _AccountPageState extends State<AccountPage> {
+class _AccountScreenState extends State<AccountScreen> {
 // // For single image
   final FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -149,7 +149,7 @@ class _AccountPageState extends State<AccountPage> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => InternetConnectivityWrapper(
-                              child: ProfilePage(),
+                              child: ProfileScreen(),
                             ),
                           ),
                         );

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
-import 'package:makeny/screens/booking_pages/booking_type_screen.dart';
+import 'package:makeny/screens/booking_screens/booking_type_screen.dart';
 import 'package:makeny/screens/danger_measure_screens/danger_measure_screen.dart';
 import 'package:makeny/screens/finish_test.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';

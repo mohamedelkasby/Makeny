@@ -24,24 +24,30 @@ class SubServicesScreen extends StatelessWidget {
           child: Column(
             children: [
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    centerImge(
-                      img: dataModel.img,
-                    ),
-                    textHeadLine(text: bodyData.mainTopic),
-                    ...bodyData.subTopicKeys.map(
-                      (x) => Text(
-                        x,
-                        style: TextStyle(height: 2),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      centerImge(
+                        img: dataModel.img,
                       ),
-                    ),
-                  ],
+                      Text(
+                        bodyData.mainTopic,
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                          height: 1.8,
+                        ),
+                      ),
+                      ...bodyData.subTopicKeys.map(
+                        (data) => textDescription(text: data),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               defaultButton(
-                text: "احجز طبيبك الان ",
+                text: tr("Book_your_doctor_now"),
                 onTap: () {},
               )
             ],

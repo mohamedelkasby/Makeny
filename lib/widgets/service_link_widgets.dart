@@ -1,11 +1,14 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:makeny/extentions/colors.dart';
+import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 
 Widget serviseLinkWidgets({
   required final String img,
   required final String text,
   required final Function() onTap,
+  required BuildContext context,
 }) {
   return Padding(
     padding: const EdgeInsets.only(top: 14),
@@ -25,17 +28,21 @@ Widget serviseLinkWidgets({
                     img,
                     width: 50,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Text(
                     text,
-                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w500, fontSize: 16),
                   ),
                 ],
               ),
-              Container(
-                child: SvgPicture.asset("assets/icons/left.svg"),
+              Icon(
+                context.locale.toString() == "ar"
+                    ? Icons.keyboard_arrow_left_rounded
+                    : Icons.keyboard_arrow_right_rounded,
+                color: greyborderColor,
               )
             ],
           ),

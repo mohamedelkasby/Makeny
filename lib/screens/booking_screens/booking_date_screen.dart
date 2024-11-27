@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:makeny/extentions/colors.dart';
-import 'package:makeny/screens/booking_pages/reservation_details.dart';
+import 'package:makeny/screens/booking_screens/reservation_details.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';

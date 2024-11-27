@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:makeny/cubits/cubit.dart';
 import 'package:makeny/cubits/status.dart';
 import 'package:makeny/extentions/colors.dart';
-import 'package:makeny/screens/user_pages/sign_in_&_sign_up_pages/login_screen.dart';
+import 'package:makeny/screens/user_pages/sign_in_&_sign_up_screens/login_screen.dart';
 
 Dialog closeDialog(context) {
   return Dialog(
@@ -48,7 +48,7 @@ Dialog closeDialog(context) {
                       onPressed: () {
                         Navigator.pop(context);
                         AppCubit.get(context).selectedBNBIndex = 0;
-                        AppCubit.get(context).saveLooged("non");
+                        AppCubit.get(context).saveLogged("non");
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(

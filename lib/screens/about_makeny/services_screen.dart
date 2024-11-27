@@ -22,6 +22,7 @@ class ServicesScreen extends StatelessWidget {
               shrinkWrap: true,
               itemCount: services.length,
               itemBuilder: (context, index) => serviseLinkWidgets(
+                context: context,
                 img: services[index].img,
                 text: services[index].header,
                 onTap: () => Navigator.push(

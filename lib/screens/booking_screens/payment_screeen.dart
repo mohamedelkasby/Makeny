@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import "package:makeny/extentions/colors.dart";
 import "package:makeny/models/doctor_model.dart";
-import "package:makeny/screens/booking_pages/success_payment.dart";
+import "package:makeny/screens/booking_screens/success_payment.dart";
 import "package:makeny/widgets/buttons.dart";
 import "package:makeny/widgets/custom_texts/cusrom_texts.dart";
 import "package:makeny/widgets/defualt_appbar.dart";

@@ -89,6 +89,11 @@
             "data_2": "This program helps individuals manage risk factors by creating a personalized, comprehensive plan that includes therapeutic exercises, a healthy diet, and education on heart disease and ways to reduce risks. Through this program, periodic monitoring is conducted to track medical treatment and improvements in cardiorespiratory fitness, adjusting the treatment plan as needed."
         }
     },
+    "aboutMakeny": {
+        "data_1": "The Makani Program is a heart health and lifestyle program designed for people with cardiovascular disease and those at risk for developing these diseases.",
+        "data_2": "The components of the program include: assessing heart health, identifying risk factors, and measuring the risk of heart disease. Checking health status and physical ability to exercise and perform physical activities. The Makani program also focuses on health education about heart health, including smoking cessation, diet, physical activity, and mental health.",
+        "data_3": "The Makani Rehabilitation Program targets patients who suffer from heart diseases such as heart failure, heart attacks, or who have recently had a heart attack, or who have had stents or open heart surgeries such as coronary artery bypass or valve replacement, or who have had supportive devices implanted, or who are at risk of having a heart attack."
+    },
     "patientHome": {
         "morning": "morning"
     },
@@ -171,5 +176,6 @@
     "Severity_scale": "Severity scale",
     "please_choose": "please choose a",
     "please_enter": "please enter the",
+    "Book_your_doctor_now": "book your doctor now",
     "save": "save"
 }

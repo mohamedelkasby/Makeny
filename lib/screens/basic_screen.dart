@@ -5,31 +5,32 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:makeny/cubits/cubit.dart';
 import 'package:makeny/cubits/status.dart';
+import 'package:makeny/extentions/extentions.dart';
 import 'package:makeny/screens/danger_measure_screens/danger_measure_screen.dart';
-import 'package:makeny/screens/patient_home_page.dart';
+import 'package:makeny/screens/patient_home_screen.dart';
 import 'package:makeny/screens/notification_screen.dart';
-import 'package:makeny/screens/user_pages/account_page.dart';
+import 'package:makeny/screens/user_pages/account_screen.dart';
 import 'package:makeny/widgets/icon_with_label.dart';
 import 'package:makeny/widgets/internet_connectivity_wrapper.dart';
 import 'package:makeny/widgets/transition_between_pages.dart';
 
-class BasicPage extends StatefulWidget {
-  const BasicPage({
+class BasicScreen extends StatefulWidget {
+  const BasicScreen({
     super.key,
   });
 
   @override
-  State<BasicPage> createState() => _BasicPageState();
+  State<BasicScreen> createState() => _BasicScreenState();
 }
 
-class _BasicPageState extends State<BasicPage> {
+class _BasicScreenState extends State<BasicScreen> {
   final List<Widget> pagesList = [
-    PatientHomePage(),
-    const AccountPage(),
+    PatientHomeScreen(),
+    const AccountScreen(),
   ];
   @override
   void initState() {
-    AppCubit.get(context).saveLooged("patient");
+    AppCubit.get(context).saveLogged("patient");
 
     super.initState();
   }
@@ -98,7 +99,7 @@ class _BasicPageState extends State<BasicPage> {
                 iconWithLabel(
                   context,
                   svgIcon: "assets/icons/home.svg",
-                  label: tr("home"),
+                  label: tr("home").capitalizeByWord(),
                   indexNumber: 0,
                   onTap: () => AppCubit.get(context).onItemTapped(0),
                 ),
@@ -109,7 +110,7 @@ class _BasicPageState extends State<BasicPage> {
                 iconWithLabel(
                   context,
                   svgIcon: "assets/icons/notification.svg",
-                  label: tr("notification"),
+                  label: tr("notification").capitalizeByWord(),
                   onTap: () {
                     transitionBetweenPages(
                       context,
@@ -122,7 +123,7 @@ class _BasicPageState extends State<BasicPage> {
                 iconWithLabel(
                   context,
                   svgIcon: "assets/icons/user.svg",
-                  label: tr("account"),
+                  label: tr("account").capitalizeByWord(),
                   indexNumber: 1,
                   onTap: () {
                     AppCubit.get(context).loadImage(key: auth.currentUser!.uid);

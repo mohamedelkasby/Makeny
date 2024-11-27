@@ -1,9 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:makeny/cubits/notificationCubit/cubit/notification_cubit.dart';
 import 'package:makeny/extentions/colors.dart';
+import 'package:makeny/extentions/extentions.dart';
 import 'package:makeny/widgets/cusotm_notification.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 
@@ -52,7 +54,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
           ],
           centerTitle: true,
           title: textNormal(
-            text: "الاشعارات",
+            text: tr("notification").capitalizeByWord(),
           ),
           bottom: PreferredSize(
             preferredSize: const Size(double.infinity, 2),
