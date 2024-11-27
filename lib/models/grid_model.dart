@@ -64,11 +64,11 @@ GridModel grid6 = GridModel(
     shortTest: true,
   ),
 );
-GridModel grid7 = GridModel(
-  image: "assets/grid_images/graident-ai-robot-vectorart 1.png",
-  title: "المساعد الذكي",
-  screen: AIChatPage(),
-);
+// GridModel grid7 = GridModel(
+//   image: "assets/grid_images/graident-ai-robot-vectorart 1.png",
+//   title: "المساعد الذكي",
+//   screen: AIChatPage(),
+// );
 
 GridModel grid8 = GridModel(
   image: "assets/grid_images/image 16.png",
@@ -82,6 +82,6 @@ List<GridModel> GridModelList = [
   grid4,
   grid5,
   grid6,
-  grid7,
+  // grid7,
   grid8,
 ];

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:makeny/models/services_model.dart';
 import 'package:makeny/screens/about_makeny/sub_services_screen.dart';
@@ -11,7 +12,7 @@ class ServicesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: defaultAppbar(context, title: "خدماتنا"),
+      appBar: defaultAppbar(context, title: tr("accountPage.our_services")),
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: Column(

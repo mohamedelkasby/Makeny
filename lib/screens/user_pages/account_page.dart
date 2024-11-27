@@ -166,7 +166,7 @@ class _AccountPageState extends State<AccountPage> {
                       }),
                   textIconNavigator(
                     icon: "assets/icons/Medical-Education.svg",
-                    text: tr("accountPage.medical_knoladge"),
+                    text: tr("accountPage.medical_education"),
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(

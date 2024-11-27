@@ -67,7 +67,7 @@ class _BasicPageState extends State<BasicPage> {
               child: iconWithLabel(
                 context,
                 svgIcon: "assets/icons/reserve.svg",
-                label: tr("reserve a date"),
+                label: tr("book_a_date"),
                 color: Colors.white,
                 onTap: () => Navigator.push(
                   context,

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/models/medical_educate_model.dart';
@@ -11,7 +12,8 @@ class MedicalEducateHeadScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: defaultAppbar(context, title: "تثقيف طبي"),
+      appBar:
+          defaultAppbar(context, title: tr("accountPage.medical_education")),
       body: ListView.builder(
         itemCount: medicalEducateList.length,
         scrollDirection: Axis.vertical,

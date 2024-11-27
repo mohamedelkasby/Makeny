@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/models/medical_educate_model.dart';
@@ -20,7 +21,8 @@ class MedicalEducateDescScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: defaultAppbar(context, title: "تثقيف طبي"),
+        appBar:
+            defaultAppbar(context, title: tr("accountPage.medical_education")),
         body: Padding(
           padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
           child: Stack(
@@ -35,7 +37,7 @@ class MedicalEducateDescScreen extends StatelessWidget {
                       child: Image.asset(
                         dataModel.image,
                         fit: BoxFit.cover,
-                        alignment: Alignment(0, -1 + .3),
+                        alignment: const Alignment(0, -1 + .3),
                       ),
                     ),
                   ),
@@ -52,25 +54,24 @@ class MedicalEducateDescScreen extends StatelessWidget {
                                       const EdgeInsets.symmetric(vertical: 15),
                                   child: textHeaderLight(text: element.header),
                                 ),
-                          textDescription(text: element.description.mianTopic),
-                          ...element.description.subTopic
-                              .map((data) => Column(
-                                    children: [
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          textDescription(text: "\u2022 "),
-                                          Expanded(
-                                            child: textDescription(
-                                              text: "$data",
-                                            ),
-                                          ),
-                                        ],
+                          textDescription(text: element.description.mainTopic),
+                          ...element.description.subTopics.map(
+                            (data) => Column(
+                              children: [
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    textDescription(text: "\u2022 "),
+                                    Expanded(
+                                      child: textDescription(
+                                        text: data,
                                       ),
-                                    ],
-                                  ))
-                              .toList(),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -78,8 +79,7 @@ class MedicalEducateDescScreen extends StatelessWidget {
                   /////// size box to make the appear
                   ///cuase the button when flotted it cover some texts,
                   textNormal(
-                    text:
-                        "اذا كنت تعاني من الاختناق عليك اطلب المساعدة من الطبيب الان ! ",
+                    text: tr("help_message"),
                     textColor: mainColor,
                   ),
                   SizedBox(
@@ -92,13 +92,13 @@ class MedicalEducateDescScreen extends StatelessWidget {
                 right: 0,
                 left: 0,
                 child: defaultButton(
-                  text: "أحجز موعد الان",
+                  text: tr("book_a_date_now"),
                   onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const InternetConnectivityWrapper(
+                      builder: (context) => InternetConnectivityWrapper(
                         child: DangerMeasureScreen(
-                          appbar: "مقياس الخطورة",
+                          appbar: tr("Severity_scale"),
                         ),
                       ),
                     ),

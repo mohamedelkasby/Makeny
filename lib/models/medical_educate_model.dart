@@ -1,144 +1,143 @@
+import 'package:easy_localization/easy_localization.dart';
+
 class MedicalEducateModel {
   final String image;
-  final String headLine;
-  final String shortDescription;
+  final String headLineKey;
+  final String shortDescriptionKey;
   final List<Topics> longDescription;
 
   MedicalEducateModel({
     required this.image,
-    required this.headLine,
-    required this.shortDescription,
+    required this.headLineKey,
+    required this.shortDescriptionKey,
     required this.longDescription,
   });
+
+// Dynamically translate the headline and short description
+  String get headLine => tr(headLineKey);
+  String get shortDescription => tr(shortDescriptionKey);
 }
 
 ///////// the topics inside the long description /////
 
 class Topics {
-  final String header;
+  final String headerKey;
   final SubTopics description;
 
   Topics({
-    required this.header,
+    required this.headerKey,
     required this.description,
   });
+
+  String get header => tr(headerKey);
 }
 
 /////////////// sub topic to dors
 class SubTopics {
-  final String mianTopic;
-  final List<String> subTopic;
+  final String mainTopicKey;
+  final List<String> subTopicKeys;
 
   SubTopics({
-    required this.mianTopic,
-    this.subTopic = const [],
+    required this.mainTopicKey,
+    this.subTopicKeys = const [],
   });
+  String get mainTopic => tr(mainTopicKey);
+  List<String> get subTopics => subTopicKeys.map((key) => tr(key)).toList();
 }
 
 MedicalEducateModel medicalEducate1 = MedicalEducateModel(
   image: "assets/medical_educate/heart_disease.png",
-  headLine: "حول امراض القلب",
-  shortDescription:
-      "ما هو مرض القب اليكم مرض القلب اعراضه وعوامل الخطر والعلاج",
+  headLineKey: "medicalEducate.ME_1.head_line_1",
+  shortDescriptionKey: "medicalEducate.ME_1.short_desc_1",
   longDescription: [
     Topics(
-      header: "ما هو مرض القلب",
+      headerKey: "medicalEducate.ME_1.head_1",
       description: SubTopics(
-        mianTopic:
-            'يشير مصطلح "مرض القلب" إلى عدة أنواع من أمراض القلب. وأكثر أنواع أمراض القلب شيوعًا في الولايات المتحدة هو مرض الشريان التاجي . يؤثر مرض الشريان التاجي على تدفق الدم إلى القلب. وقد يؤدي انخفاض تدفق الدم إلى الإصابة بنوبة قلبية',
+        mainTopicKey: "medicalEducate.ME_1.main_topic_1",
       ),
     ),
     Topics(
-      header: "اعراضه",
+      headerKey: "medicalEducate.ME_1.head_2",
       description: SubTopics(
-        mianTopic:
-            'في بعض الأحيان قد يكون مرض القلب "صامتًا" ولا يتم تشخيصه حتى يعاني الشخص من علامات أو أعراض نوبة قلبية أو قصور في القلب أو عدم انتظام ضربات القلب. عندما تحدث هذه الأحداث، قد تشمل الأعراض ما يلي: 1',
-        subTopic: [
-          " النوبة القلبية : ألم أو انزعاج في الصدر، ألم في أعلى الظهر أو الرقبة، حرقة المعدة، غثيان أو قيء، تعب شديد، دوار، وضيق في التنفس."
-              "قصور القلب : ضيق في التنفس، أو تعب، أو تورم القدمين، أو الكاحلين، أو الساقين، أو البطن، أو أوردة ",
-          " عدم انتظام ضربات القلب:شعور بالخفقان في الصدر (خفقان).",
-          "قصور القلب : ضيق في التنفس، أو تعب، أو تورم القدمين، أو الكاحلين، أو الساقين، أو البطن، أو أوردة "
+        mainTopicKey: "medicalEducate.ME_1.main_topic_2",
+        subTopicKeys: [
+          "medicalEducate.ME_1.sub_topics_2.sub_1",
+          "medicalEducate.ME_1.sub_topics_2.sub_2",
+          "medicalEducate.ME_1.sub_topics_2.sub_3",
+          "medicalEducate.ME_1.sub_topics_2.sub_4",
         ],
       ),
     ),
     Topics(
-      header: "عوامل الخطر",
+        headerKey: "medicalEducate.ME_1.head_3",
+        description: SubTopics(
+          mainTopicKey: "medicalEducate.ME_1.head_3.main_topic_3",
+        )),
+    Topics(
+      headerKey: "medicalEducate.ME_1.head_4",
       description: SubTopics(
-          mianTopic:
-              "ارتفاع ضغط الدم وارتفاع نسبة الكوليسترول في الدم والتدخين هي عوامل خطر رئيسية لأمراض القلب. يعاني حوالي نصف الأشخاص في الولايات المتحدة (47%) من أحد عوامل الخطر الثلاثة هذه على الأقل. يمكن للعديد من الحالات الطبية الأخرى واختيارات نمط الحياة أيضًا أن تعرض الأشخاص لخطر أعلى للإصابة بأمراض القلب، بما في ذلك."),
+        mainTopicKey: "medicalEducate.ME_1.main_topic_4",
+        subTopicKeys: [
+          "medicalEducate.ME_1.sub_topics_4.sub_1",
+          "medicalEducate.ME_1.sub_topics_4.sub_2",
+          "medicalEducate.ME_1.sub_topics_4.sub_3",
+          "medicalEducate.ME_1.sub_topics_4.sub_4",
+          "medicalEducate.ME_1.sub_topics_4.sub_5",
+        ],
+      ),
     ),
     Topics(
-      header: "العلاج والشفاء",
+      headerKey: "medicalEducate.ME_1.head_5",
       description: SubTopics(
-          mianTopic: """ما هو إعادة تأهيل القلب؟
-إعادة تأهيل القلب هو برنامج مهم لأي شخص يتعافى من نوبة قلبية. يمكن أن يشمل هذا أيضًا قصور القلب أو بعض أنواع جراحات القلب. إعادة تأهيل القلب هو برنامج خاضع للإشراف يتضمن""",
-          subTopic: [
-            "النشاط البدني",
-            "التثقيف حول الأكل الصحي",
-            "تناول الدواء حسب الوصفة الطبية",
-            "طرق تساعدك على الإقلاع عن التدخين",
-            "الاستشارة لإيجاد طرق لتخفيف التوتر وتحسين الصحة العقلية",
-          ]),
-    ),
-    Topics(
-      header: "",
-      description: SubTopics(
-          mianTopic:
-              "قد يساعدك فريق من الأشخاص في إعادة تأهيل القلب. وقد يشمل هذا",
-          subTopic: [
-            "فريق الرعاية الصحية الخاص بك",
-            "متخصصون في التمارين الرياضية والتغذية",
-            "العلاج الطبيعي",
-            "المستشارين أو المتخصصين في الصحة العقلية",
-          ]),
+        mainTopicKey: "medicalEducate.ME_1.main_topic_5",
+        subTopicKeys: [
+          "medicalEducate.ME_1.sub_topics_5.sub_1",
+          "medicalEducate.ME_1.sub_topics_5.sub_2",
+          "medicalEducate.ME_1.sub_topics_5.sub_3",
+          "medicalEducate.ME_1.sub_topics_5.sub_4",
+        ],
+      ),
     ),
   ],
 );
 
 MedicalEducateModel medicalEducate2 = MedicalEducateModel(
   image: "assets/medical_educate/heart_attack_secure.png",
-  headLine: "الوقاية من الامراض القلبية ؟",
-  shortDescription: "تغييرات في نمط الحياة للوقاية من النوبات القلبية",
+  headLineKey: "medicalEducate.ME_2.head_line_1",
+  shortDescriptionKey: "medicalEducate.ME_2.short_desc_1",
   longDescription: [
     Topics(
-        header: "حلول للنوبات القلبية",
+        headerKey: "medicalEducate.ME_2.head_1",
         description: SubTopics(
-          mianTopic:
-              "إن أسلوب حياتك هو أفضل وسيلة دفاع ضد أمراض القلب والسكتة الدماغية. باتباع هذه الخطوات البسيطة",
+          mainTopicKey: "medicalEducate.ME_2.main_topic_1",
         )),
     Topics(
-      header: "توقف عن التدخين",
+      headerKey: "medicalEducate.ME_2.head_2",
       description: SubTopics(
-        mianTopic:
-            "إذا كنت تدخن، فأقلع عن التدخين. وإذا كان أحد أفراد أسرتك يدخن، فشجعه على الإقلاع عن التدخين. نحن نعلم أن الأمر صعب. ولكن التعافي من نوبة قلبية أو سكتة دماغية أو العيش مع مرض القلب المزمن أصعب. التزم بالإقلاع عن التدخين. نحن هنا لمساعدتك إذا كنت في حاجة إلى ذلك.",
+        mainTopicKey: "medicalEducate.ME_2.main_topic_2",
       ),
     ),
     Topics(
-        header: "اختر التغذية الجيدة",
-        description: SubTopics(
-          mianTopic:
-              "إن اتباع نظام غذائي صحي هو أحد أفضل الأسلحة التي يمكنك استخدامها لمحاربة أمراض القلب. فالطعام الذي تتناوله (وكميته) يمكن أن يؤثر على عوامل الخطر الأخرى التي يمكن التحكم فيها: الكولسترول، وضغط الدم، ومستويات الجلوكوز والوزن. اختر الأطعمة الغنية بالعناصر الغذائية - والتي تحتوي على الفيتامينات والمعادن والألياف وغيرها من العناصر الغذائية ولكنها أقل في السعرات الحرارية - بدلاً من الأطعمة الفقيرة بالعناصر الغذائية. اختر نظامًا غذائيًا صحيًا غنيًا بالخضروات والفواكه والحبوب الكاملة. واشتمل على منتجات الألبان قليلة الدسم، والدواجن منزوعة الجلد، والأسماك، والبقوليات، والزيوت النباتية غير الاستوائية والمكسرات. وحد من تناولك للدهون المشبعة والدهون المتحولة، واللحوم الحمراء والمصنعة، والسكريات المضافة، والمشروبات المحلاة بالسكر والصوديوم. وللحفاظ على وزن صحي، نسق نظامك الغذائي مع مستوى نشاطك البدني حتى تتمكن من استهلاك أكبر عدد ممكن من السعرات الحرارية التي تتناولها.",
-        ))
+      headerKey: "medicalEducate.ME_2.head_3",
+      description: SubTopics(mainTopicKey: "medicalEducate.ME_2.main_topic_3"),
+    )
   ],
 );
 MedicalEducateModel medicalEducate3 = MedicalEducateModel(
   image: "assets/medical_educate/heart_Attack.png",
-  headLine: "حول امراض القلب",
-  shortDescription:
-      "ما هو مرض القب اليكم مرض القلب اعراضه وعوامل الخطر والعلاج",
+  headLineKey: "medicalEducate.ME_3.head_line_1",
+  shortDescriptionKey: "medicalEducate.ME_3.short_desc_1",
   longDescription: [
     Topics(
-        header: "الوقاية من أمراض القلب",
+        headerKey: "medicalEducate.ME_3.head_1",
         description: SubTopics(
-            mianTopic:
-                "يمكنك فعل الكثير لمنع أو تأخير الإصابة بأمراض القلب. يمكنك البدء بتغيير ما تأكله وممارسة المزيد من النشاط البدني. كما أن تجنب منتجات التبغ والحد من تناول الكحوليات يساعد أيضًا. إن إجراء تغييرات صغيرة على حياتك اليومية يمكن أن يؤدي إلى تحسين صحة قلبك. تحدث مع مقدم الرعاية الصحية الخاص بك حول خطة تناسبك.")),
+          mainTopicKey: "medicalEducate.ME_3.main_topic_1",
+        )),
     Topics(
-      header: "كيف يمكن الوقاية من أمراض القلب؟",
-      description: SubTopics(
-          mianTopic:
-              """هناك العديد من الأشياء التي يمكنك القيام بها للوقاية من أمراض القلب. بعضها يتضمن تغييرات يمكنك إجراؤها في حياتك اليومية. وفي بعض الحالات، قد تحتاج إلى تناول الأدوية أيضًا.
- تقدم القائمة أدناه تغييرات في نمط الحياة يمكن أن تساعدك على الوقاية من أمراض القلب أو تأخير ظهوره"""),
-    )
+        headerKey: "medicalEducate.ME_3.head_2",
+        description: SubTopics(
+          mainTopicKey: "medicalEducate.ME_3.main_topic_2",
+        ))
   ],
 );
 List<MedicalEducateModel> medicalEducateList = [

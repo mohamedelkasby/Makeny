@@ -268,7 +268,7 @@ class _PatientHomePageState extends State<PatientHomePage>
               shrinkWrap: true,
               crossAxisCount: 3, // 3 columns
               children: List.generate(
-                8,
+                7,
                 (index) {
                   return Container(
                     padding: EdgeInsets.zero,
@@ -327,10 +327,12 @@ class _PatientHomePageState extends State<PatientHomePage>
                                   child: Text(
                                     GridModelList[index].title,
                                     style: TextStyle(
-                                      fontSize: GridModelList[index].title ==
-                                              "المساعد الذكي"
-                                          ? 14
-                                          : 15,
+                                      fontSize:
+                                          // GridModelList[index].title ==
+                                          //         "المساعد الذكي"
+                                          //     ? 14
+                                          //     :
+                                          15,
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),

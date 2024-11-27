@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -150,9 +151,9 @@ class _ImagePreviewState extends State<ImagePreview> {
                         Navigator.pop(context);
                         pickImage();
                       },
-                      child: const Text(
-                        'تغير الصورة',
-                        style: TextStyle(
+                      child: Text(
+                        tr("change_photo"),
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 23,
                           fontWeight: FontWeight.w600,

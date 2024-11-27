@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/widgets/center_img.dart';
@@ -11,7 +12,7 @@ class MedicalFile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: defaultAppbar(context, title: "الملف الطبي"),
+      appBar: defaultAppbar(context, title: tr("accountPage.my_medical_file")),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
@@ -24,31 +25,31 @@ class MedicalFile extends StatelessWidget {
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                child: textHeadLine(text: "البيانات الاساسية"),
+                child: textHeadLine(text: tr("medicalFile.basic_data")),
               ),
             ),
             usersData(
-              textType: " إسم المريض",
+              textType: tr("medicalFile.patient_name"),
               seperator: ":",
               textData: " علي محمد",
             ),
             usersData(
-              textType: "العمر",
+              textType: tr("accountPage.age"),
               seperator: ":",
               textData: "٥٠",
             ),
             usersData(
-              textType: "رقم الملف",
+              textType: tr("medicalFile.file_number"),
               seperator: ":",
               textData: "٤٤٣٩٣٠",
             ),
             usersData(
-              textType: "الجنسيه",
+              textType: tr("medicalFile.nationality"),
               seperator: ":",
               textData: "سعودي",
             ),
             usersData(
-                textType: "تاريخ الدخول ",
+                textType: tr("medicalFile.entry_date"),
                 seperator: ":",
                 textData: "٢١ فبراير ٢٠٢٤"),
             Container(
@@ -57,7 +58,7 @@ class MedicalFile extends StatelessWidget {
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                child: textHeadLine(text: "التشخيص"),
+                child: textHeadLine(text: tr("medicalFile.Diagnosis")),
               ),
             ),
             Text(
@@ -70,33 +71,29 @@ class MedicalFile extends StatelessWidget {
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                child: textHeadLine(text: "المؤشرات  الجسمانية "),
+                child:
+                    textHeadLine(text: tr("medicalFile.Physical_indicators")),
               ),
             ),
             usersData(
-              textType: "المؤشرات الجسمية",
+              textType: tr("medicalFile.Physical_indicators"),
               seperator: ":",
               textData: "",
             ),
             usersData(
-              textType: "الطول",
+              textType: tr("accountPage.tall"),
               seperator: ":",
-              textData: "",
+              textData: "167 ${tr("calculates.cm")}",
             ),
             usersData(
-              textType: "الطول ",
+              textType: tr("accountPage.wight"),
               seperator: ":",
-              textData: "١٦٧ سم",
+              textData: "97 ${tr("calculates.kg")}",
             ),
             usersData(
-              textType: "الوزن",
+              textType: tr("medicalFile.Body_mass"),
               seperator: ":",
-              textData: "٩٧ كجم",
-            ),
-            usersData(
-              textType: "كتله الجسم",
-              seperator: ":",
-              textData: " ٣٤ كجم/م٢ ",
+              textData: "34 ${tr("calculates.kg/m2")}",
             ),
           ],
         ),

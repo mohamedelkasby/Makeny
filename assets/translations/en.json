@@ -5,7 +5,8 @@
     "home": "Home",
     "account": "account",
     "notification": "notification",
-    "reserve a date": "reserve a date",
+    "book_a_date": "Book a date",
+    "book_a_date_now": "Book a date now",
     "signPage": {
         "sign_in": "Sign In",
         "sign_up": "sign up",
@@ -15,6 +16,7 @@
         "sign_up_now": "sign up now",
         "login": "Login"
     },
+    "change_photo": "change photo",
     "accountPage": {
         "personla_profile": "personla profile",
         "name": "name",
@@ -46,12 +48,46 @@
         "master": "master",
         "doctorate": "doctorate",
         "my_medical_file": "my medical file",
-        "medical_knoladge": "medical knoladge",
+        "medical_education": "medical education",
         "our_services": "our services",
         "about_makeny": "about makeny",
         "translate": "change to arabic",
         "language": "language",
         "sign_out": "sign out"
+    },
+    "medicalFile": {
+        "basic_data": "basic data",
+        "patient_name": "patient name",
+        "file_number": "file number",
+        "nationality": "nationality",
+        "entry_date": "entry date",
+        "Diagnosis": "Diagnosis",
+        "Physical_indicators": "Physical indicators",
+        "Body_mass": "body mass"
+    },
+    "our_services": {
+        "Sr_1": {
+            "header": "Makeny for Heart Health",
+            "data_1": "This is a test",
+            "data_2": "This is another test"
+        },
+        "Sr_2": {
+            "header": "Makeny for Women's Heart Health",
+            "data_1": "Women with heart disease are more likely to experience a decline in their quality of life compared to men due to a lack of health education about the nature of the disease and the absence of an environment conducive to psychological, social, and emotional support.",
+            "data_2": "The Makeny program provides women in our community who are suffering from heart disease access to holistic medical support during their recovery journey, aiming to enhance their quality of life and achieve optimal health recovery."
+        },
+        "Sr_3": {
+            "header": "Makeny for Heart Failure Patients",
+            "data_1": "Heart failure patients suffer from an inability to perform physical activities and tolerate physical exertion, muscle weakness, shortness of breath, cognitive and perceptual dysfunction, sleep problems and difficulties, fatigue, and exhaustion—all of which negatively affect their quality of life.",
+            "data_2": "These symptoms make patients physically inactive, fearing that physical activity might worsen their symptoms, which contributes to a worsening of their condition.",
+            "data_3": "At Makeny, we provide cardiac rehabilitation services for heart failure patients. This includes evaluating the patient's health, physical, psychological, and social condition. Based on the medical evaluation, we design a treatment program where the patient is the center of the plan, tailored to their goals and aspirations.",
+            "data_4": "We ensure that the program focuses on educating the patient and increasing awareness of risk factors and how to manage them. We also prioritize psychological and social aspects and provide support for them."
+        },
+        "Sr_4": {
+            "header": "Makeny for My Health in My Fitness",
+            "data_1": "The 'My Health in My Fitness' program is designed for individuals at risk of heart disease due to the presence of heart-threatening risk factors such as smoking, high blood pressure, elevated cholesterol and harmful triglycerides, diabetes, and physical inactivity.",
+            "data_2": "This program helps individuals manage risk factors by creating a personalized, comprehensive plan that includes therapeutic exercises, a healthy diet, and education on heart disease and ways to reduce risks. Through this program, periodic monitoring is conducted to track medical treatment and improvements in cardiorespiratory fitness, adjusting the treatment plan as needed."
+        }
     },
     "patientHome": {
         "morning": "morning"
@@ -59,12 +95,66 @@
     "calculates": {
         "cm": "cm",
         "kg": "kg",
+        "kg/m2": "kg/m2",
         "years_old": "years_old"
     },
     "closeDialog": {
         "do_you_want_sign_out": "Do you want to sign out",
         "yes_sign_out": "Yes, sign out",
         "no_stay": "No, stay"
+    },
+    "medicalEducate": {
+        "ME_1": {
+            "head_line_1": "About heart disease",
+            "short_desc_1": "What is heart disease? Here is heart disease, its symptoms, risk factors and treatment.",
+            "head_1": "What is heart disease",
+            "main_topic_1": "The term “heart disease” refers to several types of heart disease. The most common type of heart disease in the United States is coronary artery disease. Coronary artery disease affects the blood flow to the heart. Reduced blood flow can lead to a heart attack.",
+            "head_2": "Its symptoms",
+            "main_topic_2": "Sometimes heart disease can be “silent” and not diagnosed until a person has signs or symptoms of a heart attack, heart failure, or an irregular heartbeat. When these events occur, symptoms may include: 1",
+            "sub_topics_2": {
+                "sub_1": "Heart attack: chest pain or discomfort, upper back or neck pain, heartburn, nausea or vomiting, extreme tiredness, dizziness, and shortness of breath.",
+                "sub_2": "Heart failure: shortness of breath, fatigue, or swelling of the feet, ankles, legs, abdomen, or veins",
+                "sub_3": "Arrhythmia: A feeling of fluttering in the chest (palpitations).",
+                "sub_4": "Heart failure: shortness of breath, fatigue, or swelling of the feet, ankles, legs, abdomen, or veins"
+            },
+            "head_3": "Risk factors",
+            "main_topic_3": "High blood pressure, high cholesterol, and smoking are major risk factors for heart disease. About half of people in the United States (47%) have at least one of these three risk factors. Many other medical conditions and lifestyle choices can also put people at higher risk for heart disease, including.",
+            "head_4": "Treatment and recovery",
+            "main_topic_4": "What is cardiac rehabilitation?\n Cardiac rehabilitation is an important program for anyone recovering from a heart attack. This can also include heart failure or some types of heart surgery. Cardiac rehabilitation is a supervised program that includes",
+            "sub_topics_4": {
+                "sub_1": "Physical activity",
+                "sub_2": "Healthy Eating Education",
+                "sub_3": "Take the medicine as prescribed.",
+                "sub_4": "Ways to help you quit smoking",
+                "sub_5": "Counseling to find ways to relieve stress and improve mental health"
+            },
+            "head_5": "",
+            "main_topic_5": "A team of people may help you with cardiac rehabilitation. This may include:",
+            "sub_topics_5": {
+                "sub_1": "Your healthcare team",
+                "sub_2": "Specialists in exercise and nutrition",
+                "sub_3": "Physiotherapy",
+                "sub_4": "Counselors or mental health professionals"
+            }
+        },
+        "ME_2": {
+            "head_line_1": "Preventing Heart Disease?",
+            "short_desc_1": "Lifestyle changes to prevent heart attacks",
+            "head_1": "Solutions for Heart Attacks",
+            "main_topic_1": "Your lifestyle is your best defense against heart disease and stroke. By following these simple steps...",
+            "head_2": "Quit Smoking",
+            "main_topic_2": "If you smoke, quit. And if someone in your family smokes, encourage them to quit. We know it's hard. But recovering from a heart attack or stroke, or living with chronic heart disease, is harder. Commit to quitting. We're here to help if you need it.",
+            "head_3": "Choose a Healthy Diet",
+            "main_topic_3": "A healthy diet is one of the best weapons you can use to fight heart disease. The food you eat (and how much) can affect other controllable risk factors: cholesterol, blood pressure, glucose levels, and weight. Choose nutrient-dense foods — those that are high in vitamins, minerals, fiber, and other nutrients but lower in calories — over nutrient-poor foods. Choose a healthy diet rich in vegetables, fruits, and whole grains. Include low-fat dairy products, skinless poultry, fish, legumes, and non-tropical plant oils and nuts. Limit your intake of saturated and trans fats, red and processed meats, added sugars, sugar-sweetened beverages, and sodium. To maintain a healthy 1  weight, balance your diet with your physical activity level so you can burn off as many calories as you consume."
+        },
+        "ME_3": {
+            "head_line_1": "About Heart Disease",
+            "short_desc_1": "What is heart disease? Its symptoms, risk factors, and treatment",
+            "head_1": "Preventing Heart Disease",
+            "main_topic_1": "You can do a lot to prevent or delay heart disease. You can start by changing what you eat and getting more physical activity. Avoiding tobacco products and limiting alcohol also help. Making small changes to your daily life can lead to a healthier heart. Talk to your healthcare provider about a plan that's right for you.",
+            "head_2": "How can heart disease be prevented?",
+            "main_topic_2": "There are many things you can do to prevent heart disease. Some involve changes you can make in your daily life. In some cases, you may also need to take medications.\nThe list below provides lifestyle changes that can help you prevent or delay heart disease."
+        }
     },
     "error": {
         "no_user_date_found": "no user date found",
@@ -77,6 +167,8 @@
         "account_not_found": "Account not found. Please sign up first.",
         "problem_try_later": "An error occurred. Please try again."
     },
+    "help_message": "If you are suffering from suffocation, seek help from a doctor now !",
+    "Severity_scale": "Severity scale",
     "please_choose": "please choose a",
     "please_enter": "please enter the",
     "save": "save"

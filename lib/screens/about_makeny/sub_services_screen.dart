@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:makeny/models/medical_educate_model.dart';
 import 'package:makeny/models/services_model.dart';
@@ -8,16 +9,16 @@ import 'package:makeny/widgets/defualt_appbar.dart';
 
 class SubServicesScreen extends StatelessWidget {
   const SubServicesScreen({super.key, required this.dataModel});
-  final ServiceModle dataModel;
+  final ServiceModel dataModel;
   @override
   Widget build(BuildContext context) {
     SubTopics bodyData = SubTopics(
-      mianTopic: dataModel.header,
-      subTopic: dataModel.dataList,
+      mainTopicKey: dataModel.header,
+      subTopicKeys: dataModel.dataList,
     );
     return SafeArea(
       child: Scaffold(
-        appBar: defaultAppbar(context, title: "خداماتنا"),
+        appBar: defaultAppbar(context, title: tr("accountPage.our_services")),
         body: Padding(
           padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
           child: Column(
@@ -29,8 +30,8 @@ class SubServicesScreen extends StatelessWidget {
                     centerImge(
                       img: dataModel.img,
                     ),
-                    textHeadLine(text: bodyData.mianTopic),
-                    ...bodyData.subTopic.map(
+                    textHeadLine(text: bodyData.mainTopic),
+                    ...bodyData.subTopicKeys.map(
                       (x) => Text(
                         x,
                         style: TextStyle(height: 2),
