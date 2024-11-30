@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:makeny/screens/next_test_screen.dart';
 import 'package:makeny/widgets/buttons.dart';
@@ -35,13 +36,13 @@ class _MultidimensionalDyspneaScaleScreenState
   @override
   Widget build(BuildContext context) {
     List<String> greenText = [
-      "يرجي وضع علامة على مجموعة واحدة تصف بدقة كيف تشعر أو شعرت خلال التنفس.",
-      "لقد قمت بختيار هذا المجموعة حيث انها اكثر واحدة تصف بدقة كيف تشعر خلال تنفسك ",
-      "عندما يكون تنفسك غير طبيعي قد تواجه بعض المشاعر أو العواطف، وباستخدام المقياس أدناه يرجي تزودينا بالمشاعر التي شعرت بها خلال تنفسك ويمكنك استخدام القيمة - صفر- عندما ترى أن المشاعر لا تنطبق عليك.",
+      tr("multidimensional_DyspneaScale.green_text.text_1"),
+      tr("multidimensional_DyspneaScale.green_text.text_2"),
+      tr("multidimensional_DyspneaScale.green_text.text_3"),
     ];
     List<String> normalText = [
-      "إذا انطبق عليك أيّ مصطلح في المجموعة، اختر تلك المجموعة.",
-      "الان استخدام هذه المقاييس لتقييم ما مدي  شدة الاحساس بالتنفس التي تشعر أو شعرت  بها",
+      tr("multidimensional_DyspneaScale.normal_text.text_1"),
+      tr("multidimensional_DyspneaScale.normal_text.text_2"),
       ""
     ];
     return Scaffold(
@@ -68,11 +69,11 @@ class _MultidimensionalDyspneaScaleScreenState
                     ? LongOneAnswerCheck(
                         questionText: "",
                         answers: [
-                          "يشق عليّ التنفس ويتطلب مني جهدًا عضليًا.",
-                          "لا أحصل على كمية كافية من الهواء وأشعر بالاختناق أو أشعر بالحاجة إلى الهواء.",
-                          "أشعر بالضيق أو الانقباض في صدري.",
-                          "يتطلب تنفسي جهدًا ذهنيًا أو تركيزًا.",
-                          "أتنفس كثيرًا.",
+                          tr("tests.choose_one_qustions.test_6.answers.text_1"),
+                          tr("tests.choose_one_qustions.test_6.answers.text_2"),
+                          tr("tests.choose_one_qustions.test_6.answers.text_3"),
+                          tr("tests.choose_one_qustions.test_6.answers.text_4"),
+                          tr("tests.choose_one_qustions.test_6.answers.text_5"),
                         ],
                         ///// on answer sellected.
                         onAnswerSelected: (String answer) {
@@ -96,7 +97,7 @@ class _MultidimensionalDyspneaScaleScreenState
               bottom: 0,
               child: bodyIndex < 2
                   ? defaultButton(
-                      text: "استمرار",
+                      text: tr("continue"),
                       onTap: selectedAnswer != null
                           ? () {
                               setState(() {
@@ -106,7 +107,7 @@ class _MultidimensionalDyspneaScaleScreenState
                           : null,
                     )
                   : defaultButton(
-                      text: "التالى",
+                      text: tr("next"),
                       onTap: () {
                         //TODO: navigate to حجز موعد
                         Navigator.pushReplacement(

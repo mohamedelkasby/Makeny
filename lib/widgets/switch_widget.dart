@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 import 'package:makeny/widgets/danger_measure_tests/test_num1.dart';
@@ -29,8 +30,8 @@ Widget switchPagesTest(
       return const TestNumber5();
     case 6:
       return const TestNumber6();
-    case 7:
-      return TestNumber1(yesOrNoQuestions: yesOrNoQuestions);
+    // case 7:
+    //   return TestNumber1(yesOrNoQuestions: yesOrNoQuestions);
     default:
       return const SizedBox();
   }
@@ -41,19 +42,19 @@ String switchAppbar({
 }) {
   switch (testNumber) {
     case 1:
-      return "خطورة الاصابة بالرجفان الاذني والجلطة الدماغية";
+      return tr("tests.appbar.number_1");
     case 2:
-      return "خطورة الاختناق";
+      return tr("tests.appbar.number_2");
     case 3:
-      return "ضيق التنفس";
+      return tr("tests.appbar.number_3");
     case 4:
-      return "مقياس اعتلال عضلة القلب";
+      return tr("tests.appbar.number_4");
     case 5:
-      return "مقياس ضيق التنفس متعدد الابعاد";
+      return tr("tests.appbar.number_5");
     case 6:
-      return "استبانة سياتل للذبحة الصدرية";
+      return tr("tests.appbar.number_6");
     case 7:
-      return "حجز موعد";
+      return tr("tests.appbar.number_7");
 
     default:
       return "";
@@ -113,43 +114,43 @@ List<String> switchNextTestListText({
   switch (testNumber) {
     case 1:
       return [
-        "احسنت",
-        "الانتقال للاختبار التالي",
+        tr("tests.next_page.number_1.top_line"),
+        tr("tests.next_page.number_1.bottom_line"),
       ];
     case 2:
       return [
-        "احسنت لقد اتممت نصف الاختبار!",
-        "جارٍ تحليل اجاباتك وتحضير الاختبار التالي...",
+        tr("tests.next_page.number_2.top_line"),
+        tr("tests.next_page.number_2.bottom_line"),
       ];
     case 3:
       return [
-        "احسنت",
-        "الانتقال للاختبار التالي",
+        tr("tests.next_page.number_1.top_line"),
+        tr("tests.next_page.number_1.bottom_line"),
       ];
     case 4:
       return [
-        "التالي مقياس اعتلال عضلة القلب",
+        tr("tests.next_page.number_4.top_line"),
         "",
       ];
     case 5:
       return [
-        "مقياس ضيق التنفس متعدد الابعاد",
+        tr("tests.next_page.number_5.top_line"),
         "",
       ];
     case 6:
       return [
-        "استبانة سياتل للذبحة الصدرية",
-        "اخر اختبار",
+        tr("tests.next_page.number_6.top_line"),
+        tr("tests.next_page.number_6.bottom_line"),
       ];
     case 7:
       return [
-        "تم تحليل اجابتك وارسالها للطبيب",
-        "الرجاء حجز موعد الاستشارة",
+        tr("tests.next_page.number_7.top_line"),
+        tr("tests.next_page.number_7.bottom_line"),
       ];
     default:
       return [
-        "الذكاء الاصطناعي",
-        "يقوم بتحليل بياناتك الان",
+        tr("tests.next_page.number_default.top_line"),
+        tr("tests.next_page.number_default.bottom_line"),
       ];
   }
 }
@@ -160,15 +161,17 @@ Widget switchQualityOfLifePage(testNumber) {
       return Column(
         children: [
           greenNote(
-              text: "يرجي تحديد اختيار واحد يصف افضل صورة لحالتك الصحية اليوم"),
+            text: tr("tests.green_note_QualityOfLife.test_1"),
+          ),
           LongOneAnswerCheck(
-            questionText: "القدرة علي الحركة",
+            questionText:
+                tr("tests.choose_one_qustions.test_1.question_number_1"),
             answers: [
-              "ليس   لدي أي مشاكل أثناء المشي",
-              "أعاني من مشاكل طفيفة عند المشي",
-              "أعاني   من مشاكل متوسطة عند المشي",
-              "أعاني من مشاكل حادة عند المشي",
-              "ليس   لدي القدرة على المشي",
+              tr("tests.choose_one_qustions.test_1.answers.text_1"),
+              tr("tests.choose_one_qustions.test_1.answers.text_2"),
+              tr("tests.choose_one_qustions.test_1.answers.text_3"),
+              tr("tests.choose_one_qustions.test_1.answers.text_4"),
+              tr("tests.choose_one_qustions.test_1.answers.text_5"),
             ],
             onAnswerSelected: (_) {},
           ),
@@ -176,50 +179,49 @@ Widget switchQualityOfLifePage(testNumber) {
       );
     case 2:
       return LongOneAnswerCheck(
-        questionText: "القدرة علي العناية الشخصية ",
+        questionText: tr("tests.choose_one_qustions.test_2.question_number_1"),
         answers: [
-          "ليس   لدي أي مشاكل عند الاستحمام أو ارتداء ملابسي بنفسي",
-          "أعاني من مشاكل طفيفة عند الاستحمام أو ارتداء الملابس   بنفسي",
-          "أعاني   من مشاكل متوسطة عند الاستحمام أو ارتداء الملابس بنفسي",
-          "أعاني من مشاكل حادة عند الاستحمام أو ارتداء الملابس   بنفسي",
-          "ليس   لدي القدرة على الاستحمام أو ارتداء الملابس بنفسي",
+          tr("tests.choose_one_qustions.test_2.answers.text_1"),
+          tr("tests.choose_one_qustions.test_2.answers.text_2"),
+          tr("tests.choose_one_qustions.test_2.answers.text_3"),
+          tr("tests.choose_one_qustions.test_2.answers.text_4"),
+          tr("tests.choose_one_qustions.test_2.answers.text_5"),
         ],
         onAnswerSelected: (_) {},
       );
     case 3:
       return LongOneAnswerCheck(
-        questionText:
-            "الأنشطة المعتادة (مثل العمل، الدراسة، الأعمال المنزلية، الأنشطة الأسرية أو الترفيهية ",
+        questionText: tr("tests.choose_one_qustions.test_3.question_number_1"),
         answers: [
-          "ليس   لدي أي مشاكل في ممارسة نشاطاتي المعتادة",
-          "أعاني من مشاكل طفيفة عند الاستحمام أو ارتداء الملابس   بنفسي",
-          "أعاني   من مشاكل متوسطة عند الاستحمام أو ارتداء الملابس بنفسي",
-          "أعاني من مشاكل حادة عند الاستحمام أو ارتداء الملابس   بنفسي",
-          "ليس   لدي القدرة على الاستحمام أو ارتداء الملابس بنفسي",
+          tr("tests.choose_one_qustions.test_3.answers.text_1"),
+          tr("tests.choose_one_qustions.test_3.answers.text_2"),
+          tr("tests.choose_one_qustions.test_3.answers.text_3"),
+          tr("tests.choose_one_qustions.test_3.answers.text_4"),
+          tr("tests.choose_one_qustions.test_3.answers.text_5"),
         ],
         onAnswerSelected: (_) {},
       );
     case 4:
       return LongOneAnswerCheck(
-        questionText: "الألم /   الإحساس بعدم الراحة",
+        questionText: tr("tests.choose_one_qustions.test_4.question_number_1"),
         answers: [
-          "لا   أشعر بأي ألم أو بعدم الراحة",
-          "أشعر بدرجة طفيفة من الألم أو   عدم الراحة",
-          "أشعر   بدرجة متوسطة من الألم أو عدم الراحة",
-          "أشعر بدرجة شديدة من الألم أو   عدم الراحة",
-          "أشعر   بدرجة شديدة جداً من الألم أو عدم الراحة",
+          tr("tests.choose_one_qustions.test_4.answers.text_1"),
+          tr("tests.choose_one_qustions.test_4.answers.text_2"),
+          tr("tests.choose_one_qustions.test_4.answers.text_3"),
+          tr("tests.choose_one_qustions.test_4.answers.text_4"),
+          tr("tests.choose_one_qustions.test_4.answers.text_5"),
         ],
         onAnswerSelected: (_) {},
       );
     case 5:
       return LongOneAnswerCheck(
-        questionText: "القلق / الاكتئاب",
+        questionText: tr("tests.choose_one_qustions.test_5.question_number_1"),
         answers: [
-          "لا   أعاني أي قلق أو إكتئاب",
-          "أعاني درجة طفيفة من القلق أو الإكتئاب",
-          "أعاني   درجة متوسطة من القلق أو الإكتئاب",
-          "أعاني   درجة شديدة من القلق أو الإكتئاب",
-          "أفضل     حالة صحية يمكن تخيلها",
+          tr("tests.choose_one_qustions.test_5.answers.text_1"),
+          tr("tests.choose_one_qustions.test_5.answers.text_2"),
+          tr("tests.choose_one_qustions.test_5.answers.text_3"),
+          tr("tests.choose_one_qustions.test_5.answers.text_4"),
+          tr("tests.choose_one_qustions.test_5.answers.text_5"),
         ],
         onAnswerSelected: (_) {},
       );
@@ -232,11 +234,10 @@ Widget switchQualityOfLifePage(testNumber) {
               top: 20,
               bottom: 10,
             ),
-            child: defalutQuestionText(text: "جودة حياتك"),
+            child: defalutQuestionText(text: tr("your_quality_of_life")),
           ),
           greenNote(
-            text:
-                "نود أن نعرف مدى سلامة حياتك الصحية,  هذا المقياس مدرج من   الرقم 0 حتى 100·   بحيث يشير الرقم 100 إلى أفضل   حالة صحية يمكن تخيلها والرقم صفر إلى اسوء حالة ",
+            text: tr("tests.green_note_QualityOfLife.test_6"),
           ),
           SizedBox(
             height: 120,

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:makeny/widgets/green_note.dart';
 import 'package:makeny/widgets/questions_type/grid_one_answer_check.dart';
@@ -26,134 +27,126 @@ class _TestNumber5State extends State<TestNumber5> {
 
   List<Questions> question = [
     Questions(
-      quation: "نشاط الاستحمام ؟",
+      quation: tr("test_5_page.choose_qustions.question_1"),
       answers: [
-        "لم اقم بهذا النشاط\n( 0 )",
-        "محدود بدرجة كبيرة\n( 4 ~1 )",
-        "محدود بشدة\n( 7 ~ 4 )",
-        "محدود بشكل متوسط\n( 10 ~ 7 )",
-        "محدود بشكل خفيف\n( 18 ~10 )",
+        "${tr("test_5_page.i_did_not_do_this_activity")}\n( 0 )",
+        "${tr("test_5_page.highly_limited")}\n( 4 ~1 )",
+        "${tr("test_5_page.severely_limited")}\n( 7 ~ 4 )",
+        "${tr("test_5_page.moderately_limited")}\n( 10 ~ 7 )",
+        "${tr("test_5_page.slightly_limited")}\n( 18 ~10 )",
       ],
     ),
     Questions(
-      quation: "المشي من مسافة 100 / 250 متر",
+      quation: tr("test_5_page.choose_qustions.question_2"),
       answers: [
-        "لم اقم بهذا النشاط\n( 0 )",
-        "محدود بدرجة كبيرة\n( 50 ~ 10 )",
-        "محدود بشدة\n( 100 ~ 50 )",
-        "محدود بشكل متوسط\n( 200 ~ 100 )",
-        "محدود بشكل خفيف\n( 250 ~200 )",
+        "${tr("test_5_page.i_did_not_do_this_activity")}\n( 0 )",
+        "${tr("test_5_page.highly_limited")}\n( 50 ~ 10 )",
+        "${tr("test_5_page.severely_limited")}\n( 100 ~ 50 )",
+        "${tr("test_5_page.moderately_limited")}\n( 200 ~ 100 )",
+        "${tr("test_5_page.slightly_limited")}\n( 250 ~200 )",
       ],
     ),
     Questions(
-      quation: "الهرولة او الاسراع (مثل الجري وراء حافلة )",
+      quation: tr("test_5_page.choose_qustions.question_3"),
       answers: [
-        "لم اقم بهذا النشاط\n( 0 )",
-        "محدود بدرجة كبيرة\n( 4 ~1 )",
-        "محدود بشدة\n( 7 ~ 4 )",
-        "محدود بشكل متوسط\n( 10 ~ 7 )",
-        "محدود بشكل خفيف\n( 18 ~10 )",
+        "${tr("test_5_page.i_did_not_do_this_activity")}\n( 0 )",
+        "${tr("test_5_page.highly_limited")}\n( 4 ~1 )",
+        "${tr("test_5_page.severely_limited")}\n( 7 ~ 4 )",
+        "${tr("test_5_page.moderately_limited")}\n( 10 ~ 7 )",
+        "${tr("test_5_page.slightly_limited")}\n( 18 ~10 )",
       ],
     ),
     Questions(
-      quation:
-          "كم مرة حدث تورم في قدميك او كاحليك  عند الاستيقاذ من النوم خلال الاسبوعين  ؟",
+      quation: tr("test_5_page.choose_qustions.question_4"),
       answers: [
-        "كل الاوقات",
-        "3 مرات او اكثر في الاسبوع",
-        "مرة واحدة او مرتين في الاسبوع",
-        "اقل من  مرة في الاسبوع",
-        "لم يحدث اطلاقا خلال الاسبوعين",
+        tr("test_5_page.all_the_time"),
+        tr("test_5_page.3_or_more_times_a_week"),
+        tr("test_5_page.once_or_twice_a_week"),
+        tr("test_5_page.less_than_once_a_week"),
+        tr("test_5_page.no_occurrence_past_two_weeks"),
       ],
     ),
     Questions(
-      quation:
-          "كم مرة اثر فيها ضيق التنفس علي قدرتك بالقيام بما تود القيام به خلال الاسبوعين  ؟",
+      quation: tr("test_5_page.choose_qustions.question_5"),
       answers: [
-        "كل الاوقات",
-        "3 مرات او اكثر في الاسبوع",
-        "مرة واحدة او مرتين في الاسبوع",
-        "اقل من  مرة في الاسبوع",
-        "لم يحدث اطلاقا خلال الاسبوعين",
+        tr("test_5_page.all_the_time"),
+        tr("test_5_page.3_or_more_times_a_week"),
+        tr("test_5_page.once_or_twice_a_week"),
+        tr("test_5_page.less_than_once_a_week"),
+        tr("test_5_page.no_occurrence_past_two_weeks"),
       ],
     ),
     Questions(
-      quation:
-          "كم مرة اثر فيها الاجهاد الشديد  علي قدرتك بالقيام بما تود القيام به خلال الاسبوعين  ؟",
+      quation: tr("test_5_page.choose_qustions.question_6"),
       answers: [
-        "لم اقم بهذا النشاط\n( 0 )",
-        "محدود بدرجة كبيرة\n( 4 ~1 )",
-        "محدود بشدة\n( 7 ~ 4 )",
-        "محدود بشكل متوسط\n( 10 ~ 7 )",
-        "محدود بشكل خفيف\n( 18 ~10 )",
+        "${tr("test_5_page.i_did_not_do_this_activity")}\n( 0 )",
+        "${tr("test_5_page.highly_limited")}\n( 4 ~1 )",
+        "${tr("test_5_page.severely_limited")}\n( 7 ~ 4 )",
+        "${tr("test_5_page.moderately_limited")}\n( 10 ~ 7 )",
+        "${tr("test_5_page.slightly_limited")}\n( 18 ~10 )",
       ],
     ),
     Questions(
-      quation:
-          "كم مرة اضطررت الي النوم جالسا علي كرسي او مسند علي ثلاث وسائد علي الاقل لدعمك بسبب ضيق التنفس   ؟",
+      quation: tr("test_5_page.choose_qustions.question_7"),
       answers: [
-        "لم اقم بهذا النشاط\n( 0 )",
-        "محدود بدرجة كبيرة\n( 4 ~1 )",
-        "محدود بشدة\n( 7 ~ 4 )",
-        "محدود بشكل متوسط\n( 10 ~ 7 )",
-        "محدود بشكل خفيف\n( 18 ~10 )",
+        "${tr("test_5_page.i_did_not_do_this_activity")}\n( 0 )",
+        "${tr("test_5_page.highly_limited")}\n( 4 ~1 )",
+        "${tr("test_5_page.severely_limited")}\n( 7 ~ 4 )",
+        "${tr("test_5_page.moderately_limited")}\n( 10 ~ 7 )",
+        "${tr("test_5_page.slightly_limited")}\n( 18 ~10 )",
       ],
     ),
     Questions(
-      quation: "الي اي مدي قلل قصور عضلة القلب من استمتاعك بالحياة ؟",
+      quation: tr("test_5_page.choose_qustions.question_8"),
       answers: [
-        "قلل بدرجة كبيره جدا",
-        "قلل بدرجة كبيره",
-        "قلل بدرجة متوسطة",
-        "قلل بدرجة خفيفة",
-        "لم يقلل علي الاطلاق",
+        tr("test_5_page.decrease_very_high"),
+        tr("test_5_page.decrease_high"),
+        tr("test_5_page.decrease_medium"),
+        tr("test_5_page.decrease_low"),
+        tr("test_5_page.decrease_none"),
       ],
     ),
     Questions(
-      quation:
-          "اذا كان عليك ان تقضي بقية حياتك وانت تعاني من قصور عضلة القلب كما هو الان كيف سيكون شعورك حيال ذالك ؟",
+      quation: tr("test_5_page.choose_qustions.question_9"),
       answers: [
-        "غير راضي تماما",
-        "غير راضي تماما في الغالب",
-        "راضي الي حد ما",
-        "راضي في الغالب",
-        "راضي تماما",
+        tr("test_5_page.decrease_very_high"),
+        tr("test_5_page.decrease_high"),
+        tr("test_5_page.decrease_medium"),
+        tr("test_5_page.decrease_low"),
+        tr("test_5_page.decrease_none"),
       ],
     ),
     Questions(
-      quation:
-          "كيف يوثر قصور عضلة القلب علي نمط حياتك وقلل نشاطك في الهوايات والانشطة الترفيهية خلال الاسبوعين الماضيين ؟",
+      quation: tr("test_5_page.choose_qustions.question_10"),
       answers: [
-        "مقيد بشدة",
-        "مقيد بدرجة كبيرة",
-        "مقيد بدرجة متوسطة",
-        "مقيد بدرجة خفيفة",
-        "غير مقيد علي الاطلاق",
-        "لم اقم بهذا النشاط",
+        tr("test_5_page.tightly_bound"),
+        tr("test_5_page.highly_restricted"),
+        tr("test_5_page.medium_restricted"),
+        tr("test_5_page.lightly_restricted"),
+        tr("test_5_page.totally_unrestricted"),
+        tr("test_5_page.i_did_not_do_this_activity"),
       ],
     ),
     Questions(
-      quation:
-          "كيف يوثر قصور عضلة القلب علي نمط حياتك وقلل نشاطك في العمل او الاعمال المنزلية الترفيهية خلال الاسبوعين الماضيين ؟",
+      quation: tr("test_5_page.choose_qustions.question_11"),
       answers: [
-        "مقيد بشدة",
-        "مقيد بدرجة كبيرة",
-        "مقيد بدرجة متوسطة",
-        "مقيد بدرجة خفيفة",
-        "غير مقيد علي الاطلاق",
-        "لم اقم بهذا النشاط",
+        tr("test_5_page.tightly_bound"),
+        tr("test_5_page.highly_restricted"),
+        tr("test_5_page.medium_restricted"),
+        tr("test_5_page.lightly_restricted"),
+        tr("test_5_page.totally_unrestricted"),
+        tr("test_5_page.i_did_not_do_this_activity"),
       ],
     ),
     Questions(
-      quation:
-          "كيف يوثر قصور عضلة القلب علي نمط حياتك وقلل نشاطك في زيارة الاقارب والاصدقاء خارج المنزل خلال الاسبوعين الماضيين ؟",
+      quation: tr("test_5_page.choose_qustions.question_12"),
       answers: [
-        "مقيد بشدة",
-        "مقيد بدرجة كبيرة",
-        "مقيد بدرجة متوسطة",
-        "مقيد بدرجة خفيفة",
-        "غير مقيد علي الاطلاق",
-        "لم اقم بهذا النشاط",
+        tr("test_5_page.tightly_bound"),
+        tr("test_5_page.highly_restricted"),
+        tr("test_5_page.medium_restricted"),
+        tr("test_5_page.lightly_restricted"),
+        tr("test_5_page.totally_unrestricted"),
+        tr("test_5_page.i_did_not_do_this_activity"),
       ],
     ),
   ];
@@ -166,9 +159,8 @@ class _TestNumber5State extends State<TestNumber5> {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8),
           child: greenNote(
-            text:
-                "يؤثر القصور الوظيفي لعضلة القلب علي مختلف الاشخاص بطرقة مختلفة حيث يشعر البعض بضيق التنفس واخرين بالاجهاد الشديد.\nمن فضللك بين مدي نشاطك علي مدار الاسبوعين الاخيرين .",
-            headerText: "تنوية",
+            text: tr("green_note.test_5"),
+            headerText: tr("notice"),
           ),
         ),
         ////// the green text End   ////

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'dart:io';
@@ -53,7 +54,7 @@ class _TestNumber3State extends State<TestNumber3> {
           child: Align(
             alignment: Alignment.topRight,
             child: defalutQuestionText(
-              text: "ما هي الادوية التي تستخدمها حاليا ؟",
+              text: tr("what_medications_are_you_currently_using"),
             ),
           ),
         ),
@@ -78,7 +79,7 @@ class _TestNumber3State extends State<TestNumber3> {
                     _pickedImage != null
                         ? SizedBox()
                         : defalutQuestionText(
-                            text: "مثل : الكورتيزول",
+                            text: tr("such_as_cortisol"),
                             color: greyColor,
                           ),
                     Row(
@@ -112,7 +113,7 @@ class _TestNumber3State extends State<TestNumber3> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Text(
-                      "ارفع صورة اوملف هنا ",
+                      tr("upload_a_photo_or_file_here"),
                       textAlign: TextAlign.center,
                     ),
                   ),

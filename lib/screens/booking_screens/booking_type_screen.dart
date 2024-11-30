@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:makeny/screens/booking_screens/booking_date_screen.dart';
 import 'package:makeny/widgets/buttons.dart';
@@ -19,8 +20,8 @@ class _BookingTypeScreenState extends State<BookingTypeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:
-          defaultAppbar(context, title: "المواعيد المتاحة - استشارة اونلاين"),
+      appBar: defaultAppbar(context,
+          title: tr("available_appointments_online_consultation")),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12),
         child: Stack(
@@ -33,11 +34,12 @@ class _BookingTypeScreenState extends State<BookingTypeScreen> {
                 ),
                 YesOrNoQuestions(
                   payment: true,
-                  questionsText: const ["نوع الإستشارة"],
+                  questionsText: [tr("consultation_type")],
                   onAllQuestionsAnswered: (_) {},
                   onAnswersChanged: (type) {
                     setState(() {
-                      consultationType = type.first == 0 ? "عادى" : "مستعجلة";
+                      consultationType =
+                          type.first == 0 ? tr("normal") : tr("urgent");
                     });
                     print(consultationType);
                   },
@@ -47,11 +49,11 @@ class _BookingTypeScreenState extends State<BookingTypeScreen> {
                 ),
                 LongOneAnswerCheck(
                   payment: true,
-                  questionText: "التخصص",
-                  answers: const [
-                    "امراض و جراحة القلب",
-                    "تأهيل القلب",
-                    "نمط الحياة الصحى وجودة الحياة",
+                  questionText: tr("specialization"),
+                  answers: [
+                    tr("heart_diseases_and_surgery"),
+                    tr("cardiac_rehabilitation"),
+                    tr("healthy_lifestyle_and_quality_life"),
                   ],
                   onAnswerSelected: (value) {
                     //TODO
@@ -68,7 +70,7 @@ class _BookingTypeScreenState extends State<BookingTypeScreen> {
               right: 0,
               bottom: 0,
               child: defaultButton(
-                  text: "استمرار",
+                  text: tr("continue"),
                   onTap: (specialization == null || consultationType == null)
                       ? null
                       : () {

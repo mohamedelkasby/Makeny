@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:makeny/extentions/colors.dart';
@@ -112,8 +113,8 @@ class _BookingDateScreenState extends State<BookingDateScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar:
-            defaultAppbar(context, title: "المواعيد المتاحة - استشارة اونلاين"),
+        appBar: defaultAppbar(context,
+            title: tr("available_appointments_online_consultation")),
         body: Padding(
           padding: const EdgeInsets.fromLTRB(8, 10, 8, 0),
           child: Column(
@@ -210,7 +211,9 @@ class _BookingDateScreenState extends State<BookingDateScreen> {
                                       horizontal: 10, vertical: 5),
                                   formatButtonVisible: false,
                                 ),
-                                locale: "ar",
+                                locale: context.locale.languageCode == "ar"
+                                    ? "ar"
+                                    : "en",
                                 calendarBuilders: CalendarBuilders(
                                   headerTitleBuilder: (context, date) {
                                     String arabicMonth = getMonthInArabic(date);
@@ -297,7 +300,7 @@ class _BookingDateScreenState extends State<BookingDateScreen> {
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 20),
                                   child: textHeadLine(
-                                    text: "حدد الوقت",
+                                    text: tr("set_the_time"),
                                   ),
                                 ),
                                 Row(
@@ -306,7 +309,7 @@ class _BookingDateScreenState extends State<BookingDateScreen> {
                                   children: [
                                     circleSelectTime(
                                       time: "3:00",
-                                      desc: "مساءً",
+                                      desc: tr("evening"),
                                       isSelected: selectedTime == "3:00",
                                       ontap: () {
                                         setState(() {
@@ -316,7 +319,7 @@ class _BookingDateScreenState extends State<BookingDateScreen> {
                                     ),
                                     circleSelectTime(
                                       time: "4:00",
-                                      desc: "مساءً",
+                                      desc: tr("evening"),
                                       isSelected: selectedTime == "4:00",
                                       ontap: () {
                                         setState(() {
@@ -326,7 +329,7 @@ class _BookingDateScreenState extends State<BookingDateScreen> {
                                     ),
                                     circleSelectTime(
                                       time: "5:00",
-                                      desc: "مساءً",
+                                      desc: tr("evening"),
                                       isSelected: selectedTime == "5:00",
                                       ontap: () {
                                         setState(() {
@@ -336,7 +339,7 @@ class _BookingDateScreenState extends State<BookingDateScreen> {
                                     ),
                                     circleSelectTime(
                                       time: "6:00",
-                                      desc: "مساءً",
+                                      desc: tr("evening"),
                                       isSelected: selectedTime == "6:00",
                                       ontap: () {
                                         setState(() {
@@ -350,7 +353,7 @@ class _BookingDateScreenState extends State<BookingDateScreen> {
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 20),
                                   child: textHeadLine(
-                                    text: "ذكرنى قبل",
+                                    text: tr("remind_me_before"),
                                   ),
                                 ),
                                 Row(
@@ -359,7 +362,7 @@ class _BookingDateScreenState extends State<BookingDateScreen> {
                                   children: [
                                     circleSelectTime(
                                       time: "10",
-                                      desc: "دقائق",
+                                      desc: tr("minutes"),
                                       isSelected: selectedReminder == "10",
                                       ontap: () {
                                         setState(() {
@@ -369,7 +372,7 @@ class _BookingDateScreenState extends State<BookingDateScreen> {
                                     ),
                                     circleSelectTime(
                                       time: "15",
-                                      desc: "دقيقة",
+                                      desc: tr("minute"),
                                       isSelected: selectedReminder == "15",
                                       ontap: () {
                                         setState(() {
@@ -379,7 +382,7 @@ class _BookingDateScreenState extends State<BookingDateScreen> {
                                     ),
                                     circleSelectTime(
                                       time: "30",
-                                      desc: "دقيقة",
+                                      desc: tr("minute"),
                                       isSelected: selectedReminder == "30",
                                       ontap: () {
                                         setState(() {
@@ -389,7 +392,7 @@ class _BookingDateScreenState extends State<BookingDateScreen> {
                                     ),
                                     circleSelectTime(
                                       time: "60",
-                                      desc: "دقيقة",
+                                      desc: tr("minute"),
                                       isSelected: selectedReminder == "60",
                                       ontap: () {
                                         setState(() {
@@ -407,7 +410,7 @@ class _BookingDateScreenState extends State<BookingDateScreen> {
                 ),
               ),
               defaultButton(
-                text: "تأكيد",
+                text: tr("confirmation"),
                 onTap: selectedTime != null
                     ? () {
                         Navigator.push(

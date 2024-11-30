@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:makeny/widgets/questions_type/long_one_answer_check.dart';
 import 'package:makeny/widgets/questions_type/yes_or_no_question.dart';
@@ -5,8 +6,7 @@ import 'package:makeny/widgets/questions_type/yes_or_no_question.dart';
 class TestNumber2 extends StatefulWidget {
   final List<String> yesOrNoQuestions;
 
-  const TestNumber2({Key? key, required this.yesOrNoQuestions})
-      : super(key: key);
+  const TestNumber2({super.key, required this.yesOrNoQuestions});
 
   @override
   State<TestNumber2> createState() => _TestNumber2State();
@@ -40,14 +40,14 @@ class _TestNumber2State extends State<TestNumber2> {
         if (showConditions)
           LongOneAnswerCheck(
             questionText: "",
-            answers: const [
-              "امراض القلب والاوعية الدموية",
-              "امراض الجهاز التنفسي",
-              "السرطان",
-              "السكري ",
-              "السمنة",
-              "مشاكل صحة الفم",
-              "اخري",
+            answers: [
+              tr("test_2_page.choose_one_answer.answer_1"),
+              tr("test_2_page.choose_one_answer.answer_2"),
+              tr("test_2_page.choose_one_answer.answer_3"),
+              tr("test_2_page.choose_one_answer.answer_4"),
+              tr("test_2_page.choose_one_answer.answer_5"),
+              tr("test_2_page.choose_one_answer.answer_6"),
+              tr("test_2_page.choose_one_answer.answer_7"),
             ],
             onAnswerSelected: (_) {},
           )

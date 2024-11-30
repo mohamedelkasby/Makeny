@@ -98,7 +98,7 @@ class MedicalEducateDescScreen extends StatelessWidget {
                     MaterialPageRoute(
                       builder: (context) => InternetConnectivityWrapper(
                         child: DangerMeasureScreen(
-                          appbar: tr("Severity_scale"),
+                          appbar: tr("severity_scale"),
                         ),
                       ),
                     ),

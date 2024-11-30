@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/screens/danger_measure_screens/multidimensional_dyspnea_scale_screen.dart';
@@ -9,12 +10,13 @@ import 'package:makeny/widgets/internet_connectivity_wrapper.dart';
 import 'package:makeny/widgets/switch_widget.dart';
 
 class DangerMeasureScreen extends StatefulWidget {
-  const DangerMeasureScreen({
+  DangerMeasureScreen({
     super.key,
-    this.appbar = "مقياس الخطورة",
+    String? appbar, // Make it nullable
     this.testNumber = 1,
     this.shortTest = false,
-  });
+  }) : appbar = appbar ?? tr("severity_scale"); // Assign default value here
+
   final String appbar;
   final int testNumber;
   final bool shortTest;
@@ -30,17 +32,21 @@ class _DangerMeasureScreenState extends State<DangerMeasureScreen> {
     /// this case here, the list start with 0 index and i have the
     /// page index start with 1 ,
     [],
-    ["هل تدخن؟"],
-    ["هل لديك امراض مزمنة؟"],
     [
-      "هل تنومت في المستشفي خلال  الشهر الماضي بسبب القلب؟",
-      "هل تعاني من الشخير ؟",
-      "هل تعاني من الصداع في الصباح ؟",
-      "هل تعاني من جفاف في الحلق عند الاستيقاظ من النوم ؟",
-      "هل تعاني من صعوبة في النوم او النعاس دائما ؟",
-      "هل تعاني من ضعف في التركيز ؟",
-      "هل تعاني من الاختناق الليلي ؟",
-      "هل تحتاج اجهزة مساعدة عند النوم ؟",
+      tr("tests.yes_or_no_qustions.test_1.question_number_1"),
+    ],
+    [
+      tr("tests.yes_or_no_qustions.test_2.question_number_1"),
+    ],
+    [
+      tr("tests.yes_or_no_qustions.test_3.question_number_1"),
+      tr("tests.yes_or_no_qustions.test_3.question_number_2"),
+      tr("tests.yes_or_no_qustions.test_3.question_number_3"),
+      tr("tests.yes_or_no_qustions.test_3.question_number_4"),
+      tr("tests.yes_or_no_qustions.test_3.question_number_5"),
+      tr("tests.yes_or_no_qustions.test_3.question_number_6"),
+      tr("tests.yes_or_no_qustions.test_3.question_number_7"),
+      tr("tests.yes_or_no_qustions.test_3.question_number_7"),
     ],
     [],
     [],
@@ -72,7 +78,7 @@ class _DangerMeasureScreenState extends State<DangerMeasureScreen> {
                 children: [
                   /////// the progress indecator Start //////
                   shortTest
-                      ? SizedBox()
+                      ? const SizedBox()
                       : Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: Container(
@@ -96,7 +102,7 @@ class _DangerMeasureScreenState extends State<DangerMeasureScreen> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 5, vertical: 8),
                                   child: defalutQuestionText(
-                                      text: "اختبار $testNumber/7"),
+                                      text: "${tr("test")} $testNumber/7"),
                                 ),
                                 Expanded(
                                   child: Padding(
@@ -122,7 +128,7 @@ class _DangerMeasureScreenState extends State<DangerMeasureScreen> {
                   switchPagesTest(
                     context,
                     testNumber: testNumber,
-                    yesOrNoQuestions: questionsOfPage[widget.testNumber],
+                    yesOrNoQuestions: questionsOfPage[testNumber],
                   ),
 
                   /// to make the text under button seen when the scrool end
@@ -175,7 +181,7 @@ class _DangerMeasureScreenState extends State<DangerMeasureScreen> {
                                 ),
                               );
                   },
-                  text: 'استمرار',
+                  text: tr("continue"),
                 ),
               ),
             ],

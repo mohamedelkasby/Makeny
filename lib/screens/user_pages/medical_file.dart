@@ -58,7 +58,7 @@ class MedicalFile extends StatelessWidget {
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                child: textHeadLine(text: tr("medicalFile.Diagnosis")),
+                child: textHeadLine(text: tr("medicalFile.diagnosis")),
               ),
             ),
             Text(
@@ -72,11 +72,11 @@ class MedicalFile extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
                 child:
-                    textHeadLine(text: tr("medicalFile.Physical_indicators")),
+                    textHeadLine(text: tr("medicalFile.physical_indicators")),
               ),
             ),
             usersData(
-              textType: tr("medicalFile.Physical_indicators"),
+              textType: tr("medicalFile.physical_indicators"),
               seperator: ":",
               textData: "",
             ),
@@ -91,7 +91,7 @@ class MedicalFile extends StatelessWidget {
               textData: "97 ${tr("calculates.kg")}",
             ),
             usersData(
-              textType: tr("medicalFile.Body_mass"),
+              textType: tr("medicalFile.body_mass"),
               seperator: ":",
               textData: "34 ${tr("calculates.kg/m2")}",
             ),

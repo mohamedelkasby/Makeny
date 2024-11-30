@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -38,7 +39,8 @@ class _YesOrNoQustionsState extends State<YesOrNoQuestions> {
 
   @override
   Widget build(BuildContext context) {
-    List<String> answers = widget.payment ? ["عادي", "مستعجلة"] : ["نعم", "لا"];
+    List<String> answers =
+        widget.payment ? [tr("normal"), tr("urgent")] : [tr("yes"), tr("no")];
     List<String> questionsText = widget.questionsText;
 
     return BlocBuilder<AppCubit, AppState>(

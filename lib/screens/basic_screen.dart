@@ -73,10 +73,9 @@ class _BasicScreenState extends State<BasicScreen> {
                 onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const InternetConnectivityWrapper(
+                    builder: (context) => InternetConnectivityWrapper(
                       child: DangerMeasureScreen(
-                        appbar: "مقياس الخطورة",
-                        // yesOrNoQuestions: ["هل تدخن؟"],
+                        appbar: tr("severity_scale"),
                       ),
                     ),
                   ),

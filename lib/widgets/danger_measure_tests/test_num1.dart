@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:makeny/cubits/cubit.dart';
@@ -33,8 +34,7 @@ class _TestNumber1State extends State<TestNumber1> {
                       borderRadius: BorderRadius.circular(15),
                       color: const Color(0xffD0FFBF)),
                   child: greenNote(
-                    text:
-                        "الرجاء اجابة الاختبارات التالية لتحديد انسب الاطباء لك..",
+                    text: tr("green_note.test_1"),
                   )),
             ),
             YesOrNoQuestions(
@@ -46,63 +46,78 @@ class _TestNumber1State extends State<TestNumber1> {
               },
             ),
             CustomListField(
-              suffixList: const ["سم", "انش"],
-              qustionText: "الطول",
+              suffixList: [
+                tr("calculates.cm"),
+                tr("calculates.inch"),
+              ],
+              qustionText: tr("accountPage.tall"),
               controller: textEditingController,
             ),
             CustomListField(
-              suffixList: const ["كجم", "جم"],
-              qustionText: "الوزن",
+              suffixList: [
+                tr("calculates.kg"),
+                tr("calculates.g"),
+              ],
+              qustionText: tr("accountPage.wight"),
               controller: textEditingController,
             ),
             CustomListField(
-              suffixList: const ["كجم/م2", "جم/م2"],
-              qustionText: "كتلة الجسم",
+              suffixList: [
+                tr("calculates.kg/m2"),
+                tr("calculates.g/m2"),
+              ],
+              qustionText: tr("medicalFile.body_mass"),
               enable: false,
               controller: textEditingController,
             ),
             CustomListField(
-              suffixList: const ["سم", "انش"],
-              qustionText: "الخصر",
+              suffixList: [
+                tr("calculates.cm"),
+                tr("calculates.inch"),
+              ],
+              qustionText: tr("accountPage.waist"),
               controller: textEditingController,
             ),
             CustomListField(
-              suffixList: const ["سم", "انش"],
-              qustionText: "محيط الرقبة",
+              suffixList: [
+                tr("calculates.cm"),
+                tr("calculates.inch"),
+              ],
+              qustionText: tr("neck_circumference"),
               controller: textEditingController,
             ),
             CustomListField(
-              suffixText: "نبضة كل دقيقة",
-              qustionText: "النبض",
+              suffixText: tr("calculates.pbm"),
+              qustionText: tr("pulse"),
               hintText: "100/60",
               controller: textEditingController,
             ),
             CustomListField(
-              qustionText: "مستوى الاكسحين",
+              qustionText: tr("oxygen_level"),
               hintText: "100/90",
               controller: textEditingController,
             ),
             CustomListField(
-              qustionText: "ضغط الدم الانقباضى",
+              qustionText: tr("systolic_blood_pressure"),
               hintText: "140/100",
-              suffixList: const ["ملم زئبقي"],
+              suffixList: [tr("calculates.mmHg")],
               controller: textEditingController,
             ),
             CustomListField(
-              qustionText: "ضغط الدم الانبساطى",
+              qustionText: tr("diastolic_blood_pressure"),
               hintText: "80/60",
-              suffixList: const ["ملم زئبقي"],
+              suffixList: [tr("calculates.mmHg")],
               controller: textEditingController,
             ),
             CustomListField(
-              qustionText: "الكلسترول",
+              qustionText: tr("cholesterol"),
               hintText: "5.2/0",
               controller: textEditingController,
             ),
             CustomListField(
-              qustionText: "الدهون الثلاثية النافعة",
+              qustionText: tr("good_triglycerides"),
               hintText: "0",
-              suffixList: const ["سم"],
+              suffixList: [tr("calculates.cm")],
               controller: textEditingController,
             ),
           ],

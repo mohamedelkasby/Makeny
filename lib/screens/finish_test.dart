@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/screens/danger_measure_screens/danger_measure_screen.dart';
@@ -57,7 +58,7 @@ class FinishTest extends StatelessWidget {
                           },
                         ),
                         Text(
-                          "نسبة الخطورة",
+                          tr("risk_ratio"),
                           style: TextStyle(
                             fontSize: 20,
                             color: greyColor,
@@ -76,28 +77,28 @@ class FinishTest extends StatelessWidget {
                     textAlign: TextAlign.center,
                     text: TextSpan(
                       children: [
-                        TextSpan(text: "اذا كانت نسبة الخطورة بين"),
+                        TextSpan(text: tr("finish_test.test_1")),
                         TextSpan(
                           text: " 0 - 40% ",
                           style: TextStyle(
                             color: mainColor,
                           ),
                         ),
-                        TextSpan(text: "فلا تحتاج الى اسستشارة من"),
+                        TextSpan(text: tr("finish_test.test_2")),
                         TextSpan(
                           text: " 41 - 70% ",
                           style: TextStyle(
                             color: mainColor,
                           ),
                         ),
-                        TextSpan(text: "تحتاج الى استشارة من"),
+                        TextSpan(text: tr("finish_test.test_3")),
                         TextSpan(
                           text: " 71 - 100% ",
                           style: TextStyle(
                             color: mainColor,
                           ),
                         ),
-                        TextSpan(text: "تحتاج الى استشارة مستعجلة"),
+                        TextSpan(text: tr("finish_test.test_4")),
                       ],
                       style: TextStyle(
                         color: greyColor.withOpacity(.7),
@@ -119,7 +120,7 @@ class FinishTest extends StatelessWidget {
               bottom: 0,
               right: 0,
               child: defaultButton(
-                text: "احجز طبيبك الان",
+                text: tr("Book_your_doctor_now"),
                 onTap: () => Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(

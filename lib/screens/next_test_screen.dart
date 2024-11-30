@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/screens/booking_screens/booking_type_screen.dart';
@@ -36,9 +37,9 @@ class _NextTestScreenState extends State<NextTestScreen> {
           builder: (context) => testNumber == 9
               ? InternetConnectivityWrapper(
                   child: FinishTest(
-                    appbar: appbar == "تحليل اجاباتك"
-                        ? "نتيجة الاختبار"
-                        : "اختبار مدي الخطورة",
+                    appbar: appbar == tr("analyze_your_answers")
+                        ? tr("test_result")
+                        : tr("severity_test"),
                     percent: .85,
                   ),
                 )
@@ -64,7 +65,7 @@ class _NextTestScreenState extends State<NextTestScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: defaultAppbar(context,
-          title: testNumber == 9 ? appbar : "التالى ..$appbar"),
+          title: testNumber == 9 ? appbar : "${tr("next")} ..$appbar"),
       body: Center(
         child: Column(
           // crossAxisAlignment: CrossAxisAlignment.center,

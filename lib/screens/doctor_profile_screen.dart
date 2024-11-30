@@ -6,6 +6,7 @@ import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';
 import 'package:makeny/widgets/icon_with_circle_background.dart';
+import 'package:easy_localization/easy_localization.dart' hide TextDirection;
 
 class DoctorProfileScreen extends StatelessWidget {
   final DoctorModel doctorsData;
@@ -19,7 +20,7 @@ class DoctorProfileScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         ///////  the appbar ///////
-        appBar: defaultAppbar(context, title: "ملف الطبيب"),
+        appBar: defaultAppbar(context, title: tr("doctor's_file")),
         body: Stack(
           //// stack to put the background to the page
           children: [
@@ -116,14 +117,14 @@ class DoctorProfileScreen extends StatelessWidget {
                                     circleIcon(
                                       icon: "assets/icons/misc.svg",
                                       topText: doctorsData.experience,
-                                      bottomText: "خبرة",
+                                      bottomText: tr("experience"),
                                     ),
                                     Directionality(
                                       textDirection: TextDirection.ltr,
                                       child: circleIcon(
                                         icon: "assets/icons/socials.svg",
                                         topText: "4.8",
-                                        bottomText: "تقييم",
+                                        bottomText: tr("rating"),
                                         withIcon: true,
                                       ),
                                     ),
@@ -132,7 +133,7 @@ class DoctorProfileScreen extends StatelessWidget {
                                       child: circleIcon(
                                         icon: "assets/icons/messaging.svg",
                                         topText: "105 +",
-                                        bottomText: "رأي",
+                                        bottomText: tr("opinion"),
                                       ),
                                     ),
                                   ],
@@ -143,10 +144,10 @@ class DoctorProfileScreen extends StatelessWidget {
                         ],
                       ),
                       Align(
-                        alignment: Alignment.topRight,
+                        alignment: AlignmentDirectional.topStart,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 12),
-                          child: textHeadLine(text: "عن الطبيب"),
+                          child: textHeadLine(text: tr("about_doctor")),
                         ),
                       ),
                       //////////////   make a square dot before the text
@@ -186,12 +187,12 @@ class DoctorProfileScreen extends StatelessWidget {
                     right: 0,
                     left: 0,
                     child: defaultButton(
-                      text: "حجز موعد",
+                      text: tr("book_a_date"),
                       onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => DangerMeasureScreen(
-                            appbar: "مقياس الخطورة",
+                            appbar: tr("severity_scale"),
                           ),
                         ),
                       ),

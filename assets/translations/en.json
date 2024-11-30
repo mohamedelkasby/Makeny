@@ -7,6 +7,8 @@
     "notification": "notification",
     "book_a_date": "Book a date",
     "book_a_date_now": "Book a date now",
+    "doctors": "doctors",
+    "electronic_services": "electronic services",
     "signPage": {
         "sign_in": "Sign In",
         "sign_up": "sign up",
@@ -61,9 +63,9 @@
         "file_number": "file number",
         "nationality": "nationality",
         "entry_date": "entry date",
-        "Diagnosis": "Diagnosis",
-        "Physical_indicators": "Physical indicators",
-        "Body_mass": "body mass"
+        "diagnosis": "Diagnosis",
+        "physical_indicators": "Physical indicators",
+        "body_mass": "body mass"
     },
     "our_services": {
         "Sr_1": {
@@ -99,8 +101,13 @@
     },
     "calculates": {
         "cm": "cm",
+        "inch": "انش",
         "kg": "kg",
+        "g": "g",
+        "pbm": "pbm",
         "kg/m2": "kg/m2",
+        "g/m2": "g/m2",
+        "mmHg": "mmHg",
         "years_old": "years_old"
     },
     "closeDialog": {
@@ -109,6 +116,11 @@
         "no_stay": "No, stay"
     },
     "medicalEducate": {
+        "pageVT": {
+            "title_1": "Heart Disease: Causes, Symptoms, and Treatment",
+            "title_2": "How to avoid heart disease? Practical steps",
+            "title_3": "Choking: Multiple Causes and Possible Solutions"
+        },
         "ME_1": {
             "head_line_1": "About heart disease",
             "short_desc_1": "What is heart disease? Here is heart disease, its symptoms, risk factors and treatment.",
@@ -161,6 +173,218 @@
             "main_topic_2": "There are many things you can do to prevent heart disease. Some involve changes you can make in your daily life. In some cases, you may also need to take medications.\nThe list below provides lifestyle changes that can help you prevent or delay heart disease."
         }
     },
+    "tests": {
+        "next_page": {
+            "number_1": {
+                "top_line": "Well done",
+                "bottom_line": "Proceed to the next test"
+            },
+            "number_2": {
+                "top_line": "Well done, you have completed half of the test!",
+                "bottom_line": "Analyzing your answers and preparing the next test ..."
+            },
+            "number_4": {
+                "top_line": "Next is the Heart Muscle Dysfunction Scale"
+            },
+            "number_5": {
+                "top_line": "Multidimensional Shortness of Breath Scale"
+            },
+            "number_6": {
+                "top_line": "Seattle Angina Questionnaire",
+                "bottom_line": "Last test"
+            },
+            "number_7": {
+                "top_line": "Your answer has been analyzed and sent to the doctor",
+                "bottom_line": "Please book a consultation"
+            },
+            "number_default": {
+                "top_line": "Artificial Intelligence",
+                "bottom_line": "Analyzing your data now"
+            }
+        },
+        "appbar": {
+            "number_1": "Risk of Atrial Fibrillation and Stroke",
+            "number_2": "Choking Risk",
+            "number_3": "Shortness of Breath",
+            "number_4": "Heart Muscle Dysfunction Scale",
+            "number_5": "Multidimensional Shortness of Breath Scale",
+            "number_6": "Seattle Angina Questionnaire",
+            "number_7": "Book Appointment"
+        },
+        "yes_or_no_qustions": {
+            "test_1": {
+                "question_number_1": "Do you smoke?"
+            },
+            "test_2": {
+                "question_number_1": "Do you have chronic diseases?"
+            },
+            "test_3": {
+                "question_number_1": "Were you hospitalized in the past month due to heart issues?",
+                "question_number_2": "Do you suffer from snoring?",
+                "question_number_3": "Do you suffer from morning headaches?",
+                "question_number_4": "Do you suffer from dry throat when waking up?",
+                "question_number_5": "Do you suffer from difficulty sleeping or constant drowsiness?",
+                "question_number_6": "Do you suffer from concentration weakness?",
+                "question_number_7": "Do you suffer from night suffocation?",
+                "question_number_8": "Do you need assistive devices when sleeping?"
+            }
+        },
+        "choose_one_qustions": {
+            "test_1": {
+                "question_number_1": "Ability to Move",
+                "answers": {
+                    "text_1": "I have no problems while walking",
+                    "text_2": "I have slight problems when walking",
+                    "text_3": "I have moderate problems when walking",
+                    "text_4": "I have severe problems when walking",
+                    "text_5": "I am unable to walk"
+                }
+            },
+            "test_2": {
+                "question_number_1": "Ability to Self-Care",
+                "answers": {
+                    "text_1": "I have no problems bathing or dressing myself",
+                    "text_2": "I have slight problems bathing or dressing myself",
+                    "text_3": "I have moderate problems bathing or dressing myself",
+                    "text_4": "I have severe problems bathing or dressing myself",
+                    "text_5": "I am unable to bathe or dress myself"
+                }
+            },
+            "test_3": {
+                "question_number_1": "Usual Activities (such as work, study, housework, family or leisure activities)",
+                "answers": {
+                    "text_1": "I have no problems performing my usual activities",
+                    "text_2": "I have slight problems performing my usual activities",
+                    "text_3": "I have moderate problems performing my usual activities",
+                    "text_4": "I have severe problems performing my usual activities",
+                    "text_5": "I am unable to perform my usual activities"
+                }
+            },
+            "test_4": {
+                "question_number_1": "Pain / Discomfort",
+                "answers": {
+                    "text_1": "I feel no pain or discomfort",
+                    "text_2": "I feel a slight degree of pain or discomfort",
+                    "text_3": "I feel a moderate degree of pain or discomfort",
+                    "text_4": "I feel a severe degree of pain or discomfort",
+                    "text_5": "I feel an extremely severe degree of pain or discomfort"
+                }
+            },
+            "test_5": {
+                "question_number_1": "Anxiety / Depression",
+                "answers": {
+                    "text_1": "I have no anxiety or depression",
+                    "text_2": "I have a slight degree of anxiety or depression",
+                    "text_3": "I have a moderate degree of anxiety or depression",
+                    "text_4": "I have a severe degree of anxiety or depression",
+                    "text_5": "The best health condition imaginable"
+                }
+            },
+            "test_6": {
+                "answers": {
+                    "text_1": "Breathing is difficult and requires muscular effort.",
+                    "text_2": "I do not get enough air and feel suffocated or feel the need for air.",
+                    "text_3": "I feel tightness or constriction in my chest.",
+                    "text_4": "My breathing requires mental effort or concentration.",
+                    "text_5": "I breathe a lot."
+                }
+            }
+        }
+    },
+    "test_2_page": {
+        "choose_one_answer": {
+            "answer_1": "Heart and Blood Vessel Diseases",
+            "answer_2": "Respiratory System Diseases",
+            "answer_3": "Cancer",
+            "answer_4": "Diabetes",
+            "answer_5": "Obesity",
+            "answer_6": "Oral Health Problems",
+            "answer_7": "Other"
+        }
+    },
+    "test_4_page": {
+        "choose_qustions": {
+            "question_1": "How do you rate your breathing during movement, physical effort, or sports?",
+            "answers_1": {
+                "num_1": "Shortness of breath during strenuous exercise",
+                "num_2": "Shortness of breath when accelerating on a flat ground or climbing a hill",
+                "num_3": "Walk slower than people of my age due to shortness of breath",
+                "num_4": "Stop to breathe when walking about 100 meters or after several minutes of walking on flat ground",
+                "num_5": "Feel shortness of breath to the point of being unable to leave the house or buy clothes"
+            }
+        }
+    },
+    "test_5_page": {
+        "choose_qustions": {
+            "question_1": "Bathing activity?",
+            "question_2": "Walking distance of 100 / 250 meters",
+            "question_3": "Jogging or accelerating (like running after a bus)",
+            "question_4": "How many times did you experience swelling in your feet or ankles when waking up during the past two weeks?",
+            "question_5": "How many times did shortness of breath affect your ability to do what you want to do during the past two weeks?",
+            "question_6": "How many times did severe fatigue affect your ability to do what you want to do during the past two weeks?",
+            "question_7": "How many times did you need to sleep sitting in a chair or leaning on at least three pillows to support you due to shortness of breath?",
+            "question_8": "To what extent did heart muscle failure reduce your enjoyment of life?",
+            "question_9": "If you had to spend the rest of your life with heart muscle failure as it is now, how would you feel about that?",
+            "question_10": "How does heart muscle failure affect your lifestyle and reduce your activity in hobbies and recreational activities during the past two weeks?",
+            "question_11": "How does heart muscle failure affect your lifestyle and reduce your activity in work or housework during the past two weeks?",
+            "question_12": "How does heart muscle failure affect your lifestyle and reduce your activity in visiting relatives and friends outside the home during the past two weeks?"
+        },
+        "i_did_not_do_this_activity": "I did not do this activity",
+        "highly_limited": "Highly Limited",
+        "severely_limited": "Severely Limited",
+        "moderately_limited": "Moderately Limited",
+        "slightly_limited": "Slightly Limited",
+        "tightly_bound": "Tightly Bound",
+        "highly_restricted": "Highly Restricted",
+        "medium_restricted": "Medium Restricted",
+        "lightly_restricted": "Lightly Restricted",
+        "totally_unrestricted": "Totally Unrestricted",
+        "all_the_time": "All the Time",
+        "3_or_more_times_a_week": "3 times or more per week",
+        "once_or_twice_a_week": "Once or twice a week",
+        "less_than_once_a_week": "Less than once a week",
+        "no_occurrence_past_two_weeks": "No occurrence in the past two weeks",
+        "decrease_very_high": "Decreased very highly",
+        "decrease_high": "Decreased highly",
+        "decrease_medium": "Decreased moderately",
+        "decrease_low": "Decreased slightly",
+        "decrease_none": "Not decreased at all"
+    },
+    "test_6_page": {
+        "slider_qustion": "To what extent do you feel discomfort or distress during your breathing and how bad is your breathing?",
+        "this_scale_from": "This scale is from",
+        "zero": "zero",
+        "to": "to",
+        "where": "where",
+        "mean_comfortable_or": "means comfortable or",
+        "definition_shortness_of_breath": "means you feel the greatest possible breathing discomfort"
+    },
+    "green_note_QualityOfLife": {
+        "test_1": "Please select one option that best describes your health condition today",
+        "test_6": "We want to know the extent of your health life, this scale is graduated from number 0 to 100, where number 100 indicates the best health condition imaginable and zero indicates the worst condition"
+    },
+    "multidimensional_DyspneaScale": {
+        "green_text": {
+            "text_1": "Please mark one group that accurately describes how you feel or felt during breathing.",
+            "text_2": "I have chosen this group as it most accurately describes how I feel during breathing",
+            "text_3": "When your breathing is abnormal, you may face some feelings or emotions, and using the scale below, please provide us with the feelings you experienced during your breathing, and you can use the value - zero - when you see that the feelings do not apply to you."
+        },
+        "normal_text": {
+            "text_1": "If any term in the group applies to you, choose that group.",
+            "text_2": "Now use these scales to assess the severity of the breathing sensation you feel or felt"
+        }
+    },
+    "green_note": {
+        "test_1": "Please answer the following tests to determine the most suitable doctors for you..",
+        "test_5": "Heart muscle dysfunction affects different people in different ways, where some feel shortness of breath and others feel severe fatigue.\nPlease indicate your activity over the past two weeks.",
+        "test_6": "This scale aims to help us understand how you feel about your breathing. There are no right or wrong answers, we want you to provide us with information related to your breathing."
+    },
+    "finish_test": {
+        "test_1": "If the risk percentage is between",
+        "test_2": "you do not need consultation from",
+        "test_3": "you need consultation from",
+        "test_4": "you need urgent consultation"
+    },
     "error": {
         "no_user_date_found": "no user date found",
         "no_internet": "no internet connection",
@@ -172,10 +396,74 @@
         "account_not_found": "Account not found. Please sign up first.",
         "problem_try_later": "An error occurred. Please try again."
     },
-    "help_message": "If you are suffering from suffocation, seek help from a doctor now !",
-    "Severity_scale": "Severity scale",
-    "please_choose": "please choose a",
-    "please_enter": "please enter the",
-    "Book_your_doctor_now": "book your doctor now",
-    "save": "save"
+    "doctor": {
+        "doc_1": {
+            "about_1": "Inventor, professor, consultant cardiothoracic surgeon and one of the pioneers of cardiac surgery in the Kingdom.",
+            "about_2": "Specialized in complex and high-risk heart surgeries. Also valve replacement surgeries, coronary artery bypass grafting, aortic dissection and aneurysm surgeries."
+        },
+        "doc_2": {
+            "about_1": "Professor and consultant in cardiac and respiratory rehabilitation, interested in cardiac rehabilitation after surgery, angina pectoris, heart muscle weakness, and cases after implantation of cardiac assist devices. Also, patients who suffer from chronic respiratory diseases, lung transplantation, chronic corona cases, and post-intensive care."
+        }
+    },
+    "available_appointments_online_consultation": "Available Appointments - Online Consultation",
+    "consultation_type": "Consultation Type",
+    "smart_assistant": "Smart Assistant",
+    "help_message": "If you are suffering from choking, you should request help from the doctor now!",
+    "please_choose": "Please choose",
+    "please_enter": "Please enter",
+    "Book_your_doctor_now": "Book your doctor now",
+    "save": "Save",
+    "view_all": "View All",
+    "professor_and_consultant_cardiac_surgeon": "Professor and Cardiac Surgery Consultant",
+    "heart_surgery": "Heart Surgery",
+    "cardiac_and_respiratory_rehabilitation_consultant": "Cardiac and Respiratory Rehabilitation Consultant",
+    "cardiac_rehabilitation": "Cardiac Rehabilitation",
+    "years": "years",
+    "doctor's_file": "Doctor's File",
+    "experience": "Experience",
+    "rating": "Rating",
+    "opinion": "Opinion",
+    "about_doctor": "About Doctor",
+    "your_consultations": "Your Consultations",
+    "quality_of_life_measurement": "Quality of Life Measurement",
+    "measure_the_degree_of_risk": "Measure the Degree of Risk",
+    "severity_scale": "Severity Scale",
+    "cardiometer": "Heart Muscle Scale",
+    "cardiac_equalization_scale": "Heart Muscle Normalization Scale",
+    "dyspnea_scale": "Shortness of Breath Scale",
+    "multidimensional_dyspnea_scale": "Multidimensional Shortness of Breath Scale",
+    "choke_step_measurement": "Choking Step Measurement",
+    "choking_hazard": "Choking Hazard",
+    "test": "Test",
+    "continue": "Continue",
+    "your_quality_of_life": "Your Quality of Life",
+    "next": "Next",
+    "analyze_your_answers": "Analyze Your Answers",
+    "test_result": "Test Result",
+    "severity_test": "Severity Test",
+    "risk_ratio": "Risk Ratio",
+    "neck_circumference": "Neck Circumference",
+    "pulse": "Pulse",
+    "oxygen_level": "Oxygen Level",
+    "systolic_blood_pressure": "Systolic Blood Pressure",
+    "diastolic_blood_pressure": "Diastolic Blood Pressure",
+    "cholesterol": "Cholesterol",
+    "good_triglycerides": "Beneficial Triglycerides",
+    "notice": "Notice",
+    "yes": "Yes",
+    "no": "No",
+    "normal": "Normal",
+    "urgent": "Urgent",
+    "such_as_cortisol": "Such as: Cortisol",
+    "what_medications_are_you_currently_using": "What medications are you currently using?",
+    "upload_a_photo_or_file_here": "Upload a photo or file here",
+    "specialization": "Specialization",
+    "heart_diseases_and_surgery": "Diseases and Heart Surgery",
+    "healthy_lifestyle_and_quality_life": "Healthy Lifestyle and Quality of Life",
+    "evening": "Evening",
+    "minutes": "minutes",
+    "minute": "minute",
+    "set_the_time": "Set the Time",
+    "remind_me_before": "Remind me before",
+    "confirmation": "Confirmation"
 }

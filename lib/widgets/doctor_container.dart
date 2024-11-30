@@ -19,16 +19,13 @@ Widget doctorContainer(
       children: [
         Stack(
           children: [
-            Container(
+            SizedBox(
               width: MediaQuery.of(context).size.width * .5 - 12,
               height: 200,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: Image.asset(
                   doctorsData.drImage,
-
-                  ///
-                  ///
                   fit: BoxFit.cover,
                 ),
               ),
@@ -40,9 +37,9 @@ Widget doctorContainer(
                 constraints: BoxConstraints(
                   maxWidth: MediaQuery.of(context).size.width * 0.47,
                 ),
-                padding: EdgeInsets.fromLTRB(8, 2, 4, 2),
+                padding: const EdgeInsets.fromLTRB(8, 2, 4, 2),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(25),
                     bottomLeft: Radius.circular(2),
                   ),
@@ -50,7 +47,7 @@ Widget doctorContainer(
                 ),
                 child: Text(
                   doctorsData.drRole,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 10.5,
                     fontWeight: FontWeight.w500,
@@ -63,7 +60,7 @@ Widget doctorContainer(
         ),
         Text(
           doctorsData.drName,
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
         ),
       ],
     ),

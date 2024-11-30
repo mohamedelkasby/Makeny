@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:makeny/extentions/colors.dart';
+import 'package:makeny/extentions/extentions.dart';
 import 'package:makeny/models/doctor_model.dart';
 import 'package:makeny/models/grid_model.dart';
 import 'package:makeny/models/medical_educate_model.dart';
@@ -28,9 +29,9 @@ class _PatientHomeScreenState extends State<PatientHomeScreen>
   final List<double> stopPositions = [-0.5, 0.0, 0.5];
 
   final List<String> pageViewTitles = [
-    "أمراض القلب: الأسباب، الأعراض، والعلاج",
-    "كيف تتجنب الأمراض القلبية؟ خطوات عملية",
-    "الاختناق: أسباب متعددة وحلول ممكنة",
+    tr("medicalEducate.pageVT.title_1"),
+    tr("medicalEducate.pageVT.title_2"),
+    tr("medicalEducate.pageVT.title_3"),
   ];
 
   @override
@@ -95,7 +96,8 @@ class _PatientHomeScreenState extends State<PatientHomeScreen>
                   child: Row(
                     children: [
                       textHeader(
-                        text: "${tr("patientHome.morning")}   ",
+                        text:
+                            "${tr("patientHome.morning").capitalizeByWord()}   ",
                       ),
                       Flexible(
                         child: FutureBuilder<UserModel>(
@@ -105,7 +107,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen>
                             if (snapshot.hasData) {
                               UserModel? data = snapshot.data;
                               return textHeader(
-                                text: data!.name ?? "",
+                                text: data!.name?.capitalizeByWord() ?? "",
                                 wrap: true,
                               );
                             }
@@ -228,10 +230,10 @@ class _PatientHomeScreenState extends State<PatientHomeScreen>
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   textHeadLine(
-                    text: "الاطباء",
+                    text: tr("doctors"),
                   ),
                   textHeadLine(
-                    text: "مشاهده الكل ",
+                    text: tr("view_all"),
                   )
                 ],
               ),
@@ -255,10 +257,10 @@ class _PatientHomeScreenState extends State<PatientHomeScreen>
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   textHeadLine(
-                    text: "خدمات الكترونية",
+                    text: tr("electronic_services"),
                   ),
                   textHeadLine(
-                    text: "مشاهده الكل ",
+                    text: tr("view_all"),
                   )
                 ],
               ),
@@ -305,7 +307,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen>
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    GridModelList[index].screen,
+                                    gridModelList[index].screen,
                               ),
                             ),
                             child: Column(
@@ -313,9 +315,9 @@ class _PatientHomeScreenState extends State<PatientHomeScreen>
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Align(
-                                  alignment: Alignment.topLeft,
+                                  alignment: AlignmentDirectional.topEnd,
                                   child: Image.asset(
-                                    GridModelList[index].image,
+                                    gridModelList[index].image,
                                     height:
                                         MediaQuery.sizeOf(context).height * .06,
                                   ),
@@ -325,11 +327,11 @@ class _PatientHomeScreenState extends State<PatientHomeScreen>
                                     top: 2,
                                   ),
                                   child: Text(
-                                    GridModelList[index].title,
+                                    gridModelList[index].title,
                                     style: TextStyle(
                                       fontSize:
-                                          // GridModelList[index].title ==
-                                          //         "المساعد الذكي"
+                                          // gridModelList[index].title ==
+                                          //         tr("Smart_Assistant")
                                           //     ? 14
                                           //     :
                                           15,

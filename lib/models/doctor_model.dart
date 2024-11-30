@@ -1,44 +1,52 @@
+import 'package:easy_localization/easy_localization.dart';
+
 class DoctorModel {
   final String drName;
-  final String drRole;
-  final String specialty;
+  final String drRoleKey;
+  final String specialtyKey;
   final String drImage;
-  final String experience;
-  final List<String> aboutDrTobics;
+  final String experienceKey;
+  final List<String> aboutDrTobicsKey;
   final String email;
 
   DoctorModel({
     required this.drName,
-    required this.drRole,
-    required this.specialty,
+    required this.drRoleKey,
+    required this.specialtyKey,
     required this.drImage,
-    required this.experience,
-    required this.aboutDrTobics,
+    required this.experienceKey,
+    required this.aboutDrTobicsKey,
     required this.email,
   });
+
+  String get drRole => tr(drRoleKey);
+  String get specialty => tr(specialtyKey);
+  String get experience => "$experienceKey ${tr("years")}";
+  List<String> get aboutDrTobics =>
+      aboutDrTobicsKey.map((key) => tr(key)).toList();
 }
 
 DoctorModel dr1 = DoctorModel(
   drName: "بروف. راكان إبراهيم ناظر",
-  drRole: "أستاذ وإستشاري جراحة القلب",
-  specialty: "جراحة القلب",
+  drRoleKey: "professor_and_consultant_cardiac_surgeon",
+  specialtyKey: "heart_surgery",
   drImage: "assets/doctors/doc-1.png",
-  experience: "5 سنوات",
+  experienceKey: "5",
   email: "mohamed@gmail.com",
-  aboutDrTobics: [
-    "مخترع و بروفيسور واستشاري جراحة القلب و الصدر و أحد رواد جراحة القلب في المملكة.",
-    "متخصص في جراحات القلب المعقدة و عالية الخطورة. كذلك جراحات تبديل الصمامات و تحوير الشرايين التاجية للقلب و عمليات الإنسلاخ و تمدد الشريان الأورطي.",
+  aboutDrTobicsKey: [
+    "doctor.doc_1.about_1",
+    "doctor.doc_1.about_2",
   ],
 );
 DoctorModel dr2 = DoctorModel(
   drName: "بروف. علي مفرح البراتي",
-  drRole: "استشاري تأهيل القلب و الجهاز التنفسي",
-  specialty: "تأهيل القلب",
+  drRoleKey: "cardiac_and_respiratory_rehabilitation_consultant",
+  specialtyKey: "cardiac_rehabilitation",
   drImage: "assets/doctors/doc.jpg",
-  experience: "5 سنوات",
+  experienceKey: "5",
   email: "medoo@gmail.com",
-  aboutDrTobics: [
-    "أستاذ و استشاري تأهيل القلب و الجهاز التنفسي مهتم بتأهيل القلب بعد العمليات الجراحية، الذبحة الصدرية و ضعف عضلة القلب و كذلك الحالات بعد زراعة الأجهزة المساعدة للقلب. كذلك المرضي الذين يشتكون من أمراض الجهاز التنفسي المزمنة و زراعة الرئة و حالات كورونا المزمنة و ما بعد العناية المركزة."
+  aboutDrTobicsKey: [
+    "doctor.doc_2.about_1",
   ],
 );
 
