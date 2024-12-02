@@ -15,6 +15,7 @@ class CustomListField extends StatefulWidget {
   final TextInputType keyboardType;
   final TextEditingController controller;
   final String? value;
+  final Function(String)? onSuffixChanged;
 
   const CustomListField({
     super.key,
@@ -29,6 +30,7 @@ class CustomListField extends StatefulWidget {
     this.keyboardType = const TextInputType.numberWithOptions(),
     required this.controller,
     this.value = "",
+    this.onSuffixChanged,
   });
 
   @override
@@ -171,7 +173,7 @@ class _CustomListFieldState extends State<CustomListField> {
                         onChanged: (newValue) {
                           setState(() {
                             selectedList = newValue!;
-                            // fileLinearProgress();
+                            widget.onSuffixChanged?.call(newValue);
                           });
                         },
                       )

@@ -124,7 +124,7 @@ class _DangerMeasureScreenState extends State<DangerMeasureScreen> {
                         ),
                   /////// the progress indecator end //////
 
-                  /////// the yes or no question ////
+                  ///switch the body of test ///
                   switchPagesTest(
                     context,
                     testNumber: testNumber,
