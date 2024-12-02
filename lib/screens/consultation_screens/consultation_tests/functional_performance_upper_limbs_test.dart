@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';
@@ -29,40 +30,42 @@ class _FunctionalPerformanceUpperLimbsTestState
 
   bool get allQuestionsAnswered => !selectedAnswers.contains(null);
   List<String> answerlists = [
-    "عدم القدرة علي اداء النشاط ",
-    "صعوبة كبيرة ",
-    "صعوبة متوسطة  ",
-    "صعوبة بسيطة",
-    "لا توجد صعوبة ",
+    tr("consultation_tests.functional_performance_upper_limbs.answers.number_1"),
+    tr("consultation_tests.functional_performance_upper_limbs.answers.number_2"),
+    tr("consultation_tests.functional_performance_upper_limbs.answers.number_3"),
+    tr("consultation_tests.functional_performance_upper_limbs.answers.number_4"),
+    tr("consultation_tests.functional_performance_upper_limbs.answers.number_5"),
   ];
 
   List<String> qustions = [
-    "القيام بالاعمال المعتادة مثل الاعمال المنزلية , او الانشطة المدرسية",
-    "الهوايات المعتادة، أو الأنشطة الترفيهية، أو الرياضية",
-    "رفع كيس المشتريات إلى مستوى الخصر",
-    "وضع أو إنزال شيء ما من على رف عالي",
-    "غسل الشعر أو فروة الرأس",
-    "الدفع باليدين للنهوض مثال:عند القيام من الكرسي أو من حوض الاستحمام",
-    "تحضر الطعام مثال: التقشريأو التقطيع",
-    "قيادة السيارة",
-    "الكنس بمكنسة كهربائية أو يدوية",
-    "ارتداء الملابس",
-    "اغلاق أزرار الملابس",
-    "استخدام الأدوات أو الأجهزة",
-    "فتح الأبواب",
-    "التنظيف",
-    "ربط الحذاء",
-    "النوم",
-    "تنظيف الملابس مثال: غسل أو كي أو طي الملابس",
-    "فتح برطمان مثال: فتح علبة المربى",
-    "رمي كرة",
-    "محل حقيبة صغرية بالطرف المصاب",
+    tr("consultation_tests.functional_performance_upper_limbs.questions.number_1"),
+    tr("consultation_tests.functional_performance_upper_limbs.questions.number_2"),
+    tr("consultation_tests.functional_performance_upper_limbs.questions.number_3"),
+    tr("consultation_tests.functional_performance_upper_limbs.questions.number_4"),
+    tr("consultation_tests.functional_performance_upper_limbs.questions.number_5"),
+    tr("consultation_tests.functional_performance_upper_limbs.questions.number_6"),
+    tr("consultation_tests.functional_performance_upper_limbs.questions.number_7"),
+    tr("consultation_tests.functional_performance_upper_limbs.questions.number_8"),
+    tr("consultation_tests.functional_performance_upper_limbs.questions.number_9"),
+    tr("consultation_tests.functional_performance_upper_limbs.questions.number_10"),
+    tr("consultation_tests.functional_performance_upper_limbs.questions.number_11"),
+    tr("consultation_tests.functional_performance_upper_limbs.questions.number_12"),
+    tr("consultation_tests.functional_performance_upper_limbs.questions.number_13"),
+    tr("consultation_tests.functional_performance_upper_limbs.questions.number_14"),
+    tr("consultation_tests.functional_performance_upper_limbs.questions.number_15"),
+    tr("consultation_tests.functional_performance_upper_limbs.questions.number_16"),
+    tr("consultation_tests.functional_performance_upper_limbs.questions.number_17"),
+    tr("consultation_tests.functional_performance_upper_limbs.questions.number_18"),
+    tr("consultation_tests.functional_performance_upper_limbs.questions.number_19"),
+    tr("consultation_tests.functional_performance_upper_limbs.questions.number_20"),
   ];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: defaultAppbar(context, title: "الاداء الوظيفي للاطراف العلوية"),
+        appBar: defaultAppbar(context,
+            title: tr(
+                "consultation_tests.functional_performance_upper_limbs.test_name")),
         body: Padding(
           padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
           child: Stack(
@@ -97,7 +100,7 @@ class _FunctionalPerformanceUpperLimbsTestState
                 right: 0,
                 bottom: 0,
                 child: defaultButton(
-                  text: "انهاء",
+                  text: tr("finish"),
                   onTap: allQuestionsAnswered
                       ? () => Navigator.pop(context, true)
                       : null,

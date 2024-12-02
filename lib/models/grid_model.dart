@@ -29,13 +29,13 @@ GridModel grid1 = GridModel(
 GridModel grid2 = GridModel(
   image: "assets/grid_images/image 23-1.png",
   titlekey: "quality_of_life_measurement",
-  screen: QualityOfLifeMeasureScreen(),
+  screen: const QualityOfLifeMeasureScreen(),
 );
 GridModel grid3 = GridModel(
   image: "assets/grid_images/image 23.png",
   titlekey: "measure_the_degree_of_risk",
   screen: DangerMeasureScreen(
-    appbar: "severity_scale",
+    appbar: tr("severity_scale"),
     shortTest: true,
   ),
 );
@@ -43,7 +43,7 @@ GridModel grid4 = GridModel(
   image: "assets/grid_images/image 50-2.png",
   titlekey: "cardiometer",
   screen: DangerMeasureScreen(
-    appbar: "cardiac_equalization_scale",
+    appbar: tr("cardiac_equalization_scale"),
     testNumber: 5,
     shortTest: true,
   ),
@@ -52,7 +52,7 @@ GridModel grid5 = GridModel(
   image: "assets/grid_images/image 50-1.png",
   titlekey: "dyspnea_scale",
   screen: DangerMeasureScreen(
-    appbar: "multidimensional_dyspnea_scale",
+    appbar: tr("multidimensional_dyspnea_scale"),
     testNumber: 6,
     shortTest: true,
   ),
@@ -61,7 +61,7 @@ GridModel grid6 = GridModel(
   image: "assets/grid_images/image 50.png",
   titlekey: "choke_step_measurement",
   screen: DangerMeasureScreen(
-    appbar: "choking_hazard",
+    appbar: tr("choking_hazard"),
     testNumber: 3,
     shortTest: true,
   ),

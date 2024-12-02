@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:intl/intl.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/services/chat_service.dart';
 import 'package:makeny/widgets/buttons.dart';
@@ -113,13 +113,19 @@ class _ChatScreenState extends State<ChatScreen> {
     DateTime oneWeekAgo = today.subtract(const Duration(days: 7));
 
     if (dateTime.isAfter(today)) {
-      return "اليوم";
+      return tr("today");
     } else if (dateTime.isAfter(yesterday)) {
-      return "أمس";
+      return tr("yesterday");
     } else if (dateTime.isAfter(oneWeekAgo)) {
-      return DateFormat('EEEE', 'ar').format(dateTime);
+      return DateFormat(
+        'EEEE',
+        context.locale.languageCode == "ar" ? "ar" : "en",
+      ).format(dateTime);
     } else {
-      return DateFormat('d MMMM yyyy', 'ar').format(dateTime);
+      return DateFormat(
+        'd MMMM yyyy',
+        context.locale.languageCode == "ar" ? "ar" : "en",
+      ).format(dateTime);
     }
   }
 
@@ -162,7 +168,10 @@ class _ChatScreenState extends State<ChatScreen> {
         } else if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-          return const Center(child: Text("No messages yet"));
+          return Center(
+              child: Text(
+            tr("no_messages_yet"),
+          ));
         }
 
         final messages = snapshot.data!.docs;
@@ -201,7 +210,10 @@ class _ChatScreenState extends State<ChatScreen> {
     DateTime? messageDateTime = getDateTimeFromTimestamp(timestamp);
 
     String formattedTime = messageDateTime != null
-        ? DateFormat('h:mm a', 'ar').format(messageDateTime)
+        ? DateFormat(
+            'h:mm a',
+            context.locale.languageCode == "ar" ? "ar" : "en",
+          ).format(messageDateTime)
         : "........";
 
     return Container(
@@ -267,7 +279,11 @@ class _ChatScreenState extends State<ChatScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 5),
                     child: GestureDetector(
                       onTap: sendMessage,
-                      child: SvgPicture.asset("assets/icons/send.svg"),
+                      child: Transform.flip(
+                          flipX: context.locale.languageCode == "en"
+                              ? true
+                              : false,
+                          child: SvgPicture.asset("assets/icons/send.svg")),
                     ),
                   ),
                   const SizedBox(width: 5),
@@ -279,7 +295,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       decoration: InputDecoration(
                         fillColor: const Color(0xffF0F0F0),
                         filled: true,
-                        hintText: "اكتب هنا",
+                        hintText: tr("write_here"),
                         hintStyle: TextStyle(color: greyColor),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(50),

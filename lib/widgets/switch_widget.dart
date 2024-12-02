@@ -161,7 +161,7 @@ Widget switchQualityOfLifePage(testNumber) {
       return Column(
         children: [
           greenNote(
-            text: tr("tests.green_note_QualityOfLife.test_1"),
+            text: tr("green_note_QualityOfLife.test_6."),
           ),
           LongOneAnswerCheck(
             questionText:
@@ -237,7 +237,7 @@ Widget switchQualityOfLifePage(testNumber) {
             child: defalutQuestionText(text: tr("your_quality_of_life")),
           ),
           greenNote(
-            text: tr("tests.green_note_QualityOfLife.test_6"),
+            text: tr("green_note_QualityOfLife.test_6"),
           ),
           SizedBox(
             height: 120,

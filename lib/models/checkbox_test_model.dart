@@ -6,38 +6,41 @@ import 'package:makeny/screens/consultation_screens/consultation_tests/functiona
 import 'package:makeny/screens/quality_of_life_measure_screen.dart';
 
 class CheckboxTestModel {
-  final String testName;
+  final String testNameKey;
   final Widget testPage;
   bool isChecked;
 
   CheckboxTestModel({
     required this.testPage,
-    required this.testName,
+    required this.testNameKey,
     this.isChecked = false,
   });
+  String get testName => tr(testNameKey);
 }
 
 CheckboxTestModel activeTestScreen = CheckboxTestModel(
   testPage: const ActiveTestScreen(),
-  testName: tr("consultation_tests.physical_activity"),
+  testNameKey: "consultation_tests.physical_activity.test_name",
 );
 CheckboxTestModel test2 = CheckboxTestModel(
   testPage: const QualityOfLifeMeasureScreen(
     checkBoxMission: true,
   ),
-  testName: tr("consultation_tests.quality_of_life"),
+  testNameKey: "consultation_tests.quality_of_life.test_name",
 );
 CheckboxTestModel test3 = CheckboxTestModel(
   testPage: const FunctionalPerformanceUpperLimbsTest(),
-  testName: tr("consultation_tests.functional_performance_upper_limbs"),
+  testNameKey:
+      "consultation_tests.functional_performance_upper_limbs.test_name",
 );
 CheckboxTestModel test4 = CheckboxTestModel(
   testPage: const ActiveTestScreen(),
-  testName: tr("consultation_tests.physical_health"),
+  testNameKey: "consultation_tests.physical_health.test_name",
 );
 CheckboxTestModel test5 = CheckboxTestModel(
   testPage: const FunctionalPerformanceLowerLimbsTest(),
-  testName: tr("consultation_tests.functional_performance_lower_extremities"),
+  testNameKey:
+      "consultation_tests.functional_performance_lower_extremities.test_name",
 );
 List<CheckboxTestModel> tests = [
   activeTestScreen,

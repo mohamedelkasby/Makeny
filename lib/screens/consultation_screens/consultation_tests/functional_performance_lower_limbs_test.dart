@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';
@@ -30,40 +31,42 @@ class _FunctionalPerformanceLowerLimbsTestState
   bool get allQuestionsAnswered => !selectedAnswers.contains(null);
 
   List<String> answerlists = [
-    "عدم القدرة علي اداء النشاط ",
-    "صعوبة كبيرة ",
-    "صعوبة متوسطة  ",
-    "صعوبة بسيطة",
-    "لا توجد صعوبة ",
+    tr("consultation_tests.functional_performance_lower_extremities.answers.number_1"),
+    tr("consultation_tests.functional_performance_lower_extremities.answers.number_2"),
+    tr("consultation_tests.functional_performance_lower_extremities.answers.number_3"),
+    tr("consultation_tests.functional_performance_lower_extremities.answers.number_4"),
+    tr("consultation_tests.functional_performance_lower_extremities.answers.number_5"),
   ];
 
   List<String> qustions = [
-    "القيام بالاعمال المعتادة مثل الاعمال المنزلية , او الانشطة المدرسية ",
-    "هواياتك المعتادة ،الأنشطة الترفيهية أو الرياضية",
-    "المشي بين الغرف",
-    "ارتداء الأحذية أو الجوارب",
-    "جلسة القرفصاء",
-    "رفع أي غرض، مثل كيس المشتريات من الأرض",
-    "أداء أنشطة خفيفة في منزلك",
-    "أداء أنشطة ثقيلة في منزلك",
-    "الدخول أو الخروج من السيارة",
-    "المشي مسافة 250 متر",
-    "المشي مسافة 1.5 كيلومتر",
-    "صعود و نزول الدرج 10 درجات",
-    "فتح الأبواب",
-    "الجلوس لمدة ساعة.",
-    "الجري على ارض مستوية.",
-    "الجري على ارض غير مستوية.",
-    "القيام بانعطافات حادة أثناء الجري السريع.",
-    "الوثب",
-    "التقلب في السرير",
+    tr("consultation_tests.functional_performance_lower_extremities.questions.number_1"),
+    tr("consultation_tests.functional_performance_lower_extremities.questions.number_2"),
+    tr("consultation_tests.functional_performance_lower_extremities.questions.number_3"),
+    tr("consultation_tests.functional_performance_lower_extremities.questions.number_4"),
+    tr("consultation_tests.functional_performance_lower_extremities.questions.number_5"),
+    tr("consultation_tests.functional_performance_lower_extremities.questions.number_6"),
+    tr("consultation_tests.functional_performance_lower_extremities.questions.number_7"),
+    tr("consultation_tests.functional_performance_lower_extremities.questions.number_8"),
+    tr("consultation_tests.functional_performance_lower_extremities.questions.number_9"),
+    tr("consultation_tests.functional_performance_lower_extremities.questions.number_10"),
+    tr("consultation_tests.functional_performance_lower_extremities.questions.number_11"),
+    tr("consultation_tests.functional_performance_lower_extremities.questions.number_12"),
+    tr("consultation_tests.functional_performance_lower_extremities.questions.number_13"),
+    tr("consultation_tests.functional_performance_lower_extremities.questions.number_14"),
+    tr("consultation_tests.functional_performance_lower_extremities.questions.number_15"),
+    tr("consultation_tests.functional_performance_lower_extremities.questions.number_16"),
+    tr("consultation_tests.functional_performance_lower_extremities.questions.number_17"),
+    tr("consultation_tests.functional_performance_lower_extremities.questions.number_18"),
+    tr("consultation_tests.functional_performance_lower_extremities.questions.number_19"),
   ];
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: defaultAppbar(context, title: "الاداء الوظيفي للاطراف السفلية"),
+        appBar: defaultAppbar(context,
+            title: tr(
+                "consultation_tests.functional_performance_lower_extremities.test_name")),
         body: Padding(
           padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
           child: Stack(
@@ -98,7 +101,7 @@ class _FunctionalPerformanceLowerLimbsTestState
                 right: 0,
                 bottom: 0,
                 child: defaultButton(
-                  text: "انهاء",
+                  text: tr("finish"),
                   onTap: allQuestionsAnswered
                       ? () => Navigator.pop(context, true)
                       : null,

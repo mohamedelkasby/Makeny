@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/screens/next_test_screen.dart';
@@ -21,7 +22,7 @@ class QualityOfLifeMeasureScreen extends StatelessWidget {
       child: Scaffold(
         appBar: defaultAppbar(
           context,
-          title: "جودة الحياة",
+          title: tr("consultation_tests.quality_of_life.title"),
         ),
         body: Padding(
           padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
@@ -52,7 +53,7 @@ class QualityOfLifeMeasureScreen extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 5, vertical: 8),
                             child: defalutQuestionText(
-                                text: "اختبار $testNumber/6"),
+                                text: "${tr("test")} $testNumber/6"),
                           ),
                           Expanded(
                             child: Padding(
@@ -84,7 +85,7 @@ class QualityOfLifeMeasureScreen extends StatelessWidget {
                 right: 0,
                 child: testNumber < 6
                     ? defaultButton(
-                        text: "استمرار",
+                        text: tr("continue"),
                         onTap: () {
                           Navigator.push(
                             context,
@@ -99,7 +100,7 @@ class QualityOfLifeMeasureScreen extends StatelessWidget {
                         },
                       )
                     : defaultButton(
-                        text: "انتهاء",
+                        text: tr("finish"),
                         onTap: () => checkBoxMission
                             ? popMultiplePages(
                                 context: context, pagesToPop: 6, data: true)
@@ -112,7 +113,7 @@ class QualityOfLifeMeasureScreen extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => NextTestScreen(
-                                      appbar: "تحليل اجاباتك",
+                                      appbar: tr("analyze_your_answers"),
                                       testNumber:
                                           9, // 9 is the number that give me the page i want do not change
                                     ),

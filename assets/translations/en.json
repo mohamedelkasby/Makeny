@@ -392,11 +392,93 @@
         "test_4": "you need urgent consultation"
     },
     "consultation_tests": {
-        "physical_activity": "Physical Activity Test",
-        "quality_of_life": "Quality of Life Test",
-        "physical_health": "Physical Health Test",
-        "functional_performance_upper_limbs": "Functional Performance of Upper Limbs",
-        "functional_performance_lower_extremities": "Functional Performance of Lower Extremities"
+        "physical_activity": {
+            "test_name": "Physical Activity Test",
+            "green_note": "Please indicate whether you can currently perform any of the following activities or cannot perform them.",
+            "questions": {
+                "number_1": "Can you take care of yourself with eating, dressing, bathing, and using the bathroom?",
+                "number_2": "Can you walk inside the house?",
+                "number_3": "Can you walk a distance of 100 to 250 meters on level ground?",
+                "number_4": "Can you climb stairs or a hill?",
+                "number_5": "Can you run a short distance?",
+                "number_6": "Can you do light household chores such as dusting or washing dishes?",
+                "number_7": "Can you do household work in the garden, such as pruning trees or removing weeds?",
+                "number_8": "Can you do moderately strenuous household chores like sweeping and mopping floors or grocery shopping?",
+                "number_9": "Can you engage in marital intimacy?",
+                "number_10": "Can you participate in recreational activities such as folk dancing, playing golf, or walking 5 kilometers per hour?",
+                "number_11": "Can you participate in high-intensity recreational activities such as playing football, basketball, or running 8 kilometers per hour?"
+            }
+        },
+        "quality_of_life": {
+            "test_name": "Quality of Life Test",
+            "title": "Quality of Life"
+        },
+        "physical_health": {
+            "test_name": "Physical Health Test"
+        },
+        "functional_performance_upper_limbs": {
+            "test_name": "Functional Performance of Upper Limbs",
+            "questions": {
+                "number_1": "Performing usual tasks like household chores or school activities.",
+                "number_2": "Usual hobbies, recreational activities, or sports.",
+                "number_3": "Lifting a shopping bag to waist level.",
+                "number_4": "Placing or taking something down from a high shelf.",
+                "number_5": "Washing your hair or scalp.",
+                "number_6": "Pushing yourself up with your hands, e.g., getting up from a chair or bathtub.",
+                "number_7": "Preparing food, e.g., peeling or chopping.",
+                "number_8": "Driving a car.",
+                "number_9": "Vacuuming or sweeping by hand.",
+                "number_10": "Dressing yourself.",
+                "number_11": "Buttoning clothing.",
+                "number_12": "Using tools or appliances.",
+                "number_13": "Opening doors.",
+                "number_14": "Cleaning.",
+                "number_15": "Tying your shoes.",
+                "number_16": "Sleeping.",
+                "number_17": "Cleaning clothes, e.g., washing, ironing, or folding them.",
+                "number_18": "Opening a jar, e.g., a jam jar.",
+                "number_19": "Throwing a ball.",
+                "number_20": "Carrying a small bag with the affected limb."
+            },
+            "answers": {
+                "number_1": "Unable to perform the activity.",
+                "number_2": "Severe difficulty.",
+                "number_3": "Moderate difficulty.",
+                "number_4": "Mild difficulty.",
+                "number_5": "No difficulty."
+            }
+        },
+        "functional_performance_lower_extremities": {
+            "test_name": "Functional Performance of Lower Extremities",
+            "questions": {
+                "number_1": "Performing usual tasks like household chores or school activities.",
+                "number_2": "Your usual hobbies, recreational activities, or sports.",
+                "number_3": "Walking between rooms.",
+                "number_4": "Wearing shoes or socks.",
+                "number_5": "Squatting.",
+                "number_6": "Lifting any item, like a shopping bag, from the ground.",
+                "number_7": "Performing light activities at home.",
+                "number_8": "Performing heavy activities at home.",
+                "number_9": "Getting in or out of a car.",
+                "number_10": "Walking a distance of 250 meters.",
+                "number_11": "Walking a distance of 1.5 kilometers.",
+                "number_12": "Climbing and descending 10 steps.",
+                "number_13": "Opening doors.",
+                "number_14": "Sitting for an hour.",
+                "number_15": "Running on level ground.",
+                "number_16": "Running on uneven ground.",
+                "number_17": "Making sharp turns while sprinting.",
+                "number_18": "Jumping.",
+                "number_19": "Turning over in bed."
+            },
+            "answers": {
+                "number_1": "Unable to perform the activity.",
+                "number_2": "Severe difficulty.",
+                "number_3": "Moderate difficulty.",
+                "number_4": "Mild difficulty.",
+                "number_5": "No difficulty."
+            }
+        }
     },
     "error": {
         "no_user_date_found": "no user date found",
@@ -503,5 +585,9 @@
     "makeny_rehabilitation_heart_failure_patients": "makeny for rehabilitation of heart failure patients",
     "there_is_no": "there is no ",
     "consultations": "consultations",
-    "currently": "currently"
+    "currently": "currently",
+    "no_messages_yet": "no messages yet",
+    "today": "today",
+    "yesterday": "yesterday",
+    "write_here": "write here"
 }
