@@ -101,13 +101,15 @@
     },
     "calculates": {
         "cm": "cm",
-        "inch": "انش",
+        "inch": "inch",
         "kg": "kg",
         "g": "g",
         "pbm": "pbm",
         "kg/m2": "kg/m2",
         "g/m2": "g/m2",
         "mmHg": "mmHg",
+        "sar": "SAR",
+        "pm": "pm",
         "years_old": "years_old"
     },
     "closeDialog": {
@@ -356,7 +358,7 @@
         "zero": "zero",
         "to": "to",
         "where": "where",
-        "mean_comfortable_or": "means comfortable or",
+        "mean_comfortable_but": "means comfortable but",
         "definition_shortness_of_breath": "means you feel the greatest possible breathing discomfort"
     },
     "green_note_QualityOfLife": {
@@ -374,6 +376,10 @@
             "text_2": "Now use these scales to assess the severity of the breathing sensation you feel or felt"
         }
     },
+    "heart_disease": {
+        "number_1": "Exercise 5 times/week",
+        "number_2": "Resistance training 2 times/week"
+    },
     "green_note": {
         "test_1": "Please answer the following tests to determine the most suitable doctors for you..",
         "test_5": "Heart muscle dysfunction affects different people in different ways, where some feel shortness of breath and others feel severe fatigue.\nPlease indicate your activity over the past two weeks.",
@@ -384,6 +390,13 @@
         "test_2": "you do not need consultation from",
         "test_3": "you need consultation from",
         "test_4": "you need urgent consultation"
+    },
+    "consultation_tests": {
+        "physical_activity": "Physical Activity Test",
+        "quality_of_life": "Quality of Life Test",
+        "physical_health": "Physical Health Test",
+        "functional_performance_upper_limbs": "Functional Performance of Upper Limbs",
+        "functional_performance_lower_extremities": "Functional Performance of Lower Extremities"
     },
     "error": {
         "no_user_date_found": "no user date found",
@@ -460,10 +473,35 @@
     "specialization": "Specialization",
     "heart_diseases_and_surgery": "Diseases and Heart Surgery",
     "healthy_lifestyle_and_quality_life": "Healthy Lifestyle and Quality of Life",
-    "evening": "Evening",
+    "evening": "evening",
     "minutes": "minutes",
     "minute": "minute",
     "set_the_time": "Set the Time",
     "remind_me_before": "Remind me before",
-    "confirmation": "Confirmation"
+    "confirmation": "Confirmation",
+    "depressed": "depressed",
+    "anxious": "anxious",
+    "frustrated": "frustrated",
+    "angry": "angry",
+    "scared": "scared",
+    "booking_details": "booking details",
+    "date": "date",
+    "time": "time",
+    "communication_type": "communication type",
+    "online": "online",
+    "price": "price",
+    "value_added_tax": "value added Tax",
+    "total": "Total",
+    "not_available_now": "not available now",
+    "booking_completed_successfully": "booking has been completed successfully.",
+    "go_to_consultation": "go to the consultation",
+    "canceled": "canceled",
+    "completed": "completed",
+    "opened": "opened",
+    "tasks": "tasks",
+    "consultation_details": "consultation details",
+    "makeny_rehabilitation_heart_failure_patients": "makeny for rehabilitation of heart failure patients",
+    "there_is_no": "there is no ",
+    "consultations": "consultations",
+    "currently": "currently"
 }

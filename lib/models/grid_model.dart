@@ -74,7 +74,7 @@ GridModel grid6 = GridModel(
 
 GridModel grid8 = GridModel(
   image: "assets/grid_images/image 16.png",
-  titlekey: "my_medical_file",
+  titlekey: "accountPage.my_medical_file",
   screen: const MedicalFile(),
 );
 List<GridModel> gridModelList = [

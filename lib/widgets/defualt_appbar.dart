@@ -11,9 +11,11 @@ PreferredSizeWidget defaultAppbar(
   final context, {
   required final String title,
   bool chatIcon = false,
+  bool backarrow = true,
   Map<String, dynamic>? doctorfireData,
 }) {
   return AppBar(
+    automaticallyImplyLeading: false,
     systemOverlayStyle: const SystemUiOverlayStyle(
       statusBarColor: Colors.white,
       statusBarIconBrightness: Brightness.dark,
@@ -56,7 +58,7 @@ PreferredSizeWidget defaultAppbar(
             )
           : SizedBox()
     ],
-    leading: backArrow(context),
+    leading: backarrow == true ? backArrow(context) : null,
     centerTitle: true,
     title: textNormal(
       text: title,

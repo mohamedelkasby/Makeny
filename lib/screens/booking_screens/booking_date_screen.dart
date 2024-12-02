@@ -6,6 +6,7 @@ import 'package:makeny/screens/booking_screens/reservation_details.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';
+import 'package:makeny/widgets/internet_connectivity_wrapper.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class BookingDateScreen extends StatefulWidget {
@@ -31,22 +32,26 @@ class _BookingDateScreenState extends State<BookingDateScreen> {
   final DateTime firstDay = DateTime.now();
   final DateTime lastDay = DateTime.now().add(const Duration(days: 365));
 
-  String getMonthInArabic(DateTime date) {
-    const arabicMonths = [
-      "يناير",
-      "فبراير",
-      "مارس",
-      "أبريل",
-      "مايو",
-      "يونيو",
-      "يوليو",
-      "أغسطس",
-      "سبتمبر",
-      "أكتوبر",
-      "نوفمبر",
-      "ديسمبر",
-    ];
-    return arabicMonths[date.month - 1];
+  String getMonthName(DateTime date) {
+    if (context.locale.languageCode == "ar") {
+      const arabicMonths = [
+        "يناير",
+        "فبراير",
+        "مارس",
+        "أبريل",
+        "مايو",
+        "يونيو",
+        "يوليو",
+        "أغسطس",
+        "سبتمبر",
+        "أكتوبر",
+        "نوفمبر",
+        "ديسمبر",
+      ];
+      return arabicMonths[date.month - 1];
+    } else {
+      return DateFormat('MMMM', 'en').format(date);
+    }
   }
 
   void _goToPreviousMonth() {
@@ -188,10 +193,10 @@ class _BookingDateScreenState extends State<BookingDateScreen> {
                                   leftChevronVisible: false,
                                   rightChevronVisible: false,
                                   titleTextFormatter: (date, locale) {
-                                    String arabicMonth = getMonthInArabic(date);
+                                    String monthName = getMonthName(date);
                                     String englishYear =
                                         DateFormat('yyyy').format(date);
-                                    return "$arabicMonth  $englishYear";
+                                    return "$monthName  $englishYear";
                                   },
                                   decoration: BoxDecoration(
                                     color: mainColor,
@@ -216,7 +221,7 @@ class _BookingDateScreenState extends State<BookingDateScreen> {
                                     : "en",
                                 calendarBuilders: CalendarBuilders(
                                   headerTitleBuilder: (context, date) {
-                                    String arabicMonth = getMonthInArabic(date);
+                                    String monthName = getMonthName(date);
                                     String englishYear =
                                         DateFormat('yyyy').format(date);
 
@@ -230,7 +235,7 @@ class _BookingDateScreenState extends State<BookingDateScreen> {
                                           Row(
                                             children: [
                                               Text(
-                                                "$arabicMonth  ",
+                                                "$monthName  ",
                                                 style: const TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 17,
@@ -416,14 +421,16 @@ class _BookingDateScreenState extends State<BookingDateScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ReservationDetails(
-                                date: selectedDate!
-                                    .toLocal()
-                                    .toString()
-                                    .split(" ")[0],
-                                docSpecialize: widget.docSpecialize,
-                                type: widget.type,
-                                time: selectedTime!,
+                              builder: (context) => InternetConnectivityWrapper(
+                                child: ReservationDetails(
+                                  date: selectedDate!
+                                      .toLocal()
+                                      .toString()
+                                      .split(" ")[0],
+                                  docSpecialize: widget.docSpecialize,
+                                  type: widget.type,
+                                  time: selectedTime!,
+                                ),
                               ),
                             ));
                       }

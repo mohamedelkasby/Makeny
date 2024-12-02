@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
@@ -57,7 +58,7 @@ class _SecondPageState extends State<SecondPage> {
           child: Align(
             alignment: Alignment.centerRight,
             child: defalutQuestionText(
-              text: "تنوية",
+              text: tr("notice"),
               color: mainColor,
             ),
           ),
@@ -65,27 +66,27 @@ class _SecondPageState extends State<SecondPage> {
         Text.rich(
           TextSpan(
             children: [
-              TextSpan(text: "هذا المقياس من"),
+              TextSpan(text: tr("test_6_page.this_scale_from")),
               TextSpan(
-                text: " صفر  ",
+                text: " ${tr("test_6_page.zero")}  ",
                 style: TextStyle(color: mainColor),
               ),
-              TextSpan(text: "الي"),
-              TextSpan(
-                text: " 10 ",
-                style: TextStyle(color: mainColor),
-              ),
-              TextSpan(text: "حيث"),
-              TextSpan(
-                text: " صفر ",
-                style: TextStyle(color: mainColor),
-              ),
-              TextSpan(text: "تعني مرتاح ام"),
+              TextSpan(text: tr("test_6_page.to")),
               TextSpan(
                 text: " 10 ",
                 style: TextStyle(color: mainColor),
               ),
-              TextSpan(text: "تعني انك تشعر بأكبر قدر من الضيق في التنفس"),
+              TextSpan(text: tr("test_6_page.where")),
+              TextSpan(
+                text: " ${tr("test_6_page.zero")} ",
+                style: TextStyle(color: mainColor),
+              ),
+              TextSpan(text: tr("test_6_page.mean_comfortable_but")),
+              TextSpan(
+                text: " 10 ",
+                style: TextStyle(color: mainColor),
+              ),
+              TextSpan(text: tr("test_6_page.definition_shortness_of_breath")),
             ],
             style: TextStyle(
               fontSize: 16,

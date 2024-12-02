@@ -64,47 +64,54 @@ class _NextTestScreenState extends State<NextTestScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: defaultAppbar(context,
-          title: testNumber == 9 ? appbar : "${tr("next")} ..$appbar"),
-      body: Center(
-        child: Column(
-          // crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            switchNextTest(testNumber: testNumber),
+      appBar: defaultAppbar(
+        context,
+        title: testNumber == 9 ? appbar : "${tr("next")} ..$appbar",
+        backarrow: false,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(15),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              switchNextTest(testNumber: testNumber),
 
-            ///
-            Column(children: [
-              Text(
-                switchNextTestListText(testNumber: testNumber)[0],
-                style: TextStyle(
-                  color: mainColor,
-                  fontSize: 22,
-                  fontWeight: FontWeight.w600,
+              ///
+              Column(children: [
+                Text(
+                  switchNextTestListText(testNumber: testNumber)[0],
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: mainColor,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                switchNextTestListText(testNumber: testNumber)[1],
+                const SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  switchNextTestListText(testNumber: testNumber)[1],
+                  maxLines: 2,
 
-                ///
-                style: testNumber == 9
-                    ? TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w600,
-                      )
-                    : TextStyle(
-                        fontSize: 15,
-                        color: mainBlack,
-                      ),
-              ),
-            ]),
-            SizedBox(
-              height: MediaQuery.sizeOf(context).height * .20,
-            )
-          ],
+                  ///
+                  style: testNumber == 9
+                      ? const TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.w600,
+                        )
+                      : TextStyle(
+                          fontSize: 15,
+                          color: mainBlack,
+                        ),
+                ),
+              ]),
+              SizedBox(
+                height: MediaQuery.sizeOf(context).height * .20,
+              )
+            ],
+          ),
         ),
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:makeny/extentions/colors.dart';
@@ -90,7 +91,7 @@ Widget consultionsData(
                         width: 5,
                       ),
                       Text(
-                        "$time م",
+                        "$time ${tr("calculates.pm")}",
                         style: TextStyle(
                           color: Color(0xff6C7380),
                           fontSize: 16,
@@ -118,8 +119,9 @@ Widget consultionsData(
                       Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
-                          color:
-                              status == "ملغاه" ? mainColor : Color(0xff0EBE7F),
+                          color: status == tr("canceled")
+                              ? mainColor
+                              : Color(0xff0EBE7F),
                         ),
                         child: SizedBox(
                           width: 10,

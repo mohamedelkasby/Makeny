@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:makeny/cubits/cubit.dart';
@@ -25,7 +26,8 @@ class SuccessPayment extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
           backgroundColor: Color(0xffF4FBFF),
-          appBar: defaultAppbar(context, title: "تم الحجز بنجاح"),
+          appBar: defaultAppbar(context,
+              title: tr("booking_completed_successfully")),
           body: Padding(
             padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
             child: Column(
@@ -37,7 +39,7 @@ class SuccessPayment extends StatelessWidget {
                   ),
                 )),
                 defaultButton(
-                    text: "الذهاب الى الاستشاره",
+                    text: tr("go_to_consultation"),
                     onTap: () {
                       Navigator.of(context).popUntil((route) => route.isFirst);
                       AppCubit.get(context).selectedBNBIndex = 0;
@@ -54,7 +56,7 @@ class SuccessPayment extends StatelessWidget {
                               doctorModel: doctorModel,
                               date: date,
                               time: time,
-                              status: "مفتوحه",
+                              status: tr("opened"),
                             ),
                           ));
                     })

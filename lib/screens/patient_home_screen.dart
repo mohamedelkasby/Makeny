@@ -38,7 +38,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen>
   void initState() {
     super.initState();
     _animationController = AnimationController(
-      duration: Duration(seconds: 10), // 3 seconds per stop
+      duration: const Duration(seconds: 10), // 3 seconds per stop
       vsync: this,
     );
 
@@ -140,7 +140,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen>
 
             ////////////    the container that hold the pageView start /////////
             Container(
-              margin: EdgeInsets.only(bottom: 10),
+              margin: const EdgeInsets.only(bottom: 10),
               /////// the radius of the pageview  ///////
               decoration: BoxDecoration(
                 border: Border.all(
@@ -185,7 +185,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen>
                       child: Text(
                         pageViewTitles[_currentPage],
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontWeight: FontWeight.w700, fontSize: 24),
                       ),
                     ),
@@ -201,7 +201,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen>
                           (index) => Container(
                             width: 10,
                             height: 10,
-                            margin: EdgeInsets.symmetric(horizontal: 3),
+                            margin: const EdgeInsets.symmetric(horizontal: 3),
                             decoration: BoxDecoration(
                               border: Border.all(
                                   color: _currentPage == index
@@ -247,7 +247,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen>
                 doctorContainer(
                   context,
                   doctorsData: dr2,
-                  textBackColor: Color(0xff0F7BDD),
+                  textBackColor: const Color(0xff0F7BDD),
                 )
               ],
             ),
@@ -266,7 +266,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen>
               ),
             ),
             GridView.count(
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               crossAxisCount: 3, // 3 columns
               children: List.generate(
@@ -277,11 +277,11 @@ class _PatientHomeScreenState extends State<PatientHomeScreen>
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(
-                        color: Color(0xffE8E8E8),
+                        color: const Color(0xffE8E8E8),
                         width: 1.5,
                       ),
                     ),
-                    margin: EdgeInsets.all(4),
+                    margin: const EdgeInsets.all(4),
                     child: Stack(
                       children: [
                         Center(
@@ -328,8 +328,13 @@ class _PatientHomeScreenState extends State<PatientHomeScreen>
                                   ),
                                   child: Text(
                                     gridModelList[index].title,
-                                    style: TextStyle(
+                                    maxLines: 2,
+                                    style: const TextStyle(
+                                      overflow: TextOverflow.ellipsis,
                                       fontSize:
+                                          // context.locale.languageCode == "en"
+                                          //     ? 14
+                                          //     :
                                           // gridModelList[index].title ==
                                           //         tr("Smart_Assistant")
                                           //     ? 14
@@ -339,7 +344,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen>
                                     ),
                                   ),
                                 ),
-                                Expanded(
+                                const Expanded(
                                   child: SizedBox(),
                                 )
                               ],

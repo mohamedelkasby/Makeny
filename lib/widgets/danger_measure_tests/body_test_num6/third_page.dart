@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:makeny/widgets/questions_type/long_one_answer_check.dart';
 
@@ -7,11 +8,11 @@ Widget thirdPage() {
     child: LongOneAnswerCheck(
       questionText: "",
       answers: [
-        "مكتئب",
-        "قلق",
-        "محبط",
-        "غاضب",
-        "خائف",
+        tr("depressed"),
+        tr("anxious"),
+        tr("frustrated"),
+        tr("angry"),
+        tr("scared"),
       ],
       onAnswerSelected: (_) {},
     ),

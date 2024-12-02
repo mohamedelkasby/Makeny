@@ -149,7 +149,7 @@ class _CustomFloatingActionButtonLocation extends FloatingActionButtonLocation {
   @override
   Offset getOffset(ScaffoldPrelayoutGeometry scaffoldGeometry) {
     // Calculate the center of the BottomAppBar
-    final textDirection = scaffoldGeometry.textDirection;
+    // final textDirection = scaffoldGeometry.textDirection;
     final double screenWidth = scaffoldGeometry.scaffoldSize.width;
 
     final double fabHeight = scaffoldGeometry.floatingActionButtonSize.height;

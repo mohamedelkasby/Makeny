@@ -1,3 +1,4 @@
+import "package:easy_localization/easy_localization.dart";
 import "package:flutter/material.dart";
 import "package:makeny/extentions/colors.dart";
 import "package:makeny/models/doctor_model.dart";
@@ -40,7 +41,7 @@ class _PaymentScreeenState extends State<PaymentScreeen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: defaultAppbar(context, title: "تفاصيل الدفع"),
+        appBar: defaultAppbar(context, title: tr("booking_details")),
         body: Padding(
           padding: const EdgeInsets.fromLTRB(8, 16, 8, 0),
           child: Column(
@@ -93,7 +94,7 @@ class _PaymentScreeenState extends State<PaymentScreeen> {
                 ),
               ),
               defaultButton(
-                text: "استمرار",
+                text: tr("continue"),
                 onTap: selectedPaymentMethod != null
                     ? () {
                         Navigator.push(

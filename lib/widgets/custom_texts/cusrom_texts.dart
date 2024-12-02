@@ -60,12 +60,14 @@ Widget textHeadLine({
 }
 
 ////////////////
-Widget textNormal({
-  required final String text,
-  Color textColor = const Color(0xff0D1B34),
-}) {
+Widget textNormal(
+    {required final String text,
+    Color textColor = const Color(0xff0D1B34),
+    bool wrap = false}) {
   return Text(
     text,
+    maxLines: wrap ? 1 : null,
+    overflow: wrap ? TextOverflow.ellipsis : null,
     style: TextStyle(
       fontSize: 18,
       fontWeight: FontWeight.w600,

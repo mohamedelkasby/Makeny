@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/widgets.dart';
 import 'package:makeny/screens/consultation_screens/consultation_tests/active_test_screen.dart';
 import 'package:makeny/screens/consultation_screens/consultation_tests/functional_performance_lower_limbs_test.dart';
@@ -18,25 +19,25 @@ class CheckboxTestModel {
 
 CheckboxTestModel activeTestScreen = CheckboxTestModel(
   testPage: const ActiveTestScreen(),
-  testName: "اختبار النشاط البدني",
+  testName: tr("consultation_tests.physical_activity"),
 );
 CheckboxTestModel test2 = CheckboxTestModel(
   testPage: const QualityOfLifeMeasureScreen(
     checkBoxMission: true,
   ),
-  testName: "اختبار جودة الحياة  ",
+  testName: tr("consultation_tests.quality_of_life"),
 );
 CheckboxTestModel test3 = CheckboxTestModel(
   testPage: const FunctionalPerformanceUpperLimbsTest(),
-  testName: "الاداء الوظيفي لاطراف العلوية",
+  testName: tr("consultation_tests.functional_performance_upper_limbs"),
 );
 CheckboxTestModel test4 = CheckboxTestModel(
   testPage: const ActiveTestScreen(),
-  testName: "اختبار  الصحه البدنية  ",
+  testName: tr("consultation_tests.physical_health"),
 );
 CheckboxTestModel test5 = CheckboxTestModel(
   testPage: const FunctionalPerformanceLowerLimbsTest(),
-  testName: "الاداء الوظيفي للاطراف السفلية ",
+  testName: tr("consultation_tests.functional_performance_lower_extremities"),
 );
 List<CheckboxTestModel> tests = [
   activeTestScreen,

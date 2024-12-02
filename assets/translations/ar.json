@@ -108,6 +108,8 @@
         "kg/m2": "كجم/م2",
         "g/m2": "جم/م2",
         "mmHg": "ملم زئبقي",
+        "sar": "ر.س",
+        "pm": "م",
         "years_old": "سنه"
     },
     "closeDialog": {
@@ -356,7 +358,7 @@
         "zero": "صفر",
         "to": "الي",
         "where": "حيث",
-        "mean_comfortable_or": "تعني مرتاح ام",
+        "mean_comfortable_but": "تعني مرتاح ام",
         "definition_shortness_of_breath": "تعني انك تشعر بأكبر قدر من الضيق في التنفس"
     },
     "green_note_QualityOfLife": {
@@ -374,6 +376,10 @@
             "text_2": "الان استخدام هذه المقاييس لتقييم ما مدي  شدة الاحساس بالتنفس التي تشعر أو شعرت  بها"
         }
     },
+    "heart_disease": {
+        "number_1": "ممارسة الرياضة ٥ مرات/الأسبوع",
+        "number_2": "رياضة المقاومة مرتين/الأسبوع"
+    },
     "green_note": {
         "test_1": "الرجاء اجابة الاختبارات التالية لتحديد انسب الاطباء لك..",
         "test_5": "يؤثر القصور الوظيفي لعضلة القلب علي مختلف الاشخاص بطرقة مختلفة حيث يشعر البعض بضيق التنفس واخرين بالاجهاد الشديد.\nمن فضللك بين مدي نشاطك علي مدار الاسبوعين الاخيرين .",
@@ -384,6 +390,13 @@
         "test_2": "فلا تحتاج الى اسستشارة من",
         "test_3": "تحتاج الى استشارة من",
         "test_4": "تحتاج الى استشارة مستعجلة"
+    },
+    "consultation_tests": {
+        "physical_activity": "اختبار النشاط البدني",
+        "quality_of_life": "اختبار جودة الحياة",
+        "physical_health": "اختبار  الصحه البدنية",
+        "functional_performance_upper_limbs": "الاداء الوظيفي للاطراف العلوية",
+        "functional_performance_lower_extremities": "الاداء الوظيفي للاطراف السفلية"
     },
     "error": {
         "no_user_date_found": "لم نجد بيانات المستخدم",
@@ -465,5 +478,30 @@
     "minute": "دقيقة",
     "set_the_time": "حدد الوقت",
     "remind_me_before": "ذكرنى قبل",
-    "confirmation": "تأكيد"
+    "confirmation": "تأكيد",
+    "depressed": "مكتئب",
+    "anxious": "قلق",
+    "frustrated": "محبط",
+    "angry": "غاضب",
+    "scared": "خائف",
+    "booking_details": "تفاصيل الحجز",
+    "date": "التاريخ",
+    "time": "الوقت",
+    "communication_type": "وسيلة التواصل",
+    "online": "اتصال عن بعد",
+    "price": "السعر",
+    "value_added_tax": "قيمة الضريبة المضافة",
+    "total": "المجموع الكلى",
+    "not_available_now": "غير موجود حالياً",
+    "booking_completed_successfully": "تم الحجز بنجاح",
+    "go_to_consultation": "الذهاب الى الاستشاره",
+    "canceled": "ملغاه",
+    "completed": "مكتملة",
+    "opened": "مفتوحه",
+    "tasks": "المهام",
+    "consultation_details": "تفاصيل الاستشارة",
+    "makeny_rehabilitation_heart_failure_patients": "مكني لتأهيل مرضى قصور القلب",
+    "there_is_no": "لا يوجد",
+    "consultations": "استشارات",
+    "currently": "حالياً"
 }

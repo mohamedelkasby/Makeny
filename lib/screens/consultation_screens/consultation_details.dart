@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:makeny/extentions/colors.dart';
@@ -45,11 +46,11 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
     _tabController.addListener(() {
       setState(() {
         if (_tabController.index == 1) {
-          widget.status = "ملغاه";
+          widget.status = tr("canceled");
         } else if (allTestsChecked()) {
-          widget.status = "مكتملة";
+          widget.status = tr("completed");
         } else {
-          widget.status = "مفتوحه";
+          widget.status = tr("opened");
         }
       });
     });
@@ -59,7 +60,7 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
     try {
       await getfirebaseData(widget.doctorModel.email);
       if (allTestsChecked()) {
-        widget.status = "مكتملة";
+        widget.status = tr("completed");
       }
     } catch (e) {
       print("Error loading data: $e");
@@ -104,14 +105,14 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
 
   @override
   Widget build(BuildContext context) {
-    List heartDisese = [
-      "ممارسة الرياضة ٥ مرات/الأسبوع",
-      "رياضة المقاومة مرتين/الأسبوع",
+    List heartDisease = [
+      tr("heart_disease.number_1"),
+      tr("heart_disease.number_2"),
     ]; // change the name.
     return Scaffold(
       appBar: defaultAppbar(
         context,
-        title: "تفاصيل الاستشارة ",
+        title: tr("consultation_details"),
         chatIcon: true,
         doctorfireData: data,
       ),
@@ -184,7 +185,7 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
                           width: 5,
                         ),
                         Text(
-                          "${widget.time} م",
+                          "${widget.time} ${tr("calculates.pm")}",
                           style: TextStyle(
                             color: Color(0xff6C7380),
                             fontSize: 16,
@@ -197,9 +198,9 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
                       const SizedBox(
                         width: 5,
                       ),
-                      const Text(
-                        "اون لاين",
-                        style: TextStyle(
+                      Text(
+                        tr("online"),
+                        style: const TextStyle(
                           color: Color(0xff6C7380),
                           fontSize: 16,
                         ),
@@ -210,7 +211,7 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
-                            color: widget.status == "ملغاه"
+                            color: widget.status == tr("canceled")
                                 ? mainColor
                                 : const Color(0xff0EBE7F),
                           ),
@@ -263,12 +264,13 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
                         color: mainColor,
                       ),
                       indicatorSize: TabBarIndicatorSize.tab,
-                      tabs: const [
+                      tabs: [
                         Tab(
-                          text: 'المهام ',
+                          text: tr("tasks"),
                         ),
                         Tab(
-                          text: 'مكني لتأهيل مرضى قصور القلب',
+                          text: tr(
+                              "makeny_rehabilitation_heart_failure_patients"),
                         ),
                       ],
                       indicator: BoxDecoration(
@@ -309,7 +311,7 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
                                           });
                                         }
                                         if (allTestsChecked()) {
-                                          widget.status = "مكتملة";
+                                          widget.status = tr("completed");
                                         }
                                       });
                                     },
@@ -327,10 +329,13 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            textNormal(
-                                              text: tests[index].testName,
-                                              textColor:
-                                                  const Color(0xff6A6A6A),
+                                            Flexible(
+                                              child: textNormal(
+                                                text: tests[index].testName,
+                                                textColor:
+                                                    const Color(0xff6A6A6A),
+                                                wrap: true,
+                                              ),
                                             ),
                                             // Text(
                                             // ),
@@ -355,9 +360,9 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
                               vertical: 20,
                             ),
                             child: ListView.builder(
-                              itemCount: heartDisese.length,
+                              itemCount: heartDisease.length,
                               itemBuilder: (context, index) => Text(
-                                "${index + 1} - ${heartDisese[index]}",
+                                "${index + 1} - ${heartDisease[index]}",
                                 style: const TextStyle(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 17,

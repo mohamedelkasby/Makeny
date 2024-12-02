@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
@@ -27,7 +28,7 @@ class UserConsultations extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: defaultAppbar(context, title: "تفاصيل الاستشارة "),
+        appBar: defaultAppbar(context, title: tr("consultation_details")),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           child: StreamBuilder(
@@ -44,10 +45,11 @@ class UserConsultations extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      textHeaderDescription(text: "لا يوجد"),
+                      textHeaderDescription(text: tr("there_is_no")),
                       textHeaderDescription(
-                          text: " استشارات ", textColor: mainColor),
-                      textHeaderDescription(text: "حالياً"),
+                          text: " ${tr("consultations")} ",
+                          textColor: mainColor),
+                      textHeaderDescription(text: tr("currently")),
                     ],
                   ),
                 );
@@ -71,7 +73,8 @@ class UserConsultations extends StatelessWidget {
                     doctorModel: doctorModel,
                     date: data["dateReserved"],
                     time: data["timeReserved"],
-                    status: "مفتوحه", // should by dynamic with the doctor ??!!!
+                    status:
+                        tr("opened"), // should by dynamic with the doctor ??!!!
                   );
                 },
               );

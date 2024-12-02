@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/models/doctor_model.dart';
@@ -47,7 +48,7 @@ class ReservationDetails extends StatelessWidget {
     DoctorModel? data = getDoctorData();
     return SafeArea(
       child: Scaffold(
-        appBar: defaultAppbar(context, title: "تفاصيل الحجز"),
+        appBar: defaultAppbar(context, title: tr("booking_details")),
         body: Padding(
           padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
           child: data != null
@@ -103,22 +104,22 @@ class ReservationDetails extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       textNormal(
-                                        text: "التاريخ",
+                                        text: tr("date"),
                                         textColor: greyColor,
                                       ),
                                       SizedBox(height: 10),
                                       textNormal(
-                                        text: "الوقت",
+                                        text: tr("time"),
                                         textColor: greyColor,
                                       ),
                                       SizedBox(height: 10),
                                       textNormal(
-                                        text: "نوع الاستشارة",
+                                        text: tr("consultation_type"),
                                         textColor: greyColor,
                                       ),
                                       SizedBox(height: 10),
                                       textNormal(
-                                        text: "وسيلة التواصل",
+                                        text: tr("communication_type"),
                                         textColor: greyColor,
                                       ),
                                     ],
@@ -127,11 +128,12 @@ class ReservationDetails extends StatelessWidget {
                                     children: [
                                       textNormal(text: date),
                                       SizedBox(height: 10),
-                                      textNormal(text: "$time  مساءً"),
+                                      textNormal(
+                                          text: "$time  ${tr("evening")}"),
                                       SizedBox(height: 10),
                                       textNormal(text: type),
                                       SizedBox(height: 10),
-                                      textNormal(text: "اتصال عن بعد"),
+                                      textNormal(text: tr("online")),
                                     ],
                                   )
                                 ],
@@ -149,29 +151,31 @@ class ReservationDetails extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       textNormal(
-                                        text: "السعر",
+                                        text: tr("price"),
                                         textColor: greyColor,
                                       ),
                                       SizedBox(height: 10),
                                       textNormal(
-                                        text: "قيمة الضريبة المضافة",
+                                        text: tr("value_added_tax"),
                                         textColor: greyColor,
                                       ),
                                       SizedBox(height: 10),
                                       textNormal(
-                                        text: "المجموع الكلى",
+                                        text: tr("total"),
                                         textColor: greyColor,
                                       ),
                                     ],
                                   ),
                                   Column(
                                     children: [
-                                      textNormal(text: "150 ر.س "),
-                                      SizedBox(height: 10),
-                                      textNormal(text: "10 ر.س"),
+                                      textNormal(
+                                          text: "150 ${tr("calculates.sar")} "),
                                       SizedBox(height: 10),
                                       textNormal(
-                                        text: "160 ر.س",
+                                          text: "10 ${tr("calculates.sar")}"),
+                                      SizedBox(height: 10),
+                                      textNormal(
+                                        text: "160 ${tr("calculates.sar")}",
                                         textColor: mainColor,
                                       ),
                                     ],
@@ -184,7 +188,7 @@ class ReservationDetails extends StatelessWidget {
                       ),
                     ),
                     defaultButton(
-                        text: "تأكيد",
+                        text: tr("confirmation"),
                         onTap: () {
                           Navigator.push(
                             context,
@@ -205,8 +209,9 @@ class ReservationDetails extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       textHeaderDescription(
-                          text: "التخصص", textColor: mainColor400),
-                      textHeaderDescription(text: " غير موجود حالياً"),
+                          text: tr("specialization"), textColor: mainColor400),
+                      textHeaderDescription(
+                          text: " ${tr("not_available_now")}"),
                     ],
                   ),
                 ),
