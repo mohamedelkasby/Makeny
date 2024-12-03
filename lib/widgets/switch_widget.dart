@@ -15,11 +15,17 @@ Widget switchPagesTest(
   context, {
   required final int testNumber,
   final List<String> yesOrNoQuestions = const [],
+  Function(bool)? onTestCompletion,
+  Function(Map<String, dynamic>)? onDataCollected,
 }) {
   // print("switchPagesTest called with testNumber: $testNumber");
   switch (testNumber) {
     case 1:
-      return TestNumber1(yesOrNoQuestions: yesOrNoQuestions);
+      return TestNumber1(
+        yesOrNoQuestions: yesOrNoQuestions,
+        onTestCompletion: onTestCompletion,
+        onDataCollected: onDataCollected,
+      );
     case 2:
       return TestNumber2(yesOrNoQuestions: yesOrNoQuestions);
     case 3:

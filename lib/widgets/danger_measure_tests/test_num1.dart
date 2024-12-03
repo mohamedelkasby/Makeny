@@ -11,15 +11,21 @@ class TestNumber1 extends StatefulWidget {
   const TestNumber1({
     super.key,
     this.yesOrNoQuestions = const [],
+    this.onTestCompletion,
+    this.onDataCollected,
   });
   final List<String> yesOrNoQuestions;
+  final Function(bool)? onTestCompletion;
+  final Function(Map<String, dynamic>)? onDataCollected;
 
   @override
   State<TestNumber1> createState() => _TestNumber1State();
 }
 
 class _TestNumber1State extends State<TestNumber1> {
-  bool allQuestionsAnswered = false;
+  bool yesquestionsAnswered = false;
+  List<int?> yesNoAnswers = [];
+
   TextEditingController tallTextController = TextEditingController();
   TextEditingController wightTextController = TextEditingController();
   TextEditingController bodyMassTextController = TextEditingController();
@@ -39,10 +45,50 @@ class _TestNumber1State extends State<TestNumber1> {
     super.initState();
     tallTextController.addListener(updateBodyMass);
     wightTextController.addListener(updateBodyMass);
+    tallTextController.addListener(checkTestCompletion);
+    wightTextController.addListener(checkTestCompletion);
+    waistTextController.addListener(checkTestCompletion);
+    neckTextController.addListener(checkTestCompletion);
+    pulseTextController.addListener(checkTestCompletion);
+    oxygenTextController.addListener(checkTestCompletion);
+    systolicBloodTextController.addListener(checkTestCompletion);
+    diastolicBloodTextController.addListener(checkTestCompletion);
+    cholesterolTextController.addListener(checkTestCompletion);
+    beneficialTriTextController.addListener(checkTestCompletion);
+    tallTextController.addListener(checkTestCompletion);
+    wightTextController.addListener(collectData);
+    waistTextController.addListener(collectData);
+    neckTextController.addListener(collectData);
+    pulseTextController.addListener(collectData);
+    oxygenTextController.addListener(collectData);
+    systolicBloodTextController.addListener(collectData);
+    diastolicBloodTextController.addListener(collectData);
+    cholesterolTextController.addListener(collectData);
+    beneficialTriTextController.addListener(collectData);
+  }
+
+  void collectData() {
+    if (areAllFieldsFilled()) {
+      // Collect and send data
+      widget.onDataCollected?.call({
+        'yesNoQuestions': yesNoAnswers,
+        'height': double.parse(tallTextController.text),
+        'weight': double.parse(wightTextController.text),
+        'bmi': double.parse(bodyMassTextController.text),
+        'waist': double.parse(waistTextController.text),
+        'neck': double.parse(neckTextController.text),
+        'pulse': pulseTextController.text,
+        'oxygenLevel': oxygenTextController.text,
+        'systolicBloodPressure': systolicBloodTextController.text,
+        'diastolicBloodPressure': diastolicBloodTextController.text,
+        'cholesterol': cholesterolTextController.text,
+        'triglycerides': beneficialTriTextController.text,
+      });
+    }
   }
 
   bool areAllFieldsFilled() {
-    return tallTextController.text.isNotEmpty &&
+    bool isAllEntered = tallTextController.text.isNotEmpty &&
         wightTextController.text.isNotEmpty &&
         bodyMassTextController.text.isNotEmpty &&
         waistTextController.text.isNotEmpty &&
@@ -53,6 +99,7 @@ class _TestNumber1State extends State<TestNumber1> {
         diastolicBloodTextController.text.isNotEmpty &&
         cholesterolTextController.text.isNotEmpty &&
         beneficialTriTextController.text.isNotEmpty;
+    return isAllEntered;
   }
 
   double calculateBMI(
@@ -71,10 +118,8 @@ class _TestNumber1State extends State<TestNumber1> {
         ? weight / 1000 // convert grams to kg
         : weight; // already in kg
 
-    // Calculate BMI
     double bmi = weightInKg / (heightInMeters * heightInMeters);
 
-    // Round to one decimal place
     return double.parse(bmi.toStringAsFixed(1));
   }
 
@@ -89,22 +134,57 @@ class _TestNumber1State extends State<TestNumber1> {
     String weightUnit =
         wightTextController.text.isNotEmpty ? selectedWeightUnit : '';
 
-    // Calculate BMI if both height and weight are provided
     if (height > 0 && weight > 0) {
       double bmi = calculateBMI(height, weight, heightUnit, weightUnit);
       bodyMassTextController.text = bmi.toString();
     }
   }
 
+  void checkTestCompletion() {
+    // Check if all questions are answered
+    bool isComplete = yesquestionsAnswered && areAllFieldsFilled();
+    // Call the completion callback if provided
+    setState(() {
+      widget.onTestCompletion?.call(isComplete);
+    });
+  }
+
   @override
   void dispose() {
     tallTextController.removeListener(updateBodyMass);
     wightTextController.removeListener(updateBodyMass);
-
+    tallTextController.removeListener(checkTestCompletion);
+    wightTextController.removeListener(checkTestCompletion);
+    waistTextController.removeListener(checkTestCompletion);
+    neckTextController.removeListener(checkTestCompletion);
+    pulseTextController.removeListener(checkTestCompletion);
+    oxygenTextController.removeListener(checkTestCompletion);
+    systolicBloodTextController.removeListener(checkTestCompletion);
+    diastolicBloodTextController.removeListener(checkTestCompletion);
+    cholesterolTextController.removeListener(checkTestCompletion);
+    beneficialTriTextController.removeListener(checkTestCompletion);
+    tallTextController.removeListener(collectData);
+    wightTextController.removeListener(collectData);
+    waistTextController.removeListener(collectData);
+    neckTextController.removeListener(collectData);
+    pulseTextController.removeListener(collectData);
+    oxygenTextController.removeListener(collectData);
+    systolicBloodTextController.removeListener(collectData);
+    diastolicBloodTextController.removeListener(collectData);
+    cholesterolTextController.removeListener(collectData);
+    beneficialTriTextController.removeListener(collectData);
     // Dispose controllers
     tallTextController.dispose();
     wightTextController.dispose();
     bodyMassTextController.dispose();
+    waistTextController.dispose();
+    neckTextController.dispose();
+    pulseTextController.dispose();
+    oxygenTextController.dispose();
+    systolicBloodTextController.dispose();
+    diastolicBloodTextController.dispose();
+    cholesterolTextController.dispose();
+    beneficialTriTextController.dispose();
     super.dispose();
   }
 
@@ -128,8 +208,12 @@ class _TestNumber1State extends State<TestNumber1> {
               questionsText: widget.yesOrNoQuestions,
               onAllQuestionsAnswered: (allAnswered) {
                 setState(() {
-                  allQuestionsAnswered = allAnswered;
+                  yesquestionsAnswered = allAnswered;
                 });
+                collectData();
+              },
+              onAnswersChanged: (answers) {
+                yesNoAnswers = answers;
               },
             ),
             CustomListField(
@@ -187,28 +271,38 @@ class _TestNumber1State extends State<TestNumber1> {
               qustionText: tr("pulse"),
               hintText: "100/60",
               controller: pulseTextController,
+              keyboardType: TextInputType.text,
+              getSlash: true,
             ),
             CustomListField(
               qustionText: tr("oxygen_level"),
               hintText: "100/90",
               controller: oxygenTextController,
+              keyboardType: TextInputType.text,
+              getSlash: true,
             ),
             CustomListField(
               qustionText: tr("systolic_blood_pressure"),
               hintText: "140/100",
               suffixList: [tr("calculates.mmHg")],
               controller: systolicBloodTextController,
+              keyboardType: TextInputType.text,
+              getSlash: true,
             ),
             CustomListField(
               qustionText: tr("diastolic_blood_pressure"),
               hintText: "80/60",
               suffixList: [tr("calculates.mmHg")],
               controller: diastolicBloodTextController,
+              keyboardType: TextInputType.text,
+              getSlash: true,
             ),
             CustomListField(
               qustionText: tr("cholesterol"),
               hintText: "5.2/0",
               controller: cholesterolTextController,
+              keyboardType: TextInputType.text,
+              getSlash: true,
             ),
             CustomListField(
               qustionText: tr("good_triglycerides"),

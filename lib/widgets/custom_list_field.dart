@@ -1,5 +1,8 @@
+import 'dart:ffi';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 
@@ -16,6 +19,7 @@ class CustomListField extends StatefulWidget {
   final TextEditingController controller;
   final String? value;
   final Function(String)? onSuffixChanged;
+  final bool getSlash;
 
   const CustomListField({
     super.key,
@@ -31,6 +35,7 @@ class CustomListField extends StatefulWidget {
     required this.controller,
     this.value = "",
     this.onSuffixChanged,
+    this.getSlash = false,
   });
 
   @override
@@ -88,6 +93,9 @@ class _CustomListFieldState extends State<CustomListField> {
           validator: _validateInput,
           controller: widget.controller,
           keyboardType: widget.keyboardType,
+          inputFormatters: widget.getSlash
+              ? [FilteringTextInputFormatter.allow(RegExp(r'[0-9./-]'))]
+              : [],
           enabled: widget.enable,
           // Add autovalidateMode to enable real-time validation
           autovalidateMode: AutovalidateMode.onUserInteraction,

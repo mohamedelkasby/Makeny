@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AppCubit extends Cubit<AppState> {
   AppCubit() : super(InitilaThemeState()) {
     loadLogged();
-    loadLang();
+    // loadLang();
     loadFirstTime();
   }
   static AppCubit get(context) => BlocProvider.of(context);
@@ -61,23 +61,23 @@ class AppCubit extends Cubit<AppState> {
   }
 
 //////////////////for language
-  String lang = "ar";
+  // String lang = "ar";
 
-  Future<void> saveLang() async {
-    SharedPreferences langPrefs = await SharedPreferences.getInstance();
-    lang == "en" ? lang = "ar" : lang = "en";
-    langPrefs.setString("language", lang == "en" ? "en" : "ar");
-    emit(ChangeLanguageState());
-  }
+  // Future<void> saveLang() async {
+  //   SharedPreferences langPrefs = await SharedPreferences.getInstance();
+  //   lang == "en" ? lang = "ar" : lang = "en";
+  //   langPrefs.setString("language", lang == "en" ? "en" : "ar");
+  //   emit(ChangeLanguageState());
+  // }
 
-  Future<void> loadLang() async {
-    SharedPreferences langPrefs = await SharedPreferences.getInstance();
-    String? language = langPrefs.getString("language");
-    if (language != null) {
-      lang = language;
-      emit(ChangeLanguageState());
-    }
-  }
+  // Future<void> loadLang() async {
+  //   SharedPreferences langPrefs = await SharedPreferences.getInstance();
+  //   String? language = langPrefs.getString("language");
+  //   if (language != null) {
+  //     lang = language;
+  //     emit(ChangeLanguageState());
+  //   }
+  // }
 
   ///
 

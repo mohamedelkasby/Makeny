@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/screens/danger_measure_screens/multidimensional_dyspnea_scale_screen.dart';
 import 'package:makeny/screens/next_test_screen.dart';
+import 'package:makeny/services/fire_store_service.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';
@@ -27,6 +29,8 @@ class DangerMeasureScreen extends StatefulWidget {
 
 class _DangerMeasureScreenState extends State<DangerMeasureScreen> {
   bool allQuestionsAnswered = false;
+  Map<int, Map<String, dynamic>> testData = {};
+  final FirebaseAuth fireAuth = FirebaseAuth.instance;
 
   List<List<String>> questionsOfPage = [
     /// this case here, the list start with 0 index and i have the
@@ -53,10 +57,61 @@ class _DangerMeasureScreenState extends State<DangerMeasureScreen> {
     [],
     [],
   ];
-  @override
-  void initState() {
-    super.initState();
+
+  Map<int, bool> testsCompletionStatus = {
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+    5: false,
+    6: false,
+  };
+  void updateTestCompletionStatus(int testNumber, bool isComplete) {
+    // setState(() {
+    testsCompletionStatus[testNumber] = isComplete;
+    // print("...@@.....$isComplete");
+    // });
   }
+
+  void updateTestData(int testNumber, Map<String, dynamic> data) {
+    testData[testNumber] = data;
+  }
+
+  /// if the data sent to the firebase then it will navigate,
+  void submitTestData(int testNumber) async {
+    try {
+      if (testData[testNumber] != null) {
+        await FireStoreService().addTestAnswers(
+          userId: fireAuth.currentUser!.uid,
+          testNumber: testNumber,
+          testData: testData[testNumber]!,
+        );
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return InternetConnectivityWrapper(
+                child: NextTestScreen(
+                  appbar: switchAppbar(testNumber: testNumber),
+                  testNumber: testNumber,
+                ),
+              );
+            },
+          ),
+        );
+      }
+    } catch (e) {
+      // Show error to user
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to save test data: $e')),
+      );
+    }
+  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -129,6 +184,14 @@ class _DangerMeasureScreenState extends State<DangerMeasureScreen> {
                     context,
                     testNumber: testNumber,
                     yesOrNoQuestions: questionsOfPage[testNumber],
+                    onTestCompletion: (isComplete) {
+                      setState(() {
+                        updateTestCompletionStatus(testNumber, isComplete);
+                      });
+                    },
+                    onDataCollected: (data) {
+                      updateTestData(testNumber, data);
+                    },
                   ),
 
                   /// to make the text under button seen when the scrool end
@@ -142,45 +205,36 @@ class _DangerMeasureScreenState extends State<DangerMeasureScreen> {
                 bottom: 0,
                 left: 0,
                 child: defaultButton(
-                  onTap: () {
-                    testNumber == 6
-                        ? Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => InternetConnectivityWrapper(
-                                child: MultidimensionalDyspneaScaleScreen(
-                                  appbar: appbar,
-                                ),
-                              ),
-                            ),
-                          )
-                        : shortTest
-                            ? Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      InternetConnectivityWrapper(
-                                    child: NextTestScreen(
-                                      appbar: appbar,
-                                      testNumber: 9,
+                  onTap: testsCompletionStatus[testNumber] == true
+                      ? () {
+                          testNumber == 6
+                              ? Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        InternetConnectivityWrapper(
+                                      child: MultidimensionalDyspneaScaleScreen(
+                                        appbar: appbar,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              )
-                            : Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      InternetConnectivityWrapper(
-                                    child: NextTestScreen(
-                                      appbar:
-                                          switchAppbar(testNumber: testNumber),
-                                      testNumber: testNumber,
-                                    ),
-                                  ),
-                                ),
-                              );
-                  },
+                                )
+                              : shortTest
+                                  ? Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            InternetConnectivityWrapper(
+                                          child: NextTestScreen(
+                                            appbar: appbar,
+                                            testNumber: 9,
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  : submitTestData(testNumber);
+                        }
+                      : null,
                   text: tr("continue"),
                 ),
               ),

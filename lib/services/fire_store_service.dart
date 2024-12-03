@@ -30,6 +30,26 @@ class FireStoreService {
     }
   }
 
+  Future<void> addTestAnswers({
+    required String userId,
+    required int testNumber,
+    required Map<String, dynamic> testData,
+  }) async {
+    try {
+      await fireStore
+          .collection('users')
+          .doc(userId)
+          .collection("tests")
+          .doc("test_number_$testNumber")
+          .set({
+        ...testData,
+        "testTime": FieldValue.serverTimestamp(),
+      });
+    } catch (error) {
+      debugPrint('Error saving test data: $error');
+    }
+  }
+
   Future<void> addConsultationToUser({
     required String userId,
     required String date,
