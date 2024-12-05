@@ -27,11 +27,23 @@ Widget switchPagesTest(
         onDataCollected: onDataCollected,
       );
     case 2:
-      return TestNumber2(yesOrNoQuestions: yesOrNoQuestions);
+      return TestNumber2(
+        yesOrNoQuestions: yesOrNoQuestions,
+        onTestCompletion: onTestCompletion,
+        onDataCollected: onDataCollected,
+      );
     case 3:
-      return TestNumber3(yesOrNoQuestions: yesOrNoQuestions);
+      return TestNumber3(
+        yesOrNoQuestions: yesOrNoQuestions,
+        onTestCompletion: onTestCompletion,
+        onDataCollected: onDataCollected,
+      );
     case 4:
-      return testNumber4(context);
+      return testNumber4(
+        context,
+        onTestCompletion: onTestCompletion,
+        onDataCollected: onDataCollected,
+      );
     case 5:
       return const TestNumber5();
     case 6:

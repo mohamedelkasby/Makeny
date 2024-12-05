@@ -106,6 +106,23 @@ class FireStoreService {
     }
   }
 
+  Future<void> updateDataFromTest1({
+    required String userId,
+    required UserModel usermodel,
+  }) async {
+    try {
+      await fireStore.collection('users').doc(userId).update({
+        "length": usermodel.length,
+        "weight": usermodel.weight,
+        "waist": usermodel.waist,
+        // "vision": usermodel.vision,
+      });
+    } catch (error) {
+      // Handle any errors
+      debugPrint('Error updating data: $error');
+    }
+  }
+
   Future<void> updateImage({
     required String userId,
     File? imageFile,

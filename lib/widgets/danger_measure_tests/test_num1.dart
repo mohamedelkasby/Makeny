@@ -26,7 +26,7 @@ class _TestNumber1State extends State<TestNumber1> {
   bool yesquestionsAnswered = false;
   List<int?> yesNoAnswers = [];
 
-  TextEditingController tallTextController = TextEditingController();
+  TextEditingController lengthTextController = TextEditingController();
   TextEditingController wightTextController = TextEditingController();
   TextEditingController bodyMassTextController = TextEditingController();
   TextEditingController waistTextController = TextEditingController();
@@ -43,9 +43,9 @@ class _TestNumber1State extends State<TestNumber1> {
   @override
   initState() {
     super.initState();
-    tallTextController.addListener(updateBodyMass);
+    lengthTextController.addListener(updateBodyMass);
     wightTextController.addListener(updateBodyMass);
-    tallTextController.addListener(checkTestCompletion);
+    lengthTextController.addListener(checkTestCompletion);
     wightTextController.addListener(checkTestCompletion);
     waistTextController.addListener(checkTestCompletion);
     neckTextController.addListener(checkTestCompletion);
@@ -55,7 +55,7 @@ class _TestNumber1State extends State<TestNumber1> {
     diastolicBloodTextController.addListener(checkTestCompletion);
     cholesterolTextController.addListener(checkTestCompletion);
     beneficialTriTextController.addListener(checkTestCompletion);
-    tallTextController.addListener(checkTestCompletion);
+    lengthTextController.addListener(checkTestCompletion);
     wightTextController.addListener(collectData);
     waistTextController.addListener(collectData);
     neckTextController.addListener(collectData);
@@ -68,11 +68,12 @@ class _TestNumber1State extends State<TestNumber1> {
   }
 
   void collectData() {
+    // print("there is some problem here ");
     if (areAllFieldsFilled()) {
       // Collect and send data
       widget.onDataCollected?.call({
         'yesNoQuestions': yesNoAnswers,
-        'height': double.parse(tallTextController.text),
+        'length': double.parse(lengthTextController.text),
         'weight': double.parse(wightTextController.text),
         'bmi': double.parse(bodyMassTextController.text),
         'waist': double.parse(waistTextController.text),
@@ -88,7 +89,7 @@ class _TestNumber1State extends State<TestNumber1> {
   }
 
   bool areAllFieldsFilled() {
-    bool isAllEntered = tallTextController.text.isNotEmpty &&
+    bool isAllEntered = lengthTextController.text.isNotEmpty &&
         wightTextController.text.isNotEmpty &&
         bodyMassTextController.text.isNotEmpty &&
         waistTextController.text.isNotEmpty &&
@@ -125,12 +126,12 @@ class _TestNumber1State extends State<TestNumber1> {
 
   void updateBodyMass() {
     // Parse the height and weight
-    double height = double.tryParse(tallTextController.text) ?? 0;
+    double height = double.tryParse(lengthTextController.text) ?? 0;
     double weight = double.tryParse(wightTextController.text) ?? 0;
 
     // Get the selected units
     String heightUnit =
-        tallTextController.text.isNotEmpty ? selectedHeightUnit : '';
+        lengthTextController.text.isNotEmpty ? selectedHeightUnit : '';
     String weightUnit =
         wightTextController.text.isNotEmpty ? selectedWeightUnit : '';
 
@@ -151,9 +152,9 @@ class _TestNumber1State extends State<TestNumber1> {
 
   @override
   void dispose() {
-    tallTextController.removeListener(updateBodyMass);
+    lengthTextController.removeListener(updateBodyMass);
     wightTextController.removeListener(updateBodyMass);
-    tallTextController.removeListener(checkTestCompletion);
+    lengthTextController.removeListener(checkTestCompletion);
     wightTextController.removeListener(checkTestCompletion);
     waistTextController.removeListener(checkTestCompletion);
     neckTextController.removeListener(checkTestCompletion);
@@ -163,7 +164,7 @@ class _TestNumber1State extends State<TestNumber1> {
     diastolicBloodTextController.removeListener(checkTestCompletion);
     cholesterolTextController.removeListener(checkTestCompletion);
     beneficialTriTextController.removeListener(checkTestCompletion);
-    tallTextController.removeListener(collectData);
+    lengthTextController.removeListener(collectData);
     wightTextController.removeListener(collectData);
     waistTextController.removeListener(collectData);
     neckTextController.removeListener(collectData);
@@ -174,7 +175,7 @@ class _TestNumber1State extends State<TestNumber1> {
     cholesterolTextController.removeListener(collectData);
     beneficialTriTextController.removeListener(collectData);
     // Dispose controllers
-    tallTextController.dispose();
+    lengthTextController.dispose();
     wightTextController.dispose();
     bodyMassTextController.dispose();
     waistTextController.dispose();
@@ -227,8 +228,8 @@ class _TestNumber1State extends State<TestNumber1> {
                   updateBodyMass();
                 });
               },
-              qustionText: tr("accountPage.tall"),
-              controller: tallTextController,
+              qustionText: tr("accountPage.length"),
+              controller: lengthTextController,
             ),
             CustomListField(
               suffixList: [

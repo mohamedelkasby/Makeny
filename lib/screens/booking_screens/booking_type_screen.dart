@@ -58,7 +58,7 @@ class _BookingTypeScreenState extends State<BookingTypeScreen> {
                   onAnswerSelected: (value) {
                     //TODO
                     setState(() {
-                      specialization = value;
+                      specialization = value.first;
                     });
                     print(specialization);
                   },

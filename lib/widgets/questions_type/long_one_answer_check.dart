@@ -10,11 +10,13 @@ class LongOneAnswerCheck extends StatefulWidget {
     this.answers = const [],
     required this.onAnswerSelected,
     this.payment = false,
+    this.oneAnswer = true,
   });
   final bool payment;
+  final bool oneAnswer;
   final String questionText;
   final List<String> answers;
-  final Function(String) onAnswerSelected;
+  final Function(List<String>) onAnswerSelected;
 
   @override
   State<LongOneAnswerCheck> createState() => _LongOneAnswerCheckState();
@@ -23,12 +25,35 @@ class LongOneAnswerCheck extends StatefulWidget {
 class _LongOneAnswerCheckState extends State<LongOneAnswerCheck> {
   late String questionText = widget.questionText;
   late List<String> answers = widget.answers;
-  int? selectedAnswer;
+  List<int> selectedAnswers = [];
 
   @override
   void initState() {
-    selectedAnswer = null;
+    selectedAnswers = [];
     super.initState();
+  }
+
+  void handleAnswerSelection(int index) {
+    setState(() {
+      if (widget.oneAnswer) {
+        // Single answer mode
+        selectedAnswers = [index];
+      } else {
+        // Multiple answer mode
+        if (selectedAnswers.contains(index)) {
+          selectedAnswers.remove(index);
+        } else {
+          selectedAnswers.add(index);
+        }
+      }
+    });
+
+    // Get selected answer texts
+    List<String> selectedAnswerTexts =
+        selectedAnswers.map((idx) => answers[idx]).toList();
+
+    // Call the callback with selected answers
+    widget.onAnswerSelected(selectedAnswerTexts);
   }
 
   @override
@@ -49,16 +74,11 @@ class _LongOneAnswerCheckState extends State<LongOneAnswerCheck> {
           physics: const NeverScrollableScrollPhysics(),
           itemCount: answers.length,
           itemBuilder: (context, index) {
-            bool isSelected = selectedAnswer == index;
+            bool isSelected = selectedAnswers.contains(index);
             return InkWell(
               splashColor: Colors.transparent,
               highlightColor: Colors.transparent,
-              onTap: () {
-                setState(() {
-                  selectedAnswer = index;
-                });
-                widget.onAnswerSelected(answers[index]);
-              },
+              onTap: () => handleAnswerSelection(index),
               child: Container(
                 margin: const EdgeInsets.symmetric(vertical: 10),
                 height: widget.payment ? 70 : 80,
@@ -78,9 +98,7 @@ class _LongOneAnswerCheckState extends State<LongOneAnswerCheck> {
                               : SvgPicture.asset(
                                   "assets/icons/unchecked_box_gray.svg",
                                 ),
-                          SizedBox(
-                            width: 5,
-                          ),
+                          const SizedBox(width: 5),
                           defalutQuestionText(
                             text: answers[index],
                             color: isSelected ? mainColor300 : greyColor,
@@ -95,7 +113,7 @@ class _LongOneAnswerCheckState extends State<LongOneAnswerCheck> {
                           ),
                           child: defalutQuestionText(
                             text: answers[index],
-                            color: greyColor,
+                            color: isSelected ? mainColor300 : greyColor,
                             align: TextAlign.center,
                           ),
                         ),

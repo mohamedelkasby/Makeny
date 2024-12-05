@@ -1,11 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-
 import 'package:makeny/widgets/questions_type/long_one_answer_check.dart';
 
 Widget testNumber4(
   context, {
   final yesOrNoQuestions = const [],
+  final Function(bool)? onTestCompletion,
+  final Function(Map<String, dynamic>)? onDataCollected,
 }) {
   // shrinkWrap: true,
   return LongOneAnswerCheck(
@@ -17,6 +18,11 @@ Widget testNumber4(
       tr("test_4_page.choose_qustions.answers_1.num_4"),
       tr("test_4_page.choose_qustions.answers_1.num_5"),
     ],
-    onAnswerSelected: (_) {},
+    onAnswerSelected: (value) {
+      onTestCompletion!.call(true);
+      onDataCollected!.call({
+        "breathing rate": value.first,
+      });
+    },
   );
 }

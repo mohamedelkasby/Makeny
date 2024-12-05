@@ -119,7 +119,7 @@ class ProfileScreen extends StatelessWidget {
                             : userModel.currentJob,
                       ),
                       usersData(
-                        textType: tr("accountPage.tall"),
+                        textType: tr("accountPage.length"),
                         textData:
                             "${userModel.length == 0 ? "-" : userModel.length} ${tr("calculates.cm")}",
                       ),

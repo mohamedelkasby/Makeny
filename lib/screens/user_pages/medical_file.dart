@@ -81,7 +81,7 @@ class MedicalFile extends StatelessWidget {
               textData: "",
             ),
             usersData(
-              textType: tr("accountPage.tall"),
+              textType: tr("accountPage.length"),
               seperator: ":",
               textData: "167 ${tr("calculates.cm")}",
             ),

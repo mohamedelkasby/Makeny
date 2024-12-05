@@ -9,19 +9,23 @@ import 'package:makeny/widgets/questions_type/yes_or_no_question.dart';
 class TestNumber3 extends StatefulWidget {
   const TestNumber3({
     super.key,
-    this.yesOrNoQuestions = const [],
+    required this.yesOrNoQuestions,
+    this.onTestCompletion,
+    this.onDataCollected,
   });
 
   final List<String> yesOrNoQuestions;
-
+  final Function(bool)? onTestCompletion;
+  final Function(Map<String, dynamic>)? onDataCollected;
   @override
   State<TestNumber3> createState() => _TestNumber3State();
 }
 
 class _TestNumber3State extends State<TestNumber3> {
   File? _pickedImage; // تغير اسم المتغير ليكون أكثر وضوحًا
+  List<int?> yesNoAnswers = [];
 
-  bool allQuestionsAnswered = false;
+  // bool allQuestionsAnswered = false;
 
   Future<void> _pickImage() async {
     final result = await FilePicker.platform.pickFiles(
@@ -36,6 +40,15 @@ class _TestNumber3State extends State<TestNumber3> {
     }
   }
 
+  void collectData() {
+    // if (readyToSubmit) {
+    // Collect and send data
+    widget.onDataCollected?.call({
+      "yesNoQuestions": yesNoAnswers,
+    });
+    // }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -45,8 +58,13 @@ class _TestNumber3State extends State<TestNumber3> {
           questionsText: widget.yesOrNoQuestions,
           onAllQuestionsAnswered: (allAnswered) {
             setState(() {
-              allQuestionsAnswered = allAnswered;
+              // allQuestionsAnswered = allAnswered;
+              widget.onTestCompletion!.call(allAnswered);
             });
+          },
+          onAnswersChanged: (value) {
+            yesNoAnswers = value;
+            collectData();
           },
         ),
         Padding(

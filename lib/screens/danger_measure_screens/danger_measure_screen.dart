@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
+import 'package:makeny/models/user_model.dart';
 import 'package:makeny/screens/danger_measure_screens/multidimensional_dyspnea_scale_screen.dart';
 import 'package:makeny/screens/next_test_screen.dart';
 import 'package:makeny/services/fire_store_service.dart';
@@ -86,7 +87,18 @@ class _DangerMeasureScreenState extends State<DangerMeasureScreen> {
           testNumber: testNumber,
           testData: testData[testNumber]!,
         );
-
+        if (testNumber == 1) {
+          //TODO:
+          FireStoreService().updateDataFromTest1(
+            userId: fireAuth.currentUser!.uid,
+            usermodel: UserModel(
+              length: testData[testNumber]!["length"],
+              weight: testData[testNumber]!["weight"],
+              waist: testData[testNumber]!["waist"],
+              // vision: testData[testNumber]!["vision"],
+            ),
+          );
+        }
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -126,7 +138,7 @@ class _DangerMeasureScreenState extends State<DangerMeasureScreen> {
         // resizeToAvoidBottomInset: false,
         appBar: defaultAppbar(context, title: appbar),
         body: Padding(
-          padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
+          padding: const EdgeInsets.fromLTRB(10, 20, 10, 0),
           child: Stack(
             children: [
               ListView(

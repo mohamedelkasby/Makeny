@@ -76,9 +76,9 @@ class _MultidimensionalDyspneaScaleScreenState
                           tr("tests.choose_one_qustions.test_6.answers.text_5"),
                         ],
                         ///// on answer sellected.
-                        onAnswerSelected: (String answer) {
+                        onAnswerSelected: (answer) {
                           setState(() {
-                            selectedAnswer = answer;
+                            selectedAnswer = answer.first;
                           });
                         },
                       )
