@@ -15,8 +15,8 @@ Widget switchPagesTest(
   context, {
   required final int testNumber,
   final List<String> yesOrNoQuestions = const [],
-  Function(bool)? onTestCompletion,
-  Function(Map<String, dynamic>)? onDataCollected,
+  final Function(bool)? onTestCompletion,
+  final Function(Map<String, dynamic>)? onDataCollected,
 }) {
   // print("switchPagesTest called with testNumber: $testNumber");
   switch (testNumber) {
@@ -45,9 +45,15 @@ Widget switchPagesTest(
         onDataCollected: onDataCollected,
       );
     case 5:
-      return const TestNumber5();
+      return TestNumber5(
+        onTestCompletion: onTestCompletion,
+        onDataCollected: onDataCollected,
+      );
     case 6:
-      return const TestNumber6();
+      return TestNumber6(
+        onTestCompletion: onTestCompletion,
+        onDataCollected: onDataCollected,
+      );
     // case 7:
     //   return TestNumber1(yesOrNoQuestions: yesOrNoQuestions);
     default:
@@ -173,7 +179,11 @@ List<String> switchNextTestListText({
   }
 }
 
-Widget switchQualityOfLifePage(testNumber) {
+Widget switchQualityOfLifePage({
+  testNumber,
+  final Function(bool)? onTestCompletion,
+  final Function(Map<String, dynamic>)? onDataCollected,
+}) {
   switch (testNumber) {
     case 1:
       return Column(
@@ -191,7 +201,14 @@ Widget switchQualityOfLifePage(testNumber) {
               tr("tests.choose_one_qustions.test_1.answers.text_4"),
               tr("tests.choose_one_qustions.test_1.answers.text_5"),
             ],
-            onAnswerSelected: (_) {},
+            onAnswerSelected: (value) {
+              onTestCompletion!.call(true);
+              onDataCollected!.call(
+                {
+                  "question_answer_num_1": value.first,
+                },
+              );
+            },
           ),
         ],
       );
@@ -205,7 +222,14 @@ Widget switchQualityOfLifePage(testNumber) {
           tr("tests.choose_one_qustions.test_2.answers.text_4"),
           tr("tests.choose_one_qustions.test_2.answers.text_5"),
         ],
-        onAnswerSelected: (_) {},
+        onAnswerSelected: (value) {
+          onTestCompletion!.call(true);
+          onDataCollected!.call(
+            {
+              "question_answer_num_2": value.first,
+            },
+          );
+        },
       );
     case 3:
       return LongOneAnswerCheck(
@@ -217,7 +241,14 @@ Widget switchQualityOfLifePage(testNumber) {
           tr("tests.choose_one_qustions.test_3.answers.text_4"),
           tr("tests.choose_one_qustions.test_3.answers.text_5"),
         ],
-        onAnswerSelected: (_) {},
+        onAnswerSelected: (value) {
+          onTestCompletion!.call(true);
+          onDataCollected!.call(
+            {
+              "question_answer_num_3": value.first,
+            },
+          );
+        },
       );
     case 4:
       return LongOneAnswerCheck(
@@ -229,7 +260,14 @@ Widget switchQualityOfLifePage(testNumber) {
           tr("tests.choose_one_qustions.test_4.answers.text_4"),
           tr("tests.choose_one_qustions.test_4.answers.text_5"),
         ],
-        onAnswerSelected: (_) {},
+        onAnswerSelected: (value) {
+          onTestCompletion!.call(true);
+          onDataCollected!.call(
+            {
+              "question_answer_num_4": value.first,
+            },
+          );
+        },
       );
     case 5:
       return LongOneAnswerCheck(
@@ -241,7 +279,14 @@ Widget switchQualityOfLifePage(testNumber) {
           tr("tests.choose_one_qustions.test_5.answers.text_4"),
           tr("tests.choose_one_qustions.test_5.answers.text_5"),
         ],
-        onAnswerSelected: (_) {},
+        onAnswerSelected: (value) {
+          onTestCompletion!.call(true);
+          onDataCollected!.call(
+            {
+              "question_answer_num_5": value.first,
+            },
+          );
+        },
       );
     case 6:
       return Column(
@@ -260,7 +305,10 @@ Widget switchQualityOfLifePage(testNumber) {
           SizedBox(
             height: 120,
           ),
-          SliderWidget(),
+          SliderWidget(
+            onTestCompletion: onTestCompletion,
+            onDataCollected: onDataCollected,
+          ),
         ],
       );
     default:

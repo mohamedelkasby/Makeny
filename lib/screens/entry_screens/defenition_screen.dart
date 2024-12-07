@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:makeny/cubits/cubit.dart';
 import 'package:makeny/extentions/colors.dart';
@@ -50,8 +51,8 @@ class _DefenitionScreenState extends State<DefenitionScreen> {
                         ),
                       );
                     },
-                    child: const Text(
-                      "تخطي ",
+                    child: Text(
+                      tr("defenition.skip"),
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,
@@ -74,18 +75,17 @@ class _DefenitionScreenState extends State<DefenitionScreen> {
                 defaultPageView(
                   context,
                   image: "assets/definition/Group 1000003172.png",
-                  text: "استشارات طبيه موثوقه من راحه منزلك",
+                  text: tr("defenition.reliable_medical_advice"),
                 ),
                 defaultPageView(
                   context,
                   image: "assets/definition/OBJECT.png",
-                  text: "افضل الاختبارات الطبية المعتمدة",
+                  text: tr("defenition.best_approved_medical"),
                 ),
                 defaultPageView(
                   context,
                   image: "assets/definition/Group.png",
-                  text:
-                      "تحليل النتائج وتحديد نسبة الخطورة للإصابة بأمراض القلب و مضاعفاتها",
+                  text: tr("defenition.analyze_the_results"),
                 ),
               ],
             ),

@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/models/doctor_model.dart';
 import 'package:makeny/screens/consultation_screens/consultation_details.dart';
+import 'package:makeny/widgets/internet_connectivity_wrapper.dart';
 
 Widget consultionsData(
   context, {
@@ -22,11 +23,13 @@ Widget consultionsData(
             context,
             MaterialPageRoute(
               //TODO send the whole model not the doctor name or status
-              builder: (context) => ConsultationDetails(
-                doctorModel: doctorModel,
-                date: date,
-                time: time,
-                status: status,
+              builder: (context) => InternetConnectivityWrapper(
+                child: ConsultationDetails(
+                  doctorModel: doctorModel,
+                  date: date,
+                  time: time,
+                  status: status,
+                ),
               ),
             ));
       },
@@ -63,6 +66,9 @@ Widget consultionsData(
                         ),
                       ),
                       child: Text(
+                        softWrap: true,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                         doctorModel.specialty,
                         textAlign: TextAlign.center,
                         style: const TextStyle(

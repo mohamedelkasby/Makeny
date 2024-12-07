@@ -151,28 +151,31 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                           validator: (value) {
                                             if (value == null ||
                                                 value.isEmpty) {
-                                              return 'يرجى إدخال البريد الإلكتروني';
+                                              return tr(
+                                                  "error.enter_your_email");
                                             } else if (!RegExp(
                                                     r'^[^@]+@[^@]+\.[^@]+')
                                                 .hasMatch(value)) {
-                                              return 'يرجى إدخال بريد إلكتروني صحيح';
+                                              return tr(
+                                                  "error.enter_your_email_correctly");
                                             } else if (emailInUse) {
-                                              return "البريد الإلكترونى مستخدم بالفعل";
+                                              return tr("error.email_in_use");
                                             }
                                             return null;
                                           },
                                         ),
                                         DefaultTextForm(
                                           focusNode: _focusNode1,
-                                          label: 'رقم هاتفك',
+                                          label: tr("signPage.your_number"),
                                           keyboardTybe: TextInputType.phone,
                                           controller: phoneController,
                                           validator: (value) {
                                             if (value == null ||
                                                 value.isEmpty) {
-                                              return 'يرجى إدخال رقم الهاتف';
+                                              return "error.enter_phone_number";
                                             } else if (value.length < 10) {
-                                              return 'يجب أن يكون رقم الهاتف مكونًا من 10 أرقام على الأقل';
+                                              return tr(
+                                                  "error.correct_your_phone");
                                             }
                                             return null;
                                           },
@@ -183,15 +186,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                               children: [
                                                 DefaultTextForm(
                                                   focusNode: _focusNode2,
-                                                  label: "كلمة المرور",
+                                                  label:
+                                                      tr("signPage.password"),
                                                   controller: passController,
                                                   validator: (value) {
                                                     if (value == null ||
                                                         value.isEmpty) {
-                                                      return 'يرجى ادخال كلمة المرور';
+                                                      return tr(
+                                                          "error.enter_password");
                                                     } else if (value.length <
                                                         8) {
-                                                      return 'كلمة المرور لا بجب ان تقل عن 8 احرف';
+                                                      return tr(
+                                                          "error.password_must_be_correct");
                                                     }
                                                     return null;
                                                   },
@@ -212,17 +218,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                                 ),
                                                 DefaultTextForm(
                                                   focusNode: _focusNode3,
-                                                  label: "تأكيد كلمة المرور",
+                                                  label: tr(
+                                                      "error.confirm_password"),
                                                   controller:
                                                       confPassController,
                                                   validator: (value) {
                                                     if (value == null ||
                                                         value.isEmpty) {
-                                                      return 'يرجى ادخال كلمة المرور';
+                                                      return tr(
+                                                          "error.enter_password");
                                                     } else if (confPassController
                                                             .text !=
                                                         passController.text) {
-                                                      return 'كلمة المرور غير متطابقة';
+                                                      return tr(
+                                                          "error.password_does_not_match");
                                                     }
                                                     return null;
                                                   },
@@ -254,7 +263,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   SizedBox(
                                     width: double.infinity,
                                     child: longSignButton(
-                                      text: "تسجيل",
+                                      text: tr("signPage.sign"),
                                       onTap: () async {
                                         if (formKey.currentState!.validate()) {
                                           // check the internt connection
@@ -301,8 +310,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                               ScaffoldMessenger.of(context)
                                                   .showSnackBar(
                                                 SnackBar(
-                                                  content: const Text(
-                                                      'لا يوجد اتصال بالإنترنت'),
+                                                  content:
+                                                      Text(tr("no_internet")),
                                                   backgroundColor: mainColor300,
                                                   duration:
                                                       Duration(seconds: 3),
@@ -332,7 +341,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                               final userCredential =
                                                   await authServices
                                                       .signInWithGoogle();
-                                              if (userCredential == null) {
+                                              if (userCredential.credential ==
+                                                  null) {
                                                 setState(() {
                                                   isLoading = false;
                                                 });
@@ -351,11 +361,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                                 if (mounted) {
                                                   ScaffoldMessenger.of(context)
                                                       .showSnackBar(
-                                                    const SnackBar(
-                                                      content: Text(
-                                                          'الاكونت موجود بالفعل, جرب تسجل دخول'),
-                                                      duration:
-                                                          Duration(seconds: 2),
+                                                    SnackBar(
+                                                      content: Text(tr(
+                                                          "error.already_exist")),
+                                                      duration: const Duration(
+                                                          seconds: 2),
                                                     ),
                                                   );
                                                 }
@@ -390,12 +400,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                                 ScaffoldMessenger.of(context)
                                                     .showSnackBar(
                                                   SnackBar(
-                                                    content: const Text(
-                                                        'لا يوجد اتصال بالإنترنت'),
+                                                    content: Text(tr(
+                                                        "error.no_internet")),
                                                     backgroundColor:
                                                         mainColor300,
-                                                    duration:
-                                                        Duration(seconds: 2),
+                                                    duration: const Duration(
+                                                        seconds: 2),
                                                   ),
                                                 );
                                               }
@@ -405,11 +415,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                               });
                                               if (mounted) {
                                                 String message =
-                                                    "'فى مشكله حصلت , جرب فى وقت اخر.'";
+                                                    tr("error.some_problem");
                                                 if (e.toString().contains(
                                                     'network_error')) {
                                                   message =
-                                                      'لا يوجد اتصال بالإنترنت';
+                                                      tr("error.no_internet");
                                                 }
                                                 ScaffoldMessenger.of(context)
                                                     .showSnackBar(
@@ -461,11 +471,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                                 if (mounted) {
                                                   ScaffoldMessenger.of(context)
                                                       .showSnackBar(
-                                                    const SnackBar(
-                                                      content: Text(
-                                                          'Account already exists. Please sign in instead.'),
-                                                      duration:
-                                                          Duration(seconds: 2),
+                                                    SnackBar(
+                                                      content: Text(tr(
+                                                          "error.already_exist")),
+                                                      duration: const Duration(
+                                                          seconds: 2),
                                                     ),
                                                   );
                                                 }
@@ -508,12 +518,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                                               if (mounted) {
                                                 String message =
-                                                    'An error occurred. Please try again.';
+                                                    tr("error.some_problem");
 
                                                 if (e.code ==
                                                     'account-exists-with-different-credential') {
-                                                  message =
-                                                      'This email is already associated with another account.';
+                                                  message = tr(
+                                                      "error.already_associated");
                                                 } else if (e.code ==
                                                     'invalid-credential') {
                                                   message =
@@ -529,7 +539,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                                 } else if (e.code ==
                                                     'network-request-failed') {
                                                   message =
-                                                      'لا يوجد اتصال بالإنترنت';
+                                                      tr("error.no_internet");
                                                 }
 
                                                 ScaffoldMessenger.of(context)
@@ -556,11 +566,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                               if (mounted) {
                                                 ScaffoldMessenger.of(context)
                                                     .showSnackBar(
-                                                  const SnackBar(
-                                                    content: Text(
-                                                        'An error occurred. Please try again.'),
-                                                    duration:
-                                                        Duration(seconds: 2),
+                                                  SnackBar(
+                                                    content: Text(tr(
+                                                        "error.some_problem")),
+                                                    duration: const Duration(
+                                                        seconds: 2),
                                                   ),
                                                 );
                                               }
@@ -577,7 +587,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        "لديك حساب؟",
+                                        tr("signPage.have_account"),
                                         style: TextStyle(
                                           color: greyColor,
                                           fontWeight: FontWeight.w600,
@@ -598,7 +608,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                           );
                                         },
                                         child: Text(
-                                          "تسجيل دخول",
+                                          tr("signPage.sign_in"),
                                           style: TextStyle(
                                             color: mainColor,
                                             fontWeight: FontWeight.w700,

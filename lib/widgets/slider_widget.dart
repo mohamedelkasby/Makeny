@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
 
 class SliderWidget extends StatefulWidget {
-  const SliderWidget({super.key});
-
+  const SliderWidget({
+    super.key,
+    this.onTestCompletion,
+    this.onDataCollected,
+  });
   @override
   State<SliderWidget> createState() => _SliderWidgetState();
+  final Function(bool)? onTestCompletion;
+  final Function(Map<String, dynamic>)? onDataCollected;
 }
 
 class _SliderWidgetState extends State<SliderWidget> {
@@ -33,6 +38,10 @@ class _SliderWidgetState extends State<SliderWidget> {
         onChanged: (value) {
           setState(() {
             sliderValue = value;
+            widget.onTestCompletion!.call(true);
+          });
+          widget.onDataCollected!.call({
+            "slider_value": value,
           });
         },
       ),

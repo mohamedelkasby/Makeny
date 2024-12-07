@@ -32,15 +32,19 @@ class FireStoreService {
 
   Future<void> addTestAnswers({
     required String userId,
-    required int testNumber,
+    int? testNumber,
+    String? testName = "-------",
     required Map<String, dynamic> testData,
+    int? subtest,
   }) async {
     try {
       await fireStore
           .collection('users')
           .doc(userId)
           .collection("tests")
-          .doc("test_number_$testNumber")
+          .doc(testNumber == null
+              ? testName
+              : "test_number_$testNumber${subtest == null ? "" : "_subtest_$subtest"}")
           .set({
         ...testData,
         "testTime": FieldValue.serverTimestamp(),

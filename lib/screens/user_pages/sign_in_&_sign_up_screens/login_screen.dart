@@ -524,7 +524,8 @@ class _LoginScreenState extends State<LoginScreen>
                                                           await authServices
                                                               .signInWithGoogle();
 
-                                                      if (userCredential ==
+                                                      if (userCredential
+                                                              .credential ==
                                                           null) {
                                                         setState(() {
                                                           isLoading = false;
@@ -740,8 +741,8 @@ class _LoginScreenState extends State<LoginScreen>
                                                               "error.no_internet");
                                                         } else if (e.code ==
                                                             'account-exists-with-different-credential') {
-                                                          message =
-                                                              'This email is already associated with another account.';
+                                                          message = tr(
+                                                              "error.already_associated");
                                                         } else if (e.code ==
                                                             'invalid-credential') {
                                                           message =

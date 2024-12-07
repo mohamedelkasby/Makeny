@@ -14,8 +14,8 @@ class BookingTypeScreen extends StatefulWidget {
 }
 
 class _BookingTypeScreenState extends State<BookingTypeScreen> {
-  String? consultationType = null;
-  String? specialization = null;
+  String? consultationType;
+  String? specialization;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class _BookingTypeScreenState extends State<BookingTypeScreen> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 YesOrNoQuestions(

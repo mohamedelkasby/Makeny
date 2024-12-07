@@ -11,12 +11,21 @@
     "electronic_services": "electronic services",
     "signPage": {
         "sign_in": "Sign In",
+        "sign": "sign in",
         "sign_up": "sign up",
         "email_or_phoneNumber": "Email or Phone Number",
         "password": "password",
         "don't_have_account": "don't have an account?",
+        "have_account": "do you have an account?",
         "sign_up_now": "sign up now",
-        "login": "Login"
+        "login": "Login",
+        "your_number": "your phone number"
+    },
+    "defenition": {
+        "skip": "skip",
+        "reliable_medical_advice": "Reliable medical advice from the comfort of your home",
+        "best_approved_medical": "Best approved medical tests",
+        "analyze_the_results": "Analyze the results and determine the risk of heart disease and its complications."
     },
     "change_photo": "change photo",
     "accountPage": {
@@ -483,13 +492,24 @@
     "error": {
         "no_user_date_found": "no user date found",
         "no_internet": "no internet connection",
+        "internet_restored": "Internet connection has been restored",
         "wrong_phone_number": "wrong phone number",
         "enter_email_or_phone": "enter your email or your phone number",
         "wrong_email_or_password": "email or password is not correct.",
         "enter_password": "please enter your password",
+        "confirm_password": "confirm password",
+        "password_does_not_match": "Password does not match",
         "password_must_be_correct": "password mustn't be less than 8 letters",
         "account_not_found": "Account not found. Please sign up first.",
-        "problem_try_later": "An error occurred. Please try again."
+        "problem_try_later": "An error occurred. Please try again.",
+        "already_associated": "This email is already associated with another account",
+        "enter_your_email": "Please enter your email",
+        "enter_your_email_correctly": "Please enter a valid email address",
+        "email_in_use": "Email already in use",
+        "enter_phone_number": "Please enter your phone number",
+        "correct_your_phone": "Phone number must be at least 10 digits long",
+        "already_exist": "The account already exists, try logging in",
+        "some_problem": "There is a problem, try again later."
     },
     "doctor": {
         "doc_1": {

@@ -42,8 +42,8 @@ class UserConsultations extends StatelessWidget {
                 return const Center(child: CircularProgressIndicator());
               } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
                 return Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  child: Wrap(
+                    alignment: WrapAlignment.center,
                     children: [
                       textHeaderDescription(text: tr("there_is_no")),
                       textHeaderDescription(

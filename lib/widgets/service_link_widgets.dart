@@ -1,8 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:makeny/extentions/colors.dart';
-import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 
 Widget serviseLinkWidgets({
   required final String img,

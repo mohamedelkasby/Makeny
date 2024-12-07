@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
@@ -101,8 +102,8 @@ class _InternetConnectivityWrapperState
                   padding: const EdgeInsets.symmetric(vertical: 4),
                   child: Text(
                     _hasInternet
-                        ? 'تم استعادة الاتصال بالإنترنت'
-                        : 'لا يوجد اتصال بالإنترنت',
+                        ? tr("error.internet_restored")
+                        : tr("error.no_internet"),
                     textAlign: TextAlign.center,
                     style: const TextStyle(color: Colors.white),
                   ),

@@ -8,6 +8,7 @@ import 'package:makeny/models/checkbox_test_model.dart';
 import 'package:makeny/services/fire_store_service.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';
+import 'package:makeny/widgets/internet_connectivity_wrapper.dart';
 
 class ConsultationDetails extends StatefulWidget {
   ConsultationDetails({
@@ -171,7 +172,7 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
                         ),
                         Text(
                           widget.date,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Color(0xff6C7380),
                             fontSize: 16,
                           ),
@@ -186,7 +187,7 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
                         ),
                         Text(
                           "${widget.time} ${tr("calculates.pm")}",
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Color(0xff6C7380),
                             fontSize: 16,
                           ),
@@ -302,7 +303,9 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              tests[index].testPage,
+                                              InternetConnectivityWrapper(
+                                            child: tests[index].testPage,
+                                          ),
                                         ),
                                       ).then((value) {
                                         if (value == true) {
@@ -337,8 +340,6 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
                                                 wrap: true,
                                               ),
                                             ),
-                                            // Text(
-                                            // ),
                                             SvgPicture.asset(
                                               tests[index].isChecked
                                                   ? "assets/icons/checked_box.svg"

@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/models/user_model.dart';
 import 'package:makeny/screens/danger_measure_screens/multidimensional_dyspnea_scale_screen.dart';
@@ -67,28 +68,39 @@ class _DangerMeasureScreenState extends State<DangerMeasureScreen> {
     5: false,
     6: false,
   };
-  void updateTestCompletionStatus(int testNumber, bool isComplete) {
-    // setState(() {
-    testsCompletionStatus[testNumber] = isComplete;
-    // print("...@@.....$isComplete");
-    // });
-  }
+  // void updateTestCompletionStatus(int testNumber, bool isComplete) {
+  //   // setState(() {
+  //   testsCompletionStatus[testNumber] = isComplete;
+  //   // print("...@@.....$isComplete");
+  //   // });
+  // }
 
   void updateTestData(int testNumber, Map<String, dynamic> data) {
     testData[testNumber] = data;
   }
 
+  final InternetConnectionChecker _internetChecker =
+      InternetConnectionChecker();
+
   /// if the data sent to the firebase then it will navigate,
   void submitTestData(int testNumber) async {
+    bool hasInternet = await _internetChecker.hasConnection;
+
     try {
       if (testData[testNumber] != null) {
+        if (!hasInternet) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(tr("error.no_internet"))),
+          );
+          return;
+        }
         await FireStoreService().addTestAnswers(
           userId: fireAuth.currentUser!.uid,
           testNumber: testNumber,
           testData: testData[testNumber]!,
         );
+
         if (testNumber == 1) {
-          //TODO:
           FireStoreService().updateDataFromTest1(
             userId: fireAuth.currentUser!.uid,
             usermodel: UserModel(
@@ -99,31 +111,52 @@ class _DangerMeasureScreenState extends State<DangerMeasureScreen> {
             ),
           );
         }
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) {
-              return InternetConnectivityWrapper(
-                child: NextTestScreen(
-                  appbar: switchAppbar(testNumber: testNumber),
-                  testNumber: testNumber,
+        if (testNumber == 6) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => InternetConnectivityWrapper(
+                child: MultidimensionalDyspneaScaleScreen(
+                  appbar: widget.appbar,
                 ),
-              );
-            },
-          ),
-        );
+              ),
+            ),
+          );
+        } else if (widget.shortTest) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => InternetConnectivityWrapper(
+                child: NextTestScreen(
+                  appbar: widget.appbar,
+                  testNumber: 9,
+                ),
+              ),
+            ),
+          );
+        } else {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return InternetConnectivityWrapper(
+                  child: NextTestScreen(
+                    appbar: switchAppbar(testNumber: testNumber),
+                    testNumber: testNumber,
+                  ),
+                );
+              },
+            ),
+          );
+        }
+      } else {
+        const SnackBar(content: Text("there is might be some error "));
       }
     } catch (e) {
       // Show error to user
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to save test data: $e')),
-      );
+      print(".....$e...........");
     }
   }
-  // @override
-  // void initState() {
-  //   super.initState();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -198,7 +231,7 @@ class _DangerMeasureScreenState extends State<DangerMeasureScreen> {
                     yesOrNoQuestions: questionsOfPage[testNumber],
                     onTestCompletion: (isComplete) {
                       setState(() {
-                        updateTestCompletionStatus(testNumber, isComplete);
+                        testsCompletionStatus[testNumber] = isComplete;
                       });
                     },
                     onDataCollected: (data) {
@@ -219,32 +252,7 @@ class _DangerMeasureScreenState extends State<DangerMeasureScreen> {
                 child: defaultButton(
                   onTap: testsCompletionStatus[testNumber] == true
                       ? () {
-                          testNumber == 6
-                              ? Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        InternetConnectivityWrapper(
-                                      child: MultidimensionalDyspneaScaleScreen(
-                                        appbar: appbar,
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              : shortTest
-                                  ? Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            InternetConnectivityWrapper(
-                                          child: NextTestScreen(
-                                            appbar: appbar,
-                                            testNumber: 9,
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  : submitTestData(testNumber);
+                          submitTestData(testNumber);
                         }
                       : null,
                   text: tr("continue"),

@@ -8,8 +8,12 @@ class SecondPage extends StatefulWidget {
   const SecondPage({
     super.key,
     this.selectedText = "",
+    this.onTestCompletion,
+    this.onDataCollected,
   });
   final selectedText;
+  final Function(bool)? onTestCompletion;
+  final Function(Map<String, dynamic>)? onDataCollected;
 
   @override
   State<SecondPage> createState() => _SecondPageState();
@@ -17,6 +21,8 @@ class SecondPage extends StatefulWidget {
 
 class _SecondPageState extends State<SecondPage> {
   double sliderValue = 0;
+
+  @override
   void initState() {
     sliderValue = 20;
     super.initState();
@@ -27,7 +33,7 @@ class _SecondPageState extends State<SecondPage> {
     return Column(
       children: [
         Container(
-          margin: EdgeInsets.symmetric(vertical: 5),
+          margin: const EdgeInsets.symmetric(vertical: 5),
           height: 70,
           decoration: BoxDecoration(
             color: mainColor50.withOpacity(.4),
@@ -49,9 +55,13 @@ class _SecondPageState extends State<SecondPage> {
             ),
           ),
         ),
+        // the slider
         Padding(
-          padding: const EdgeInsets.only(top: 25),
-          child: SliderWidget(),
+          padding: EdgeInsets.only(top: 25),
+          child: SliderWidget(
+            onTestCompletion: widget.onTestCompletion,
+            onDataCollected: widget.onDataCollected,
+          ),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 15),

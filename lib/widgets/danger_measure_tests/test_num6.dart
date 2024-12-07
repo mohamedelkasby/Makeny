@@ -6,14 +6,18 @@ import 'package:makeny/widgets/green_note.dart';
 
 class TestNumber6 extends StatefulWidget {
   final dynamic yesOrNoQuestions;
+  final Function(bool)? onTestCompletion;
+  final Function(Map<String, dynamic>)? onDataCollected;
 
   const TestNumber6({
     super.key,
     this.yesOrNoQuestions = const [],
+    this.onDataCollected,
+    this.onTestCompletion,
   });
 
   @override
-  _TestNumber6State createState() => _TestNumber6State();
+  State<TestNumber6> createState() => _TestNumber6State();
 }
 
 class _TestNumber6State extends State<TestNumber6> {
@@ -44,8 +48,8 @@ class _TestNumber6State extends State<TestNumber6> {
           padding: const EdgeInsets.only(top: 25),
           child: SliderTheme(
             data: SliderTheme.of(context).copyWith(
-              valueIndicatorShape: RectangularSliderValueIndicatorShape(),
-              valueIndicatorTextStyle: TextStyle(
+              valueIndicatorShape: const RectangularSliderValueIndicatorShape(),
+              valueIndicatorTextStyle: const TextStyle(
                 color: Colors.white,
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
@@ -62,6 +66,10 @@ class _TestNumber6State extends State<TestNumber6> {
               onChanged: (value) {
                 setState(() {
                   sliderValue = value;
+                });
+                widget.onTestCompletion!.call(true);
+                widget.onDataCollected!.call({
+                  "slider_value": value,
                 });
               },
             ),

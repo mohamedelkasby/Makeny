@@ -11,12 +11,21 @@
     "electronic_services": "خدمات الكترونية",
     "signPage": {
         "sign_in": "تسجيل دخول",
+        "sign": "تسجيل",
         "sign_up": "انشاء حساب",
         "email_or_phoneNumber": "البريد او رقم الهاتف",
         "password": "كلمة المرور",
         "don't_have_account": "لا تملك حساب؟",
+        "have_account": "لا تملك حساب؟",
         "sign_up_now": "سجل الان",
-        "login": "دخول"
+        "login": "دخول",
+        "your_number": "رقم هاتفك"
+    },
+    "defenition": {
+        "skip": "تخطي",
+        "reliable_medical_advice": "استشارات طبيه موثوقه من راحه منزلك",
+        "best_approved_medical": "افضل الاختبارات الطبية المعتمدة",
+        "analyze_the_results": "تحليل النتائج وتحديد نسبة الخطورة للإصابة بأمراض القلب و مضاعفاتها"
     },
     "change_photo": "تغير الصورة",
     "accountPage": {
@@ -483,13 +492,24 @@
     "error": {
         "no_user_date_found": "لم نجد بيانات المستخدم",
         "no_internet": "لا يوجد اتصال بالإنترنت",
+        "internet_restored": "تم استعادة الاتصال بالإنترنت",
         "wrong_phone_number": "رقم الهاتف غير صحيح",
         "enter_email_or_phone": "إدخل رقم هاتفك او البريد الخاص بك",
         "wrong_email_or_password": "البريد الاكترونى او الباسورد غير صحيح.",
-        "enter_password": "ادخل كلمة المرور من فضلك.",
+        "enter_password": "ادخل كلمة المرور من فضلك",
+        "confirm_password": "تأكيد كلمة المرور",
+        "password_does_not_match": "كلمة المرور غير متطابقة",
         "password_must_be_correct": "كلمة المرور لا بجب ان تقل عن 8 احرف",
-        "account_not_found": "الاكونت غير موجود. من فضل انشئ حساب اولاً.",
-        "problem_try_later": "يوجد مشكله, من فضلك جرب فى وقت اخر"
+        "account_not_found": "الاكونت غير موجود. من فضل انشئ حساب اولاً",
+        "problem_try_later": "يوجد مشكله, من فضلك جرب فى وقت اخر",
+        "already_associated": "هذا البريد الإلكتروني مرتبط بالفعل بحساب آخر",
+        "enter_your_email": "يرجى إدخال البريد الإلكتروني",
+        "enter_your_email_correctly": "يرجى إدخال بريد إلكتروني صحيح",
+        "email_in_use": "البريد الإلكترونى مستخدم بالفعل",
+        "enter_phone_number": "يرجى إدخال رقم الهاتف",
+        "correct_your_phone": "يجب أن يكون رقم الهاتف مكونًا من 10 أرقام على الأقل",
+        "already_exist": "الاكونت موجود بالفعل, جرب تسجل دخول",
+        "some_problem": "فى مشكله حصلت , جرب فى وقت اخر."
     },
     "doctor": {
         "doc_1": {

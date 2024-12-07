@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:makeny/screens/next_test_screen.dart';
+import 'package:makeny/services/fire_store_service.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 import 'package:makeny/widgets/danger_measure_tests/body_test_num6/switch_body_num6.dart';
@@ -25,12 +27,38 @@ class _MultidimensionalDyspneaScaleScreenState
     extends State<MultidimensionalDyspneaScaleScreen> {
   int bodyIndex = 0;
   String? selectedAnswer;
+  // bool clickable = false;
+  Map<String, dynamic> testData = {};
+  FirebaseAuth fireAuth = FirebaseAuth.instance;
 
+  Map<int, dynamic> isTestComplete = {
+    0: false,
+    1: false,
+    2: false,
+  };
   @override
   void initState() {
     bodyIndex = 0;
     selectedAnswer = null;
     super.initState();
+  }
+
+  void submitTestData() async {
+    if (testData.isNotEmpty) {
+      await FireStoreService().addTestAnswers(
+        userId: fireAuth.currentUser!.uid,
+        testNumber: 6,
+        subtest: bodyIndex + 1,
+        testData: testData,
+      );
+      //TODO: navigation here
+    } else {
+      const SnackBar(content: Text("there is might be some error "));
+    }
+  }
+
+  void addData(Map<String, dynamic> data) {
+    testData = data;
   }
 
   @override
@@ -79,12 +107,23 @@ class _MultidimensionalDyspneaScaleScreenState
                         onAnswerSelected: (answer) {
                           setState(() {
                             selectedAnswer = answer.first;
+                            // clickable = true;
+                            isTestComplete[bodyIndex] = true;
+                            addData({"breathing_felt": selectedAnswer});
                           });
                         },
                       )
                     : switchBodyNum6(
                         bodyIndex,
                         selectedAnswer: selectedAnswer,
+                        onTestCompletion: (isComplete) {
+                          setState(() {
+                            isTestComplete[bodyIndex] = isComplete;
+                          });
+                        },
+                        onDataCollected: (data) {
+                          addData(data);
+                        },
                       ),
                 SizedBox(
                   height: 80,
@@ -98,9 +137,10 @@ class _MultidimensionalDyspneaScaleScreenState
               child: bodyIndex < 2
                   ? defaultButton(
                       text: tr("continue"),
-                      onTap: selectedAnswer != null
+                      onTap: isTestComplete[bodyIndex] == true
                           ? () {
                               setState(() {
+                                submitTestData();
                                 bodyIndex++;
                               });
                             }
@@ -108,18 +148,21 @@ class _MultidimensionalDyspneaScaleScreenState
                     )
                   : defaultButton(
                       text: tr("next"),
-                      onTap: () {
-                        //TODO: navigate to حجز موعد
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => NextTestScreen(
-                              appbar: switchAppbar(testNumber: 7),
-                              testNumber: 7,
-                            ),
-                          ),
-                        );
-                      },
+                      onTap: isTestComplete[bodyIndex] == true
+                          ? () {
+                              submitTestData();
+
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => NextTestScreen(
+                                    appbar: switchAppbar(testNumber: 7),
+                                    testNumber: 7,
+                                  ),
+                                ),
+                              );
+                            }
+                          : null,
                     ),
             ),
           ],

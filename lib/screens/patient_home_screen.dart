@@ -12,6 +12,7 @@ import 'package:makeny/screens/medical_education_screens/medical_educate_desc_sc
 import 'package:makeny/services/fire_store_service.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 import 'package:makeny/widgets/doctor_container.dart';
+import 'package:makeny/widgets/internet_connectivity_wrapper.dart';
 
 class PatientHomeScreen extends StatefulWidget {
   PatientHomeScreen({super.key});
@@ -307,7 +308,8 @@ class _PatientHomeScreenState extends State<PatientHomeScreen>
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    gridModelList[index].screen,
+                                    InternetConnectivityWrapper(
+                                        child: gridModelList[index].screen),
                               ),
                             ),
                             child: Column(

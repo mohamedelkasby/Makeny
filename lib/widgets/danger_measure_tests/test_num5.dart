@@ -7,8 +7,12 @@ class TestNumber5 extends StatefulWidget {
   const TestNumber5({
     super.key,
     this.yesOrNoQuestions,
+    this.onTestCompletion,
+    this.onDataCollected,
   });
   final List<String>? yesOrNoQuestions;
+  final Function(bool)? onTestCompletion;
+  final Function(Map<String, dynamic>)? onDataCollected;
 
   @override
   State<TestNumber5> createState() => _TestNumber5State();
@@ -21,13 +25,18 @@ class _TestNumber5State extends State<TestNumber5> {
   void onAnswerSelected(int questionIndex, int answerIndex) {
     setState(() {
       selectedAnswers[questionIndex] = answerIndex;
-      // print(selectedAnswers);
     });
+    if (!selectedAnswers.contains(null)) {
+      widget.onTestCompletion!.call(true);
+      widget.onDataCollected!.call({
+        "select_one_answer_questions": selectedAnswers,
+      });
+    }
   }
 
-  List<Questions> question = [
+  List<Questions> questions = [
     Questions(
-      quation: tr("test_5_page.choose_qustions.question_1"),
+      question: tr("test_5_page.choose_qustions.question_1"),
       answers: [
         "${tr("test_5_page.i_did_not_do_this_activity")}\n( 0 )",
         "${tr("test_5_page.highly_limited")}\n( 4 ~1 )",
@@ -37,7 +46,7 @@ class _TestNumber5State extends State<TestNumber5> {
       ],
     ),
     Questions(
-      quation: tr("test_5_page.choose_qustions.question_2"),
+      question: tr("test_5_page.choose_qustions.question_2"),
       answers: [
         "${tr("test_5_page.i_did_not_do_this_activity")}\n( 0 )",
         "${tr("test_5_page.highly_limited")}\n( 50 ~ 10 )",
@@ -47,7 +56,7 @@ class _TestNumber5State extends State<TestNumber5> {
       ],
     ),
     Questions(
-      quation: tr("test_5_page.choose_qustions.question_3"),
+      question: tr("test_5_page.choose_qustions.question_3"),
       answers: [
         "${tr("test_5_page.i_did_not_do_this_activity")}\n( 0 )",
         "${tr("test_5_page.highly_limited")}\n( 4 ~1 )",
@@ -57,7 +66,7 @@ class _TestNumber5State extends State<TestNumber5> {
       ],
     ),
     Questions(
-      quation: tr("test_5_page.choose_qustions.question_4"),
+      question: tr("test_5_page.choose_qustions.question_4"),
       answers: [
         tr("test_5_page.all_the_time"),
         tr("test_5_page.3_or_more_times_a_week"),
@@ -67,7 +76,7 @@ class _TestNumber5State extends State<TestNumber5> {
       ],
     ),
     Questions(
-      quation: tr("test_5_page.choose_qustions.question_5"),
+      question: tr("test_5_page.choose_qustions.question_5"),
       answers: [
         tr("test_5_page.all_the_time"),
         tr("test_5_page.3_or_more_times_a_week"),
@@ -77,7 +86,7 @@ class _TestNumber5State extends State<TestNumber5> {
       ],
     ),
     Questions(
-      quation: tr("test_5_page.choose_qustions.question_6"),
+      question: tr("test_5_page.choose_qustions.question_6"),
       answers: [
         "${tr("test_5_page.i_did_not_do_this_activity")}\n( 0 )",
         "${tr("test_5_page.highly_limited")}\n( 4 ~1 )",
@@ -87,7 +96,7 @@ class _TestNumber5State extends State<TestNumber5> {
       ],
     ),
     Questions(
-      quation: tr("test_5_page.choose_qustions.question_7"),
+      question: tr("test_5_page.choose_qustions.question_7"),
       answers: [
         "${tr("test_5_page.i_did_not_do_this_activity")}\n( 0 )",
         "${tr("test_5_page.highly_limited")}\n( 4 ~1 )",
@@ -97,7 +106,7 @@ class _TestNumber5State extends State<TestNumber5> {
       ],
     ),
     Questions(
-      quation: tr("test_5_page.choose_qustions.question_8"),
+      question: tr("test_5_page.choose_qustions.question_8"),
       answers: [
         tr("test_5_page.decrease_very_high"),
         tr("test_5_page.decrease_high"),
@@ -107,7 +116,7 @@ class _TestNumber5State extends State<TestNumber5> {
       ],
     ),
     Questions(
-      quation: tr("test_5_page.choose_qustions.question_9"),
+      question: tr("test_5_page.choose_qustions.question_9"),
       answers: [
         tr("test_5_page.decrease_very_high"),
         tr("test_5_page.decrease_high"),
@@ -117,7 +126,7 @@ class _TestNumber5State extends State<TestNumber5> {
       ],
     ),
     Questions(
-      quation: tr("test_5_page.choose_qustions.question_10"),
+      question: tr("test_5_page.choose_qustions.question_10"),
       answers: [
         tr("test_5_page.tightly_bound"),
         tr("test_5_page.highly_restricted"),
@@ -128,7 +137,7 @@ class _TestNumber5State extends State<TestNumber5> {
       ],
     ),
     Questions(
-      quation: tr("test_5_page.choose_qustions.question_11"),
+      question: tr("test_5_page.choose_qustions.question_11"),
       answers: [
         tr("test_5_page.tightly_bound"),
         tr("test_5_page.highly_restricted"),
@@ -139,7 +148,7 @@ class _TestNumber5State extends State<TestNumber5> {
       ],
     ),
     Questions(
-      quation: tr("test_5_page.choose_qustions.question_12"),
+      question: tr("test_5_page.choose_qustions.question_12"),
       answers: [
         tr("test_5_page.tightly_bound"),
         tr("test_5_page.highly_restricted"),
@@ -165,13 +174,13 @@ class _TestNumber5State extends State<TestNumber5> {
         ),
         ////// the green text End   ////
         ...List.generate(
-          question.length,
+          questions.length,
           (index) => GridOneAnswerCheck(
             onAnswerSelected: (answerIndex) =>
                 onAnswerSelected(index, answerIndex),
-            questionsText: question[index].quation,
+            questionsText: questions[index].question,
             selectedAnswer: selectedAnswers[index],
-            answers: question[index].answers,
+            answers: questions[index].answers,
           ),
         ),
       ],
@@ -180,11 +189,11 @@ class _TestNumber5State extends State<TestNumber5> {
 }
 
 class Questions {
-  final String quation;
+  final String question;
   final List<String> answers;
 
   Questions({
-    required this.quation,
+    required this.question,
     required this.answers,
   });
 }

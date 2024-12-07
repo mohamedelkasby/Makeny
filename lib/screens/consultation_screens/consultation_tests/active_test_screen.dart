@@ -1,5 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:makeny/services/fire_store_service.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';
 import 'package:makeny/widgets/green_note.dart';
@@ -15,6 +18,8 @@ class ActiveTestScreen extends StatefulWidget {
 }
 
 class _ActiveTestScreenState extends State<ActiveTestScreen> {
+  List yesNoAnswers = [];
+  FirebaseAuth fireAuth = FirebaseAuth.instance;
   final List<String> yesOrNoQuestions = [
     tr("consultation_tests.physical_activity.questions.number_1"),
     tr("consultation_tests.physical_activity.questions.number_2"),
@@ -29,6 +34,31 @@ class _ActiveTestScreenState extends State<ActiveTestScreen> {
     tr("consultation_tests.physical_activity.questions.number_11"),
   ];
   bool allQuestionsAnswered = false;
+
+  final InternetConnectionChecker _internetChecker =
+      InternetConnectionChecker();
+
+  void addToFirebase(data) async {
+    bool hasInternet = await _internetChecker.hasConnection;
+    try {
+      if (!hasInternet) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(tr("error.no_internet"))),
+        );
+        return;
+      }
+      await FireStoreService().addTestAnswers(
+        userId: fireAuth.currentUser!.uid,
+        testData: {
+          "Yes_No_answers": data,
+        },
+        testName: "phsical_activity",
+      );
+      Navigator.pop(context, allQuestionsAnswered);
+    } on Exception catch (e) {
+      print(".....$e...........");
+    }
+  }
 
   // @override
   @override
@@ -55,6 +85,9 @@ class _ActiveTestScreenState extends State<ActiveTestScreen> {
                         allQuestionsAnswered = allAnswered;
                       });
                     },
+                    onAnswersChanged: (value) {
+                      yesNoAnswers = value;
+                    },
                   ),
                   SizedBox(
                     height: 80,
@@ -69,7 +102,7 @@ class _ActiveTestScreenState extends State<ActiveTestScreen> {
                   text: tr("save"),
                   onTap: allQuestionsAnswered
                       ? () {
-                          Navigator.pop(context, allQuestionsAnswered);
+                          addToFirebase(yesNoAnswers);
                         }
                       : null,
                 ),
