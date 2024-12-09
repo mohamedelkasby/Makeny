@@ -264,7 +264,7 @@ class _BookingDateScreenState extends State<BookingDateScreen> {
                                                     Icons.chevron_left,
                                                     color: Colors.white),
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 width: 15,
                                               ),
                                               GestureDetector(

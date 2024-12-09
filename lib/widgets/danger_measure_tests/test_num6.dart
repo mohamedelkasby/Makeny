@@ -106,7 +106,7 @@ class _TestNumber6State extends State<TestNumber6> {
                 text: " ${tr("test_6_page.zero")} ",
                 style: TextStyle(color: mainColor),
               ),
-              TextSpan(text: tr("test_6_page.mean_comfortable_or")),
+              TextSpan(text: tr("test_6_page.mean_comfortable_but")),
               TextSpan(
                 text: " 100 ",
                 style: TextStyle(color: mainColor),

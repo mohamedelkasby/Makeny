@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:makeny/screens/booking_screens/booking_date_screen.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';
+import 'package:makeny/widgets/internet_connectivity_wrapper.dart';
 import 'package:makeny/widgets/questions_type/long_one_answer_check.dart';
 import 'package:makeny/widgets/questions_type/yes_or_no_question.dart';
 
@@ -77,9 +78,11 @@ class _BookingTypeScreenState extends State<BookingTypeScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => BookingDateScreen(
-                                docSpecialize: specialization!,
-                                type: consultationType!,
+                              builder: (context) => InternetConnectivityWrapper(
+                                child: BookingDateScreen(
+                                  docSpecialize: specialization!,
+                                  type: consultationType!,
+                                ),
                               ),
                             ),
                           );

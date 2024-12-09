@@ -6,6 +6,7 @@ import 'package:makeny/screens/booking_screens/payment_screeen.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';
+import 'package:makeny/widgets/internet_connectivity_wrapper.dart';
 
 class ReservationDetails extends StatelessWidget {
   const ReservationDetails({
@@ -73,7 +74,7 @@ class ReservationDetails extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 15,
                                   ),
                                   Column(
@@ -81,12 +82,12 @@ class ReservationDetails extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       textNormal(text: data.drName),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 10,
                                       ),
                                       textNormal(
                                         text: data.specialty,
-                                        textColor: Color(0xff0479D8),
+                                        textColor: const Color(0xff0479D8),
                                       ),
                                     ],
                                   )
@@ -107,17 +108,17 @@ class ReservationDetails extends StatelessWidget {
                                         text: tr("date"),
                                         textColor: greyColor,
                                       ),
-                                      SizedBox(height: 10),
+                                      const SizedBox(height: 10),
                                       textNormal(
                                         text: tr("time"),
                                         textColor: greyColor,
                                       ),
-                                      SizedBox(height: 10),
+                                      const SizedBox(height: 10),
                                       textNormal(
                                         text: tr("consultation_type"),
                                         textColor: greyColor,
                                       ),
-                                      SizedBox(height: 10),
+                                      const SizedBox(height: 10),
                                       textNormal(
                                         text: tr("communication_type"),
                                         textColor: greyColor,
@@ -127,12 +128,12 @@ class ReservationDetails extends StatelessWidget {
                                   Column(
                                     children: [
                                       textNormal(text: date),
-                                      SizedBox(height: 10),
+                                      const SizedBox(height: 10),
                                       textNormal(
                                           text: "$time  ${tr("evening")}"),
-                                      SizedBox(height: 10),
+                                      const SizedBox(height: 10),
                                       textNormal(text: type),
-                                      SizedBox(height: 10),
+                                      const SizedBox(height: 10),
                                       textNormal(text: tr("online")),
                                     ],
                                   )
@@ -154,12 +155,12 @@ class ReservationDetails extends StatelessWidget {
                                         text: tr("price"),
                                         textColor: greyColor,
                                       ),
-                                      SizedBox(height: 10),
+                                      const SizedBox(height: 10),
                                       textNormal(
                                         text: tr("value_added_tax"),
                                         textColor: greyColor,
                                       ),
-                                      SizedBox(height: 10),
+                                      const SizedBox(height: 10),
                                       textNormal(
                                         text: tr("total"),
                                         textColor: greyColor,
@@ -170,10 +171,10 @@ class ReservationDetails extends StatelessWidget {
                                     children: [
                                       textNormal(
                                           text: "150 ${tr("calculates.sar")} "),
-                                      SizedBox(height: 10),
+                                      const SizedBox(height: 10),
                                       textNormal(
                                           text: "10 ${tr("calculates.sar")}"),
-                                      SizedBox(height: 10),
+                                      const SizedBox(height: 10),
                                       textNormal(
                                         text: "160 ${tr("calculates.sar")}",
                                         textColor: mainColor,
@@ -193,10 +194,12 @@ class ReservationDetails extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => PaymentScreeen(
-                                date: date,
-                                time: time,
-                                doctorModel: data,
+                              builder: (context) => InternetConnectivityWrapper(
+                                child: PaymentScreeen(
+                                  date: date,
+                                  time: time,
+                                  doctorModel: data,
+                                ),
                               ),
                             ),
                           );
