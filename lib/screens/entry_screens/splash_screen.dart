@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:makeny/cubits/cubit.dart';
 import 'package:makeny/screens/basic_screen.dart';
-import 'package:makeny/screens/doctor_home_screen.dart';
+import 'package:makeny/screens/doctor_screens/doctor_home_screen.dart';
 import 'package:makeny/screens/entry_screens/defenition_screen.dart';
 import 'package:makeny/screens/user_pages/sign_in_&_sign_up_screens/login_screen.dart';
 import 'package:makeny/widgets/internet_connectivity_wrapper.dart';

@@ -64,7 +64,7 @@ class _PaymentScreeenState extends State<PaymentScreeen> {
                             });
                           },
                         ),
-                        SizedBox(height: 16),
+                        const SizedBox(height: 16),
                         paymentMethod(
                           icon: "assets/icons/payment_logo/google pay.png",
                           cardType: "google pay",
@@ -75,7 +75,7 @@ class _PaymentScreeenState extends State<PaymentScreeen> {
                             });
                           },
                         ),
-                        SizedBox(height: 16),
+                        const SizedBox(height: 16),
                         paymentMethod(
                           icon: "assets/icons/payment_logo/Mastercard.png",
                           cardType: "mastercard",
@@ -137,8 +137,8 @@ class _PaymentScreeenState extends State<PaymentScreeen> {
             Row(
               children: [
                 Container(
-                  margin: EdgeInsets.all(10),
-                  padding: EdgeInsets.all(12),
+                  margin: const EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(
@@ -160,8 +160,8 @@ class _PaymentScreeenState extends State<PaymentScreeen> {
               ],
             ),
             Container(
-              padding: EdgeInsets.all(2),
-              margin: EdgeInsets.symmetric(horizontal: 30),
+              padding: const EdgeInsets.all(2),
+              margin: const EdgeInsets.symmetric(horizontal: 30),
               decoration: BoxDecoration(
                 color: Colors.white,
                 border: Border.all(
@@ -173,7 +173,7 @@ class _PaymentScreeenState extends State<PaymentScreeen> {
                 shape: BoxShape.circle,
               ),
               child: Container(
-                padding: EdgeInsets.all(8),
+                padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: cardType == paymentType ? mainColor200 : Colors.white,
                   shape: BoxShape.circle,

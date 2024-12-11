@@ -22,16 +22,9 @@ class ReservationDetails extends StatelessWidget {
   final String time;
 
   DoctorModel? getDoctorData() {
-    // String specialtyName = docSpecialize;
     DoctorModel? model;
     for (var element in doctors) {
       try {
-        // print("--${element.specialty}------${docSpecialize}--");
-
-        // print(docSpecialize.contains(element.specialty));
-
-        // print(element.specialty.contains(docSpecialize));
-
         if (element.specialty.contains(docSpecialize) ||
             docSpecialize.contains(element.specialty)) {
           model = element;
