@@ -25,15 +25,10 @@ class _DoctorHomeScreenState extends State<DoctorHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // show the top status and bottom controllers
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge, overlays: [
-      SystemUiOverlay.top,
-      SystemUiOverlay.bottom
-    ]); // Show status bar
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge,
+        overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
     FirebaseFirestore fireStore = FirebaseFirestore.instance;
-    // FirebaseAuth fireAuth = FirebaseAuth.instance;
-    int userGreen = 0;
-    int userRed = 0;
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -52,7 +47,7 @@ class _DoctorHomeScreenState extends State<DoctorHomeScreen> {
           ),
         ),
         title: const Text(
-          "patients Room",
+          "Patients Room",
           style: TextStyle(
             color: Colors.white,
             fontSize: 22,
@@ -63,84 +58,103 @@ class _DoctorHomeScreenState extends State<DoctorHomeScreen> {
       ),
       body: StreamBuilder(
         stream: fireStore.collection("users").snapshots(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
+        builder: (context, userSnapshot) {
+          if (userSnapshot.hasError) {
             return const Center(child: Text("Something went wrong"));
-          } else if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else {
-            return SingleChildScrollView(
-              child: Column(
-                children: snapshot.data!.docs.map<Widget>((document) {
-                  Map<String, dynamic> data = document.data();
-                  return StreamBuilder(
-                    stream: fireStore
-                        .collection("users")
-                        .doc(document.id)
-                        .collection("consultations")
-                        .snapshots(),
-                    builder: (context, consultationSnapshot) {
-                      if (consultationSnapshot.hasError) {
-                        return const Text('Something went wrong');
-                      } else if (consultationSnapshot.connectionState ==
-                          ConnectionState.waiting) {
-                        return Container();
-                      } else {
-                        return Column(
-                          children: consultationSnapshot.data!.docs
-                              .map<Widget>((consultationDocument) {
-                            Map<String, dynamic> consultationData =
-                                consultationDocument.data();
-
-                            if (consultationData['doctorEmail'] ==
-                                FirebaseAuth.instance.currentUser!.email) {
-                              userGreen++;
-                              print("userRed:$userRed\nuserGreen:$userGreen");
-
-                              return ListTile(
-                                leading: CircleAvatar(
-                                  backgroundColor: data["isPatient"]
-                                      ? mainColor100
-                                      : Colors.green[100],
-                                  child: data["picture"] == ""
-                                      ? const Icon(Icons.person)
-                                      : Image.asset(data["picture"]),
-                                ),
-                                // here i put if the email is null put the phone number cause he could sign in with phone number only
-                                title: Text(
-                                    data["userName"] ?? data["phoneNumber"]),
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            InternetConnectivityWrapper(
-                                          child: ChatScreen(
-                                            // the chat Id
-                                            receiverData: data,
-                                          ),
-                                        ),
-                                      ));
-                                },
-                              );
-                            } else {
-                              userRed++;
-                              print("userRed:$userRed\nuserGreen:$userGreen");
-                              return const SizedBox();
-                            }
-                          }).toList(),
-                        );
-                      }
-                    },
-                  );
-                }).toList(),
-              ),
-            );
           }
+
+          if (userSnapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          return StreamBuilder<List<Widget>>(
+            stream: Stream.fromFuture(
+                _generatePatientWidgets(userSnapshot.data!.docs)),
+            builder: (context, widgetsSnapshot) {
+              if (widgetsSnapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              }
+
+              // Get the list of patient widgets
+              List<Widget> patientWidgets = widgetsSnapshot.data ?? [];
+
+              // Check if there are any patient widgets
+              if (patientWidgets.isEmpty) {
+                return const Center(
+                  child: Text(
+                    "No patient data available",
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.grey,
+                    ),
+                  ),
+                );
+              }
+
+              // If there are patient widgets, display them
+              return SingleChildScrollView(
+                child: Column(
+                  children: patientWidgets,
+                ),
+              );
+            },
+          );
         },
       ),
     );
+  }
+
+  Future<List<Widget>> _generatePatientWidgets(
+      List<QueryDocumentSnapshot> userDocs) async {
+    List<Widget> patientWidgets = [];
+    FirebaseFirestore fireStore = FirebaseFirestore.instance;
+
+    for (var document in userDocs) {
+      Map<String, dynamic> userData = document.data() as Map<String, dynamic>;
+
+      // Fetch consultations for this user
+      var consultationSnapshot = await fireStore
+          .collection("users")
+          .doc(document.id)
+          .collection("consultations")
+          .get();
+
+      // Filter consultations for current doctor
+      var relevantConsultations =
+          consultationSnapshot.docs.where((consultationDoc) {
+        Map<String, dynamic> consultationData = consultationDoc.data();
+        return consultationData['doctorEmail'] ==
+            FirebaseAuth.instance.currentUser!.email;
+      });
+
+      // Create widgets for relevant consultations
+      for (var _ in relevantConsultations) {
+        patientWidgets.add(
+          ListTile(
+            leading: CircleAvatar(
+              backgroundColor: mainColor100,
+              child: userData["picture"] == ""
+                  ? const Icon(Icons.person)
+                  : Image.asset(userData["picture"]),
+            ),
+            title: Text(userData["userName"] ?? userData["phoneNumber"]),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => InternetConnectivityWrapper(
+                    child: ChatScreen(
+                      receiverData: userData,
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+        );
+      }
+    }
+
+    return patientWidgets;
   }
 }
