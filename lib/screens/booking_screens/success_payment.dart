@@ -41,14 +41,15 @@ class SuccessPayment extends StatelessWidget {
                 defaultButton(
                     text: tr("go_to_consultation"),
                     onTap: () {
-                      Navigator.of(context).popUntil((route) => route.isFirst);
-                      AppCubit.get(context).selectedBNBIndex = 0;
                       FireStoreService().addConsultationToUser(
                         userId: firebaseAuth.currentUser!.uid,
                         date: date,
                         time: time,
                         doctorModel: doctorModel,
+                        status: tr("opened"),
                       );
+                      Navigator.of(context).popUntil((route) => route.isFirst);
+                      AppCubit.get(context).selectedBNBIndex = 0;
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -57,6 +58,7 @@ class SuccessPayment extends StatelessWidget {
                               date: date,
                               time: time,
                               status: tr("opened"),
+                              requiredTests: const [],
                             ),
                           ));
                     })

@@ -51,11 +51,16 @@ Widget textHeaderDescription({
 Widget textHeadLine({
   required final String text,
   Color textColor = const Color(0xff0D1B34),
+  FontWeight? wight = FontWeight.w700,
+  double size = 16,
 }) {
   return Text(
     text,
-    style:
-        TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: textColor),
+    style: TextStyle(
+      fontSize: size,
+      fontWeight: wight,
+      color: textColor,
+    ),
   );
 }
 

@@ -256,68 +256,71 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: backArrow(context),
-        title: Text(
-          widget.receiverData["userName"] ?? widget.receiverData["phoneNumber"],
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          leading: backArrow(context),
+          title: Text(
+            widget.receiverData["userName"] ??
+                widget.receiverData["phoneNumber"],
+          ),
+          backgroundColor: greybackgroundColor,
         ),
-        backgroundColor: greybackgroundColor,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-        child: Column(
-          children: [
-            Expanded(
-              child: messageList(),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              child: Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 5),
-                    child: GestureDetector(
-                      onTap: sendMessage,
-                      child: Transform.flip(
-                          flipX: context.locale.languageCode == "en"
-                              ? true
-                              : false,
-                          child: SvgPicture.asset("assets/icons/send.svg")),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+          child: Column(
+            children: [
+              Expanded(
+                child: messageList(),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      child: GestureDetector(
+                        onTap: sendMessage,
+                        child: Transform.flip(
+                            flipX: context.locale.languageCode == "en"
+                                ? true
+                                : false,
+                            child: SvgPicture.asset("assets/icons/send.svg")),
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 5),
-                  Expanded(
-                    child: TextField(
-                      controller: messageController,
-                      maxLines: null,
-                      keyboardType: TextInputType.multiline,
-                      decoration: InputDecoration(
-                        fillColor: const Color(0xffF0F0F0),
-                        filled: true,
-                        hintText: tr("write_here"),
-                        hintStyle: TextStyle(color: greyColor),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(50),
-                          borderSide: BorderSide.none,
+                    const SizedBox(width: 5),
+                    Expanded(
+                      child: TextField(
+                        controller: messageController,
+                        maxLines: null,
+                        keyboardType: TextInputType.multiline,
+                        decoration: InputDecoration(
+                          fillColor: const Color(0xffF0F0F0),
+                          filled: true,
+                          hintText: tr("write_here"),
+                          hintStyle: TextStyle(color: greyColor),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(50),
+                            borderSide: BorderSide.none,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            )
-          ],
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
+        // floatingActionButton: showFloatingButton
+        //     ? FloatingActionButton.small(
+        //         onPressed: () {
+        //           forceScrollToBottom();
+        //         },
+        //         child: Icon(Icons.arrow_downward),
+        //       )
+        //     : null,
       ),
-      // floatingActionButton: showFloatingButton
-      //     ? FloatingActionButton.small(
-      //         onPressed: () {
-      //           forceScrollToBottom();
-      //         },
-      //         child: Icon(Icons.arrow_downward),
-      //       )
-      //     : null,
     );
   }
 }

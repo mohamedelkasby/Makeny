@@ -12,6 +12,8 @@ Widget consultionsData(
   required String date,
   required String time,
   required String status,
+  required String consultationId,
+  required List<dynamic> patientTests,
 }) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 5),
@@ -22,20 +24,21 @@ Widget consultionsData(
         Navigator.push(
             context,
             MaterialPageRoute(
-              //TODO send the whole model not the doctor name or status
               builder: (context) => InternetConnectivityWrapper(
                 child: ConsultationDetails(
                   doctorModel: doctorModel,
                   date: date,
                   time: time,
                   status: status,
+                  requiredTests: patientTests,
+                  consultationId: consultationId,
                 ),
               ),
             ));
       },
       child: Container(
         decoration: BoxDecoration(
-          color: Color(0xffF3FAFF),
+          color: const Color(0xffF3FAFF),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Row(
@@ -85,7 +88,7 @@ Widget consultionsData(
                 children: [
                   Text(
                     doctorModel.drName,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 18,
                     ),
@@ -93,12 +96,12 @@ Widget consultionsData(
                   Row(
                     children: [
                       SvgPicture.asset("assets/icons/clock.svg"),
-                      SizedBox(
+                      const SizedBox(
                         width: 5,
                       ),
                       Text(
                         "$time ${tr("calculates.pm")}",
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Color(0xff6C7380),
                           fontSize: 16,
                         ),
@@ -108,12 +111,12 @@ Widget consultionsData(
                   Row(
                     children: [
                       SvgPicture.asset("assets/icons/deta.svg"),
-                      SizedBox(
+                      const SizedBox(
                         width: 5,
                       ),
                       Text(
                         date,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Color(0xff6C7380),
                           fontSize: 16,
                         ),
@@ -127,19 +130,19 @@ Widget consultionsData(
                           borderRadius: BorderRadius.circular(20),
                           color: status == tr("canceled")
                               ? mainColor
-                              : Color(0xff0EBE7F),
+                              : const Color(0xff0EBE7F),
                         ),
-                        child: SizedBox(
+                        child: const SizedBox(
                           width: 10,
                           height: 10,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 5,
                       ),
                       Text(
                         status,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Color(0xff6C7380),
                           fontSize: 16,
                         ),

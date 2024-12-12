@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:makeny/extentions/colors.dart';
@@ -17,11 +18,15 @@ class ConsultationDetails extends StatefulWidget {
     required this.date,
     required this.time,
     required this.status,
+    required this.requiredTests,
+    this.consultationId,
   });
 
   final DoctorModel doctorModel;
   final String date;
   final String time;
+  final List<dynamic> requiredTests;
+  final String? consultationId;
   String status;
 
   @override
@@ -34,13 +39,25 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
 
   bool isLoading = true;
   Map<String, dynamic>? data;
-
+  FirebaseAuth fireAuth = FirebaseAuth.instance;
   @override
   void initState() {
     super.initState();
+    getTheTest();
     _initializeData();
     _tabController = TabController(length: 2, vsync: this);
     _setupTabController();
+  }
+
+  void getTheTest() {
+    for (int i = 0; i < widget.requiredTests.length; i++) {
+      print(i);
+      if (widget.requiredTests[i] == true) {
+        patientTests.add(tests[i]);
+      } else {
+        continue;
+      }
+    }
   }
 
   void _setupTabController() {
@@ -49,6 +66,11 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
         if (_tabController.index == 1) {
           widget.status = tr("canceled");
         } else if (allTestsChecked()) {
+          FireStoreService().updateStatusConsultationsData(
+            consultationId: widget.consultationId!,
+            userId: fireAuth.currentUser!.uid,
+            status: tr("completed"),
+          );
           widget.status = tr("completed");
         } else {
           widget.status = tr("opened");
@@ -62,6 +84,12 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
       await getfirebaseData(widget.doctorModel.email);
       if (allTestsChecked()) {
         widget.status = tr("completed");
+
+        FireStoreService().updateStatusConsultationsData(
+          consultationId: widget.consultationId!,
+          userId: fireAuth.currentUser!.uid,
+          status: tr("completed"),
+        );
       }
     } catch (e) {
       print("Error loading data: $e");
@@ -80,8 +108,10 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
     super.dispose();
   }
 
+  List<CheckboxTestModel> patientTests = [];
+
   bool allTestsChecked() {
-    return tests.every((element) => element.isChecked == true);
+    return patientTests.every((element) => element.isChecked == true);
   }
 
   Future<void> getfirebaseData(String email) async {
@@ -248,16 +278,6 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
                   children: [
                     TabBar(
                       controller: _tabController,
-                      // onTap: (value) {
-                      //   if (value == 1) {
-                      //     status = "ملغاه";
-                      //   } else if (allTestsChecked()) {
-                      //     status = "مكتملة";
-                      //   } else {
-                      //     status = "مفتوحه";
-                      //   }
-                      //   setState(() {});
-                      // },
                       isScrollable: false,
                       labelStyle: TextStyle(
                         fontFamily: "cairo",
@@ -284,77 +304,95 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
                       child: TabBarView(
                         controller: _tabController,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 5),
-                            child: ListView.builder(
-                              itemCount: tests.length,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 8,
-                                    horizontal: 10,
-                                  ),
-                                  child: InkWell(
-                                    splashColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () {
-                                      allTestsChecked();
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              InternetConnectivityWrapper(
-                                            child: tests[index].testPage,
-                                          ),
-                                        ),
-                                      ).then((value) {
-                                        if (value == true) {
-                                          setState(() {
-                                            tests[index].isChecked = true;
-                                          });
-                                        }
-                                        if (allTestsChecked()) {
-                                          widget.status = tr("completed");
-                                        }
-                                      });
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: const Color(0xffEBEBEB),
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: Padding(
+                          patientTests.isNotEmpty
+                              ? Padding(
+                                  padding: const EdgeInsets.only(top: 5),
+                                  child: ListView.builder(
+                                    itemCount: patientTests.length,
+                                    itemBuilder: (context, index) {
+                                      return Padding(
                                         padding: const EdgeInsets.symmetric(
-                                          vertical: 20,
-                                          horizontal: 15,
+                                          vertical: 8,
+                                          horizontal: 10,
                                         ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Flexible(
-                                              child: textNormal(
-                                                text: tests[index].testName,
-                                                textColor:
-                                                    const Color(0xff6A6A6A),
-                                                wrap: true,
+                                        child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () {
+                                            allTestsChecked();
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    InternetConnectivityWrapper(
+                                                  child: patientTests[index]
+                                                      .testPage,
+                                                ),
+                                              ),
+                                            ).then((value) {
+                                              if (value == true) {
+                                                setState(() {
+                                                  patientTests[index]
+                                                      .isChecked = true;
+                                                });
+                                              }
+                                              if (allTestsChecked()) {
+                                                widget.status = tr("completed");
+
+                                                FireStoreService()
+                                                    .updateStatusConsultationsData(
+                                                  consultationId:
+                                                      widget.consultationId!,
+                                                  userId:
+                                                      fireAuth.currentUser!.uid,
+                                                  status: tr("completed"),
+                                                );
+                                              }
+                                            });
+                                          },
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: const Color(0xffEBEBEB),
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                vertical: 20,
+                                                horizontal: 15,
+                                              ),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Flexible(
+                                                    child: textNormal(
+                                                      text: patientTests[index]
+                                                          .testName,
+                                                      textColor: const Color(
+                                                          0xff6A6A6A),
+                                                      wrap: true,
+                                                    ),
+                                                  ),
+                                                  SvgPicture.asset(
+                                                    patientTests[index]
+                                                            .isChecked
+                                                        ? "assets/icons/checked_box.svg"
+                                                        : "assets/icons/unchecked_box.svg",
+                                                    width: 20,
+                                                  )
+                                                ],
                                               ),
                                             ),
-                                            SvgPicture.asset(
-                                              tests[index].isChecked
-                                                  ? "assets/icons/checked_box.svg"
-                                                  : "assets/icons/unchecked_box.svg",
-                                              width: 20,
-                                            )
-                                          ],
+                                          ),
                                         ),
-                                      ),
-                                    ),
+                                      );
+                                    },
                                   ),
-                                );
-                              },
-                            ),
-                          ),
+                                )
+                              : Center(child: textNormal(text: "no tasks yet")),
                           Padding(
                             padding: const EdgeInsets.symmetric(
                               horizontal: 10,

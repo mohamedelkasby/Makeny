@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -58,6 +59,7 @@ class FireStoreService {
     required String userId,
     required String date,
     required String time,
+    required String status,
     required DoctorModel doctorModel,
   }) async {
     try {
@@ -69,19 +71,73 @@ class FireStoreService {
         "doctorEmail": doctorModel.email,
         "dateReserved": date,
         "timeReserved": time,
+        "status": status,
       });
     } catch (error) {
       debugPrint('Error add the consultation data: $error');
     }
   }
 
-  Stream<QuerySnapshot> getConsultationDate({required String userID}) {
+  Future<void> updateStatusConsultationsData({
+    required String userId,
+    required String status,
+    required String consultationId,
+  }) async {
+    try {
+      await fireStore
+          .collection('users')
+          .doc(userId)
+          .collection("consultations")
+          .doc(consultationId)
+          .update({
+        "status": status,
+      });
+    } catch (error) {
+      debugPrint('Error updating the consultation data: $error');
+    }
+  }
+
+  Future<void> updateTestsConsultationsData({
+    required String userId,
+    required String consultationId,
+    required List<bool> requiredTests,
+  }) async {
+    try {
+      await fireStore
+          .collection('users')
+          .doc(userId)
+          .collection("consultations")
+          .doc(consultationId)
+          .update(
+        {
+          "required_tests": requiredTests,
+          "status": tr("opened"),
+        },
+      );
+    } catch (error) {
+      debugPrint('Error updating the consultation data: $error');
+    }
+  }
+
+  Stream<QuerySnapshot> getConsultationData({required String userID}) {
     try {
       return fireStore
           .collection("users")
           .doc(userID)
           .collection("consultations")
           .orderBy("dateReserved", descending: false)
+          .snapshots();
+    } catch (e) {
+      throw Exception("userConsultarions not found");
+    }
+  }
+
+  Stream<QuerySnapshot> getTestsData({required String userID}) {
+    try {
+      return fireStore
+          .collection("users")
+          .doc(userID)
+          .collection("tests")
           .snapshots();
     } catch (e) {
       throw Exception("userConsultarions not found");

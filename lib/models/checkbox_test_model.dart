@@ -18,34 +18,29 @@ class CheckboxTestModel {
   String get testName => tr(testNameKey);
 }
 
-CheckboxTestModel activeTestScreen = CheckboxTestModel(
+CheckboxTestModel activeTest = CheckboxTestModel(
   testPage: const ActiveTestScreen(),
   testNameKey: "consultation_tests.physical_activity.test_name",
 );
-CheckboxTestModel test2 = CheckboxTestModel(
+CheckboxTestModel qualityOfLifeMeasureTest = CheckboxTestModel(
   testPage: const QualityOfLifeMeasureScreen(
     checkBoxMission: true,
   ),
   testNameKey: "consultation_tests.quality_of_life.test_name",
 );
-CheckboxTestModel test3 = CheckboxTestModel(
+CheckboxTestModel functionalPerformanceUpperLimbsTest = CheckboxTestModel(
   testPage: const FunctionalPerformanceUpperLimbsTest(),
   testNameKey:
       "consultation_tests.functional_performance_upper_limbs.test_name",
 );
-CheckboxTestModel test4 = CheckboxTestModel(
-  testPage: const ActiveTestScreen(),
-  testNameKey: "consultation_tests.physical_health.test_name",
-);
-CheckboxTestModel test5 = CheckboxTestModel(
+CheckboxTestModel functionalPerformanceLowerLimbsTest = CheckboxTestModel(
   testPage: const FunctionalPerformanceLowerLimbsTest(),
   testNameKey:
       "consultation_tests.functional_performance_lower_extremities.test_name",
 );
 List<CheckboxTestModel> tests = [
-  activeTestScreen,
-  test2,
-  test3,
-  test4,
-  test5,
+  activeTest,
+  qualityOfLifeMeasureTest,
+  functionalPerformanceUpperLimbsTest,
+  functionalPerformanceLowerLimbsTest,
 ];

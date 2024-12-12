@@ -32,7 +32,7 @@ class UserConsultations extends StatelessWidget {
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           child: StreamBuilder(
-            stream: FireStoreService().getConsultationDate(
+            stream: FireStoreService().getConsultationData(
               userID: firebaseAuth.currentUser!.uid,
             ),
             builder: (context, snapshot) {
@@ -67,14 +67,16 @@ class UserConsultations extends StatelessWidget {
 
                   final DoctorModel doctorModel =
                       findModel(data["doctorEmail"]);
-
+                  print(document.id);
                   return consultionsData(
                     context,
                     doctorModel: doctorModel,
                     date: data["dateReserved"],
                     time: data["timeReserved"],
-                    status:
-                        tr("opened"), // should by dynamic with the doctor ??!!!
+                    status: data["status"],
+                    // why this not accepting to be list <bool> ???
+                    patientTests: data["required_tests"],
+                    consultationId: document.id,
                   );
                 },
               );
