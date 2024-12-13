@@ -75,7 +75,7 @@ class UserConsultations extends StatelessWidget {
                     time: data["timeReserved"],
                     status: data["status"],
                     // why this not accepting to be list <bool> ???
-                    patientTests: data["required_tests"],
+                    patientTests: data["required_tests"] ?? [],
                     consultationId: document.id,
                   );
                 },

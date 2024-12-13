@@ -49,9 +49,11 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
     _setupTabController();
   }
 
+  List<CheckboxTestModel> patientTests = [];
+
   void getTheTest() {
     for (int i = 0; i < widget.requiredTests.length; i++) {
-      print(i);
+      // print(i);
       if (widget.requiredTests[i] == true) {
         patientTests.add(tests[i]);
       } else {
@@ -67,7 +69,7 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
           widget.status = tr("canceled");
         } else if (allTestsChecked()) {
           FireStoreService().updateStatusConsultationsData(
-            consultationId: widget.consultationId!,
+            consultationId: widget.consultationId ?? "",
             userId: fireAuth.currentUser!.uid,
             status: tr("completed"),
           );
@@ -107,8 +109,6 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
     _tabController.dispose();
     super.dispose();
   }
-
-  List<CheckboxTestModel> patientTests = [];
 
   bool allTestsChecked() {
     return patientTests.every((element) => element.isChecked == true);
