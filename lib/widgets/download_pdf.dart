@@ -124,17 +124,24 @@ Future<void> _saveToDownloads(BuildContext context, pw.Document pdf) async {
   try {
     Directory? downloadsDirectory;
 
-    // Platform-specific downloads directory
     if (Platform.isAndroid) {
-      downloadsDirectory = Directory('/storage/emulated/0/Download');
+      // Create a dedicated app download folder in the standard Downloads directory
+      downloadsDirectory =
+          Directory('/storage/emulated/0/Download/MakenyFiles');
 
-      // Ensure the directory exists
+      // Ensure the directory exists, create if it doesn't
       if (!await downloadsDirectory.exists()) {
-        downloadsDirectory = await getExternalStorageDirectory();
+        await downloadsDirectory.create(recursive: true);
       }
     } else if (Platform.isIOS) {
-      // For iOS, use the documents directory as a fallback
-      downloadsDirectory = await getApplicationDocumentsDirectory();
+      // For iOS, create a dedicated downloads folder in the documents directory
+      final docDirectory = await getApplicationDocumentsDirectory();
+      downloadsDirectory = Directory('${docDirectory.path}/Downloads');
+
+      // Ensure the directory exists, create if it doesn't
+      if (!await downloadsDirectory.exists()) {
+        await downloadsDirectory.create(recursive: true);
+      }
     }
 
     if (downloadsDirectory == null) {
@@ -144,9 +151,9 @@ Future<void> _saveToDownloads(BuildContext context, pw.Document pdf) async {
       return;
     }
 
-    // Create a unique filename with timestamp
-    final timestamp = DateTime.now().millisecondsSinceEpoch;
-    final filename = 'screenshot_$timestamp.pdf';
+    // Create a unique filename with timestamp and descriptive prefix
+    // final timestamp = DateTime.now().millisecondsSinceEpoch;
+    const filename = 'my_profile_file_Screenshot.pdf';
     final file = File('${downloadsDirectory.path}/$filename');
 
     // Write the PDF bytes to the file
@@ -165,8 +172,12 @@ Future<void> _saveToDownloads(BuildContext context, pw.Document pdf) async {
 
             try {
               OpenFile.open(file.path);
+              print('File saved at: ${file.path}');
             } on Exception catch (e) {
-              print("the error is $e");
+              print("Error opening file: $e");
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(tr("error.could_not_open_file"))),
+              );
             } finally {
               overlayEntry.remove();
             }
@@ -179,5 +190,6 @@ Future<void> _saveToDownloads(BuildContext context, pw.Document pdf) async {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(tr("error.error_saving_the_file"))),
     );
+    print('Error saving file: $e');
   }
 }

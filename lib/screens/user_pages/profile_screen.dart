@@ -63,92 +63,102 @@ class ProfileScreen extends StatelessWidget {
             child: Column(
               children: [
                 // Replace with user profile image or default image
-                Image.asset(
-                  'assets/id 1.png',
-                  width: 55,
-                  fit: BoxFit.cover,
-                ),
-                SizedBox(height: 12),
-
-                // Displaying user data
-                Screenshot(
-                  controller: screenshotController,
-                  child: Align(
-                    alignment: Alignment.topRight,
+                Expanded(
+                  child: SingleChildScrollView(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        usersData(
-                          textType: tr("accountPage.name"),
-                          textData: userModel.name,
+                        Image.asset(
+                          'assets/id 1.png',
+                          width: 55,
+                          fit: BoxFit.cover,
                         ),
-                        usersData(
-                          textType: tr("accountPage.age"),
-                          textData: "$age  ${tr("calculates.years_old")}",
-                        ),
-                        usersData(
-                          textType: tr("accountPage.marital_status"),
-                          textData: userModel.maritalStatus == ""
-                              ? "-"
-                              : userModel.maritalStatus,
-                        ),
-                        usersData(
-                          textType: tr("accountPage.gender"),
-                          textData:
-                              userModel.gender == "" ? "-" : userModel.gender,
-                        ),
-                        usersData(
-                          textType: tr("accountPage.email"),
-                          textData: userModel.email,
-                        ),
-                        usersData(
-                          textType: tr("accountPage.phone_number"),
-                          textData: userModel.phoneNumber == ""
-                              ? "-"
-                              : userModel.phoneNumber,
-                        ),
-                        usersData(
-                          textType: tr("accountPage.id_number"),
-                          textData:
-                              "${userModel.idNumber == 0 ? "-" : userModel.idNumber}",
-                        ),
-                        usersData(
-                          textType: tr("accountPage.education_level"),
-                          textData: userModel.educationLevel == ""
-                              ? "-"
-                              : userModel.educationLevel,
-                        ),
-                        usersData(
-                          textType: tr("accountPage.current_job"),
-                          textData: userModel.currentJob == ""
-                              ? "-"
-                              : userModel.currentJob,
-                        ),
-                        usersData(
-                          textType: tr("accountPage.length"),
-                          textData:
-                              "${userModel.length == 0 ? "-" : userModel.length} ${tr("calculates.cm")}",
-                        ),
-                        usersData(
-                          textType: tr("accountPage.wight"),
-                          textData:
-                              "${userModel.weight == 0 ? "-" : userModel.weight} ${tr("calculates.kg")}",
-                        ),
-                        usersData(
-                          textType: tr("accountPage.waist"),
-                          textData:
-                              "${userModel.waist == 0 ? "-" : userModel.waist} ${tr("calculates.cm")}",
-                        ),
-                        usersData(
-                          textType: tr("accountPage.vision"),
-                          textData:
-                              userModel.vision == "" ? "-" : userModel.vision,
+                        SizedBox(height: 12),
+
+                        // Displaying user data
+                        Screenshot(
+                          controller: screenshotController,
+                          child: Align(
+                            alignment: Alignment.topRight,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                usersData(
+                                  textType: tr("accountPage.name"),
+                                  textData: userModel.name,
+                                ),
+                                usersData(
+                                  textType: tr("accountPage.age"),
+                                  textData:
+                                      "$age  ${tr("calculates.years_old")}",
+                                ),
+                                usersData(
+                                  textType: tr("accountPage.marital_status"),
+                                  textData: userModel.maritalStatus == ""
+                                      ? "-"
+                                      : userModel.maritalStatus,
+                                ),
+                                usersData(
+                                  textType: tr("accountPage.gender"),
+                                  textData: userModel.gender == ""
+                                      ? "-"
+                                      : userModel.gender,
+                                ),
+                                usersData(
+                                  textType: tr("accountPage.email"),
+                                  textData: userModel.email,
+                                ),
+                                usersData(
+                                  textType: tr("accountPage.phone_number"),
+                                  textData: userModel.phoneNumber == ""
+                                      ? "-"
+                                      : userModel.phoneNumber,
+                                ),
+                                usersData(
+                                  textType: tr("accountPage.id_number"),
+                                  textData:
+                                      "${userModel.idNumber == 0 ? "-" : userModel.idNumber}",
+                                ),
+                                usersData(
+                                  textType: tr("accountPage.education_level"),
+                                  textData: userModel.educationLevel == ""
+                                      ? "-"
+                                      : userModel.educationLevel,
+                                ),
+                                usersData(
+                                  textType: tr("accountPage.current_job"),
+                                  textData: userModel.currentJob == ""
+                                      ? "-"
+                                      : userModel.currentJob,
+                                ),
+                                usersData(
+                                  textType: tr("accountPage.length"),
+                                  textData:
+                                      "${userModel.length == 0 ? "-" : userModel.length} ${tr("calculates.cm")}",
+                                ),
+                                usersData(
+                                  textType: tr("accountPage.wight"),
+                                  textData:
+                                      "${userModel.weight == 0 ? "-" : userModel.weight} ${tr("calculates.kg")}",
+                                ),
+                                usersData(
+                                  textType: tr("accountPage.waist"),
+                                  textData:
+                                      "${userModel.waist == 0 ? "-" : userModel.waist} ${tr("calculates.cm")}",
+                                ),
+                                usersData(
+                                  textType: tr("accountPage.vision"),
+                                  textData: userModel.vision == ""
+                                      ? "-"
+                                      : userModel.vision,
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                       ],
                     ),
                   ),
                 ),
-                const Expanded(child: SizedBox()),
                 defaultButton(
                   text: tr("accountPage.download"),
                   onTap: () {
