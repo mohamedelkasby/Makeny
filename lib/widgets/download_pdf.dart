@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:open_file/open_file.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:permission_handler/permission_handler.dart';
 import 'package:printing/printing.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:typed_data';
@@ -122,44 +123,32 @@ OverlayEntry _showLoadingOverlay(BuildContext context) {
 
 Future<void> _saveToDownloads(BuildContext context, pw.Document pdf) async {
   try {
-    Directory? downloadsDirectory;
+    Directory? saveDirectory;
 
     if (Platform.isAndroid) {
-      // Create a dedicated app download folder in the standard Downloads directory
-      downloadsDirectory =
-          Directory('/storage/emulated/0/Download/MakenyFiles');
-
-      // Ensure the directory exists, create if it doesn't
-      if (!await downloadsDirectory.exists()) {
-        await downloadsDirectory.create(recursive: true);
-      }
+      // Android Scoped Storage
+      saveDirectory = await _getAndroidDownloadsDirectory(context);
     } else if (Platform.isIOS) {
-      // For iOS, create a dedicated downloads folder in the documents directory
-      final docDirectory = await getApplicationDocumentsDirectory();
-      downloadsDirectory = Directory('${docDirectory.path}/Downloads');
-
-      // Ensure the directory exists, create if it doesn't
-      if (!await downloadsDirectory.exists()) {
-        await downloadsDirectory.create(recursive: true);
-      }
+      // iOS Documents Directory
+      saveDirectory = await getApplicationDocumentsDirectory();
     }
 
-    if (downloadsDirectory == null) {
+    if (saveDirectory == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(tr("error.could't_find_directory"))),
       );
       return;
     }
 
-    // Create a unique filename with timestamp and descriptive prefix
-    // final timestamp = DateTime.now().millisecondsSinceEpoch;
-    const filename = 'my_profile_file_Screenshot.pdf';
-    final file = File('${downloadsDirectory.path}/$filename');
+    // Create a unique filename
+    final timestamp = DateTime.now().millisecondsSinceEpoch;
+    final filename = 'Makeny_Profile_$timestamp.pdf';
+    final file = File('${saveDirectory.path}/$filename');
 
-    // Write the PDF bytes to the file
+    // Save PDF to file
     await file.writeAsBytes(await pdf.save());
 
-    // Show a SnackBar with the save location and option to open
+    // Notify the user
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: Colors.green,
@@ -168,19 +157,7 @@ Future<void> _saveToDownloads(BuildContext context, pw.Document pdf) async {
           label: tr("open"),
           textColor: Colors.white,
           onPressed: () {
-            final overlayEntry = _showLoadingOverlay(context);
-
-            try {
-              OpenFile.open(file.path);
-              print('File saved at: ${file.path}');
-            } on Exception catch (e) {
-              print("Error opening file: $e");
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(tr("error.could_not_open_file"))),
-              );
-            } finally {
-              overlayEntry.remove();
-            }
+            OpenFile.open(file.path);
           },
         ),
         duration: const Duration(seconds: 5),
@@ -191,5 +168,24 @@ Future<void> _saveToDownloads(BuildContext context, pw.Document pdf) async {
       SnackBar(content: Text(tr("error.error_saving_the_file"))),
     );
     print('Error saving file: $e');
+  }
+}
+
+Future<Directory?> _getAndroidDownloadsDirectory(BuildContext context) async {
+  try {
+    // Check if the app has permission for storage access
+    if (await Permission.storage.request().isGranted) {
+      // Android Scoped Storage: Use '/storage/emulated/0/Download'
+      return Directory('/storage/emulated/0/Download');
+    } else {
+      // Show an error if permission is denied
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(tr("error.permission_denied"))),
+      );
+      return null;
+    }
+  } catch (e) {
+    print('Error accessing Android Downloads directory: $e');
+    return null;
   }
 }
