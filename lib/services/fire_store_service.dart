@@ -111,7 +111,7 @@ class FireStoreService {
           .update(
         {
           "required_tests": requiredTests,
-          "status": tr("opened"),
+          "status": "opened", //keep it as english
         },
       );
     } catch (error) {

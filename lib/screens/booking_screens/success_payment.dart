@@ -46,7 +46,7 @@ class SuccessPayment extends StatelessWidget {
                         date: date,
                         time: time,
                         doctorModel: doctorModel,
-                        status: tr("opened"),
+                        status: "opened", //keep it in english
                       );
                       Navigator.of(context).popUntil((route) => route.isFirst);
                       AppCubit.get(context).selectedBNBIndex = 0;

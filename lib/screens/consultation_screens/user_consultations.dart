@@ -67,13 +67,14 @@ class UserConsultations extends StatelessWidget {
 
                   final DoctorModel doctorModel =
                       findModel(data["doctorEmail"]);
-                  print(document.id);
+                  // print(document.id);
                   return consultionsData(
                     context,
                     doctorModel: doctorModel,
                     date: data["dateReserved"],
                     time: data["timeReserved"],
-                    status: data["status"],
+                    status: tr(data[
+                        "status"]), // this take the key from the database and convert it
                     // why this not accepting to be list <bool> ???
                     patientTests: data["required_tests"] ?? [],
                     consultationId: document.id,

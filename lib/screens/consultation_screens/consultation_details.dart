@@ -71,7 +71,7 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
           FireStoreService().updateStatusConsultationsData(
             consultationId: widget.consultationId ?? "",
             userId: fireAuth.currentUser!.uid,
-            status: tr("completed"),
+            status: "completed", //keep it as english
           );
           widget.status = tr("completed");
         } else {
@@ -90,7 +90,7 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
         FireStoreService().updateStatusConsultationsData(
           consultationId: widget.consultationId!,
           userId: fireAuth.currentUser!.uid,
-          status: tr("completed"),
+          status: "completed", //keep it as english
         );
       }
     } catch (e) {
@@ -345,7 +345,8 @@ class _ConsultationDetailsState extends State<ConsultationDetails>
                                                       widget.consultationId!,
                                                   userId:
                                                       fireAuth.currentUser!.uid,
-                                                  status: tr("completed"),
+                                                  status:
+                                                      "completed", //keep it as english
                                                 );
                                               }
                                             });

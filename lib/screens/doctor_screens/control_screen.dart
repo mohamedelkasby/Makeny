@@ -24,19 +24,16 @@ class ControlScreen extends StatefulWidget {
 }
 
 final List<String> items = [
-  "active test",
-  "quality of life measure test",
-  "functional performance upper limbs test",
-  "functional performance lower limbs test",
+  tr("doctor_page.tests.active"),
+  tr("doctor_page.tests.quality_of_life"),
+  tr("doctor_page.tests.performance_upper_limbs"),
+  tr("doctor_page.tests.performance_lower_limbs"),
 ];
 
 // Track the state of each checkbox
 List<bool> checked = [];
 
 // void getTextResult(userId) {
-
-//   FireStoreService().getConsultationData(userID: userId);
-// }
 
 class _ControlScreenState extends State<ControlScreen> {
   @override
@@ -55,9 +52,9 @@ class _ControlScreenState extends State<ControlScreen> {
             icon: const Icon(Icons.arrow_back_ios_rounded),
             color: Colors.white,
           ),
-          title: const Text(
-            "control page",
-            style: TextStyle(
+          title: Text(
+            tr("doctor_page.control_page"),
+            style: const TextStyle(
               color: Colors.white,
               fontSize: 22,
             ),
@@ -86,7 +83,7 @@ class _ControlScreenState extends State<ControlScreen> {
                       );
                     },
                     child: textHeader(
-                      text: "Chate",
+                      text: tr("doctor_page.chat"),
                       textColor: mainColor,
                     ),
                   ),
@@ -121,7 +118,7 @@ class _ControlScreenState extends State<ControlScreen> {
                         padding: const EdgeInsets.only(top: 5, bottom: 10),
                         child: Center(
                           child: textHeaderLight(
-                            text: "required test",
+                            text: tr("doctor_page.required_tests"),
                             textColor: mainColor400,
                           ),
                         ),
@@ -145,7 +142,7 @@ class _ControlScreenState extends State<ControlScreen> {
                       ),
                       Center(
                         child: defaultButton(
-                          text: "send the tests",
+                          text: tr("doctor_page.send_the_tests"),
                           onTap: () {
                             FireStoreService().updateTestsConsultationsData(
                               userId: widget.pathientData["uid"],
@@ -155,13 +152,13 @@ class _ControlScreenState extends State<ControlScreen> {
 
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: const Text(
-                                  ' the tests are sent to the patient',
+                                content: Text(
+                                  tr("doctor_page.tests_are_sent"),
                                 ),
                                 backgroundColor: mainColor300,
-
                                 duration: const Duration(
-                                    seconds: 4), // Optional: set the duration
+                                  seconds: 4,
+                                ),
                               ),
                             );
                           },
@@ -175,7 +172,7 @@ class _ControlScreenState extends State<ControlScreen> {
                         padding: const EdgeInsets.only(top: 5, bottom: 10),
                         child: Center(
                           child: textHeaderLight(
-                            text: "done Texts",
+                            text: tr("doctor_page.done_tests"),
                             textColor: mainColor400,
                           ),
                         ),
@@ -201,7 +198,7 @@ class _ControlScreenState extends State<ControlScreen> {
                                   textDescription(
                                       text: " ${tr("answered")} ",
                                       textColor: mainColor),
-                                  textDescription(text: tr("tests")),
+                                  textDescription(text: tr("tests_1")),
                                 ],
                               ),
                             );

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:makeny/cubits/cubit.dart';
 import 'package:makeny/extentions/colors.dart';
-import 'package:makeny/screens/chat_pages/chat_screen.dart';
 import 'package:makeny/screens/doctor_screens/control_screen.dart';
 import 'package:makeny/screens/user_pages/sign_in_&_sign_up_screens/login_screen.dart';
 import 'package:makeny/services/auth_service.dart';
@@ -68,9 +67,9 @@ class _DoctorHomeScreenState extends State<DoctorHomeScreen> {
               color: Colors.white,
             ),
           ),
-          title: const Text(
-            "Patients Room",
-            style: TextStyle(
+          title: Text(
+            tr("doctor_page.patients_room"),
+            style: const TextStyle(
               color: Colors.white,
               fontSize: 22,
             ),
@@ -82,7 +81,7 @@ class _DoctorHomeScreenState extends State<DoctorHomeScreen> {
           stream: fireStore.collection("users").snapshots(),
           builder: (context, userSnapshot) {
             if (userSnapshot.hasError) {
-              return const Center(child: Text("Something went wrong"));
+              return Center(child: Text(tr("error.problem_try_later")));
             }
 
             if (userSnapshot.connectionState == ConnectionState.waiting) {
@@ -103,10 +102,10 @@ class _DoctorHomeScreenState extends State<DoctorHomeScreen> {
 
                 // Check if there are any patient widgets
                 if (patientWidgets.isEmpty) {
-                  return const Center(
+                  return Center(
                     child: Text(
-                      "No patient data available",
-                      style: TextStyle(
+                      tr("doctor_page.no_patient_data"),
+                      style: const TextStyle(
                         fontSize: 18,
                         color: Colors.grey,
                       ),

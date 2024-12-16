@@ -509,7 +509,10 @@
         "enter_phone_number": "Please enter your phone number",
         "correct_your_phone": "Phone number must be at least 10 digits long",
         "already_exist": "The account already exists, try logging in",
-        "some_problem": "There is a problem, try again later."
+        "some_problem": "There is a problem, try again later.",
+        "failed_capture": "Failed to capture screenshot",
+        "could't_find_directory": "Could not find downloads directory",
+        "error_saving_the_file": "Error saving the file"
     },
     "doctor": {
         "doc_1": {
@@ -518,6 +521,22 @@
         },
         "doc_2": {
             "about_1": "Professor and consultant in cardiac and respiratory rehabilitation, interested in cardiac rehabilitation after surgery, angina pectoris, heart muscle weakness, and cases after implantation of cardiac assist devices. Also, patients who suffer from chronic respiratory diseases, lung transplantation, chronic corona cases, and post-intensive care."
+        }
+    },
+    "doctor_page": {
+        "control_page": "control page",
+        "chat": "Chat",
+        "required_tests": "required tests",
+        "send_the_tests": "send the tests",
+        "tests_are_sent": "the tests are sent to the patient",
+        "done_tests": "done tests",
+        "patients_room": "Patients Room",
+        "no_patient_data": "No patient data available",
+        "tests": {
+            "active": "active test",
+            "quality_of_life": "quality of life measure test",
+            "performance_upper_limbs": "functional performance upper limbs test",
+            "performance_lower_limbs": "functional performance lower limbs test"
         }
     },
     "available_appointments_online_consultation": "Available Appointments - Online Consultation",
@@ -603,11 +622,18 @@
     "tasks": "tasks",
     "consultation_details": "consultation details",
     "makeny_rehabilitation_heart_failure_patients": "makeny for rehabilitation of heart failure patients",
-    "there_is_no": "there is no ",
+    "there_is_no": "there is no",
+    "answered": " answered ",
+    "tests_1": "tests",
     "consultations": "consultations",
     "currently": "currently",
     "no_messages_yet": "no messages yet",
     "today": "today",
     "yesterday": "yesterday",
-    "write_here": "write here"
+    "write_here": "write here",
+    "finish": "finish",
+    "save_to_loc_storage": "Save to local storage",
+    "share_pdf": "Share PDF",
+    "pdf_saved": "PDF saved succefully",
+    "open": "Open"
 }

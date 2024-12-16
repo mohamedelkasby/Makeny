@@ -50,7 +50,7 @@ Dialog deletDialog(
                       FireStoreService().updateStatusConsultationsData(
                         userId: userId,
                         consultationId: consultationId,
-                        status: tr("canceled"),
+                        status: "canceled", // keep it as english
                       );
                       Navigator.pop(context);
                     },
