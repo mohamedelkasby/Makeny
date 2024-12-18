@@ -2,6 +2,7 @@ import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/models/user_model.dart';
 import 'package:makeny/services/fire_store_service.dart';
@@ -17,9 +18,11 @@ class AiChatScreen extends StatefulWidget {
 FirebaseAuth fireAuth = FirebaseAuth.instance;
 
 class _AiChatScreenState extends State<AiChatScreen> {
+  final Gemini gemini = Gemini.instance;
   UserModel userModel = UserModel();
-  List<ChatMessage> messages = [];
   ChatUser? currentUser;
+  List<ChatMessage> messages = [];
+  List<String> words = [];
 
   Future<void> getUserData() async {
     userModel = await FireStoreService()
@@ -41,8 +44,6 @@ class _AiChatScreenState extends State<AiChatScreen> {
     getUserData();
   }
 
-  List<String> words = [];
-
   ChatUser aiUser = ChatUser(
     id: "0",
     firstName: "Makeny",
@@ -62,11 +63,11 @@ class _AiChatScreenState extends State<AiChatScreen> {
               child: CircularProgressIndicator(
               color: mainColor300,
             ))
-          : _buildUi(),
+          : _chatUi(),
     );
   }
 
-  _buildUi() {
+  _chatUi() {
     return DashChat(
       currentUser: currentUser!,
       onSend: _sendMessage,
@@ -74,5 +75,52 @@ class _AiChatScreenState extends State<AiChatScreen> {
     );
   }
 
-  void _sendMessage(ChatMessage chatmessage) {}
+  void _sendMessage(ChatMessage chatmessage) {
+    setState(
+      () {
+        messages = [chatmessage, ...messages];
+      },
+    );
+    try {
+      String question = chatmessage.text;
+      gemini.promptStream(parts: [Part.text(question)]).listen((event) {
+        ChatMessage? lastMessage = messages.firstOrNull;
+        if (lastMessage != null && lastMessage.user == aiUser) {
+          lastMessage = messages.removeAt(0);
+          String? response = event?.content?.parts?.whereType<TextPart>().fold(
+                    "",
+                    (previous, current) => "$previous ${current.text}",
+                  ) ??
+              "";
+          lastMessage.text += response;
+          setState(() {
+            messages = [lastMessage!, ...messages];
+          });
+        } else {
+          String? response = event?.content?.parts?.whereType<TextPart>().fold(
+                    "",
+                    (previous, current) => "$previous ${current.text}",
+                  ) ??
+              "";
+          ChatMessage message = ChatMessage(
+              user: aiUser, createdAt: DateTime.now(), text: response);
+
+          setState(() {
+            messages = [message, ...messages];
+          });
+        }
+      });
+    } catch (e) {
+      print('Error initiating stream: $e');
+
+      // Add error message to chat
+      ChatMessage errorMessage = ChatMessage(
+          user: aiUser,
+          createdAt: DateTime.now(),
+          text: 'Sorry, an error occurred while processing your message.');
+      setState(() {
+        messages = [errorMessage, ...messages];
+      });
+    }
+  }
 }
