@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import "package:cloud_firestore/cloud_firestore.dart";
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -145,9 +145,9 @@ class _DoctorHomeScreenState extends State<DoctorHomeScreen> {
       var relevantConsultations =
           consultationSnapshot.docs.where((consultationDoc) {
         Map<String, dynamic> consultationData = consultationDoc.data();
-        return consultationData['doctorEmail'] ==
+        return consultationData["doctorEmail"] ==
                 FirebaseAuth.instance.currentUser!.email &&
-            consultationData['status'] != tr('canceled');
+            consultationData["status"] != "canceled"; // keep it as english ;
       });
 
       // Create widgets for relevant consultations

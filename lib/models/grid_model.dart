@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/widgets.dart';
+import 'package:makeny/screens/ai_chat_screen.dart';
 import 'package:makeny/screens/consultation_screens/user_consultations.dart';
 import 'package:makeny/screens/danger_measure_screens/danger_measure_screen.dart';
 import 'package:makeny/screens/quality_of_life_measure_screen.dart';
@@ -66,11 +67,11 @@ GridModel grid6 = GridModel(
     shortTest: true,
   ),
 );
-// GridModel grid7 = GridModel(
-//   image: "assets/grid_images/graident-ai-robot-vectorart 1.png",
-//   titlekey: "المساعد الذكي",
-//   screen: AIChatPage(),
-// );
+GridModel grid7 = GridModel(
+  image: "assets/grid_images/graident-ai-robot-vectorart 1.png",
+  titlekey: "smart_assistant",
+  screen: AiChatScreen(),
+);
 
 GridModel grid8 = GridModel(
   image: "assets/grid_images/image 16.png",
@@ -84,6 +85,6 @@ List<GridModel> gridModelList = [
   grid4,
   grid5,
   grid6,
-  // grid7,
+  grid7,
   grid8,
 ];

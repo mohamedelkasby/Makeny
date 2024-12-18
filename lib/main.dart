@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
+import 'package:makeny/consts.dart';
 import 'package:makeny/cubits/cubit.dart';
 import 'package:makeny/cubits/status.dart';
 import 'package:makeny/extentions/colors.dart';
@@ -24,6 +26,8 @@ Future<void> main() async {
     systemNavigationBarColor: Colors.black,
     systemNavigationBarIconBrightness: Brightness.light,
   ));
+
+  Gemini.init(apiKey: Constants.geminiApiKey);
 
   await SystemChrome.setEnabledSystemUIMode(
     SystemUiMode.manual,
