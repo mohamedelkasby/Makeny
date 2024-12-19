@@ -635,5 +635,7 @@
     "save_to_loc_storage": "Save to local storage",
     "share_pdf": "Share PDF",
     "pdf_saved": "PDF saved succefully",
-    "open": "Open"
+    "open": "Open",
+    "hello": "Hello",
+    "how_can_i_help_you": "How can i help you ?"
 }

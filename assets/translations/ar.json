@@ -635,5 +635,7 @@
     "save_to_loc_storage": "حفظ في التخزين المحلي",
     "share_pdf": "مشاركة ملف pdf",
     "pdf_saved": "تم حفظ ملف pdf بنجاح",
-    "open": "فتح"
+    "open": "فتح",
+    "hello": "مرحباً",
+    "how_can_i_help_you": "كيف يمكننى مساعدتك ؟"
 }

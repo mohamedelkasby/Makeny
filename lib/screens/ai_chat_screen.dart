@@ -3,9 +3,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/models/user_model.dart';
 import 'package:makeny/services/fire_store_service.dart';
+import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';
 
 class AiChatScreen extends StatefulWidget {
@@ -68,10 +70,126 @@ class _AiChatScreenState extends State<AiChatScreen> {
   }
 
   _chatUi() {
-    return DashChat(
-      currentUser: currentUser!,
-      onSend: _sendMessage,
-      messages: messages,
+    return Stack(
+      children: [
+        // Background layer
+        messages.isEmpty
+            ? Center(
+                child: Stack(
+                  children: [
+                    Positioned(
+                      left: 0,
+                      right: 0,
+                      top: MediaQuery.sizeOf(context).height * .05,
+                      child: Center(
+                        child: SizedBox(
+                          width: MediaQuery.sizeOf(context).width * .85,
+                          child: Image.asset(
+                            "assets/chat_design/no_chat_photo.png",
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: MediaQuery.sizeOf(context).height * .13,
+                      right: 0,
+                      left: 0,
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            width: double.infinity,
+                          ),
+                          Image.asset(
+                            "assets/chat_design/robot_design.png",
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 20),
+                            child: rehardingContainer(
+                              text: tr("hello"),
+                              width: MediaQuery.sizeOf(context).width * .42,
+                            ),
+                          ),
+                          rehardingContainer(
+                            text: tr("how_can_i_help_you"),
+                            width: MediaQuery.sizeOf(context).width * .7,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            : Container(
+                width: MediaQuery.sizeOf(context).width * .96,
+                alignment: Alignment.centerLeft,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(
+                      'assets/chat_design/background_chat.png',
+                    ),
+                    alignment: Alignment.centerLeft,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+        // Chat UI layer
+        DashChat(
+          currentUser: currentUser!,
+          onSend: _sendMessage,
+          messages: messages,
+          messageOptions: MessageOptions(
+            containerColor: greyColor,
+            currentUserContainerColor: mainColor300,
+            textColor: Colors.white,
+            timeTextColor: greyColor,
+          ),
+          inputOptions: InputOptions(
+            sendButtonBuilder: (send) {
+              return IconButton(
+                  onPressed: send,
+                  icon: Transform.flip(
+                    flipX: context.locale.languageCode == "en" ? false : true,
+                    child: SvgPicture.asset("assets/icons/send.svg"),
+                  ));
+            },
+            alwaysShowSend: true,
+            cursorStyle: CursorStyle(hide: true),
+            inputDecoration: InputDecoration(
+                hintText: tr("write_here"),
+                // hintTextDirection: TextDirection.rtl,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(50),
+                  borderSide: BorderSide.none,
+                ),
+                fillColor: Color(0xffF0F0F0),
+                filled: true),
+            // inputTextDirection: TextDirection.ltr,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Container rehardingContainer({
+    required String text,
+    required double width,
+  }) {
+    return Container(
+      width: width,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: mainColor50,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(5),
+        child: Center(
+          child: textHeaderDescription(
+            text: text,
+            weight: FontWeight.w600,
+          ),
+        ),
+      ),
     );
   }
 
