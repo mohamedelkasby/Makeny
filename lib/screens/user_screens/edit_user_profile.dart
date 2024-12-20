@@ -101,6 +101,7 @@ class _EditUserProfileState extends State<EditUserProfile> {
                 value: widget.data.idNumber.toString() == 0.toString()
                     ? null
                     : widget.data.idNumber.toString(),
+                onlyNumber: true,
               ),
               CustomListField(
                 qustionText: tr("accountPage.email"),
@@ -112,12 +113,13 @@ class _EditUserProfileState extends State<EditUserProfile> {
               CustomListField(
                 qustionText: tr("accountPage.phone_number"),
                 suffixText:
-                    context.locale.languageCode == "ar" ? "|  999+" : "",
+                    context.locale.languageCode == "ar" ? "|  699+" : "",
                 prefixText:
-                    context.locale.languageCode == "en" ? "+999  |" : "",
+                    context.locale.languageCode == "en" ? "+699  |" : "",
                 controller: phoneNumberController,
                 keyboardType: TextInputType.phone,
                 value: widget.data.phoneNumber,
+                // onlyNumber: true,
               ),
               CustomListField(
                 readOnly: true,
@@ -138,11 +140,11 @@ class _EditUserProfileState extends State<EditUserProfile> {
                           itemStyle: TextStyle(
                             color: mainColor400,
                           ),
-                          doneStyle: TextStyle(
+                          doneStyle: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
-                          cancelStyle: TextStyle(color: Colors.white),
+                          cancelStyle: const TextStyle(color: Colors.white),
                         ),
                         minTime: DateTime.now()
                             .subtract(const Duration(days: 120 * 365)),

@@ -97,7 +97,7 @@ class _AiChatScreenState extends State<AiChatScreen> {
                       left: 0,
                       child: Column(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             width: double.infinity,
                           ),
                           Image.asset(
@@ -154,7 +154,7 @@ class _AiChatScreenState extends State<AiChatScreen> {
                   ));
             },
             alwaysShowSend: true,
-            cursorStyle: CursorStyle(hide: true),
+            cursorStyle: const CursorStyle(hide: true),
             inputDecoration: InputDecoration(
                 hintText: tr("write_here"),
                 // hintTextDirection: TextDirection.rtl,
@@ -162,7 +162,7 @@ class _AiChatScreenState extends State<AiChatScreen> {
                   borderRadius: BorderRadius.circular(50),
                   borderSide: BorderSide.none,
                 ),
-                fillColor: Color(0xffF0F0F0),
+                fillColor: const Color(0xffF0F0F0),
                 filled: true),
             // inputTextDirection: TextDirection.ltr,
           ),

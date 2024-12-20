@@ -208,7 +208,7 @@ class FireStoreService {
       });
     } catch (error) {
       debugPrint('Error updating image : $error');
-      throw error; // Re-throw to handle in UI
+      rethrow; // Re-throw to handle in UI
     }
   }
 

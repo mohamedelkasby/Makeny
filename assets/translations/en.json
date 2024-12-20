@@ -637,5 +637,8 @@
     "pdf_saved": "PDF saved succefully",
     "open": "Open",
     "hello": "Hello",
-    "how_can_i_help_you": "How can i help you ?"
+    "how_can_i_help_you": "How can i help you ?",
+    "do_you_want_to_delete": "do you want to delete this patient from the consultation",
+    "yes_delete": "yes delete the patient",
+    "no_don't_delete": "No don't delete"
 }

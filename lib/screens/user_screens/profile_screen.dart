@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:makeny/models/user_model.dart';
-import 'package:makeny/screens/user_pages/edit_user_profile.dart';
+import 'package:makeny/screens/user_screens/edit_user_profile.dart';
 import 'package:makeny/services/fire_store_service.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/defualt_appbar.dart';

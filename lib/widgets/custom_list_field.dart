@@ -18,6 +18,7 @@ class CustomListField extends StatefulWidget {
   final String? value;
   final Function(String)? onSuffixChanged;
   final bool getSlash;
+  final bool onlyNumber;
 
   const CustomListField({
     super.key,
@@ -34,6 +35,7 @@ class CustomListField extends StatefulWidget {
     this.value = "",
     this.onSuffixChanged,
     this.getSlash = false,
+    this.onlyNumber = false,
   });
 
   @override
@@ -81,6 +83,7 @@ class _CustomListFieldState extends State<CustomListField> {
         ),
         TextFormField(
           key: _formKey,
+
           readOnly: widget.readOnly,
           onChanged: (value) {
             // Trigger validation on each change
@@ -93,7 +96,12 @@ class _CustomListFieldState extends State<CustomListField> {
           keyboardType: widget.keyboardType,
           inputFormatters: widget.getSlash
               ? [FilteringTextInputFormatter.allow(RegExp(r'[0-9./-]'))]
-              : [],
+              : widget.onlyNumber
+                  ? [
+                      FilteringTextInputFormatter
+                          .digitsOnly, // Allows only numeric input
+                    ]
+                  : [],
           enabled: widget.enable,
           // Add autovalidateMode to enable real-time validation
           autovalidateMode: AutovalidateMode.onUserInteraction,

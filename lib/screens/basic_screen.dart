@@ -9,7 +9,7 @@ import 'package:makeny/extentions/extentions.dart';
 import 'package:makeny/screens/danger_measure_screens/danger_measure_screen.dart';
 import 'package:makeny/screens/patient_home_screen.dart';
 import 'package:makeny/screens/notification_screen.dart';
-import 'package:makeny/screens/user_pages/account_screen.dart';
+import 'package:makeny/screens/user_screens/account_screen.dart';
 import 'package:makeny/widgets/icon_with_label.dart';
 import 'package:makeny/widgets/internet_connectivity_wrapper.dart';
 import 'package:makeny/widgets/transition_between_pages.dart';

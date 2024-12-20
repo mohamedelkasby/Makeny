@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:makeny/cubits/cubit.dart';
 import 'package:makeny/extentions/colors.dart';
-import 'package:makeny/screens/user_pages/sign_in_&_sign_up_screens/login_screen.dart';
+import 'package:makeny/screens/user_screens/sign_in_&_sign_up_screens/login_screen.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/internet_connectivity_wrapper.dart';
 import 'package:makeny/widgets/page_view_def.dart';

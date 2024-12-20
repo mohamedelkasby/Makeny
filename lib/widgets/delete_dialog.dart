@@ -23,14 +23,14 @@ Dialog deletDialog(
       borderRadius: BorderRadius.circular(15),
       child: Container(
         width: double.infinity,
-        padding: EdgeInsets.fromLTRB(20, 30, 20, 25),
+        padding: const EdgeInsets.fromLTRB(20, 30, 20, 25),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text(
-              "do you want to delete this patient from the consultation",
+            Text(
+              tr("do_you_want_to_delete"),
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 21,
                 color: Color(0xff777777),
               ),
@@ -54,9 +54,9 @@ Dialog deletDialog(
                       );
                       Navigator.pop(context);
                     },
-                    child: const Text(
-                      "yes delete the patient",
-                      style: TextStyle(
+                    child: Text(
+                      tr("yes_delete"),
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 19,
                         fontWeight: FontWeight.w400,
@@ -67,8 +67,8 @@ Dialog deletDialog(
             GestureDetector(
               onTap: () => Navigator.pop(context),
               child: Text(
-                "No don't delete",
-                style: TextStyle(
+                tr("no_don't_delete"),
+                style: const TextStyle(
                   color: Color(0xffA2A2A2),
                   fontSize: 21,
                   fontWeight: FontWeight.w500,

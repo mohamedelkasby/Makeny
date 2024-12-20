@@ -57,7 +57,7 @@ class _QualityOfLifeMeasureScreenState
     bool hasInternet = await _internetChecker.hasConnection;
 
     try {
-      if (!hasInternet) {
+      if (mounted && !hasInternet) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(tr("error.no_internet"))),
         );
@@ -71,28 +71,30 @@ class _QualityOfLifeMeasureScreenState
 //////
 
       addToFirebase(qualityOfLifeTest);
-      widget.checkBoxMission
-          ? popMultiplePages(
-              context: context,
-              pagesToPop: 6,
-              data: true,
-            )
-          : {
-              popMultiplePages(
+      if (mounted) {
+        widget.checkBoxMission
+            ? popMultiplePages(
                 context: context,
                 pagesToPop: 6,
-              ),
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => NextTestScreen(
-                    appbar: tr("analyze_your_answers"),
-                    testNumber:
-                        9, // 9 is the number that give me the page i want do not change
+                data: true,
+              )
+            : {
+                popMultiplePages(
+                  context: context,
+                  pagesToPop: 6,
+                ),
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => NextTestScreen(
+                      appbar: tr("analyze_your_answers"),
+                      testNumber:
+                          9, // 9 is the number that give me the page i want do not change
+                    ),
                   ),
                 ),
-              ),
-            };
+              };
+      }
 
 /////
     } on Exception catch (e) {
@@ -177,7 +179,7 @@ class _QualityOfLifeMeasureScreenState
                       updateTestData(widget.testNumber, data);
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 80,
                   ),
                 ],

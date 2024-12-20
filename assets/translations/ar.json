@@ -637,5 +637,8 @@
     "pdf_saved": "تم حفظ ملف pdf بنجاح",
     "open": "فتح",
     "hello": "مرحباً",
-    "how_can_i_help_you": "كيف يمكننى مساعدتك ؟"
+    "how_can_i_help_you": "كيف يمكننى مساعدتك ؟",
+    "do_you_want_to_delete": "هل تريد حذف هذا المريض من الاستشارة",
+    "yes_delete": "نعم، احذف المريض",
+    "no_don't_delete": "لا، لا تحذف"
 }
