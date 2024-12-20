@@ -120,16 +120,19 @@ class _AiChatScreenState extends State<AiChatScreen> {
                   ],
                 ),
               )
-            : Container(
-                width: MediaQuery.sizeOf(context).width * .96,
-                alignment: Alignment.centerLeft,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(
-                      'assets/chat_design/background_chat.png',
+            : Transform.flip(
+                flipX: context.locale.languageCode == "en" ? false : true,
+                child: Container(
+                  width: MediaQuery.sizeOf(context).width * .96,
+                  alignment: Alignment.centerLeft,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(
+                        'assets/chat_design/background_chat.png',
+                      ),
+                      alignment: Alignment.centerLeft,
+                      fit: BoxFit.contain,
                     ),
-                    alignment: Alignment.centerLeft,
-                    fit: BoxFit.contain,
                   ),
                 ),
               ),
@@ -193,49 +196,78 @@ class _AiChatScreenState extends State<AiChatScreen> {
     );
   }
 
-  void _sendMessage(ChatMessage chatmessage) {
+  void _sendMessage(ChatMessage chatMessage) {
+    // Trim the message and remove excessive newlines
+    String cleanedMessage = chatMessage.text
+        .trim()
+        .replaceAll(RegExp(r'\n{3,}'), '\n\n'); // Replace 3+ newlines with 2
+
+    // Check if the message is empty after cleaning
+    if (cleanedMessage.isEmpty) {
+      return; // Don't process empty messages
+    }
+
+    // Update the message text with cleaned version
+    chatMessage.text = cleanedMessage;
+
     setState(
       () {
-        messages = [chatmessage, ...messages];
+        messages = [chatMessage, ...messages];
       },
     );
+
     try {
-      String question = chatmessage.text;
-      gemini.promptStream(parts: [Part.text(question)]).listen((event) {
+      String question = cleanedMessage;
+      gemini.promptStream(parts: [
+        Part.text(question),
+      ]).listen((event) {
         ChatMessage? lastMessage = messages.firstOrNull;
         if (lastMessage != null && lastMessage.user == aiUser) {
           lastMessage = messages.removeAt(0);
-          String? response = event?.content?.parts?.whereType<TextPart>().fold(
+          String? response = event?.content?.parts
+                  ?.whereType<TextPart>()
+                  .fold(
                     "",
                     (previous, current) => "$previous ${current.text}",
-                  ) ??
+                  )
+                  .trim() ??
               "";
           lastMessage.text += response;
           setState(() {
             messages = [lastMessage!, ...messages];
           });
         } else {
-          String? response = event?.content?.parts?.whereType<TextPart>().fold(
+          String? response = event?.content?.parts
+                  ?.whereType<TextPart>()
+                  .fold(
                     "",
                     (previous, current) => "$previous ${current.text}",
-                  ) ??
+                  )
+                  .trim() ??
               "";
-          ChatMessage message = ChatMessage(
-              user: aiUser, createdAt: DateTime.now(), text: response);
 
-          setState(() {
-            messages = [message, ...messages];
-          });
+          // Don't add empty AI responses
+          if (response.isNotEmpty) {
+            ChatMessage message = ChatMessage(
+              user: aiUser,
+              createdAt: DateTime.now(),
+              text: response,
+            );
+
+            setState(() {
+              messages = [message, ...messages];
+            });
+          }
         }
       });
     } catch (e) {
       print('Error initiating stream: $e');
 
-      // Add error message to chat
       ChatMessage errorMessage = ChatMessage(
-          user: aiUser,
-          createdAt: DateTime.now(),
-          text: 'Sorry, an error occurred while processing your message.');
+        user: aiUser,
+        createdAt: DateTime.now(),
+        text: 'Sorry, an error occurred while processing your message.',
+      );
       setState(() {
         messages = [errorMessage, ...messages];
       });
