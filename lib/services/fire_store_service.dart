@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -143,6 +144,20 @@ class FireStoreService {
     }
   }
 
+  // add the fcm Token to the data
+  Future<void> updateFCMToken({
+    required String userId,
+  }) async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+    String? token = await messaging.getToken();
+    fireStore.collection('users').doc(userId).set(
+      {
+        'fcmToken': token,
+      },
+      SetOptions(merge: true),
+    );
+  }
+
   Future<void> updateDataToFirestore({
     required String userId,
     required UserModel usermodel,
@@ -182,6 +197,7 @@ class FireStoreService {
     }
   }
 
+// not working cuase the can add the file store in fireStore
   Future<void> updateImage({
     required String userId,
     File? imageFile,

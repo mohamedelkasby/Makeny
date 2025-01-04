@@ -28,11 +28,28 @@ class _ChatScreenState extends State<ChatScreen> {
   bool shouldAutoScroll = true;
   // bool showFloatingButton = false;
   bool isInitialLoad = true;
+
   @override
   void initState() {
     super.initState();
     scrollController.addListener(scrollListener);
+    // need mony for notification too T_T
+    // _setupNotifications();
   }
+  // need mony for notification too T_T
+  // final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+  // Future<void> _setupNotifications() async {
+  //   // Request permission for notifications
+  //   NotificationSettings settings = await _firebaseMessaging.requestPermission(
+  //     alert: true,
+  //     sound: true,
+  //     badge: true,
+  //   );
+
+  //   if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+  //     debugPrint('Notification permissions granted');
+  //   }
+  // }
 
   @override
   void dispose() {
@@ -94,6 +111,28 @@ class _ChatScreenState extends State<ChatScreen> {
           receiverID: widget.receiverData["uid"],
           message: trimmedMessage,
         );
+        // need mony for notification too T_T
+        // UserModel userModel = await FireStoreService()
+        //     .getUserDetails(userID: widget.receiverData["uid"]);
+        // final receiverFCMToken = userModel.fcmToken;
+        // if (receiverFCMToken != null) {
+        //   // Send notification using Cloud Functions
+        //   await firestore.collection('notifications').add({
+        //     'to': receiverFCMToken,
+        //     'notification': {
+        //       'title': firebaseAuth.currentUser?.displayName ?? 'New message',
+        //       'body': trimmedMessage,
+        //     },
+        //     'data': {
+        //       'type': 'chat',
+        //       'senderID': firebaseAuth.currentUser!.uid,
+        //       'receiverID': widget.receiverData["uid"],
+        //       'message': trimmedMessage,
+        //     },
+        //     'sendTime': FieldValue.serverTimestamp(),
+        //   });
+        // }
+
         messageController.clear();
         // Enable auto-scroll when sending a new message
         forceScrollToBottom();

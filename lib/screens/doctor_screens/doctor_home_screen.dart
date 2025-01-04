@@ -6,9 +6,9 @@ import 'package:flutter/services.dart';
 import 'package:makeny/cubits/cubit.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/screens/doctor_screens/control_screen.dart';
-import 'package:makeny/screens/user_screens/sign_in_&_sign_up_screens/login_screen.dart';
-import 'package:makeny/services/auth_service.dart';
+import 'package:makeny/widgets/close_dialog.dart';
 import 'package:makeny/widgets/internet_connectivity_wrapper.dart';
+import 'package:makeny/widgets/transition_between_pages.dart';
 
 class DoctorHomeScreen extends StatefulWidget {
   const DoctorHomeScreen({super.key});
@@ -54,13 +54,10 @@ class _DoctorHomeScreenState extends State<DoctorHomeScreen> {
         appBar: AppBar(
           leading: IconButton(
             onPressed: () {
-              Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        const InternetConnectivityWrapper(child: LoginScreen()),
-                  ));
-              AuthServices().signOut();
+              transitionBetweenPages(
+                context,
+                thePage: closeDialog(context),
+              );
             },
             icon: const Icon(
               Icons.exit_to_app,

@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class MessageModel {
   final String senderID;
   final String senderEmail;
-  final String userName;
+  final String senderName;
   final String receiverID;
   final String message;
   final dynamic dateTime;
@@ -11,7 +11,7 @@ class MessageModel {
   MessageModel({
     required this.senderID,
     required this.senderEmail,
-    required this.userName,
+    required this.senderName,
     required this.receiverID,
     required this.message,
     required this.dateTime,
@@ -23,7 +23,7 @@ class MessageModel {
       "senderEmail": senderEmail,
       "recevierID": receiverID,
       "message": message,
-      "userName": userName,
+      "senderName": senderName,
       "dateTime": dateTime,
     };
   }
@@ -35,7 +35,7 @@ class MessageModel {
       receiverID: map['receiverID'] ?? '',
       message: map['message'] ?? '',
       dateTime: map['dateTime'],
-      userName: map['userName'] ?? '',
+      senderName: map['senderName'] ?? '',
     );
   }
 

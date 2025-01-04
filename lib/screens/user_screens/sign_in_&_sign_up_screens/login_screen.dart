@@ -15,6 +15,7 @@ import 'package:makeny/screens/doctor_screens/doctor_home_screen.dart';
 import 'package:makeny/screens/user_screens/sign_in_&_sign_up_screens/confirm_login_screen.dart';
 import 'package:makeny/screens/user_screens/sign_in_&_sign_up_screens/sign_up_screen.dart';
 import 'package:makeny/services/auth_service.dart';
+import 'package:makeny/services/fire_store_service.dart';
 import 'package:makeny/widgets/buttons.dart';
 import 'package:makeny/widgets/default_text_form.dart';
 import 'package:country_picker/country_picker.dart';
@@ -362,9 +363,6 @@ class _LoginScreenState extends State<LoginScreen>
                                                 child: longSignButton(
                                                   text: tr("signPage.login"),
                                                   onTap: () async {
-                                                    // if (!await checkInternet()) {
-                                                    //   return;
-                                                    // }
                                                     if (formKey.currentState!
                                                         .validate()) {
                                                       if (!isPhoneNumber) {
@@ -400,6 +398,7 @@ class _LoginScreenState extends State<LoginScreen>
                                                             bool userType =
                                                                 userDoc[
                                                                     'isPatient'];
+                                                            //TODO: remove this repeated setState and check
                                                             setState(() {
                                                               isLoading = false;
                                                             });
@@ -445,7 +444,7 @@ class _LoginScreenState extends State<LoginScreen>
                                                                 backgroundColor:
                                                                     mainColor300,
                                                                 duration:
-                                                                    Duration(
+                                                                    const Duration(
                                                                         seconds:
                                                                             2),
                                                               ),
@@ -514,130 +513,134 @@ class _LoginScreenState extends State<LoginScreen>
                                           Row(
                                             children: [
                                               signButton(
-                                                  onTap: () async {
-                                                    try {
-                                                      setState(() {
-                                                        isLoading = true;
-                                                      });
+                                                onTap: () async {
+                                                  try {
+                                                    setState(() {
+                                                      isLoading = true;
+                                                    });
 
-                                                      final userCredential =
-                                                          await authServices
-                                                              .signInWithGoogle();
+                                                    final userCredential =
+                                                        await authServices
+                                                            .signInWithGoogle();
 
-                                                      if (userCredential
-                                                              .credential ==
-                                                          null) {
-                                                        setState(() {
-                                                          isLoading = false;
-                                                        });
-                                                        return;
-                                                      }
-                                                      bool userExists =
-                                                          await authServices
-                                                              .doesUserExist(
-                                                                  userCredential
-                                                                      .user!
-                                                                      .email!);
-
-                                                      if (!userExists) {
-                                                        setState(() {
-                                                          isLoading = false;
-                                                        });
-                                                        if (mounted) {
-                                                          ScaffoldMessenger.of(
-                                                                  context)
-                                                              .showSnackBar(
-                                                            SnackBar(
-                                                              content: Text(tr(
-                                                                  "error.account_not_found")),
-                                                              duration:
-                                                                  const Duration(
-                                                                      seconds:
-                                                                          2),
-                                                            ),
-                                                          );
-                                                        }
-                                                        return;
-                                                      }
-                                                      bool isPatient =
-                                                          await authServices
-                                                              .getUserType(
-                                                                  userCredential
-                                                                      .user!
-                                                                      .uid);
-
+                                                    if (userCredential
+                                                            .credential ==
+                                                        null) {
                                                       setState(() {
                                                         isLoading = false;
                                                       });
+                                                      return;
+                                                    }
 
+                                                    bool userExists =
+                                                        await authServices
+                                                            .doesUserExist(
+                                                                userCredential
+                                                                    .user!
+                                                                    .email!);
+
+                                                    if (!userExists) {
+                                                      setState(() {
+                                                        isLoading = false;
+                                                      });
                                                       if (mounted) {
-                                                        Navigator
-                                                            .pushReplacement(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                            builder: (context) => isPatient
-                                                                ? const InternetConnectivityWrapper(
-                                                                    child:
-                                                                        BasicScreen())
-                                                                : const InternetConnectivityWrapper(
-                                                                    child:
-                                                                        DoctorHomeScreen()),
-                                                          ),
-                                                        );
-                                                      }
-                                                    } on FirebaseAuthException catch (e) {
-                                                      setState(() {
-                                                        isLoading = false;
-                                                      });
-                                                      if (e.code ==
-                                                              'network-request-failed' ||
-                                                          e.code ==
-                                                              "network_error") {
                                                         ScaffoldMessenger.of(
                                                                 context)
                                                             .showSnackBar(
                                                           SnackBar(
                                                             content: Text(tr(
-                                                                "error.no_internet")),
-                                                            backgroundColor:
-                                                                mainColor300,
+                                                                "error.account_not_found")),
                                                             duration:
                                                                 const Duration(
                                                                     seconds: 2),
                                                           ),
                                                         );
                                                       }
-                                                    } catch (e) {
-                                                      setState(() {
-                                                        isLoading = false;
-                                                      });
-                                                      if (mounted) {
-                                                        String message = tr(
-                                                            "error.problem_try_later");
-                                                        if (e.toString().contains(
-                                                            'network_error')) {
-                                                          message = tr(
-                                                              "error.no_internet");
-                                                        }
-                                                        ScaffoldMessenger.of(
-                                                                context)
-                                                            .showSnackBar(
-                                                          SnackBar(
-                                                            backgroundColor:
-                                                                mainColor300,
-                                                            content:
-                                                                Text(message),
-                                                            duration:
-                                                                const Duration(
-                                                                    seconds: 2),
-                                                          ),
-                                                        );
-                                                      }
+                                                      return;
                                                     }
-                                                  },
-                                                  text: "Google",
-                                                  icon:
-                                                      "assets/icons/google.svg"),
+                                                    bool isPatient =
+                                                        await authServices
+                                                            .getUserType(
+                                                      userCredential.user!.uid,
+                                                    );
+
+                                                    FireStoreService()
+                                                        .updateFCMToken(
+                                                      userId: userCredential
+                                                          .user!.uid,
+                                                    );
+
+                                                    setState(() {
+                                                      isLoading = false;
+                                                    });
+
+                                                    if (mounted) {
+                                                      Navigator.pushReplacement(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) => isPatient
+                                                              ? const InternetConnectivityWrapper(
+                                                                  child:
+                                                                      BasicScreen())
+                                                              : const InternetConnectivityWrapper(
+                                                                  child:
+                                                                      DoctorHomeScreen()),
+                                                        ),
+                                                      );
+                                                    }
+                                                  } on FirebaseAuthException catch (e) {
+                                                    setState(() {
+                                                      isLoading = false;
+                                                    });
+                                                    if (e.code ==
+                                                            'network-request-failed' ||
+                                                        e.code ==
+                                                            "network_error") {
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(
+                                                        SnackBar(
+                                                          content: Text(tr(
+                                                              "error.no_internet")),
+                                                          backgroundColor:
+                                                              mainColor300,
+                                                          duration:
+                                                              const Duration(
+                                                                  seconds: 2),
+                                                        ),
+                                                      );
+                                                    }
+                                                  } catch (e) {
+                                                    setState(() {
+                                                      isLoading = false;
+                                                    });
+                                                    if (mounted) {
+                                                      String message = tr(
+                                                          "error.problem_try_later");
+                                                      if (e.toString().contains(
+                                                          'network_error')) {
+                                                        message = tr(
+                                                            "error.no_internet");
+                                                      }
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(
+                                                        SnackBar(
+                                                          backgroundColor:
+                                                              mainColor300,
+                                                          content:
+                                                              Text(message),
+                                                          duration:
+                                                              const Duration(
+                                                                  seconds: 2),
+                                                        ),
+                                                      );
+                                                    }
+                                                  }
+                                                },
+                                                text: "Google",
+                                                icon: "assets/icons/google.svg",
+                                              ),
                                               const SizedBox(
                                                 width: 10,
                                               ),

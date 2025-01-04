@@ -196,8 +196,8 @@ class _EditUserProfileState extends State<EditUserProfile> {
                 items: [
                   tr("accountPage.student"),
                   tr("accountPage.bachelor"),
-                  tr("master"),
-                  tr("doctorate")
+                  tr("accountPage.master"),
+                  tr("accountPage.doctorate")
                 ],
                 selectedValue: selectedEducationLevel,
                 onChanged: (value) {

@@ -36,8 +36,7 @@ class _AccountScreenState extends State<AccountScreen> {
     NavigationUtils.refreshPage = () {
       if (mounted) {
         setState(() {
-          // Your refresh logic here
-          print("Refreshing Account Page");
+          // print("Refreshing Account Page");
         });
       }
     };
@@ -97,7 +96,6 @@ class _AccountScreenState extends State<AccountScreen> {
                           Row(
                             children: [
                               Text(
-                                ////TODO come here
                                 userdata?.name ?? "",
                                 style: const TextStyle(
                                   fontSize: 17,
@@ -119,7 +117,7 @@ class _AccountScreenState extends State<AccountScreen> {
                             "+966 ${userdata?.phoneNumber}" == "+966 "
                                 ? ""
                                 : "+966 ${userdata?.phoneNumber}",
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: Color(0xff777777),
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500),
@@ -199,10 +197,10 @@ class _AccountScreenState extends State<AccountScreen> {
                     alignment: AlignmentDirectional.centerStart,
                     child: Text(
                       tr("settings"),
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w700,
-                        color: Color(0xffa2a2a2a2),
+                        color: Color(0xa2a2a2a2),
                       ),
                     ),
                   ),
@@ -212,8 +210,8 @@ class _AccountScreenState extends State<AccountScreen> {
                     subText: tr("accountPage.translate"),
                     onTap: () {
                       context.locale.toString() == "ar"
-                          ? context.setLocale(Locale('en', ''))
-                          : context.setLocale(Locale('ar', ''));
+                          ? context.setLocale(const Locale('en', ''))
+                          : context.setLocale(const Locale('ar', ''));
 
                       // AppCubit.get(context).saveLang();
                     },

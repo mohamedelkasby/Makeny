@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:makeny/models/user_model.dart';
+import 'package:makeny/services/fire_store_service.dart';
 
 class AuthServices {
   // instance of authentication
@@ -86,27 +88,35 @@ class AuthServices {
       final data = userDoc.data()!;
 
       // Check each field in UserModel and add missing ones to updatedData
-      if (!data.containsKey("birthDate"))
+      if (!data.containsKey("birthDate")) {
         updatedData["birthDate"] = emptyUser.birthDate;
+      }
       if (!data.containsKey("gender")) updatedData["gender"] = emptyUser.gender;
-      if (!data.containsKey("phoneNumber"))
+      if (!data.containsKey("phoneNumber")) {
         updatedData["phoneNumber"] = emptyUser.phoneNumber;
-      if (!data.containsKey("idNumber"))
+      }
+      if (!data.containsKey("idNumber")) {
         updatedData["idNumber"] = emptyUser.idNumber;
-      if (!data.containsKey("educationLevel"))
+      }
+      if (!data.containsKey("educationLevel")) {
         updatedData["educationLevel"] = emptyUser.educationLevel;
-      if (!data.containsKey("currentJob"))
+      }
+      if (!data.containsKey("currentJob")) {
         updatedData["currentJob"] = emptyUser.currentJob;
+      }
       if (!data.containsKey("length")) updatedData["length"] = emptyUser.length;
       if (!data.containsKey("weight")) updatedData["weight"] = emptyUser.weight;
       if (!data.containsKey("waist")) updatedData["waist"] = emptyUser.waist;
       if (!data.containsKey("vision")) updatedData["vision"] = emptyUser.vision;
-      if (!data.containsKey("picture"))
+      if (!data.containsKey("picture")) {
         updatedData["picture"] = emptyUser.picture;
-      if (!data.containsKey("maritalStatus"))
+      }
+      if (!data.containsKey("maritalStatus")) {
         updatedData["maritalStatus"] = emptyUser.maritalStatus;
-      if (!data.containsKey("isPatient"))
+      }
+      if (!data.containsKey("isPatient")) {
         updatedData["isPatient"] = emptyUser.isPatient;
+      }
 
       if (updatedData.isNotEmpty) {
         await userDocRef.update(updatedData);
@@ -116,7 +126,7 @@ class AuthServices {
       //   print("All fields are already present.");
       // }
     }
-
+    FireStoreService().updateFCMToken(userId: credential.user!.uid);
     return credential;
   }
 
@@ -215,8 +225,12 @@ class AuthServices {
 
 // Create new user document
   Future<void> createUserDocument(User user) async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+    String? token = await messaging.getToken();
+
     await fireStore.collection('users').doc(user.uid).set({
       "uid": user.uid,
+      'fcmToken': token,
       "email": user.email,
       "userName": user.displayName ?? user.email!.split('@')[0],
       "birthDate": "",

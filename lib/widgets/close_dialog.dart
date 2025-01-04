@@ -5,11 +5,13 @@ import 'package:makeny/cubits/cubit.dart';
 import 'package:makeny/cubits/status.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/screens/user_screens/sign_in_&_sign_up_screens/login_screen.dart';
+import 'package:makeny/services/auth_service.dart';
+import 'package:makeny/widgets/internet_connectivity_wrapper.dart';
 
 Dialog closeDialog(context) {
   return Dialog(
     surfaceTintColor: Colors.white,
-    insetPadding: EdgeInsets.all(25), // the space around the dialog
+    insetPadding: const EdgeInsets.all(25), // the space around the dialog
     shape: RoundedRectangleBorder(
       borderRadius:
           BorderRadius.circular(15), // the border radius of the dialog
@@ -22,13 +24,13 @@ Dialog closeDialog(context) {
       borderRadius: BorderRadius.circular(15),
       child: Container(
         width: double.infinity,
-        padding: EdgeInsets.fromLTRB(20, 30, 20, 25),
+        padding: const EdgeInsets.fromLTRB(20, 30, 20, 25),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
               tr("closeDialog.do_you_want_sign_out"),
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 21,
                 color: Color(0xff777777),
               ),
@@ -47,14 +49,17 @@ Dialog closeDialog(context) {
                     return MaterialButton(
                       onPressed: () {
                         Navigator.pop(context);
-                        AppCubit.get(context).selectedBNBIndex = 0;
-                        AppCubit.get(context).saveLogged("non");
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const LoginScreen(),
+                            builder: (context) =>
+                                const InternetConnectivityWrapper(
+                                    child: LoginScreen()),
                           ),
                         );
+                        AppCubit.get(context).selectedBNBIndex = 0;
+                        AppCubit.get(context).saveLogged("non");
+                        AuthServices().signOut();
                       },
                       child: Text(
                         tr("closeDialog.yes_sign_out"),
@@ -73,7 +78,7 @@ Dialog closeDialog(context) {
               onTap: () => Navigator.pop(context),
               child: Text(
                 tr("closeDialog.no_stay"),
-                style: TextStyle(
+                style: const TextStyle(
                   color: Color(0xffA2A2A2),
                   fontSize: 21,
                   fontWeight: FontWeight.w500,

@@ -17,6 +17,7 @@ class UserModel {
   final String? vision;
   final String? maritalStatus;
   final bool? isPatient;
+  final String? fcmToken;
 
   UserModel({
     this.name,
@@ -35,6 +36,7 @@ class UserModel {
     this.picture,
     this.maritalStatus,
     this.isPatient,
+    this.fcmToken,
   });
 
   // The 'fromFirebase' constructor should focus on available fields from Firebase User
@@ -43,6 +45,7 @@ class UserModel {
 
     return UserModel(
       userId: doc.id,
+      fcmToken: doc["fcmToken"] ?? "",
       email: doc["email"] ?? '',
       name: doc["userName"] ?? '',
       birthDate: doc["birthDate"] ?? '',

@@ -19,7 +19,14 @@ class ChatService extends ChangeNotifier {
     final String senderEmail = fireAuth.currentUser!.email.toString() ??
         //this if the phone number is working to not throw an error
         fireAuth.currentUser!.phoneNumber.toString();
-    final String userName = fireAuth.currentUser!.displayName.toString();
+
+    // Get sender's name
+    final senderDoc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(fireAuth.currentUser!.uid)
+        .get();
+
+    final String senderName = senderDoc.data()?["userName"] ?? "user";
 
     MessageModel newMessage = MessageModel(
       senderID: senderID,
@@ -28,7 +35,7 @@ class ChatService extends ChangeNotifier {
       message: message,
       // Use FieldValue.serverTimestamp() directly
       dateTime: FieldValue.serverTimestamp(),
-      userName: userName,
+      senderName: senderName,
     );
 
     // construct a chat id for both users
@@ -36,7 +43,7 @@ class ChatService extends ChangeNotifier {
     ids.sort();
     String chatRoomID = ids.join('_');
 
-    // add the new message to the database
+    // add the new message to the firebase
     await fireStore
         .collection("ChatRoom")
         .doc(chatRoomID)

@@ -34,6 +34,19 @@ Future<void> main() async {
     overlays: [],
   );
 
+// need mony for notification too T_T
+// // Handle notifications when app is in background or terminated
+//   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+//   // Handle notifications when app is in foreground
+//   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+//     // Show local notification or update UI
+//     if (message.notification != null) {
+//       // You can use flutter_local_notifications package to show notification
+//       print('Message received: ${message.notification?.body}');
+//     }
+//   });
+
   runApp(
     EasyLocalization(
       supportedLocales: const [Locale('en'), Locale('ar')],
@@ -44,6 +57,11 @@ Future<void> main() async {
     ),
   );
 }
+
+// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+//   await Firebase.initializeApp();
+//   print('Handling background message: ${message.messageId}');
+// }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

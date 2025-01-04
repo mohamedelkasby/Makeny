@@ -99,11 +99,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   subText: "استشارتك بعد 30د",
                 ),
                 CustomNotification(
-                  svgIcon: "assets/icons/timer.svg",
-                  text: "تم إضافة توجيهات من طبيبك",
-                  subText: "الرجاء الاطلاع على التوجيهات والاتزام بها.",
-                ),
-                CustomNotification(
                   svgIcon: "assets/icons/Medical-Education.svg",
                   text: "تم إضافة توجيهات من طبيبك",
                   subText: "الرجاء الاطلاع على التوجيهات والاتزام بها.",
