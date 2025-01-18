@@ -74,6 +74,7 @@ dependencies:
   open_file: ^3.5.10
   firebase_messaging: ^15.1.6
   meta: ^1.15.0
+  auto_size_text: ^3.0.0
     
 dev_dependencies:
   flutter_test:

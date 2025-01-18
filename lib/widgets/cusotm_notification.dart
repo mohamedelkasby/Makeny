@@ -6,7 +6,6 @@ import 'package:makeny/cubits/notificationCubit/cubit/notification_cubit.dart';
 import 'package:makeny/extentions/colors.dart';
 import 'package:makeny/widgets/custom_texts/cusrom_texts.dart';
 
-// ignore: must_be_immutable
 class CustomNotification extends StatelessWidget {
   CustomNotification({
     super.key,

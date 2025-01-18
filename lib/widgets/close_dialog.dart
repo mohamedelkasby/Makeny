@@ -57,9 +57,13 @@ Dialog closeDialog(context) {
                                     child: LoginScreen()),
                           ),
                         );
-                        AppCubit.get(context).selectedBNBIndex = 0;
-                        AppCubit.get(context).saveLogged("non");
-                        AuthServices().signOut();
+
+                        Future.delayed(const Duration(milliseconds: 300), () {
+                          if (!context.mounted) return;
+                          AppCubit.get(context).selectedBNBIndex = 0;
+                          AppCubit.get(context).saveLogged("non");
+                          AuthServices().signOut();
+                        });
                       },
                       child: Text(
                         tr("closeDialog.yes_sign_out"),

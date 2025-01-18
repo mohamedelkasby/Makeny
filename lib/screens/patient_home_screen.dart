@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:easy_localization/easy_localization.dart' hide TextDirection;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,7 +15,7 @@ import 'package:makeny/widgets/doctor_container.dart';
 import 'package:makeny/widgets/internet_connectivity_wrapper.dart';
 
 class PatientHomeScreen extends StatefulWidget {
-  PatientHomeScreen({super.key});
+  const PatientHomeScreen({super.key});
 
   @override
   State<PatientHomeScreen> createState() => _PatientHomeScreenState();
@@ -239,18 +239,22 @@ class _PatientHomeScreenState extends State<PatientHomeScreen>
                 ],
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                //// container that hold the image with his role and the name of the doctor /////
-                doctorContainer(context,
-                    doctorsData: dr1, textBackColor: mainColor),
-                doctorContainer(
-                  context,
-                  doctorsData: dr2,
-                  textBackColor: const Color(0xff0F7BDD),
-                )
-              ],
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  //// container that hold the image with his role and the name of the doctor /////
+                  doctorContainer(context,
+                      doctorsData: dr1, textBackColor: mainColor),
+                  const SizedBox(width: 10),
+                  doctorContainer(
+                    context,
+                    doctorsData: dr2,
+                    textBackColor: const Color(0xff0F7BDD),
+                  )
+                ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 15),
@@ -371,7 +375,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen>
 class CustomCurve extends Curve {
   final List<double> stopPositions;
 
-  CustomCurve(this.stopPositions);
+  const CustomCurve(this.stopPositions);
 
   @override
   double transform(double t) {

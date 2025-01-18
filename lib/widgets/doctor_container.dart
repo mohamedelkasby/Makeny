@@ -47,10 +47,12 @@ Widget doctorContainer(
                 ),
                 child: Text(
                   doctorsData.drRole,
+                  maxLines: 1,
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 10.5,
                     fontWeight: FontWeight.w500,
+                    overflow: TextOverflow.ellipsis,
                     // overflow: TextOverflow.ellipsis,
                   ),
                 ),
